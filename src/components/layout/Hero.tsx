@@ -34,6 +34,13 @@ const Hero = () => {
             </p>
           </div>
           <div className='text-center mt-6 z-10 '>
+            <div className='mb-16'>
+              <iframe
+                src='https://mintbase-wallet-git-feat-chat-iframe-bitteprotocol.vercel.app/chat-iframe?embed=true'
+                className='w-full h-96 border-none'
+                title='Chat Iframe'
+              ></iframe>
+            </div>
             <AiSection />
             <div className='mt-8'>
               <Button
