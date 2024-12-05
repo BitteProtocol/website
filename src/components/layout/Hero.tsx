@@ -1,21 +1,49 @@
 'use client';
 
-/* import { MB_URL } from '@/lib/url';
-import { MB_URL } from '@/lib/url';
-import Link from 'next/link';
-import { Button } from '../ui/button';
-import AiSection from './AiSection'; */
-import { AgentData } from './Home';
-import AgentSelector from '../ui/agents/AgentSelector';
-import { useState } from 'react';
-import Filters from '../ui/agents/Filters';
-import { RegistryData, Filters as AgentFilters } from '@/lib/types/agent.types';
+import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
+import { BitteAiChat, BitteAssistantConfig } from 'bitte-ai-chat';
+import { useEffect, useState } from 'react';
+import AgentSelector from '../ui/agents/AgentSelector';
+import Filters from '../ui/agents/Filters';
+import { AgentData } from './Home';
+
+const mockWalletInfo = {
+  address: '0x1234567890abcdef',
+  balance: '10 ETH',
+  accountData: {
+    devicePublicKey: 'mockDevicePublicKey',
+    accountId: 'mockAccountId',
+    isCreated: true,
+  },
+  isLoading: false,
+  isConnected: true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  evmAdapter: {} as any, // Add other required properties here
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mockWalletConfig = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  network: 'mainnet' as any, // Ensure this matches one of the Network type values
+  provider: 'rpc',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  networkConfig: {} as any, // Add appropriate configuration here
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  relayer: {} as any, // Add appropriate configuration here
+};
+
+const mockColors = {
+  generalBackground: '#18181A', // Example value
+  messageBackground: '#000000', // Corrected typo and added value
+  textColor: '#333333', // Example value
+  buttonColor: '#0F172A', // Example value
+  borderColor: '#334155', // Example value
+};
 
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
-  // Function to handle card click
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -36,9 +64,15 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
     );
   };
 
+  useEffect(() => {
+    if (agentData.agents.length) {
+      setSelectedAgent(agentData.agents[0]);
+    }
+  }, [agentData]);
+
   return (
     <section className='w-full'>
-      <div className='relative w-screen  h-full'>
+      <div className='relative h-full'>
         <video
           autoPlay
           loop
@@ -66,7 +100,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               isHome
             />
           </div>
-          <div className='text-center mt-6 z-10 flex items-center justify-center gap-6'>
+          <div className='mt-6 z-10 flex gap-6 h-[500px] w-full 2xl:w-1/3 mx-44'>
             <div className='z-10'>
               <AgentSelector
                 agentData={filteredAgents}
@@ -74,30 +108,25 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 selectedAgent={selectedAgent}
               />
             </div>
-            {/* // TO DO SANT: IMPLEMENT CHAT SOMEWHERE HERE */}
-            {/* <div>
-              <AiSection />
-              <div className='flex justify-center'>
-                <div className='mt-8 mr-5'>
-                  <Button
-                    variant='outline'
-                    className='shadow-lg text-white hover:text-black bg-black bg-opacity-55 hover:bg-white border border-[#313E52] p-6'
-                    onClick={() => handleCardClick(`${MB_URL.DEV_DOCS}`)}
-                  >
-                    Build Chain Agent
-                  </Button>
-                </div>
-                <div className='mt-8'>
-                  <Button
-                    variant='outline'
-                    className='shadow-lg text-white hover:text-black bg-black bg-opacity-55 hover:bg-white border border-[#313E52] p-6'
-                    onClick={() => handleCardClick(`${MB_URL.REGISTRY}`)}
-                  >
-                    Agent Registry
-                  </Button>
-                </div>
-              </div>
-            </div> */}
+            <div className='w-full'>
+              <BitteAiChat
+                agentData={
+                  {
+                    id: selectedAgent?.id,
+                    name: selectedAgent?.name,
+                    accountId: '',
+                    description: selectedAgent?.description,
+                    instructions: '',
+                    verified: selectedAgent?.verified,
+                    image: selectedAgent?.coverImage,
+                  } as BitteAssistantConfig
+                }
+                openAgentSelector={() => null}
+                walletInfo={mockWalletInfo}
+                walletConfig={mockWalletConfig}
+                colors={mockColors}
+              />
+            </div>
           </div>
         </div>
       </div>
