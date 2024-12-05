@@ -1,10 +1,10 @@
-/* import { fira } from '@/app/fonts'; */
+import { MB_URL } from '@/lib/url';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { AgentData } from './Home';
-import { Button } from '../ui/button';
-import { MB_URL } from '@/lib/url';
 
 export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
   const scrollContainerRef1 = useRef<HTMLDivElement>(null);
@@ -16,9 +16,8 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
       direction: 'left' | 'right'
     ) => {
       if (scrollContainer) {
-        const scrollAmount = 1; // Adjust the speed of scrolling here
+        const scrollAmount = 1;
         if (direction === 'right') {
-          // For the right direction, increase scrollLeft
           if (
             scrollContainer.scrollLeft >=
             scrollContainer.scrollWidth - scrollContainer.clientWidth
@@ -28,7 +27,6 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
             scrollContainer.scrollLeft += scrollAmount;
           }
         } else {
-          // For the left direction, decrease scrollLeft
           if (scrollContainer.scrollLeft <= 0) {
             scrollContainer.scrollLeft =
               scrollContainer.scrollWidth - scrollContainer.clientWidth;
@@ -41,7 +39,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
 
     const step = () => {
       scrollStep(scrollContainerRef1.current, 'right');
-      scrollStep(scrollContainerRef2.current, 'left'); // This row will move in the opposite direction
+      scrollStep(scrollContainerRef2.current, 'left');
       window.requestAnimationFrame(step);
     };
 
@@ -115,20 +113,16 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         ))}
       </div>
       <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
-        <Button
-          variant='default'
-          className='w-full md:w-[200px]'
-          /* onClick={() => handleCardClick(data.btnUrl)} */
-        >
-          Browse Agents
-        </Button>
-        <Button
-          variant='secondary'
-          className='w-full md:w-[200px]'
-          /* onClick={() => handleCardClick(data.btnUrl)} */
-        >
-          Docs
-        </Button>
+        <Link href={MB_URL.REGISTRY}>
+          <Button variant='default' className='w-full md:w-[200px]'>
+            Browse Agents
+          </Button>
+        </Link>
+        <a href={MB_URL.DEV_DOCS} target='_blank'>
+          <Button variant='secondary' className='w-full md:w-[200px]'>
+            Docs
+          </Button>
+        </a>
       </div>
     </section>
   );
