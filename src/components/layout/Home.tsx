@@ -10,11 +10,12 @@ import { SupportedChainsSection } from './SupportedChainsSection';
 import { newsCardData } from '@/lib/data/dropCardData';
 import { videosCardData } from '@/lib/data/dropCardData';
 import { AgentSection } from './AgentSection';
-import { BitteAssistantConfig } from '@/lib/api/ai-agents/getAiAgents';
+import { Filters, RegistryData } from '@/lib/types/agent.types';
 
 export type AgentData = {
-  agents: BitteAssistantConfig[];
-  unverifiedAgents: BitteAssistantConfig[];
+  agents: RegistryData[];
+  unverifiedAgents: RegistryData[];
+  filters: Filters[];
 };
 
 const paymasterSection = {

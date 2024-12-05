@@ -12,15 +12,42 @@ const Filters = ({
   selectedFilters,
   onFilterChange,
   filters,
+  isHome,
 }: {
   selectedFilters: AgentFilters[];
   onFilterChange: (value: string, label: string) => void;
   filters: AgentFilters[];
   isMobile?: boolean;
+  isHome?: boolean;
 }) => {
   if (!filters?.length) return null;
 
-  return (
+  return isHome ? (
+    <div className='flex gap-2 mb-4'>
+      {filters.map((filter) =>
+        filter.values.map((value: string) => {
+          const isSelected = selectedFilters.some(
+            (selectedFilter) =>
+              selectedFilter.label === filter.label &&
+              selectedFilter.values.includes(value)
+          );
+          return (
+            <button
+              key={`${filter.label}-${value}`}
+              className={`px-4 py-2 rounded-full ${
+                isSelected
+                  ? 'bg-[#261A32] text-[#C084FC] border border-[#C084FC]'
+                  : 'bg-[#18181A] text-[#B5B5B5]'
+              }`}
+              onClick={() => onFilterChange(value, filter.label)}
+            >
+              {value}
+            </button>
+          );
+        })
+      )}
+    </div>
+  ) : (
     <Accordion
       type='single'
       className='text-mb-gray-200'
