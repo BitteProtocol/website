@@ -38,7 +38,7 @@ const Filters = ({
                 isSelected
                   ? 'bg-[#261A32] text-[#C084FC] border border-[#C084FC]'
                   : 'bg-[#18181A] text-[#B5B5B5]'
-              }`}
+              } hover:border hover:border-[#C084FC]`}
               onClick={() => onFilterChange(value, filter.label)}
             >
               {value}

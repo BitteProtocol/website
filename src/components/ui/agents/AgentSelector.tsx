@@ -20,7 +20,7 @@ export const AgentSelector = ({
       {agentData?.map((data, i) => (
         <Card
           key={`agents-${i}`}
-          className={`min-w-[307px] h-[76px] flex items-center ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border border-[#C084FC]' : 'bg-[#18181A]'} cursor-pointer`}
+          className={`min-w-[307px] h-[76px] flex items-center ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border border-[#C084FC]' : 'bg-[#18181A]'} cursor-pointer hover:border hover:border-[#C084FC]`}
           onClick={() => onSelectAgent(data)}
         >
           <CardContent className='text-center p-3 flex items-center gap-3'>

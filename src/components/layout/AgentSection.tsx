@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '../ui/card';
 import { AgentData } from './Home';
 import { Button } from '../ui/button';
+import { MB_URL } from '@/lib/url';
 
 export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
   const scrollContainerRef1 = useRef<HTMLDivElement>(null);
@@ -47,6 +48,14 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
     window.requestAnimationFrame(step);
   }, []);
 
+  const goToSmartActions = (message: string, agentId: string) => {
+    const encodedPrompt = encodeURIComponent(message);
+    window.open(
+      `${MB_URL.SMART_ACTIONS_PROMPT}/${encodedPrompt}?agentId=${agentId}`,
+      '_blank'
+    );
+  };
+
   return (
     <section className='relative mb-12'>
       <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
@@ -59,7 +68,8 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         {agentData.agents?.map((data, i) => (
           <Card
             key={`agents-${i}`}
-            className={`min-w-[307px] h-[76px] flex items-center bg-[#18181A]`}
+            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer'
+            onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
@@ -85,7 +95,8 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         {[...agentData.agents]?.reverse().map((data, i) => (
           <Card
             key={`agents-${i}`}
-            className={`min-w-[307px] h-[76px] flex items-center bg-[#18181A]`}
+            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer'
+            onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
