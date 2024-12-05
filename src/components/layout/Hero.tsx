@@ -1,8 +1,8 @@
 'use client';
 
-import { MB_URL } from '@/lib/url';
+/* import { MB_URL } from '@/lib/url';
 import { Button } from '../ui/button';
-import AiSection from './AiSection';
+import AiSection from './AiSection'; */
 import { AgentData } from './Home';
 import AgentSelector from '../ui/agents/AgentSelector';
 import { useState } from 'react';
@@ -14,10 +14,6 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
   // Function to handle card click
-  const handleCardClick = (url: string) => {
-    // Use `window.open` for opening a new tab
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -76,7 +72,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 selectedAgent={selectedAgent}
               />
             </div>
-            <div>
+            {/* // TO DO SANT: IMPLEMENT CHAT SOMEWHERE HERE */}
+            {/* <div>
               <AiSection />
               <div className='flex justify-center'>
                 <div className='mt-8 mr-5'>
@@ -98,7 +95,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   </Button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

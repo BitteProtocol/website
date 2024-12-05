@@ -23,7 +23,7 @@ const Filters = ({
   if (!filters?.length) return null;
 
   return isHome ? (
-    <div className='flex gap-2 mb-4'>
+    <div className='flex gap-3 mb-4 max-w-full overflow-x-scroll disable-scrollbars'>
       {filters.map((filter) =>
         filter.values.map((value: string) => {
           const isSelected = selectedFilters.some(
@@ -34,7 +34,7 @@ const Filters = ({
           return (
             <button
               key={`${filter.label}-${value}`}
-              className={`px-4 py-2 rounded-full ${
+              className={`px-4 py-2 rounded-full min-w-[70px] ${
                 isSelected
                   ? 'bg-[#261A32] text-[#C084FC] border border-[#C084FC]'
                   : 'bg-[#18181A] text-[#B5B5B5]'
