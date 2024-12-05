@@ -14,13 +14,13 @@ export const AgentSelector = ({
 }) => {
   return (
     <div
-      className='flex flex-col items-center gap-3 overflow-x-auto disable-scrollbars h-full'
-      style={{ scrollBehavior: 'auto' }}
+      className='flex flex-row lg:flex-col gap-4 items-center overflow-x-auto disable-scrollbars h-full -mx-6 lg:mx-0 lg:pl-0 pl-6'
+      style={{ scrollBehavior: 'smooth', whiteSpace: 'nowrap' }}
     >
       {agentData?.map((data, i) => (
         <Card
           key={`agents-${i}`}
-          className={`min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer`}
+          className='last:mr-6 lg:last:mr-0 min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer'
           onClick={() => onSelectAgent(data)}
         >
           <CardContent
