@@ -1,13 +1,20 @@
 import { fira } from '@/app/fonts';
-import { dropCardData } from '@/lib/data/dropCardData';
+import { dropCardData, videosCardData } from '@/lib/data/dropCardData';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
+import VideoPlayer from '../ui/VideoPlayer';
 
-export const ExamplesSection = ({ data = dropCardData }) => {
+export const ExamplesSection = ({
+  data,
+  isVideo,
+}: {
+  data: typeof videosCardData | typeof dropCardData;
+  isVideo: boolean;
+}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
@@ -69,6 +76,8 @@ export const ExamplesSection = ({ data = dropCardData }) => {
     };
   }, []);
 
+  console.log('IS VIDEO', isVideo);
+
   return (
     <section className='relative w-screen py-20 overflow-hidden'>
       <div className='flex justify-center sm:justify-between items-center mb-10 px-16	'>
@@ -107,55 +116,78 @@ export const ExamplesSection = ({ data = dropCardData }) => {
             onMouseEnter={() => setIsHovered(card.id)}
             onMouseLeave={() => setIsHovered(null)}
             onClick={
-              card.isSA
-                ? () => goToSmartActions(card.link, card.action)
-                : () => handleCardClick(card?.link)
+              isVideo
+                ? () => {}
+                : card.isSA
+                  ? () => goToSmartActions(card.link, card.action)
+                  : () => handleCardClick(card?.link)
             }
           >
-            <div className='absolute inset-0 z-0'>
-              <Image
-                src={card.bg}
-                alt={`background image for ${card.action}`}
-                loading='lazy'
-                layout={card.bg.includes('.svg') ? 'intrinsic' : 'fill'}
-                objectFit={card.bg.includes('.svg') ? 'contain' : 'cover'}
-                width={
-                  card.bg.includes('.svg') ? (isMobile ? 180 : 260) : undefined
-                }
-                height={card.bg.includes('.svg') ? 72 : undefined}
-                className={`z-10 ${card.bg.includes('.svg') ? 'absolute inset-0 m-auto ' : ''}`}
-              />
+            <div className={`absolute inset-0 ${isVideo ? 'z-40' : 'z-0'}`}>
+              {isVideo ? (
+                <VideoPlayer url={card.bg} />
+              ) : (
+                <Image
+                  src={card.bg}
+                  alt={`background image for ${card.action}`}
+                  loading='lazy'
+                  layout={card.bg.includes('.svg') ? 'intrinsic' : 'fill'}
+                  objectFit={card.bg.includes('.svg') ? 'contain' : 'cover'}
+                  width={
+                    card.bg.includes('.svg')
+                      ? isMobile
+                        ? 180
+                        : 260
+                      : undefined
+                  }
+                  height={card.bg.includes('.svg') ? 72 : undefined}
+                  className={`z-10 ${card.bg.includes('.svg') ? 'absolute inset-0 m-auto ' : ''}`}
+                />
+              )}
               {card.gradientLayer && (
                 <div className='absolute inset-0 gradient-overlay opacity-50 z-20'></div>
               )}
             </div>
-            <CardContent className='p-[18px] flex flex-col justify-between relative overflow-hidden w-full h-full z-30'>
-              <div className='flex justify-between items-center'>
-                <span
-                  className={`${fira.className} bg-[#414D7D33] backdrop-blur-md rounded-full text-white uppercase text-xs py-1.5 px-5 self-start`}
-                >
-                  {card?.badge}
-                </span>
-                {card?.sub && isMobile && (
-                  <p className='text-white text-sm font-semibold'>
-                    {card?.sub}
-                  </p>
-                )}
-              </div>
-              <div className='flex justify-center sm:justify-between sm:h-full'>
-                <div
-                  className={`sm:self-end min-w-full sm:min-w-[135px] sm:max-w-[300px] px-3 py-2.5 border border-[#313E52] hover:border-none rounded-[10px] flex items-center justify-center ease-out ${isHovered === card.id ? 'bg-white text-mb-gray-550 border-none' : 'bg-[#414D7D40] backdrop-blur-md text-mb-white-100'} transition-all duration-500 ease-in-out`}
-                >
-                  <p className='text-sm font-normal'>{card?.action}</p>
-                </div>
-                {card?.sub && !isMobile && (
-                  <div className='self-end'>
+            <CardContent
+              className={`p-[18px] flex flex-col justify-between relative overflow-hidden w-full h-full ${!isVideo ? 'z-30' : ''}`}
+            >
+              <div className='z-50'>
+                <div className='flex justify-between items-center z-50'>
+                  <span
+                    className={`${fira.className} bg-[#414D7D33] backdrop-blur-md rounded-full text-white uppercase text-xs py-1.5 px-5 self-start`}
+                  >
+                    {card?.badge}
+                  </span>
+                  {card?.sub && isMobile && (
                     <p className='text-white text-sm font-semibold'>
                       {card?.sub}
                     </p>
+                  )}
+                </div>
+                {isVideo ? (
+                  <div className='max-w-[350px] mt-6'>
+                    <span className='text-2xl text-white font-bold'>
+                      {card?.action}
+                    </span>
                   </div>
-                )}
+                ) : null}
               </div>
+              {!isVideo && (
+                <div className='flex justify-center sm:justify-between sm:h-full'>
+                  <div
+                    className={`sm:self-end min-w-full sm:min-w-[135px] sm:max-w-[300px] px-3 py-2.5 border border-[#313E52] hover:border-none rounded-[10px] flex items-center justify-center ease-out ${isHovered === card.id ? 'bg-white text-mb-gray-550 border-none' : 'bg-[#414D7D40] backdrop-blur-md text-mb-white-100'} transition-all duration-500 ease-in-out`}
+                  >
+                    <p className='text-sm font-normal'>{card?.action}</p>
+                  </div>
+                  {card?.sub && !isMobile && (
+                    <div className='self-end'>
+                      <p className='text-white text-sm font-semibold'>
+                        {card?.sub}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
         ))}
