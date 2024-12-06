@@ -18,11 +18,11 @@ export const AgentDetailComponent = ({
 
   return (
     <div className='container m-auto'>
-      <div className='w-full md:flex gap-20'>
-        <div className='w-full md:w-1/3 h-auto'>
+      <div className='w-full lg:flex gap-20'>
+        <div className='w-full lg:w-1/3 h-auto'>
           <DetailsSideBar {...{ agent }} />
         </div>
-        <div className='w-full md:w-2/3 my-6 md:my-16'>
+        <div className='w-full lg:w-2/3 my-6 lg:my-16'>
           <div className='markdownBody'>
             <MarkdownBody
               data={agent?.generatedDescription || agent.description || ''}
@@ -31,7 +31,7 @@ export const AgentDetailComponent = ({
 
           {pings && (
             <>
-              <div className='grid gap-4 md:grid-cols-3 my-8'>
+              <div className='grid gap-4 lg:grid-cols-3 my-8'>
                 <Card className='border border-[#313E52]'>
                   <CardContent className='p-6'>
                     <div className='text-sm text-gray-400 mb-2'>
