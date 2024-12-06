@@ -1,7 +1,8 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from './card';
+import { useLayoutEffect, useRef } from 'react';
 import { ActivityCalendar, ThemeInput } from 'react-activity-calendar';
+import { Card, CardContent, CardHeader, CardTitle } from './card';
 
 interface CalendarProps {
   record: {
@@ -37,6 +38,21 @@ export function Calendar({ record }: CalendarProps) {
     dark: ['#1e293b', '#2d4a34', '#28a745', '#32cd32', '#90ee90'],
   };
 
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    console.log({ isMobile, calendarRef });
+    if (isMobile && calendarRef.current) {
+      const scrollContainer = calendarRef.current.querySelector(
+        '.react-activity-calendar__scroll-container'
+      );
+      if (scrollContainer) {
+        scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+      }
+    }
+  }, []);
+
   return (
     <Card className='w-full border border-[#313E52]'>
       <CardHeader className='pb-2'>
@@ -45,7 +61,11 @@ export function Calendar({ record }: CalendarProps) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ActivityCalendar data={allDates} theme={explicitTheme} />
+        <ActivityCalendar
+          ref={calendarRef}
+          data={allDates}
+          theme={explicitTheme}
+        />
       </CardContent>
     </Card>
   );
