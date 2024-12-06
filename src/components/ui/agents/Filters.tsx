@@ -23,7 +23,10 @@ const Filters = ({
   if (!filters?.length) return null;
 
   return isHome ? (
-    <div className='flex flex-row gap-4 mb-4 overflow-x-auto disable-scrollbars -mx-6 lg:mx-0 lg:pl-0 pl-6'>
+    <div
+      className='flex flex-row lg:flex-col gap-4 items-center overflow-x-auto disable-scrollbars h-full -mx-6 lg:mx-0 lg:pl-0 pl-6'
+      style={{ scrollBehavior: 'smooth', whiteSpace: 'nowrap' }}
+    >
       {filters.map((filter) =>
         filter.values.map((value: string) => {
           const isSelected = selectedFilters.some(
@@ -34,7 +37,7 @@ const Filters = ({
           return (
             <button
               key={`${filter.label}-${value}`}
-              className={`first:ml-6 last:mr-12 flex shrink-0 px-4 py-2 rounded-full min-w-[70px] ${
+              className={`first:ml-6 last:mr-12 flex items-center px-4 py-2 rounded-full min-w-[70px] ${
                 isSelected
                   ? 'bg-[#261A32] text-[#C084FC] border border-[#C084FC]'
                   : 'bg-[#18181A] text-[#B5B5B5]'
