@@ -7,7 +7,7 @@ import { PartnersSection } from './PartnersSection';
 import TextSection from './TextSection';
 import { ProductCardsSection } from './ProductCardsSection';
 import { SupportedChainsSection } from './SupportedChainsSection';
-import { newsCardData } from '@/lib/data/dropCardData';
+import { dropCardData, newsCardData } from '@/lib/data/dropCardData';
 import { videosCardData } from '@/lib/data/dropCardData';
 import { AgentSection } from './AgentSection';
 import { Filters, RegistryData } from '@/lib/types/agent.types';
@@ -46,10 +46,10 @@ export const HomeComponent = ({ agentData }: { agentData: AgentData }) => {
       <AgentSection agentData={agentData} />
       <ProductCardsSection data={productCardsData} />
 
-      <ExamplesSection />
+      <ExamplesSection data={dropCardData} isVideo={false} />
       <TextSection {...paymasterSection} />
-      <ExamplesSection data={newsCardData} />
-      <ExamplesSection data={videosCardData} />
+      <ExamplesSection data={newsCardData} isVideo={false} />
+      <ExamplesSection data={videosCardData} isVideo={true} />
 
       <NumbersSection />
       <PartnersSection />
