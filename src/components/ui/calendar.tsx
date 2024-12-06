@@ -41,16 +41,18 @@ export function Calendar({ record }: CalendarProps) {
   const calendarRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile && calendarRef.current) {
-      const scrollContainer = calendarRef.current.querySelector(
-        '.react-activity-calendar__scroll-container'
-      );
-      if (scrollContainer) {
-        scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile && calendarRef.current) {
+        const scrollContainer = calendarRef.current.querySelector(
+          '.react-activity-calendar__scroll-container'
+        );
+        if (scrollContainer) {
+          scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+        }
       }
     }
-  }, []);
+  }, [calendarRef]);
 
   return (
     <Card className='w-full border border-[#313E52]'>
