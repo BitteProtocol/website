@@ -1,7 +1,8 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from './card';
+import { useLayoutEffect, useRef } from 'react';
 import { ActivityCalendar, ThemeInput } from 'react-activity-calendar';
+import { Card, CardContent, CardHeader, CardTitle } from './card';
 
 interface CalendarProps {
   record: {
@@ -33,9 +34,25 @@ export function Calendar({ record }: CalendarProps) {
   }
 
   const explicitTheme: ThemeInput = {
-    light: ['#f0f0f0', '#e0f2e9', '#c3e6cb', '#28a745', '#1e7e34'],
+    light: ['#1e293b', '#2d4a34', '#28a745', '#32cd32', '#90ee90'],
     dark: ['#1e293b', '#2d4a34', '#28a745', '#32cd32', '#90ee90'],
   };
+
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile && calendarRef.current) {
+        const scrollContainer = calendarRef.current.querySelector(
+          '.react-activity-calendar__scroll-container'
+        );
+        if (scrollContainer) {
+          scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+        }
+      }
+    }
+  }, [calendarRef]);
 
   return (
     <Card className='w-full border border-[#313E52]'>
@@ -44,8 +61,12 @@ export function Calendar({ record }: CalendarProps) {
           Agent Pings
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ActivityCalendar data={allDates} theme={explicitTheme} />
+      <CardContent className='flex justify-center'>
+        <ActivityCalendar
+          ref={calendarRef}
+          data={allDates}
+          theme={explicitTheme}
+        />
       </CardContent>
     </Card>
   );

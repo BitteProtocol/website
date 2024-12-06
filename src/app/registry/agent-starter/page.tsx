@@ -17,11 +17,11 @@ export default function AgentStarterDetail() {
 
   return (
     <div className='container m-auto'>
-      <div className='w-full md:flex gap-20'>
-        <div className='w-full md:w-1/3 h-auto'>
+      <div className='w-full lg:flex gap-20'>
+        <div className='w-full lg:w-1/3 h-auto'>
           <DetailsSideBar agent={agent} />
         </div>
-        <div className='w-full md:w-2/3 py-6 md:py-16'>
+        <div className='w-full lg:w-2/3 py-6 lg:py-16'>
           <div className='markdownBody'>
             <MarkdownBody data={description} />
           </div>

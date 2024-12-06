@@ -66,7 +66,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
               </div>
             </div>
             <div className='text-mb-gray-200 text-[14px] flex justify-between items-center mt-2'>
-              <div className='flex justify-between items-center w-full'>
+              <div className='flex justify-between items-center w-full flex-wrap gap-4'>
                 <div className='hidden lg:flex'>
                   By
                   <Avatar className='bg-mb-gray-700 p-[2px] h-6 w-6 ml-2 mr-0.5'>
