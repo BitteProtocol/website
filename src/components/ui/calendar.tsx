@@ -42,7 +42,6 @@ export function Calendar({ record }: CalendarProps) {
 
   useLayoutEffect(() => {
     const isMobile = window.innerWidth <= 768;
-    console.log({ isMobile, calendarRef });
     if (isMobile && calendarRef.current) {
       const scrollContainer = calendarRef.current.querySelector(
         '.react-activity-calendar__scroll-container'
