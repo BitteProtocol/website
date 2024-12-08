@@ -160,8 +160,8 @@ const Header = () => {
           <a
             rel='noopener noreferrer'
             target='_blank'
-            href='https://wallet.mintbase.xyz/'
-            aria-label={`Check out Mintbase Wallet`}
+            href='https://wallet.bitte.xyz/'
+            aria-label={`AI Universal Accounts Wallet`}
           >
             <p className='text-lg text-mb-white-100 font-medium'>AI Wallet</p>
             <p className='text-sm text-mb-gray-350'>
@@ -172,15 +172,14 @@ const Header = () => {
           <a
             rel='noopener noreferrer'
             target='_blank'
-            href='https://templates.mintbase.xyz/'
+            href='https://bitte.ai/registry'
             aria-label={`Check out Dev tools`}
           >
             <p className='text-lg text-mb-white-100 font-medium'>
-              Developer Tools
+              Agent Registry
             </p>
             <p className='text-sm text-mb-gray-350'>
-              The easiest crypto wallet get started in 30 seconds, non custodial
-              and 100% secure.
+              Build cross chain agents.
             </p>
           </a>
           <a
