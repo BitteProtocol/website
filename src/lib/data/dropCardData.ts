@@ -140,6 +140,7 @@ export const videosCardData = {
       link: `https://x.com/BitteProtocol/status/1851958139978957072`,
       isSA: false,
       gradientLayer: false,
+      thumbnail: '',
     },
     {
       id: 2,
@@ -150,6 +151,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/ai-powered-universal-accounts?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: true,
       gradientLayer: false,
+      thumbnail: '',
     },
     {
       id: 3,
@@ -160,6 +162,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/early-days-for-ai-agents?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: true,
       gradientLayer: false,
+      thumbnail: '',
     },
     {
       id: 4,
@@ -170,6 +173,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/the-eleven-collection-by-fka-twigs?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: false,
       gradientLayer: false,
+      thumbnail: '/thumbnails/meme_thumb.png',
     },
     {
       id: 5,
@@ -180,6 +184,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/cricket-crypto-icc-branded-login?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: false,
       gradientLayer: false,
+      thumbnail: '/thumbnails/drop_thumb.png',
     },
     {
       id: 6,
@@ -190,6 +195,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/cricket-crypto-icc-branded-login?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: false,
       gradientLayer: false,
+      thumbnail: '/thumbnails/DAO_Thumbnail.png',
     },
     {
       id: 7,
@@ -200,6 +206,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/cricket-crypto-icc-branded-login?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: false,
       gradientLayer: false,
+      thumbnail: '/thumbnails/swap_thumb.png',
     },
     {
       id: 8,
@@ -210,6 +217,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/cricket-crypto-icc-branded-login?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: false,
       gradientLayer: false,
+      thumbnail: '/thumbnails/multichain_thumb.png',
     },
     {
       id: 9,
@@ -220,6 +228,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/cricket-crypto-icc-branded-login?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: false,
       gradientLayer: false,
+      thumbnail: '/thumbnails/redacted_thumb.png',
     },
   ],
 };

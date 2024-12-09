@@ -1,5 +1,4 @@
 import { fira } from '@/app/fonts';
-import { dropCardData, videosCardData } from '@/lib/data/dropCardData';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
@@ -8,11 +7,39 @@ import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import VideoPlayer from '../ui/VideoPlayer';
 
+type BaseCard = {
+  id: number;
+  badge: string;
+  action: string;
+  sub: string;
+  bg: string;
+  link: string;
+  isSA: boolean;
+  gradientLayer: boolean;
+};
+
+type VideoCard = BaseCard & {
+  thumbnail?: string; // Optional thumbnail for video cards
+};
+
+type DropCard = BaseCard; // No additional properties
+
+type NewsCard = BaseCard; // No additional properties
+
+type Card = VideoCard | DropCard | NewsCard;
+
+type ExampleDataType = {
+  title: string;
+  btnTitle: string;
+  btnUrl: string;
+  cards: Card[];
+};
+
 export const ExamplesSection = ({
   data,
   isVideo,
 }: {
-  data: typeof videosCardData | typeof dropCardData;
+  data: ExampleDataType;
   isVideo: boolean;
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -76,8 +103,6 @@ export const ExamplesSection = ({
     };
   }, []);
 
-  console.log('IS VIDEO', isVideo);
-
   return (
     <section className='relative w-screen py-20 overflow-hidden'>
       <div className='flex justify-center sm:justify-between items-center mb-10 px-16	'>
@@ -124,8 +149,8 @@ export const ExamplesSection = ({
             }
           >
             <div className={`absolute inset-0 ${isVideo ? 'z-40' : 'z-0'}`}>
-              {isVideo ? (
-                <VideoPlayer url={card.bg} />
+              {isVideo && 'thumbnail' in card ? (
+                <VideoPlayer url={card.bg} thumbnail={card.thumbnail} />
               ) : (
                 <Image
                   src={card.bg}
