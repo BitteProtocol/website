@@ -140,7 +140,7 @@ export const videosCardData = {
       link: `https://x.com/BitteProtocol/status/1851958139978957072`,
       isSA: false,
       gradientLayer: false,
-      thumbnail: '',
+      thumbnail: '/thumbnails/build_agent_thumb.png',
     },
     {
       id: 2,
@@ -151,7 +151,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/ai-powered-universal-accounts?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: true,
       gradientLayer: false,
-      thumbnail: '',
+      thumbnail: '/thumbnails/coinGecko_thumb.png',
     },
     {
       id: 3,
@@ -162,7 +162,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/early-days-for-ai-agents?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: true,
       gradientLayer: false,
-      thumbnail: '',
+      thumbnail: '/thumbnails/stable_coin_thumb.png',
     },
     {
       id: 4,
@@ -195,7 +195,7 @@ export const videosCardData = {
       link: 'https://open.substack.com/pub/bitteprotocol/p/cricket-crypto-icc-branded-login?r=2m5r3b&utm_campaign=post&utm_medium=web',
       isSA: false,
       gradientLayer: false,
-      thumbnail: '/thumbnails/DAO_Thumbnail.png',
+      thumbnail: '/thumbnails/vote_thumb.png',
     },
     {
       id: 7,

@@ -7,8 +7,11 @@ import { PartnersSection } from './PartnersSection';
 import TextSection from './TextSection';
 import { ProductCardsSection } from './ProductCardsSection';
 import { SupportedChainsSection } from './SupportedChainsSection';
-import { dropCardData, newsCardData } from '@/lib/data/dropCardData';
-import { videosCardData } from '@/lib/data/dropCardData';
+import {
+  dropCardData,
+  newsCardData,
+  videosCardData,
+} from '@/lib/data/exampleCardData';
 import { AgentSection } from './AgentSection';
 import { Filters, RegistryData } from '@/lib/types/agent.types';
 
