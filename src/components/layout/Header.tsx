@@ -160,7 +160,7 @@ const Header = () => {
           <a
             rel='noopener noreferrer'
             target='_blank'
-            href='https://wallet.bitte.xyz/'
+            href={MB_URL.BITTE_WALLET}
             aria-label={`AI Universal Accounts Wallet`}
           >
             <p className='text-lg text-mb-white-100 font-medium'>AI Wallet</p>
@@ -172,7 +172,7 @@ const Header = () => {
           <a
             rel='noopener noreferrer'
             target='_blank'
-            href='https://bitte.ai/registry'
+            href={MB_URL.REGISTRY}
             aria-label={`Check out Dev tools`}
           >
             <p className='text-lg text-mb-white-100 font-medium'>
