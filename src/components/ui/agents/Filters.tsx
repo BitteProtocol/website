@@ -1,12 +1,12 @@
+import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '../accordion';
-import { Checkbox } from '../checkbox';
 import { Badge } from '../badge';
-import { Filters as AgentFilters } from '@/lib/types/agent.types';
+import { Checkbox } from '../checkbox';
 
 const Filters = ({
   selectedFilters,
@@ -23,7 +23,7 @@ const Filters = ({
   if (!filters?.length) return null;
 
   return isHome ? (
-    <div className='flex gap-3 mb-4 max-w-full overflow-x-scroll disable-scrollbars'>
+    <div className='flex gap-2 items-center flex-wrap justify-center'>
       {filters.map((filter) =>
         filter.values.map((value: string) => {
           const isSelected = selectedFilters.some(
@@ -34,7 +34,7 @@ const Filters = ({
           return (
             <button
               key={`${filter.label}-${value}`}
-              className={`px-4 py-2 rounded-full min-w-[70px] ${
+              className={`px-4 py-2 rounded-full min-w-[70px] text-xs md:text-sm ${
                 isSelected
                   ? 'bg-[#261A32] text-[#C084FC] border border-[#C084FC]'
                   : 'bg-[#18181A] text-[#B5B5B5]'

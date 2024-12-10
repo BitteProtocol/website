@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import { Card, CardContent } from '../card';
-import { Dispatch, SetStateAction } from 'react';
 import { RegistryData } from '@/lib/types/agent.types';
+import Image from 'next/image';
+import { Dispatch, SetStateAction } from 'react';
+import { Card, CardContent } from '../card';
 
 export const AgentSelector = ({
   agentData,
@@ -14,16 +14,18 @@ export const AgentSelector = ({
 }) => {
   return (
     <div
-      className='flex flex-col itmes-center gap-3 max-w-[100vw] max-h-[600px] overflow-x-auto disable-scrollbars mb-3'
-      style={{ scrollBehavior: 'auto' }}
+      className='flex flex-row lg:flex-col gap-4 items-center overflow-x-auto disable-scrollbars h-full -mx-6 lg:mx-0 lg:pl-0 pl-6'
+      style={{ scrollBehavior: 'smooth', whiteSpace: 'nowrap' }}
     >
       {agentData?.map((data, i) => (
         <Card
           key={`agents-${i}`}
-          className={`min-w-[307px] h-[76px] flex items-center ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border border-[#C084FC]' : 'bg-[#18181A]'} cursor-pointer hover:border hover:border-[#C084FC]`}
+          className='last:mr-6 lg:last:mr-0 min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer'
           onClick={() => onSelectAgent(data)}
         >
-          <CardContent className='text-center p-3 flex items-center gap-3'>
+          <CardContent
+            className={`text-center p-3 flex items-center gap-3 w-full h-full rounded ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border border-[#C084FC]' : ''} hover:border hover:border-[#C084FC]`}
+          >
             <div>
               <Image
                 src={data?.coverImage || '/bitte-symbol-black.svg'}
