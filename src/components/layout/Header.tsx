@@ -16,8 +16,8 @@ import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { Button } from '../ui/button';
 import { Modal } from '../ui/Modal';
+import { NearWalletConnector } from './NearWalletSelector';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -114,23 +114,9 @@ const Header = () => {
                   Docs <ArrowUpRight size={12} color='#FAFAFA' />
                 </NavigationMenuLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className='bg-white rounded-sm'>
-                <NavigationMenuLink
-                  rel='noopener noreferrer'
-                  target='_blank'
-                  href={MB_URL.BITTE_WALLET}
-                >
-                  <Button
-                    variant='default'
-                    className='flex gap-1.5 items-center'
-                  >
-                    Login / Create Wallet
-                    <ArrowUpRight size={16} color='#000000' />
-                  </Button>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+          <NearWalletConnector />
         </div>
       </div>
     </header>

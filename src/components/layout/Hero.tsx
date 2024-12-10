@@ -2,25 +2,12 @@
 
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
+import { useBitteWallet } from '@mintbase-js/react';
 import { BitteAiChat, BitteAssistantConfig } from 'bitte-ai-chat';
 import { useEffect, useState } from 'react';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
-
-const mockWalletInfo = {
-  address: '0x1234567890abcdef',
-  balance: '10 ETH',
-  accountData: {
-    devicePublicKey: 'mockDevicePublicKey',
-    accountId: 'mockAccountId',
-    isCreated: true,
-  },
-  isLoading: false,
-  isConnected: true,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  evmAdapter: {} as any, // Add other required properties here
-};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockWalletConfig = {
@@ -44,6 +31,8 @@ const mockColors = {
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+
+  const { activeAccountId } = useBitteWallet();
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -122,7 +111,18 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   } as BitteAssistantConfig
                 }
                 openAgentSelector={() => null}
-                walletInfo={mockWalletInfo}
+                walletInfo={{
+                  accountData: {
+                    accountId: activeAccountId!,
+                    devicePublicKey: '',
+                    isCreated: true,
+                  },
+                  isConnected: true,
+                  isLoading: true,
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  evmAdapter: {} as any,
+                }}
+                apiUrl='https://wallet.bitte.ai/api/v1/chat'
                 walletConfig={mockWalletConfig}
                 colors={mockColors}
               />
