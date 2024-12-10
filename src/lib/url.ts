@@ -13,7 +13,7 @@ export const MB_URL = {
   REGISTRY: '/registry',
   GRANTS: 'https://github.com/Mintbase/Grants-Program',
   MINTBASE_WARPCAST: 'https://warpcast.com/~/channel/mintbase',
-  MINTBASE_YT: 'https://www.youtube.com/@mintbase',
+  MINTBASE_YT: 'https://www.youtube.com/@bitteprotocol',
   MINTBASE_LINKEDIN: 'https://www.linkedin.com/company/bitte',
   MINTBASE_GITHUB: 'https://github.com/BitteProtocol',
   DEV_DOCS: 'https://docs.bitte.ai/agents/quick-start',
