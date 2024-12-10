@@ -19,12 +19,12 @@ type BaseCard = {
 };
 
 type VideoCard = BaseCard & {
-  thumbnail?: string; // Optional thumbnail for video cards
+  thumbnail?: string;
 };
 
-type DropCard = BaseCard; // No additional properties
+type DropCard = BaseCard;
 
-type NewsCard = BaseCard; // No additional properties
+type NewsCard = BaseCard;
 
 type Card = VideoCard | DropCard | NewsCard;
 
