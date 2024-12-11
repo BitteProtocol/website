@@ -50,7 +50,8 @@ const Header = () => {
                       title='AI Wallet'
                       newTab
                     >
-                      Sponsored AI transaction builder with drops.
+                      Universal accounts that can talk and execute with
+                      blockchains.
                     </ListItem>
                     <ListItem href={MB_URL.REGISTRY} title='Agent Registry'>
                       Fork other agents to make them better or bootstrap your

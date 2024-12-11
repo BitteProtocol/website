@@ -6,24 +6,12 @@ export const developerLinks: { title: string; href: string }[] = [
     href: MB_URL.DEV_DOCS,
   },
   {
-    title: 'Dev Telegram',
+    title: 'Telegram',
     href: MB_URL.MINTBASE_DEV_TG,
   },
   {
     title: 'GitHub',
     href: MB_URL.MINTBASE_GITHUB,
-  },
-  {
-    title: 'MintbaseJS',
-    href: MB_URL.MINTBASEJS_DOCS,
-  },
-  {
-    title: 'Bounties',
-    href: MB_URL.BOUNTY,
-  },
-  {
-    title: 'Indexer Status',
-    href: MB_URL.INDEXER_STATUS,
   },
   {
     title: 'Grants',
