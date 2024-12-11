@@ -122,7 +122,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   evmAdapter: {} as any,
                 }}
-                apiUrl='https://wallet.bitte.ai/api/v1/chat'
+                apiUrl='/api/chat'
                 walletConfig={mockWalletConfig}
                 colors={mockColors}
               />
