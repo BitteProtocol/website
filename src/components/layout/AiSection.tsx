@@ -46,7 +46,6 @@ const AiSection = () => {
           value={input}
           onChange={(e) => handleInputChange(e.target.value)}
           onKeyDown={(event) => {
-            // allow enter key
             if (event.key === 'Enter' && input) {
               goToSmartActions();
             }
