@@ -123,11 +123,6 @@ const Header = () => {
               </NavigationMenuItem>
               {isConnected && (
                 <NavigationMenuItem className='bg-white rounded-sm'>
-                  <appkit-account-button />
-                </NavigationMenuItem>
-              )}
-              {isConnected && (
-                <NavigationMenuItem className='bg-white rounded-sm'>
                   <appkit-network-button />
                 </NavigationMenuItem>
               )}
