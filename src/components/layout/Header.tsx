@@ -27,6 +27,8 @@ const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const { isConnected } = useAccount();
+  const account = useAccount();
+  console.log('ACCOUNT', account);
 
   return !isMobile ? (
     <header className='flex w-full h-20 border-b border-mb-gray-800 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
