@@ -18,12 +18,15 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { Modal } from '../ui/Modal';
+import { useAccount } from 'wagmi';
 
 const Header = () => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const { isConnected } = useAccount();
 
   return !isMobile ? (
     <header className='flex w-full h-20 border-b border-mb-gray-800 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
@@ -115,6 +118,19 @@ const Header = () => {
                   Docs <ArrowUpRight size={12} color='#FAFAFA' />
                 </NavigationMenuLink>
               </NavigationMenuItem>
+              <NavigationMenuItem className='bg-white rounded-sm'>
+                <appkit-button />
+              </NavigationMenuItem>
+              {isConnected && (
+                <NavigationMenuItem className='bg-white rounded-sm'>
+                  <appkit-account-button />
+                </NavigationMenuItem>
+              )}
+              {isConnected && (
+                <NavigationMenuItem className='bg-white rounded-sm'>
+                  <appkit-network-button />
+                </NavigationMenuItem>
+              )}
               <NavigationMenuItem className='bg-white rounded-sm'>
                 <NavigationMenuLink
                   rel='noopener noreferrer'
