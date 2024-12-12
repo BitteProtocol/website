@@ -6,13 +6,14 @@ import NextTopLoader from 'nextjs-toploader';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import ContextProvider from '@/context';
 import { headers } from 'next/headers';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
-import './markdown.css';
+import '@near-wallet-selector/modal-ui/styles.css';
 import './globals.css';
+import './markdown.css';
+import Providers from '@/lib/providers/Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -52,23 +53,23 @@ export default function RootLayout({
 }) {
   const cookies = headers().get('cookie');
   return (
-    <html lang='en' className='overflow-x-hidden'>
-      <head>
-        <meta
-          name='google-site-verification'
-          content='L_YAA1wl9HK-pwje3STY_KyHj7yQN1oTfq09H_r9Kqw'
-        />
-      </head>
-      <body className={`${inter.className} dark bg-black`}>
-        <ContextProvider cookies={cookies}>
+    <Providers cookies={cookies}>
+      <html lang='en' className='overflow-x-hidden'>
+        <head>
+          <meta
+            name='google-site-verification'
+            content='L_YAA1wl9HK-pwje3STY_KyHj7yQN1oTfq09H_r9Kqw'
+          />
+        </head>
+        <body className={`${inter.className} dark bg-black`}>
           <Header />
           {children}
           <Footer />
           <Analytics />
           <NextTopLoader color='#334155' showSpinner={false} height={4} />
           <SpeedInsights />
-        </ContextProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </Providers>
   );
 }
