@@ -5,7 +5,15 @@
 import { wagmiAdapter, projectId } from '@/config';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createAppKit } from '@reown/appkit/react';
-import { mainnet, arbitrum } from '@reown/appkit/networks';
+import {
+  mainnet,
+  arbitrum,
+  base,
+  polygon,
+  optimism,
+  gnosis,
+  opBNB,
+} from '@reown/appkit/networks';
 import React, { type ReactNode } from 'react';
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
 
@@ -18,9 +26,9 @@ if (!projectId) {
 
 // Set up metadata
 const metadata = {
-  name: 'appkit-example',
-  description: 'AppKit Example',
-  url: 'https://appkitexampleapp.com', // origin must match your domain & subdomain
+  name: 'bitte AI',
+  description: 'Interact with blockchains usign AI',
+  url: 'https://bitte.ai', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/179229932'],
 };
 
@@ -28,7 +36,7 @@ const metadata = {
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [mainnet, arbitrum],
+  networks: [mainnet, arbitrum, base, polygon, optimism, gnosis, opBNB],
   defaultNetwork: mainnet,
   metadata: metadata,
   features: {

@@ -121,7 +121,7 @@ const Header = () => {
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem className='bg-white rounded-sm'>
-                <appkit-button />
+                <appkit-button label='EVM Connect' />
               </NavigationMenuItem>
               {isConnected && (
                 <NavigationMenuItem className='bg-white rounded-sm'>
