@@ -7,7 +7,6 @@ import {
   polygon,
   optimism,
   gnosis,
-  opBNB,
 } from '@reown/appkit/networks';
 
 // Get projectId from https://cloud.reown.com
@@ -17,15 +16,7 @@ if (!projectId) {
   throw new Error('Project ID is not defined');
 }
 
-export const networks = [
-  mainnet,
-  arbitrum,
-  base,
-  polygon,
-  optimism,
-  gnosis,
-  opBNB,
-];
+export const networks = [mainnet, arbitrum, base, polygon, optimism, gnosis];
 
 //Set up the Wagmi Adapter (Config)
 export const wagmiAdapter = new WagmiAdapter({

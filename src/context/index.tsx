@@ -12,7 +12,6 @@ import {
   polygon,
   optimism,
   gnosis,
-  opBNB,
 } from '@reown/appkit/networks';
 import React, { type ReactNode } from 'react';
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
@@ -36,7 +35,7 @@ const metadata = {
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [mainnet, arbitrum, base, polygon, optimism, gnosis, opBNB],
+  networks: [mainnet, arbitrum, base, polygon, optimism, gnosis],
   defaultNetwork: mainnet,
   metadata: metadata,
   features: {
