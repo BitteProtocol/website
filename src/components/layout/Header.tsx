@@ -154,6 +154,9 @@ const Header = () => {
 
       <Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
         <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black'>
+          <div className='flex'>
+            <NearWalletConnector />
+          </div>
           <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
             Products
           </p>

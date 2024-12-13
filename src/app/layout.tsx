@@ -10,10 +10,10 @@ import { headers } from 'next/headers';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
+import Providers from '@/lib/providers/Providers';
 import '@near-wallet-selector/modal-ui/styles.css';
 import './globals.css';
 import './markdown.css';
-import Providers from '@/lib/providers/Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
