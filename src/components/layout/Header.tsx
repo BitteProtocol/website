@@ -17,6 +17,7 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { Modal } from '../ui/Modal';
+import { useAccount } from 'wagmi';
 import { NearWalletConnector } from './NearWalletSelector';
 
 const Header = () => {
@@ -24,6 +25,10 @@ const Header = () => {
   const isMobile = !!width && width < 1024;
 
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const { isConnected } = useAccount();
+  const account = useAccount();
+  console.log('ACCOUNT', account);
 
   return !isMobile ? (
     <header className='flex w-full h-20 border-b border-mb-gray-800 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
@@ -115,6 +120,16 @@ const Header = () => {
                   Docs <ArrowUpRight size={12} color='#FAFAFA' />
                 </NavigationMenuLink>
               </NavigationMenuItem>
+              <NavigationMenuItem
+                className={`${!isConnected ? 'lg:pr-3' : ''}`}
+              >
+                <appkit-button label='EVM Connect' />
+              </NavigationMenuItem>
+              {isConnected && (
+                <NavigationMenuItem className='lg:pr-3'>
+                  <appkit-network-button />
+                </NavigationMenuItem>
+              )}
             </NavigationMenuList>
           </NavigationMenu>
           <NearWalletConnector />
@@ -141,6 +156,10 @@ const Header = () => {
 
       <Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
         <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black'>
+          <div className='flex items-center'>
+            <appkit-button label='EVM Connect' />
+            {isConnected && <appkit-network-button />}
+          </div>
           <div className='flex'>
             <NearWalletConnector />
           </div>
