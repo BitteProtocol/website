@@ -41,6 +41,8 @@ const modal = createAppKit({
   metadata: metadata,
   features: {
     analytics: true, // Optional - defaults to your Cloud configuration
+    email: false,
+    socials: false,
   },
   themeMode: 'dark',
   themeVariables: {
