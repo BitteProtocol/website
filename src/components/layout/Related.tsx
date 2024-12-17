@@ -1,9 +1,9 @@
 'use client';
 
-import TemplateCard from '../ui/agents/AgentCard';
-import Link from 'next/link';
-import { Button } from '../ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
+import Link from 'next/link';
+import TemplateCard from '../ui/agents/AgentCard';
+import { Button } from '../ui/button';
 
 export const RelatedTemplates = ({
   relatedAgents,
@@ -21,7 +21,7 @@ export const RelatedTemplates = ({
         ))}
       </div>
       <div className='w-full flex justify-center p-20'>
-        <Link href='/'>
+        <Link href='/registry'>
           <Button variant='secondary' className='w-[200px]'>
             View All Agents
           </Button>
