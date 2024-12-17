@@ -42,6 +42,10 @@ const modal = createAppKit({
   features: {
     analytics: true, // Optional - defaults to your Cloud configuration
   },
+  themeMode: 'dark',
+  themeVariables: {
+    /* '--w3m-border-radius-master': '1', */
+  },
 });
 
 function ContextProvider({

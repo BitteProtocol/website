@@ -120,11 +120,13 @@ const Header = () => {
                   Docs <ArrowUpRight size={12} color='#FAFAFA' />
                 </NavigationMenuLink>
               </NavigationMenuItem>
-              <NavigationMenuItem>
+              <NavigationMenuItem
+                className={`${!isConnected ? 'lg:pr-3' : ''}`}
+              >
                 <appkit-button label='EVM Connect' />
               </NavigationMenuItem>
               {isConnected && (
-                <NavigationMenuItem>
+                <NavigationMenuItem className='lg:pr-3'>
                   <appkit-network-button />
                 </NavigationMenuItem>
               )}
@@ -154,7 +156,7 @@ const Header = () => {
 
       <Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
         <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black'>
-          <div className='flex items-center '>
+          <div className='flex items-center'>
             <appkit-button label='EVM Connect' />
             {isConnected && <appkit-network-button />}
           </div>
