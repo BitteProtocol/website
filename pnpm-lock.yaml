@@ -19,10 +19,10 @@ importers:
         version: 7.10.0
       '@mintbase-js/react':
         specifier: ^0.6.5
-        version: 0.6.5(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)
+        version: 0.6.5(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.10.0)
       '@near-wallet-selector/modal-ui':
         specifier: ^8.9.14
-        version: 8.9.14(near-api-js@4.0.4)
+        version: 8.9.15(near-api-js@5.0.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.1
         version: 1.2.1(@types/react-dom@18.2.19)(@types/react@18.2.60)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -86,6 +86,9 @@ importers:
       lucide-react:
         specifier: ^0.307.0
         version: 0.307.0(react@18.2.0)
+      near-api-js:
+        specifier: ^5.0.1
+        version: 5.0.1
       next:
         specifier: 14.1.0
         version: 14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -110,6 +113,9 @@ importers:
       react-markdown:
         specifier: ^9.0.1
         version: 9.0.1(@types/react@18.2.60)(react@18.2.0)
+      react-player:
+        specifier: ^2.16.0
+        version: 2.16.0(react@18.2.0)
       recharts:
         specifier: ^2.13.3
         version: 2.13.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -614,11 +620,17 @@ packages:
   '@near-js/keystores-browser@0.1.0':
     resolution: {integrity: sha512-v/4uFHKnbEXY4UcOAVCUSb3GKsVdrwv4uXBSPluvE16H9oxjB1+gfcz5qejwKp2cifYNCO0KfAWLnZas66Ohcg==}
 
+  '@near-js/keystores-browser@0.2.1':
+    resolution: {integrity: sha512-wF7UUDccnkVxdWqVgladupiXkrBmxNK9ilZg6zg9a11xtrDUpnjmWF4ON4tl1lJWF0XdTJmGdOrgOQZQDBQ79g==}
+
   '@near-js/keystores-node@0.0.12':
     resolution: {integrity: sha512-LUz1HPXBYoZUaLyS/bEj4yZ4pqD9Hb7XURikh22VYL8mbLcR5VmWYwS7Tmi9aO1vW8M9bPnQs5SROAyA79qQgQ==}
 
   '@near-js/keystores-node@0.0.13':
     resolution: {integrity: sha512-cnk2mwIRr7bCPgqz7KHU1Bqxm0u9J+FIubZ0AllFpMVMv8TJVVbs7FcsVIk282oeM7xxikjVJjs35DG6//Fehw==}
+
+  '@near-js/keystores-node@0.1.1':
+    resolution: {integrity: sha512-ht69dVB0IAX2RckOlBCCTxl7e8X29EYqgL4KE83Sg+cAwsQctAjVLpor5RbgJhg1iYY5BhIK5JgI0pTOJRAHxA==}
 
   '@near-js/keystores@0.0.12':
     resolution: {integrity: sha512-7dqq7XLUSlo26QbaGrS6bmqVL4IfhxJgfIhgKUDfv8FuswrpErBVCAUY6wIbW+mLw0NBoddzPrb5LuLIMfud5Q==}
@@ -677,13 +689,15 @@ packages:
   '@near-js/wallet-account@1.2.3':
     resolution: {integrity: sha512-yuYKKA8D06ztmbTvbajD8HBjP50x2NbMRPInsSSgNjBnvFA9f2J82SarzDLg+nTsayhMJdFGfArnKgIlO+bUaw==}
 
+  '@near-js/wallet-account@1.3.1':
+    resolution: {integrity: sha512-POOKarJnYsTK0zEXygm43ecGlraPl5qagQHl+By5bk0zQFgeKaoFIJK/n04xUoGBhZTBIVp1/q7q3O1pB57hqg==}
+
   '@near-wallet-selector/core@8.9.12':
     resolution: {integrity: sha512-S23/IDi07kCr6JN28jxQZPQOwtp3MwZgMVbtwqZz2BP2N1puAFHIvKpUDrS2l2iZPBImHnU3tdOBvw6Yec7DjQ==}
 
-  '@near-wallet-selector/core@8.9.14':
-    resolution: {integrity: sha512-fC+igD832P0wUZ9MSfFWgYVIvZcOn1Fka7SJ3VN7w8Xufw+MgZ06zoGDj29QB0qy+Aui1fZGJgwJGTBOe5KIMg==}
+  '@near-wallet-selector/core@8.9.15':
+    resolution: {integrity: sha512-LR6+BmBZPta6H2rCk9614x4IWpw0Im4W+X9+7SQkGQvpiEmNXdutHlxo0+VLZlHlsUscBvTqbCwZJQXl4G71kw==}
     peerDependencies:
-      '@near-js/providers': latest
       near-api-js: 4.0.3
 
   '@near-wallet-selector/here-wallet@8.9.12':
@@ -695,8 +709,8 @@ packages:
   '@near-wallet-selector/modal-ui@8.9.12':
     resolution: {integrity: sha512-U+KHKbJNvqwl6aAj3tOXLPVHEUDI9i4g51kPuH64QXyZnEJHaho5njT1LOSttoBaI+zPs0Zj1VHjQssWHeXV4w==}
 
-  '@near-wallet-selector/modal-ui@8.9.14':
-    resolution: {integrity: sha512-1BQjBVgoZx0pVDfrN7RBJag/kFgGD0EGE/LO98ZY4DstFOhFeLx46z3Hu2RRhCd/hGLY/Zw2/BxRU6wdE/vwPg==}
+  '@near-wallet-selector/modal-ui@8.9.15':
+    resolution: {integrity: sha512-8KdnLjTUx+/t3WRA42O5His1nc9blfNe8cv2hwFPkDxLxDLxtnPjGrhnygj184EEjx3AuUBYcv8YZmbawQPKhA==}
 
   '@near-wallet-selector/my-near-wallet@8.9.12':
     resolution: {integrity: sha512-fBhKz+dHJ7KDnIGlRjwoGEViZBaYxmi8eIyfaWaZF/03FKRRldf60VHHNZyPaPMm5oLZW2xeC666XLtsIR7zBA==}
@@ -704,8 +718,8 @@ packages:
   '@near-wallet-selector/wallet-utils@8.9.12':
     resolution: {integrity: sha512-3KcZlaaiQ3OyQAqI48Px0dM7Bz3/6gLOgnNepk7BVEygX9h7CuDyVh5Ug3qgObbsDQ59vCLCDey0y0eI4BxkKQ==}
 
-  '@near-wallet-selector/wallet-utils@8.9.14':
-    resolution: {integrity: sha512-TQzapN6i77u7sbt211HgEsdyxIBPRGfrCJg7x3Mc144nGv/ns8boptuHkdHn9n/OEpPZR5S9Mqi5eAkDT+Pd/Q==}
+  '@near-wallet-selector/wallet-utils@8.9.15':
+    resolution: {integrity: sha512-8EpgIaHAh5OzSP7akEMgRM1EWKP8MXN9yMNLucuPvT28e9hHqou85XRBXz0rgjirZC2bFVhXj+/l08KxnlQ+Gw==}
     peerDependencies:
       near-api-js: 4.0.3
 
@@ -2768,8 +2782,8 @@ packages:
     peerDependencies:
       graphql: 14 - 16
 
-  graphql@16.9.0:
-    resolution: {integrity: sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==}
+  graphql@16.10.0:
+    resolution: {integrity: sha512-AjqGKbDGUFRKIRCP9tCKiIGHyriz2oHEbPIbEtcSLSs4YjReZOIPQQWek4+6hjw62H9QShXHyaGivGiYVLeYFQ==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   gtoken@7.1.0:
@@ -3349,6 +3363,9 @@ packages:
     resolution: {integrity: sha512-ovJXBXkKGfq+CwmKTjluEqFi3p4h8xvkxGQQAQan22YCgef4KZ1mKGjzfGh6PL6AW5Csw0QiQPNuQyH+6Xk3hA==}
     engines: {node: '>=18.0.0'}
 
+  load-script@1.0.0:
+    resolution: {integrity: sha512-kPEjMFtZvwL9TaZo0uZ2ml+Ye9HUMmPwbYRJ324qF9tqMejwykJ5ggTyvzmrbBeapCAbk98BSbTeovHEEP1uCA==}
+
   locate-path@5.0.0:
     resolution: {integrity: sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==}
     engines: {node: '>=8'}
@@ -3459,6 +3476,9 @@ packages:
 
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
+
+  memoize-one@5.2.1:
+    resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -3629,6 +3649,9 @@ packages:
 
   near-api-js@4.0.4:
     resolution: {integrity: sha512-IG+6NAMtn854palu/cIbVgey0OsIzllcajc3fbEbh7cb2pyPNMsfsBIO5WqsV+rY+7Tqr6lqYQ8f+4BHGUttyg==}
+
+  near-api-js@5.0.1:
+    resolution: {integrity: sha512-ZSQYIQdekIvSRfOFuRj6MW11jtK5lsOaiWM2VB0nq7eROuuxwSSXHg+syjCXl3HNNZ3hzg0CNdp+5Za0X1ZtYg==}
 
   next@14.1.0:
     resolution: {integrity: sha512-wlzrsbfeSU48YQBjZhDzOwhWhGsy+uQycR8bHAOt1LY1bn3zZEcDyHQOEoN3aWzQ8LHCAJ1nqrWCc9XF2+O45Q==}
@@ -3978,6 +4001,9 @@ packages:
     peerDependencies:
       react: ^18.2.0
 
+  react-fast-compare@3.2.2:
+    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -3992,6 +4018,11 @@ packages:
     peerDependencies:
       '@types/react': 18.2.60
       react: '>=18'
+
+  react-player@2.16.0:
+    resolution: {integrity: sha512-mAIPHfioD7yxO0GNYVFD1303QFtI3lyyQZLY229UEAp/a10cSW+hPcakg0Keq8uWJxT2OiT/4Gt+Lc9bD6bJmQ==}
+    peerDependencies:
+      react: '>=16.6.0'
 
   react-remove-scroll-bar@2.3.5:
     resolution: {integrity: sha512-3cqjOqg6s0XbOjWvmasmqHch+RLxIEk2r/70rzGXuz3iIGQsQheEQyqYCBb5EECoD01Vo2SIbDqW4paLeLTASw==}
@@ -5063,9 +5094,9 @@ snapshots:
       - encoding
       - supports-color
 
-  '@graphql-typed-document-node/core@3.2.0(graphql@16.9.0)':
+  '@graphql-typed-document-node/core@3.2.0(graphql@16.10.0)':
     dependencies:
-      graphql: 16.9.0
+      graphql: 16.10.0
 
   '@grpc/grpc-js@1.12.2':
     dependencies:
@@ -5312,18 +5343,18 @@ snapshots:
       near-api-js: 4.0.3
       query-string: 7.1.3
 
-  '@mintbase-js/data@0.6.2(graphql@16.9.0)':
+  '@mintbase-js/data@0.6.2(graphql@16.10.0)':
     dependencies:
       '@mintbase-js/sdk': 0.6.5
       cross-fetch: 4.0.0
-      graphql-request: 5.2.0(graphql@16.9.0)
+      graphql-request: 5.2.0(graphql@16.10.0)
     transitivePeerDependencies:
       - encoding
       - graphql
 
-  '@mintbase-js/react@0.6.5(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)':
+  '@mintbase-js/react@0.6.5(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.10.0)':
     dependencies:
-      '@mintbase-js/data': 0.6.2(graphql@16.9.0)
+      '@mintbase-js/data': 0.6.2(graphql@16.10.0)
       '@mintbase-js/wallet': 0.6.2
       '@near-wallet-selector/core': 8.9.12
       '@near-wallet-selector/here-wallet': 8.9.12(bn.js@5.2.1)(borsh@1.0.0)
@@ -5333,7 +5364,6 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
-      - '@near-js/providers'
       - bn.js
       - borsh
       - encoding
@@ -5348,10 +5378,9 @@ snapshots:
   '@mintbase-js/wallet@0.6.2':
     dependencies:
       '@near-wallet-selector/core': 8.9.12
-      '@near-wallet-selector/wallet-utils': 8.9.14(near-api-js@4.0.4)
+      '@near-wallet-selector/wallet-utils': 8.9.15(near-api-js@4.0.4)
       near-api-js: 4.0.4
     transitivePeerDependencies:
-      - '@near-js/providers'
       - encoding
 
   '@near-js/accounts@1.2.1':
@@ -5440,6 +5469,11 @@ snapshots:
       '@near-js/crypto': 1.3.0
       '@near-js/keystores': 0.1.0
 
+  '@near-js/keystores-browser@0.2.1':
+    dependencies:
+      '@near-js/crypto': 1.4.1
+      '@near-js/keystores': 0.2.1
+
   '@near-js/keystores-node@0.0.12':
     dependencies:
       '@near-js/crypto': 1.2.4
@@ -5449,6 +5483,11 @@ snapshots:
     dependencies:
       '@near-js/crypto': 1.3.0
       '@near-js/keystores': 0.1.0
+
+  '@near-js/keystores-node@0.1.1':
+    dependencies:
+      '@near-js/crypto': 1.4.1
+      '@near-js/keystores': 0.2.1
 
   '@near-js/keystores@0.0.12':
     dependencies:
@@ -5600,6 +5639,20 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@near-js/wallet-account@1.3.1':
+    dependencies:
+      '@near-js/accounts': 1.3.1
+      '@near-js/crypto': 1.4.1
+      '@near-js/keystores': 0.2.1
+      '@near-js/providers': 1.0.1
+      '@near-js/signers': 0.2.1
+      '@near-js/transactions': 1.3.1
+      '@near-js/types': 0.3.1
+      '@near-js/utils': 1.0.1
+      borsh: 1.0.0
+    transitivePeerDependencies:
+      - encoding
+
   '@near-wallet-selector/core@8.9.12':
     dependencies:
       '@near-js/providers': 0.2.2
@@ -5611,12 +5664,20 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@near-wallet-selector/core@8.9.14(near-api-js@4.0.4)':
+  '@near-wallet-selector/core@8.9.15(near-api-js@4.0.4)':
     dependencies:
-      borsh: 0.7.0
+      borsh: 1.0.0
       events: 3.3.0
       js-sha256: 0.9.0
       near-api-js: 4.0.4
+      rxjs: 7.8.1
+
+  '@near-wallet-selector/core@8.9.15(near-api-js@5.0.1)':
+    dependencies:
+      borsh: 1.0.0
+      events: 3.3.0
+      js-sha256: 0.9.0
+      near-api-js: 5.0.1
       rxjs: 7.8.1
 
   '@near-wallet-selector/here-wallet@8.9.12(bn.js@5.2.1)(borsh@1.0.0)':
@@ -5646,15 +5707,14 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@near-wallet-selector/modal-ui@8.9.14(near-api-js@4.0.4)':
+  '@near-wallet-selector/modal-ui@8.9.15(near-api-js@5.0.1)':
     dependencies:
-      '@near-wallet-selector/core': 8.9.14(near-api-js@4.0.4)
+      '@near-wallet-selector/core': 8.9.15(near-api-js@5.0.1)
       copy-to-clipboard: 3.3.3
       qrcode: 1.5.4
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
-      - '@near-js/providers'
       - near-api-js
 
   '@near-wallet-selector/my-near-wallet@8.9.12':
@@ -5672,12 +5732,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@near-wallet-selector/wallet-utils@8.9.14(near-api-js@4.0.4)':
+  '@near-wallet-selector/wallet-utils@8.9.15(near-api-js@4.0.4)':
     dependencies:
-      '@near-wallet-selector/core': 8.9.14(near-api-js@4.0.4)
+      '@near-wallet-selector/core': 8.9.15(near-api-js@4.0.4)
       near-api-js: 4.0.4
-    transitivePeerDependencies:
-      - '@near-js/providers'
 
   '@next/env@14.1.0': {}
 
@@ -7875,17 +7933,17 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-request@5.2.0(graphql@16.9.0):
+  graphql-request@5.2.0(graphql@16.10.0):
     dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
       cross-fetch: 3.1.8
       extract-files: 9.0.0
       form-data: 3.0.2
-      graphql: 16.9.0
+      graphql: 16.10.0
     transitivePeerDependencies:
       - encoding
 
-  graphql@16.9.0: {}
+  graphql@16.10.0: {}
 
   gtoken@7.1.0:
     dependencies:
@@ -8707,6 +8765,8 @@ snapshots:
       rfdc: 1.3.1
       wrap-ansi: 9.0.0
 
+  load-script@1.0.0: {}
+
   locate-path@5.0.0:
     dependencies:
       p-locate: 4.1.0
@@ -8918,6 +8978,8 @@ snapshots:
   mdast-util-to-string@4.0.0:
     dependencies:
       '@types/mdast': 4.0.3
+
+  memoize-one@5.2.1: {}
 
   merge-stream@2.0.0: {}
 
@@ -9204,6 +9266,28 @@ snapshots:
       '@near-js/types': 0.2.1
       '@near-js/utils': 0.3.0
       '@near-js/wallet-account': 1.2.3
+      '@noble/curves': 1.2.0
+      borsh: 1.0.0
+      depd: 2.0.0
+      http-errors: 1.7.2
+      near-abi: 0.1.1
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
+
+  near-api-js@5.0.1:
+    dependencies:
+      '@near-js/accounts': 1.3.1
+      '@near-js/crypto': 1.4.1
+      '@near-js/keystores': 0.2.1
+      '@near-js/keystores-browser': 0.2.1
+      '@near-js/keystores-node': 0.1.1
+      '@near-js/providers': 1.0.1
+      '@near-js/signers': 0.2.1
+      '@near-js/transactions': 1.3.1
+      '@near-js/types': 0.3.1
+      '@near-js/utils': 1.0.1
+      '@near-js/wallet-account': 1.3.1
       '@noble/curves': 1.2.0
       borsh: 1.0.0
       depd: 2.0.0
@@ -9569,6 +9653,8 @@ snapshots:
       react: 18.2.0
       scheduler: 0.23.0
 
+  react-fast-compare@3.2.2: {}
+
   react-is@16.13.1: {}
 
   react-is@18.2.0: {}
@@ -9591,6 +9677,15 @@ snapshots:
       vfile: 6.0.1
     transitivePeerDependencies:
       - supports-color
+
+  react-player@2.16.0(react@18.2.0):
+    dependencies:
+      deepmerge: 4.3.1
+      load-script: 1.0.0
+      memoize-one: 5.2.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-fast-compare: 3.2.2
 
   react-remove-scroll-bar@2.3.5(@types/react@18.2.60)(react@18.2.0):
     dependencies:
