@@ -8,10 +8,11 @@ import { Inter } from 'next/font/google';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
+
 import Providers from '@/lib/providers/Providers';
-import '@near-wallet-selector/modal-ui/styles.css';
 import './globals.css';
 import './markdown.css';
+import '@near-wallet-selector/modal-ui/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
