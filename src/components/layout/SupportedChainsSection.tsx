@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export const SupportedChainsSection = () => {
   return (
-    <section className='relative mt-12 md:mt-24 mb-16 md:mb-32'>
+    <section className='relative mt-12 md:mt-24 mb-16 md:mb-32 px-5'>
       <p
         className={`${fira.className} text-sm text-mb-gray-300 font-normal text-center uppercase mb-6`}
       >
