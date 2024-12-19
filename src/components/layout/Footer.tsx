@@ -104,9 +104,9 @@ const Footer = () => {
                 className='text-sm text-mb-gray-300 hover:text-mb-white-100 hover-icon font-medium flex items-center gap-2 transition-all duration-300'
                 rel='noopener noreferrer'
                 target='_blank'
-                href={MB_URL.TEMPLATES_URL}
+                href={MB_URL.REGISTRY}
               >
-                Templates <ArrowUpRight size={14} color='#475569' />
+                Registry <ArrowUpRight size={14} color='#475569' />
               </a>
               <a
                 className='text-sm text-mb-gray-300 hover:text-mb-white-100 hover-icon font-medium flex items-center gap-2 transition-all duration-300'
