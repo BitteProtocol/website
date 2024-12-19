@@ -10,7 +10,7 @@ export const SupportedChainsSection = () => {
       >
         Supported Chains
       </p>
-      <div className='flex itmes-center justify-center gap-6'>
+      <div className='flex flex-wrap itmes-center justify-center gap-6'>
         {chainData?.map((data, i) => (
           <div className='flex items-center gap-1.5' key={`chains-${i}`}>
             <Image
