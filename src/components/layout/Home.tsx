@@ -32,9 +32,9 @@ const paymasterSection = {
 };
 
 const crossSection = {
-  title: 'Any API can become an AI agent',
+  title: 'Blockchain empowered by AI Agents',
   subHeader:
-    'Explore existing agents or create your own. We make it simple to infuse AI capabilities into any API.',
+    'Explore existing agents or create your own. Any API can easily become an agent.',
   factTitle: '',
   fact: '',
   isDisabled: false,
