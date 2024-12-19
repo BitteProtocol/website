@@ -6,7 +6,7 @@ export const chainData = [
     enabled: false,
   },
   {
-    logo: '/chains/New_eth.svg',
+    logo: '/chains/new_eth.svg',
     name: 'Ethereum',
     scale: 0.9,
     enabled: false,
