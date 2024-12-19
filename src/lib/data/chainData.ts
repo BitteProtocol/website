@@ -17,30 +17,30 @@ export const chainData = [
     scale: 0.9,
     enabled: false,
   },
-  /*   {
-    logo: '/chains/bnb.svg',
+  {
+    logo: '/chains/new_bnb.svg',
     name: 'BNB',
     scale: 0.9,
     enabled: false,
-  }, */
+  },
   {
     logo: '/chains/new_polygon.svg',
     name: 'Polygon',
     scale: 0.9,
     enabled: false,
   },
-  /*   {
-    logo: '/chains/gno.svg',
+  {
+    logo: '/chains/new_gnosis.svg',
     name: 'Gnosis',
     scale: 0.9,
     enabled: false,
-  }, */
-  /*   {
-    logo: '/chains/arbitrum.svg',
+  },
+  {
+    logo: '/chains/new_arbi.svg',
     name: 'Arbitrum',
     scale: 0.9,
     enabled: false,
-  }, */
+  },
   {
     logo: '/chains/new_op.svg',
     name: 'Optimism',
