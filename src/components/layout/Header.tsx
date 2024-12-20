@@ -157,7 +157,19 @@ const Header = () => {
 
       <Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
         <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black'>
-          <div className='flex'>{/* <NearWalletConnector /> */}</div>
+          <div className='flex'>
+            <Link
+              rel='noopener noreferrer'
+              target='_blank'
+              href={MB_URL.BITTE_WALLET}
+            >
+              <Button variant='default' className='flex gap-1.5 items-center'>
+                Login / Create Wallet
+                <ArrowUpRight size={16} color='#000000' />
+              </Button>
+            </Link>
+            {/* <NearWalletConnector /> */}
+          </div>
           <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
             Products
           </p>
