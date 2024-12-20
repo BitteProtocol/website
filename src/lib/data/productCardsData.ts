@@ -1,14 +1,15 @@
 import { MB_URL } from '../url';
 
 export const productCardsData = {
-  title: 'CORE PRODUCTS',
+  title: 'EXPLORE OUR CORE PRODUCTS',
   cards: [
     {
       id: 1,
       badge: 'AI Wallet',
-      title: 'Build transactions with AI',
-      sub: 'No app install, non-custodial, passkey, and sponsored transactions.',
+      title: 'Manage Crypto Assets and Build Transactions with AI',
+      sub: 'No app install, non custodial, passkey powered and sponsored transactions. ',
       bg: '/examples/brain.jpg',
+      btn_text: 'Wallet',
       link: MB_URL.BITTE_WALLET,
     },
     {
@@ -16,16 +17,9 @@ export const productCardsData = {
       badge: 'Agent Registry',
       title: 'Agent Registry',
       sub: 'Fork other agents to make them better or bootstrap your own.',
-      bg: '/examples/templates.jpg',
+      bg: '/examples/image_39.svg',
+      btn_text: 'Agents',
       link: '/registry',
-    },
-    {
-      id: 3,
-      badge: 'Mintbase Market',
-      title: 'Discover, Sell and Create NFTs',
-      sub: 'On your own smart contract.',
-      bg: '/examples/water.jpg',
-      link: MB_URL.MINTBASE_OMNI,
     },
   ],
 };

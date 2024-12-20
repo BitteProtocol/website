@@ -4,11 +4,34 @@ import { productCardsData } from '@/lib/data/productCardsData';
 import { ExamplesSection } from './ExamplesSection';
 import { NumbersSection } from './NumbersSection';
 import { PartnersSection } from './PartnersSection';
-import VideoSection from './VideoSection';
+import TextSection from './TextSection';
 import { ProductCardsSection } from './ProductCardsSection';
 import { SupportedChainsSection } from './SupportedChainsSection';
 import { MB_URL } from '@/lib/url';
-import { newsCardData } from '@/lib/data/dropCardData';
+import {
+  dropCardData,
+  newsCardData,
+  videosCardData,
+} from '@/lib/data/exampleCardData';
+import { AgentSection } from './AgentSection';
+import { Filters, RegistryData } from '@/lib/types/agent.types';
+import VideoSection from './VideoSection';
+
+export type AgentData = {
+  agents: RegistryData[];
+  unverifiedAgents: RegistryData[];
+  filters: Filters[];
+};
+
+const headerTextSection = {
+  title: 'Blockchain empowered by AI Agents',
+  subHeader:
+    'Explore existing agents or create your own. Any API can easily become an agent.',
+  factTitle: '',
+  fact: '',
+  isDisabled: false,
+  noSpacing: true,
+};
 
 const paymasterSection = {
   thumb: '/video/paymaster-thumb.jpg',
@@ -35,14 +58,17 @@ const crossSection = {
   isDisabled: false,
 };
 
-export const HomeComponent = () => {
+export const HomeComponent = ({ agentData }: { agentData: AgentData }) => {
   return (
     <>
       <SupportedChainsSection />
+      <TextSection {...headerTextSection} />
+      <AgentSection agentData={agentData} />
       <ProductCardsSection data={productCardsData} />
 
-      <ExamplesSection />
-      <ExamplesSection data={newsCardData} />
+      <ExamplesSection data={dropCardData} isVideo={false} />
+      <ExamplesSection data={newsCardData} isVideo={false} />
+      <ExamplesSection data={videosCardData} isVideo={true} />
 
       <VideoSection {...crossSection} />
 
