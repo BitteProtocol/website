@@ -17,6 +17,7 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { Modal } from '../ui/Modal';
+import { Button } from '../ui/button';
 /* import { NearWalletConnector } from './NearWalletSelector'; */
 
 const Header = () => {
@@ -115,6 +116,21 @@ const Header = () => {
                   Docs <ArrowUpRight size={12} color='#FAFAFA' />
                 </NavigationMenuLink>
               </NavigationMenuItem>
+              <NavigationMenuItem className='bg-white rounded-sm'>
+                <NavigationMenuLink
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  href={MB_URL.BITTE_WALLET}
+                >
+                  <Button
+                    variant='default'
+                    className='flex gap-1.5 items-center'
+                  >
+                    Login / Create Wallet
+                    <ArrowUpRight size={16} color='#000000' />
+                  </Button>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           {/* <NearWalletConnector /> */}
@@ -141,7 +157,19 @@ const Header = () => {
 
       <Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
         <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black'>
-          <div className='flex'>{/* <NearWalletConnector /> */}</div>
+          <div className='flex'>
+            <Link
+              rel='noopener noreferrer'
+              target='_blank'
+              href={MB_URL.BITTE_WALLET}
+            >
+              <Button variant='default' className='flex gap-1.5 items-center'>
+                Login / Create Wallet
+                <ArrowUpRight size={16} color='#000000' />
+              </Button>
+            </Link>
+            {/* <NearWalletConnector /> */}
+          </div>
           <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
             Products
           </p>
