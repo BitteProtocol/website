@@ -14,14 +14,19 @@ export const RegistryUI = ({
   filters: Filters[];
 }) => {
   return (
-    <div className='container z-20 m-auto'>
-      <RegistryBanner />
-      <AgentStarterCard />
-      <AllAgents
-        templates={agents}
-        filters={filters}
-        unverifiedAgents={unverifiedAgents}
-      />
+    <div className='relative w-full min-h-screen flex flex-col'>
+      <div className='absolute inset-0 h-screen bg-no-repeat bg-right lg:bg-[url("/registry_banner_new.svg")] bg-[url("/registry_banner_mobile_new.svg")] z-0'></div>
+      <div className='container z-20 relative m-auto flex-grow'>
+        <RegistryBanner />
+        <AgentStarterCard />
+        <div className='relative z-30'>
+          <AllAgents
+            templates={agents}
+            filters={filters}
+            unverifiedAgents={unverifiedAgents}
+          />
+        </div>
+      </div>
     </div>
   );
 };
