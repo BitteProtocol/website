@@ -5,9 +5,11 @@ import Image from 'next/image';
 export const SupportedChainsSection = ({
   noSpacing,
   noTitle,
+  isRegistry,
 }: {
   noSpacing?: boolean;
   noTitle?: boolean;
+  isRegistry?: boolean;
 }) => {
   return (
     <section
@@ -33,7 +35,11 @@ export const SupportedChainsSection = ({
               alt={`${data?.logo}-logo`}
               loading='lazy'
             />
-            <div className='text-mb-white-100 font-medium'>{data?.name}</div>
+            <div
+              className={`${isRegistry ? 'text-sm text-[#94A3B8]' : 'text-base text-mb-white-100 font-medium'}`}
+            >
+              {data?.name}
+            </div>
           </div>
         ))}
       </div>

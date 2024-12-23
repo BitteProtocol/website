@@ -10,7 +10,7 @@ export const RegistryBanner = () => {
         <span className='text-base md:text-xl text-mb-gray-300 mb-9'>
           Browse and run the latest blockchain AI Agents.
         </span>
-        <SupportedChainsSection noSpacing noTitle />
+        <SupportedChainsSection noSpacing noTitle isRegistry />
       </div>
     </section>
   );
