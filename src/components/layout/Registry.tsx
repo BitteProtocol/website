@@ -15,8 +15,8 @@ export const RegistryUI = ({
 }) => {
   return (
     <div className='relative w-full min-h-screen flex flex-col'>
-      <div className='absolute inset-0 h-screen bg-no-repeat bg-right lg:bg-[url("/registry_banner_new.svg")] bg-[url("/registry_banner_mobile_new.svg")] z-0'></div>
-      <div className='container z-20 relative m-auto flex-grow'>
+      <div className='absolute inset-0 -mt-24 lg:-mt-0 h-[320px] md:h-screen bg-no-repeat bg-right-top md:bg-right md:bg-[url("/registry_banner_new.svg")] bg-[url("/registry_banner_mobile_new.svg")] z-0'></div>
+      <div className='container z-20 relative m-auto flex-grow mt-[150px] md:mt-0'>
         <RegistryBanner />
         <AgentStarterCard />
         <div className='relative z-30'>
