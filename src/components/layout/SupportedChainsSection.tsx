@@ -30,8 +30,8 @@ export const SupportedChainsSection = ({
             <Image
               src={data?.logo}
               className='object-contain'
-              width={32}
-              height={32}
+              width={isRegistry ? 24 : 32}
+              height={isRegistry ? 24 : 32}
               alt={`${data?.logo}-logo`}
               loading='lazy'
             />
