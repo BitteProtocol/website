@@ -6,7 +6,7 @@ export default async function Home() {
   const data = await getAssistants();
   return (
     <main className='flex flex-col items-center justify-between'>
-      <Hero agentData={data} />
+      <Hero />
       <HomeComponent agentData={data} />
     </main>
   );

@@ -19,6 +19,7 @@ import React, { useState } from 'react';
 import { Modal } from '../ui/Modal';
 import { useAccount } from 'wagmi';
 import { NearWalletConnector } from './NearWalletSelector';
+/* import { Button } from '../ui/button'; */
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -132,7 +133,7 @@ const Header = () => {
               )}
             </NavigationMenuList>
           </NavigationMenu>
-          <NearWalletConnector />
+          {/* <NearWalletConnector /> */}
         </div>
       </div>
     </header>
@@ -161,6 +162,16 @@ const Header = () => {
             {isConnected && <appkit-network-button />}
           </div>
           <div className='flex'>
+            {/*             <Link
+              rel='noopener noreferrer'
+              target='_blank'
+              href={MB_URL.BITTE_WALLET}
+            >
+              <Button variant='default' className='flex gap-1.5 items-center'>
+                Login / Create Wallet
+                <ArrowUpRight size={16} color='#000000' />
+              </Button>
+            </Link> */}
             <NearWalletConnector />
           </div>
           <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
