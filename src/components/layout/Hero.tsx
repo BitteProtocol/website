@@ -9,17 +9,6 @@ import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockWalletConfig = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  network: 'mainnet' as any, // Ensure this matches one of the Network type values
-  provider: 'rpc',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  networkConfig: {} as any, // Add appropriate configuration here
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  relayer: {} as any, // Add appropriate configuration here
-};
-
 const mockColors = {
   generalBackground: '#18181A', // Example value
   messageBackground: '#000000', // Corrected typo and added value
@@ -34,7 +23,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [wallet, setWallet] = useState<any>();
 
-  const { selector, activeAccountId } = useBitteWallet();
+  const { selector } = useBitteWallet();
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -124,18 +113,6 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 wallet={wallet}
                 apiUrl='/api/chat'
                 colors={mockColors}
-                walletConfig={mockWalletConfig}
-                walletInfo={{
-                  accountData: {
-                    accountId: activeAccountId!,
-                    devicePublicKey: '',
-                    isCreated: true,
-                  },
-                  isConnected: true,
-                  isLoading: true,
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  evmAdapter: {} as any,
-                }}
               />
             </div>
           </div>

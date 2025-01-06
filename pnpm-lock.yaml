@@ -73,7 +73,7 @@ importers:
         version: link:openai/resources/beta/assistants
       bitte-ai-chat:
         specifier: file:../bitte-ai-chat
-        version: file:../bitte-ai-chat(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.28.0)(typescript@5.3.3)(zod@3.23.8)
+        version: file:../bitte-ai-chat(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.28.0)(typescript@5.3.3)(zod@3.23.8)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -697,8 +697,17 @@ packages:
   '@mintbase-js/data@0.6.2':
     resolution: {integrity: sha512-qGsIjZwUNMUffgZfwqGeisjbj1UBw8KxB29iUID9rLd+k3WmaLF8233UMXgaQcH81AUuzjuLhp3asUlvLaN/0w==}
 
+  '@mintbase-js/data@0.6.5':
+    resolution: {integrity: sha512-AfZlCQDPI+7Y78tWSwBVj7mxetlU9rKFgNwlmvdQt6lhCuFU3aG8lGLx28Hzp1DQALUCuYUfQMoWR0IkzOlypg==}
+
   '@mintbase-js/react@0.6.5':
     resolution: {integrity: sha512-nlCMINhDGsNeKqMdcRg4wBoTiSYvywIHvz2VoVNcGHzR5hXgB5WDoNb05Di6I2xzbKn9bDn7S5yBMAj1IPfNPg==}
+
+  '@mintbase-js/rpc@0.6.5':
+    resolution: {integrity: sha512-EuBFnnBDSGBxVWTd8H34qVY3C75RiK0yUxQsupJGEleRd00elpiGnBlsUbwyK17zVPPB6CE6MQs44dhJ6tv57g==}
+
+  '@mintbase-js/sdk@0.6.2':
+    resolution: {integrity: sha512-ciLbuF5hC/fudaHeEhlfa79P3UN0H+pjjgACEU1/zCaS2lUAndymydo2N7nUNwqM2c88Z0lUgFHrl81W402s3Q==}
 
   '@mintbase-js/sdk@0.6.5':
     resolution: {integrity: sha512-k8QVng4sNXQI8Jxx4gyML7Rn/DowZCuShQb/49RzbveWaFDwnO6smrOBfQzqic2eVsBAZ0jn0RlgLDISSDWFVw==}
@@ -1916,6 +1925,9 @@ packages:
 
   '@types/node-fetch@2.6.12':
     resolution: {integrity: sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==}
+
+  '@types/node@18.11.9':
+    resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
 
   '@types/node@18.19.66':
     resolution: {integrity: sha512-14HmtUdGxFUalGRfLLn9Gc1oNWvWh5zNbsyOLo5JV6WARSeN1QcEBKRnZm9QqNfrutgsl/hY4eJW63aZ44aBCg==}
@@ -6394,6 +6406,15 @@ snapshots:
       - encoding
       - graphql
 
+  '@mintbase-js/data@0.6.5(graphql@16.9.0)':
+    dependencies:
+      '@mintbase-js/sdk': 0.6.2
+      cross-fetch: 4.0.0
+      graphql-request: 5.2.0(graphql@16.9.0)
+    transitivePeerDependencies:
+      - encoding
+      - graphql
+
   '@mintbase-js/react@0.6.5(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)':
     dependencies:
       '@mintbase-js/data': 0.6.2(graphql@16.9.0)
@@ -6411,6 +6432,20 @@ snapshots:
       - borsh
       - encoding
       - graphql
+
+  '@mintbase-js/rpc@0.6.5':
+    dependencies:
+      '@types/node': 18.11.9
+      bn.js: 5.2.1
+      cross-fetch: 4.0.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@mintbase-js/sdk@0.6.2':
+    dependencies:
+      near-api-js: 4.0.4
+    transitivePeerDependencies:
+      - encoding
 
   '@mintbase-js/sdk@0.6.5':
     dependencies:
@@ -7774,6 +7809,8 @@ snapshots:
       '@types/node': 20.11.20
       form-data: 4.0.1
 
+  '@types/node@18.11.9': {}
+
   '@types/node@18.19.66':
     dependencies:
       undici-types: 5.26.5
@@ -8542,11 +8579,13 @@ snapshots:
 
   binary-extensions@2.2.0: {}
 
-  bitte-ai-chat@file:../bitte-ai-chat(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.28.0)(typescript@5.3.3)(zod@3.23.8):
+  bitte-ai-chat@file:../bitte-ai-chat(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.28.0)(typescript@5.3.3)(zod@3.23.8):
     dependencies:
       '@ai-sdk/anthropic': 1.0.3(zod@3.23.8)
       '@ai-sdk/openai': 1.0.5(zod@3.23.8)
       '@ai-sdk/xai': 1.0.5(zod@3.23.8)
+      '@mintbase-js/data': 0.6.5(graphql@16.9.0)
+      '@mintbase-js/rpc': 0.6.5
       '@mintbase-js/sdk': 0.6.5
       '@near-wallet-selector/core': 8.9.14(near-api-js@5.0.1)
       '@radix-ui/react-accordion': 1.2.1(@types/react-dom@18.2.19)(@types/react@18.2.60)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -8556,7 +8595,9 @@ snapshots:
       '@radix-ui/react-switch': 1.1.1(@types/react-dom@18.2.19)(@types/react@18.2.60)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-tooltip': 1.1.4(@types/react-dom@18.2.19)(@types/react@18.2.60)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       ai: 4.0.12(react@18.2.0)(zod@3.23.8)
+      bn.js: 5.2.1
       class-variance-authority: 0.7.1
+      clsx: 2.1.1
       lucide-react: 0.462.0(react@18.2.0)
       near-api-js: 5.0.1
       near-safe: 0.9.4(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(typescript@5.3.3)(zod@3.23.8)
@@ -8590,6 +8631,7 @@ snapshots:
       - '@vercel/kv'
       - bufferutil
       - encoding
+      - graphql
       - ioredis
       - rollup
       - supports-color
