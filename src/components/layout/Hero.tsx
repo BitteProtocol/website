@@ -1,14 +1,44 @@
 'use client';
 
-import { MB_URL } from '@/lib/url';
-import Link from 'next/link';
-import { Button } from '../ui/button';
-import AiSection from './AiSection';
+import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
+import { filterHandler } from '@/lib/utils/filters';
+import { useEffect, useState } from 'react';
+import AgentSelector from '../ui/agents/AgentSelector';
+import Filters from '../ui/agents/Filters';
+import { AgentData } from './Home';
 
-const Hero = () => {
+const Hero = ({ agentData }: { agentData: AgentData }) => {
+  const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
+  const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+
+  const filteredAgents = selectedFilters?.length
+    ? agentData.agents.filter((agent) => {
+        if (!agent) return false;
+
+        return selectedFilters.every((filter) => {
+          if (filter.label === 'Category' && agent.category) {
+            return filter.values.includes(agent.category);
+          }
+          return true;
+        });
+      })
+    : agentData.agents;
+
+  const handleFilterClick = (value: string, label: string) => {
+    setSelectedFilters((prevFilters) =>
+      filterHandler(prevFilters, value, label)
+    );
+  };
+
+  useEffect(() => {
+    if (agentData.agents.length) {
+      setSelectedAgent(agentData.agents[0]);
+    }
+  }, [agentData]);
+
   return (
     <section className='w-full'>
-      <div className='relative w-screen  h-full'>
+      <div className='relative h-full'>
         <video
           autoPlay
           loop
@@ -19,38 +49,30 @@ const Hero = () => {
           <source src='/video/brains.mp4' type='video/mp4' />
         </video>
         <div className='flex justify-center flex-col text-center items-center px-8 pt-14 md:pt-12 lg:pt-12 xl:pt-24  2xl:pt-40  py-28'>
-          <div className='z-10 md:pointer-events-none'>
+          <div className='z-10 md:pointer-events-none max-w-[530px]'>
             <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
-              Talk with Blockchains Using AI
+              Interact with blockchains using natural language
             </p>
             <p className='text-mb-gray-300 md:text-[22px] font-normal mt-4 leading-tight drop-shadow-2xl'>
               On-chain agent market for transaction building with Universal Safe
               Accounts
             </p>
           </div>
-          <div className='text-center mt-6 z-10 '>
-            <AiSection />
-            <div className='flex justify-center'>
-              <div className='mt-8 mr-5'>
-                <a href={MB_URL.DEV_DOCS} target='_blank'>
-                  <Button
-                    variant='outline'
-                    className='shadow-lg text-white hover:text-black bg-black bg-opacity-55 hover:bg-white border border-[#313E52] p-6'
-                  >
-                    Build Chain Agent
-                  </Button>
-                </a>
-              </div>
-              <div className='mt-8'>
-                <Link href={MB_URL.REGISTRY}>
-                  <Button
-                    variant='outline'
-                    className='shadow-lg text-white hover:text-black bg-black bg-opacity-55 hover:bg-white border border-[#313E52] p-6'
-                  >
-                    Agent Registry
-                  </Button>
-                </Link>
-              </div>
+          <div className='mt-20 z-10'>
+            <Filters
+              filters={agentData?.filters}
+              selectedFilters={selectedFilters}
+              onFilterChange={handleFilterClick}
+              isHome
+            />
+          </div>
+          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 lg:h-[500px] w-full 2xl:w-1/3 mx-44'>
+            <div className='z-10'>
+              <AgentSelector
+                agentData={filteredAgents}
+                onSelectAgent={setSelectedAgent}
+                selectedAgent={selectedAgent}
+              />
             </div>
           </div>
         </div>
