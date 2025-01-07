@@ -6,6 +6,8 @@ import NextTopLoader from 'nextjs-toploader';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import { headers } from 'next/headers';
+
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 
@@ -50,8 +52,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookies = headers().get('cookie');
   return (
-    <Providers>
+    <Providers cookies={cookies}>
       <html lang='en' className='overflow-x-hidden'>
         <head>
           <meta
@@ -63,7 +66,6 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
-
           <Analytics />
           <NextTopLoader color='#334155' showSpinner={false} height={4} />
           <SpeedInsights />

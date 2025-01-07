@@ -12,9 +12,12 @@ interface CalendarProps {
 
 export function Calendar({ record }: CalendarProps) {
   const now = new Date();
-  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  // Start from 365 days ago
+  const startDate = new Date(now);
+  startDate.setDate(now.getDate() - 365);
+
   const allDates = [];
-  let currentDate = new Date(startOfYear);
+  let currentDate = new Date(startDate);
 
   while (currentDate <= now) {
     const dateString = currentDate.toISOString().split('T')[0];

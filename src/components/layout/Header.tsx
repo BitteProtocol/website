@@ -18,12 +18,17 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Modal } from '../ui/Modal';
 import { NearWalletConnector } from './NearWalletSelector';
+import { useAccount } from 'wagmi';
 
 const Header = () => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const { isConnected } = useAccount();
+  const account = useAccount();
+  console.log('ACCOUNT', account);
 
   return !isMobile ? (
     <header className='flex w-full h-20 border-b border-mb-gray-800 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
@@ -50,7 +55,8 @@ const Header = () => {
                       title='AI Wallet'
                       newTab
                     >
-                      Sponsored AI transaction builder with drops.
+                      Universal accounts that can talk and execute with
+                      blockchains.
                     </ListItem>
                     <ListItem href={MB_URL.REGISTRY} title='Agent Registry'>
                       Fork other agents to make them better or bootstrap your
@@ -114,6 +120,16 @@ const Header = () => {
                   Docs <ArrowUpRight size={12} color='#FAFAFA' />
                 </NavigationMenuLink>
               </NavigationMenuItem>
+              <NavigationMenuItem
+                className={`${!isConnected ? 'lg:pr-3' : ''}`}
+              >
+                <appkit-button label='EVM Connect' />
+              </NavigationMenuItem>
+              {isConnected && (
+                <NavigationMenuItem className='lg:pr-3'>
+                  <appkit-network-button />
+                </NavigationMenuItem>
+              )}
             </NavigationMenuList>
           </NavigationMenu>
           <NearWalletConnector />
@@ -140,6 +156,13 @@ const Header = () => {
 
       <Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
         <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black'>
+          <div className='flex items-center'>
+            <appkit-button label='EVM Connect' />
+            {isConnected && <appkit-network-button />}
+          </div>
+          <div className='flex'>
+            <NearWalletConnector />
+          </div>
           <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
             Products
           </p>
