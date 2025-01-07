@@ -2,37 +2,14 @@
 
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
-import { useBitteWallet } from '@mintbase-js/react';
-import { BitteAiChat, BitteAssistantConfig } from 'bitte-ai-chat';
 import { useEffect, useState } from 'react';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockWalletConfig = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  network: 'mainnet' as any, // Ensure this matches one of the Network type values
-  provider: 'rpc',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  networkConfig: {} as any, // Add appropriate configuration here
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  relayer: {} as any, // Add appropriate configuration here
-};
-
-const mockColors = {
-  generalBackground: '#18181A', // Example value
-  messageBackground: '#000000', // Corrected typo and added value
-  textColor: '#333333', // Example value
-  buttonColor: '#0F172A', // Example value
-  borderColor: '#334155', // Example value
-};
-
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
-
-  const { activeAccountId } = useBitteWallet();
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -95,36 +72,6 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 agentData={filteredAgents}
                 onSelectAgent={setSelectedAgent}
                 selectedAgent={selectedAgent}
-              />
-            </div>
-            <div className='w-full'>
-              <BitteAiChat
-                agentData={
-                  {
-                    id: selectedAgent?.id,
-                    name: selectedAgent?.name,
-                    accountId: '',
-                    description: selectedAgent?.description,
-                    instructions: '',
-                    verified: selectedAgent?.verified,
-                    image: selectedAgent?.coverImage,
-                  } as BitteAssistantConfig
-                }
-                openAgentSelector={() => null}
-                walletInfo={{
-                  accountData: {
-                    accountId: activeAccountId!,
-                    devicePublicKey: '',
-                    isCreated: true,
-                  },
-                  isConnected: true,
-                  isLoading: true,
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  evmAdapter: {} as any,
-                }}
-                apiUrl='/api/chat'
-                walletConfig={mockWalletConfig}
-                colors={mockColors}
               />
             </div>
           </div>
