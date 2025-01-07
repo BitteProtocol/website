@@ -66,7 +66,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         {agentData.agents?.map((data, i) => (
           <Card
             key={`agents-${i}`}
-            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
+            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer'
             onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
@@ -93,7 +93,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         {[...agentData.agents]?.reverse().map((data, i) => (
           <Card
             key={`agents-${i}`}
-            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
+            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer'
             onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>

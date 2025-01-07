@@ -1,6 +1,5 @@
 import { Badge } from '@/components/ui/badge';
 import { RegistryData } from '@/lib/types/agent.types';
-import { MB_URL } from '@/lib/url';
 import { shortenString } from '@/lib/utils/strings';
 import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
@@ -17,12 +16,6 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
       ? agent.coverImage
       : `/${agent.coverImage.replace(/^\//, '')}`
     : '/logo.svg';
-
-  const handleAgentClick = (agentId: string, event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    window.open(`${MB_URL.SMART_ACTIONS}?agentId=${agentId}`, '_blank');
-  };
 
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
@@ -52,7 +45,11 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
               <div className='hidden lg:flex items-center gap-4'>
                 <Button
                   variant='secondary'
-                  onClick={(e) => handleAgentClick(agent.id, e)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location.href = defaultHref;
+                  }}
                 >
                   Run Agent
                 </Button>
@@ -83,7 +80,11 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                     className={
                       agent?.id === 'simple-token-drop' ? 'hidden' : ''
                     }
-                    onClick={(e) => handleAgentClick(agent.id, e)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.location.href = defaultHref;
+                    }}
                   >
                     Run Agent
                   </Button>

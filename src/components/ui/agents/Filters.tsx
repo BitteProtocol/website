@@ -1,26 +1,53 @@
+import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '../accordion';
-import { Checkbox } from '../checkbox';
 import { Badge } from '../badge';
-import { Filters as AgentFilters } from '@/lib/types/agent.types';
+import { Checkbox } from '../checkbox';
 
 const Filters = ({
   selectedFilters,
   onFilterChange,
   filters,
+  isHome,
 }: {
   selectedFilters: AgentFilters[];
   onFilterChange: (value: string, label: string) => void;
   filters: AgentFilters[];
   isMobile?: boolean;
+  isHome?: boolean;
 }) => {
   if (!filters?.length) return null;
 
-  return (
+  return isHome ? (
+    <div className='flex gap-2 items-center flex-wrap justify-center'>
+      {filters.map((filter) =>
+        filter.values.map((value: string) => {
+          const isSelected = selectedFilters.some(
+            (selectedFilter) =>
+              selectedFilter.label === filter.label &&
+              selectedFilter.values.includes(value)
+          );
+          return (
+            <button
+              key={`${filter.label}-${value}`}
+              className={`px-4 py-2 rounded-full min-w-[70px] text-xs md:text-sm ${
+                isSelected
+                  ? 'bg-[#261A32] text-[#C084FC] border border-[#C084FC]'
+                  : 'bg-[#18181A] text-[#B5B5B5]'
+              } hover:border hover:border-[#C084FC]`}
+              onClick={() => onFilterChange(value, filter.label)}
+            >
+              {value}
+            </button>
+          );
+        })
+      )}
+    </div>
+  ) : (
     <Accordion
       type='single'
       className='text-mb-gray-200'
