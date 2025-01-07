@@ -16,9 +16,9 @@ import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useAccount } from 'wagmi';
 import { Modal } from '../ui/Modal';
 import { NearWalletConnector } from './NearWalletSelector';
-import { useAccount } from 'wagmi';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -27,8 +27,6 @@ const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const { isConnected } = useAccount();
-  const account = useAccount();
-  console.log('ACCOUNT', account);
 
   return !isMobile ? (
     <header className='flex w-full h-20 border-b border-mb-gray-800 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>

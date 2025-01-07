@@ -58,7 +58,7 @@
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.160.1",
     "viem": "^2.21.54",
-    "wagmi": "^2.14.1"
+    "wagmi": "^2.14.6"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
