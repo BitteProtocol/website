@@ -4,8 +4,10 @@ import { BitteAssistantConfig } from '@/lib/api/ai-registry/registry';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { useBitteWallet } from '@mintbase-js/react';
+import { useAppKitAccount } from '@reown/appkit/react';
 import { BitteAiChat } from 'bitte-ai-chat';
 import { useEffect, useState } from 'react';
+import { useSendTransaction } from 'wagmi';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
@@ -25,6 +27,9 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [wallet, setWallet] = useState<any>();
 
   const { selector } = useBitteWallet();
+
+  const { address } = useAppKitAccount();
+  const { data: hash, sendTransaction } = useSendTransaction();
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -104,14 +109,14 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   {
                     id: selectedAgent?.id,
                     name: selectedAgent?.name,
-                    accountId: '',
                     description: selectedAgent?.description,
-                    instructions: '',
                     verified: selectedAgent?.verified,
                     image: selectedAgent?.coverImage,
                   } as BitteAssistantConfig
                 }
                 wallet={wallet}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                evmWallet={{ sendTransaction, address, hash } as any}
                 apiUrl='/api/chat'
                 colors={mockColors}
               />
