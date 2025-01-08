@@ -113,7 +113,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 }
                 wallet={wallet}
                 apiUrl='/api/chat'
-                // historyApiUrl='/api/history'
+                historyApiUrl='/api/history'
                 colors={mockColors}
               />
             </div>
