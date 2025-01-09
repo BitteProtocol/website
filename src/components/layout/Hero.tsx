@@ -4,7 +4,7 @@ import { BitteAssistantConfig } from '@/lib/api/ai-registry/registry';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { useBitteWallet } from '@mintbase-js/react';
-import { BitteAiChat } from 'bitte-ai-chat';
+import { BitteAiChat } from 'bitte-test-temp';
 import { useEffect, useState } from 'react';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
