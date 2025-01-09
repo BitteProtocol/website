@@ -1,28 +1,23 @@
-import type { NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
-const { BITTE_API_KEY } = process.env;
+const { BITTE_API_KEY, BITTE_API_URL = 'https://wallet.bitte.ai/api/v1' } =
+  process.env;
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-export const GET = async (req: NextRequest): Promise<Response> => {
+export const GET = async (req: NextRequest): Promise<NextResponse> => {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get('id');
-  const url = `http://wallet.bitte.ai/api/v1/history?id=${id}`;
-  const requestInit: RequestInit = {
-    method: 'GET',
+  const url = `${BITTE_API_URL}/history?id=${id}`;
+
+  const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${BITTE_API_KEY}`,
     },
-  };
-
-  const upstreamResponse = await fetch(url, requestInit);
-
-  const headers = new Headers(upstreamResponse.headers);
-  headers.delete('Content-Encoding');
-
-  return new Response(upstreamResponse.body, {
-    status: upstreamResponse.status,
-    headers,
   });
+
+  const result = await response.json();
+
+  return NextResponse.json(result);
 };
