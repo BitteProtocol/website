@@ -1,6 +1,5 @@
 'use client';
 
-import { BitteAssistantConfig } from '@/lib/api/ai-registry/registry';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { useBitteWallet } from '@mintbase-js/react';
@@ -105,18 +104,26 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             </div>
             <div className='w-full'>
               <BitteAiChat
-                agentData={
-                  {
-                    id: selectedAgent?.id,
-                    name: selectedAgent?.name,
-                    description: selectedAgent?.description,
-                    verified: selectedAgent?.verified,
-                    image: selectedAgent?.coverImage,
-                  } as BitteAssistantConfig
-                }
-                wallet={wallet}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                evmWallet={{ sendTransaction, address, hash } as any}
+                options={{
+                  agentImage: selectedAgent?.coverImage,
+                  agentName: selectedAgent?.name,
+                }}
+                wallet={{
+                  near: {
+                    wallet: wallet,
+                  },
+                  evm: {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    sendTransaction: sendTransaction as any,
+                    address,
+                    hash,
+                  },
+                  // solana: {
+                  //   connection,
+                  //   provider: walletProvider
+                  // }
+                }}
+                agentid={selectedAgent?.id!}
                 apiUrl='/api/chat'
                 colors={mockColors}
               />
