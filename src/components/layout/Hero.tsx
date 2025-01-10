@@ -1,14 +1,15 @@
 'use client';
 
-import { BitteAssistantConfig } from '@/lib/api/ai-registry/registry';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { useBitteWallet } from '@mintbase-js/react';
-import { BitteAiChat } from 'bitte-test-temp';
+import { BitteAiChat } from 'bitte-ai-chat';
 import { useEffect, useState } from 'react';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
+import { useAppKitAccount } from '@reown/appkit/react';
+import { useSendTransaction } from 'wagmi';
 
 const mockColors = {
   generalBackground: '#18181A', // Example value
@@ -25,6 +26,9 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [wallet, setWallet] = useState<any>();
 
   const { selector } = useBitteWallet();
+
+  const { address } = useAppKitAccount();
+  const { data: hash, sendTransaction } = useSendTransaction();
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -100,21 +104,29 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             </div>
             <div className='w-full'>
               <BitteAiChat
-                agentData={
-                  {
-                    id: selectedAgent?.id,
-                    name: selectedAgent?.name,
-                    accountId: '',
-                    description: selectedAgent?.description,
-                    instructions: '',
-                    verified: selectedAgent?.verified,
-                    image: selectedAgent?.coverImage,
-                  } as BitteAssistantConfig
-                }
-                wallet={wallet}
+                options={{
+                  agentImage: selectedAgent?.coverImage,
+                  agentName: selectedAgent?.name,
+                }}
+                wallet={{
+                  near: {
+                    wallet: wallet,
+                  },
+                  evm: {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    sendTransaction: sendTransaction as any,
+                    address,
+                    hash,
+                  },
+                  // solana: {
+                  //   connection,
+                  //   provider: walletProvider
+                  // }
+                }}
+                agentid={selectedAgent?.id!}
                 apiUrl='/api/chat'
-                historyApiUrl='/api/history'
                 colors={mockColors}
+                historyApiUrl='api/history'
               />
             </div>
           </div>
