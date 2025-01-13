@@ -7,14 +7,14 @@ export const aiCardsData = [
   },
   {
     id: 2,
-    title: 'Swap',
-    sub: '0.03 NEAR to USDT',
-    agentId: 'ref-finance-agent.vercel.app',
+    title: 'Swap 5 USDC',
+    sub: 'for VITURAL on base',
+    agentId: 'near-cow-agent.vercel.app',
   },
   {
     id: 3,
-    title: 'Create a drop link',
-    sub: 'of a cat saying "Bitte"',
-    agentId: 'bitte-assistant',
+    title: 'Launch a meme token',
+    sub: 'called Yeeterson"',
+    agentId: 'meme-cooking-bitte-agent.vercel.app',
   },
 ];
