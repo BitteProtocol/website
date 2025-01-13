@@ -16,9 +16,9 @@ import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useAccount } from 'wagmi';
 import { Modal } from '../ui/Modal';
 import { NearWalletConnector } from './NearWalletSelector';
-import { useAccount } from 'wagmi';
 
 const Header = () => {
   const { width } = useWindowSize();

@@ -2,14 +2,33 @@
 
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
+import { useBitteWallet } from '@mintbase-js/react';
+import { BitteAiChat } from 'bitte-ai-chat';
 import { useEffect, useState } from 'react';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
+import { useAppKitAccount } from '@reown/appkit/react';
+import { useSendTransaction } from 'wagmi';
+
+const mockColors = {
+  generalBackground: '#18181A', // Example value
+  messageBackground: '#000000', // Corrected typo and added value
+  textColor: '#FFFFFF', // Example value
+  buttonColor: '#0F172A', // Example value
+  borderColor: '#334155', // Example value
+};
 
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [wallet, setWallet] = useState<any>();
+
+  const { selector } = useBitteWallet();
+
+  const { address } = useAppKitAccount();
+  const { data: hash, sendTransaction } = useSendTransaction();
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -35,6 +54,15 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
       setSelectedAgent(agentData.agents[0]);
     }
   }, [agentData]);
+
+  useEffect(() => {
+    const x = async () => {
+      const y = await selector.wallet();
+      setWallet(y);
+    };
+
+    if (selector) x();
+  }, [selector]);
 
   return (
     <section className='w-full'>
@@ -66,12 +94,39 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               isHome
             />
           </div>
-          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 lg:h-[500px] w-full 2xl:w-1/3 mx-44'>
+          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 lg:h-[500px] w-full 2xl:mx-72 mx-44'>
             <div className='z-10'>
               <AgentSelector
                 agentData={filteredAgents}
                 onSelectAgent={setSelectedAgent}
                 selectedAgent={selectedAgent}
+              />
+            </div>
+            <div className='w-full'>
+              <BitteAiChat
+                options={{
+                  agentImage: selectedAgent?.coverImage,
+                  agentName: selectedAgent?.name,
+                }}
+                wallet={{
+                  near: {
+                    wallet: wallet,
+                  },
+                  evm: {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    sendTransaction: sendTransaction as any,
+                    address,
+                    hash,
+                  },
+                  // solana: {
+                  //   connection,
+                  //   provider: walletProvider
+                  // }
+                }}
+                agentid={selectedAgent?.id!}
+                apiUrl='/api/chat'
+                colors={mockColors}
+                historyApiUrl='api/history'
               />
             </div>
           </div>
