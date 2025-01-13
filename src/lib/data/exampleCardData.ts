@@ -77,7 +77,7 @@ export const newsCardData = {
       id: 1,
       badge: 'Vision',
       action: 'White Paper Announced',
-      sub: '214 claims',
+      sub: '',
       bg: '/examples/white-paper.jpg',
       link: `https://x.com/BitteProtocol/status/1851958139978957072`,
       isSA: false,
