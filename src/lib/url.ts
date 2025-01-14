@@ -5,6 +5,7 @@ export const MB_URL = {
   DROPS: 'https://wallet.bitte.ai/drops',
   BUILD_AGENT: 'https://docs.bitte.ai/ai/assistant-plugins',
   REF_AGENT: 'https://www.bitte.ai/registry/ref-finance-agent.vercel.app',
+  AGENT_STARTER: 'https://www.bitte.ai/registry/agent-starter',
   MINTBASE_OMNI: 'https://mintbase.xyz',
   BITTE_WALLET: 'https://wallet.bitte.ai',
   CONTRACT_MANAGER: 'https://www.mintbase.xyz/launchpad/contracts/0',
