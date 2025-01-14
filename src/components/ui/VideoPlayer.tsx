@@ -6,9 +6,11 @@ import { Play } from 'lucide-react';
 const VideoPlayer = ({
   url,
   thumbnail,
+  onPlay,
 }: {
   url: string;
   thumbnail: string | undefined;
+  onPlay: () => void;
 }) => {
   return (
     <div className='relative w-full h-full'>
@@ -25,6 +27,7 @@ const VideoPlayer = ({
             <Play size={24} color='white' />
           </Button>
         }
+        onPlay={onPlay}
       />
     </div>
   );
