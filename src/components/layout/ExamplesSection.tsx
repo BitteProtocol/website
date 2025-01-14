@@ -43,9 +43,16 @@ export const ExamplesSection = ({
   isVideo: boolean;
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isAtStart, setIsAtStart] = useState(true);
-  const [isAtEnd, setIsAtEnd] = useState(false);
+  const [isAtStart, setIsAtStart] = useState<boolean>(true);
+  const [isAtEnd, setIsAtEnd] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<number | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleVideoPlay = (id: number) => {
+    setIsVideoPlaying((prev) => ({ ...prev, [id]: true }));
+  };
 
   const { width } = useWindowSize();
   const isMobile = !!width && width < 640;
@@ -150,7 +157,11 @@ export const ExamplesSection = ({
           >
             <div className={`absolute inset-0 ${isVideo ? 'z-40' : 'z-0'}`}>
               {isVideo && 'thumbnail' in card ? (
-                <VideoPlayer url={card.bg} thumbnail={card.thumbnail} />
+                <VideoPlayer
+                  url={card.bg}
+                  thumbnail={card.thumbnail}
+                  onPlay={() => handleVideoPlay(card.id)}
+                />
               ) : (
                 <Image
                   src={card.bg}
@@ -189,7 +200,7 @@ export const ExamplesSection = ({
                     </p>
                   )}
                 </div>
-                {isVideo ? (
+                {isVideo && !isVideoPlaying ? (
                   <div className='max-w-[350px] mt-6'>
                     <span className='text-2xl text-white font-bold'>
                       {card?.action}
