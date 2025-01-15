@@ -47,6 +47,12 @@ export const chainData = [
     scale: 0.9,
     enabled: false,
   },
+  {
+    logo: '/chains/avax.svg',
+    name: 'Avalanche',
+    scale: 0.9,
+    enabled: false,
+  },
   // {
   //   logo: '/chains/btc.svg',
   //   scale: 0.9,
