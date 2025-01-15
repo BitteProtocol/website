@@ -3,21 +3,13 @@
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { useBitteWallet } from '@mintbase-js/react';
-import { BitteAiChat } from 'bitte-ai-chat';
+import { BitteAiChat } from '@bitte-ai/chat';
 import { useEffect, useState } from 'react';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useSendTransaction } from 'wagmi';
-
-const mockColors = {
-  generalBackground: '#18181A', // Example value
-  messageBackground: '#000000', // Corrected typo and added value
-  textColor: '#FFFFFF', // Example value
-  buttonColor: '#0F172A', // Example value
-  borderColor: '#334155', // Example value
-};
 
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
@@ -125,7 +117,6 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 }}
                 agentid={selectedAgent?.id!}
                 apiUrl='/api/chat'
-                colors={mockColors}
                 historyApiUrl='api/history'
               />
             </div>
