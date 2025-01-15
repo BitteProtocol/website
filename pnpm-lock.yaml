@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.5(zod@3.24.1)
       '@bitte-ai/chat':
-        specifier: v0.0.5
-        version: 0.0.5(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)
+        specifier: 0.1.0-prefix-fix-ae48497
+        version: 0.1.0-prefix-fix-ae48497(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)
       '@google-cloud/firestore':
         specifier: ^7.10.0
         version: 7.10.0
@@ -476,8 +476,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@bitte-ai/chat@0.0.5':
-    resolution: {integrity: sha512-twaPh5Ha2eBO6STt7Y2tH9gcbvQKZgDe3aaaZFWJfAz0Zmi6TdP5qXI9mNhgYd4G8ddEMHa8t38z43j5ZcWuFA==}
+  '@bitte-ai/chat@0.1.0-prefix-fix-ae48497':
+    resolution: {integrity: sha512-ZNGDFMNUXfz1xEYi1BP1aZCpsSCch9o6/kVZLU5ApERecEzcRgNYmI5BS1HNNhR/M6uIPbQVxMvPM7k3xnePLg==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -6472,7 +6472,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@bitte-ai/chat@0.0.5(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)':
+  '@bitte-ai/chat@0.1.0-prefix-fix-ae48497(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@ai-sdk/anthropic': 1.0.3(zod@3.24.1)
       '@ai-sdk/openai': 1.0.5(zod@3.24.1)
