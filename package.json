@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.2",
+    "@bitte-ai/chat": "0.0.1-beta-41",
     "@google-cloud/firestore": "^7.10.0",
     "@mintbase-js/react": "^0.6.5",
     "@near-wallet-selector/modal-ui": "^8.9.14",
@@ -35,7 +36,6 @@
     "@vercel/kv": "^3.0.0",
     "@vercel/speed-insights": "^1.0.10",
     "ai": "^4.0.2",
-    "bitte-ai-chat": "0.0.1-beta-18",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.11.17",
