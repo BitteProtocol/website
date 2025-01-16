@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.5(zod@3.24.1)
       '@bitte-ai/chat':
-        specifier: 0.1.0-ui-fixes-shadcn-b65d876
-        version: 0.1.0-ui-fixes-shadcn-b65d876(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
+        specifier: 0.0.8
+        version: 0.0.8(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
       '@google-cloud/firestore':
         specifier: ^7.10.0
         version: 7.10.0
@@ -476,8 +476,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@bitte-ai/chat@0.1.0-ui-fixes-shadcn-b65d876':
-    resolution: {integrity: sha512-AzTGZ+SMeunhbaDRPbXrbETWcF4EG52pc3vR35icpFeZwYC0AZqOohzU6kANk9boqBoBPp16/gyAiX0Rtk/4GA==}
+  '@bitte-ai/chat@0.0.8':
+    resolution: {integrity: sha512-B9pfGBz50uADZoMGUYGmDQdz0eneR+X/dUJ8BZMJmC6/wuK3B1HEXiXpkIn8fhgoDgophBNIMH9WllHYzcfOvg==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -6584,7 +6584,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@bitte-ai/chat@0.1.0-ui-fixes-shadcn-b65d876(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)':
+  '@bitte-ai/chat@0.0.8(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@ai-sdk/anthropic': 1.0.3(zod@3.24.1)
       '@ai-sdk/openai': 1.0.5(zod@3.24.1)
