@@ -2,21 +2,22 @@
 
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
-import { useBitteWallet } from '@mintbase-js/react';
 import { BitteAiChat } from '@bitte-ai/chat';
+import '@bitte-ai/chat/style.css';
+import { useBitteWallet } from '@mintbase-js/react';
+import { useAppKitAccount } from '@reown/appkit/react';
 import { useEffect, useState } from 'react';
+import { useSendTransaction } from 'wagmi';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
-import { useAppKitAccount } from '@reown/appkit/react';
-import { useSendTransaction } from 'wagmi';
 
-const mockColors = {
-  generalBackground: '#18181A', // Example value
-  messageBackground: '#000000', // Corrected typo and added value
-  textColor: '#FFFFFF', // Example value
-  buttonColor: '#0F172A', // Example value
-  borderColor: '#334155', // Example value
+const chatColors = {
+  generalBackground: '#18181A',
+  messageBackground: '#000000',
+  textColor: '#FFFFFF',
+  buttonColor: '#0F172A',
+  borderColor: '#334155',
 };
 
 const Hero = ({ agentData }: { agentData: AgentData }) => {
@@ -125,7 +126,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 }}
                 agentid={selectedAgent?.id!}
                 apiUrl='/api/chat'
-                colors={mockColors}
+                colors={chatColors}
                 historyApiUrl='api/history'
               />
             </div>
