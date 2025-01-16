@@ -95,7 +95,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               isHome
             />
           </div>
-          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 lg:h-[500px] w-full 2xl:mx-72 mx-44'>
+          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[500px] w-full 2xl:mx-72 mx-44'>
             <div className='z-10'>
               <AgentSelector
                 agentData={filteredAgents}
