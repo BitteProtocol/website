@@ -119,7 +119,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 selectedAgent={selectedAgent}
               />
             </div>
-            <div className='w-full h-full'>
+            <div className='lg:w-full h-full -mx-8 lg:-mx-0'>
               <BitteAiChat
                 options={{
                   agentImage: selectedAgent?.coverImage,
