@@ -24,7 +24,10 @@ export const AgentSelector = ({
         <Card
           key={`agents-${i}`}
           className='last:mr-6 lg:last:mr-0 min-w-[219px] lg:min-w-[307px] h-[76px] flex items-center bg-black border-none cursor-pointer'
-          onClick={() => onSelectAgent(data)}
+          onClick={() => {
+            onSelectAgent(data);
+            sessionStorage.setItem('selectedAgent', JSON.stringify(data)); // Save to sessionStorage when an agent is selected
+          }}
         >
           <CardContent
             className={`text-center p-3 flex items-center gap-3 w-full h-full rounded-md ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border border-[#C084FC]' : ''} hover:border hover:border-[#C084FC]`}
