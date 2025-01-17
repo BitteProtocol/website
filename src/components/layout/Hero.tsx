@@ -65,6 +65,21 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
     if (selector) x();
   }, [selector]);
 
+  useEffect(() => {
+    // Retrieve the selected agent from sessionStorage when the component mounts
+    const storedAgent = sessionStorage.getItem('selectedAgent');
+    if (storedAgent) {
+      setSelectedAgent(JSON.parse(storedAgent));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save the selected agent to sessionStorage whenever it changes
+    if (selectedAgent) {
+      sessionStorage.setItem('selectedAgent', JSON.stringify(selectedAgent));
+    }
+  }, [selectedAgent]);
+
   return (
     <section className='w-full'>
       <div className='relative h-full'>
