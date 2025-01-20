@@ -20,7 +20,7 @@ export const AgentSelector = ({
       {agentData?.map((data, i) => (
         <Card
           key={`agents-${i}`}
-          className='last:mr-6 lg:last:mr-0 min-w-[219px] lg:min-w-[307px] h-[76px] flex items-center bg-black border-none cursor-pointer'
+          className='first:ml-6 lg:first:ml-0 last:mr-6 lg:last:mr-0 min-w-[219px] lg:min-w-[307px] h-[76px] flex items-center bg-black border-none cursor-pointer'
           onClick={() => {
             onSelectAgent(data);
             sessionStorage.setItem('selectedAgent', JSON.stringify(data)); // Save to sessionStorage when an agent is selected
