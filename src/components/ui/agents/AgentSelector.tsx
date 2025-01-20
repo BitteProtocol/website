@@ -17,13 +17,10 @@ export const AgentSelector = ({
       className='flex flex-row lg:flex-col gap-4 items-center overflow-x-auto disable-scrollbars h-full lg:bg-[#18181A] lg:border lg:border-[#334155] lg:py-3 lg:rounded-md lg:p-6'
       style={{ scrollBehavior: 'smooth', whiteSpace: 'nowrap' }}
     >
-      <div className='pt-2 pb-5 px-3 border-b border-[#334155] w-full hidden lg:block'>
-        <p className='text-[#F8FAFC] font-semibold text-left'>Agents</p>
-      </div>
       {agentData?.map((data, i) => (
         <Card
           key={`agents-${i}`}
-          className='last:mr-6 lg:last:mr-0 min-w-[219px] lg:min-w-[307px] h-[76px] flex items-center bg-black border-none cursor-pointer'
+          className='first:ml-6 lg:first:ml-0 last:mr-6 lg:last:mr-0 min-w-[219px] lg:min-w-[307px] h-[76px] flex items-center bg-black border-none cursor-pointer'
           onClick={() => {
             onSelectAgent(data);
             sessionStorage.setItem('selectedAgent', JSON.stringify(data)); // Save to sessionStorage when an agent is selected
