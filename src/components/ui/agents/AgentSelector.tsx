@@ -14,7 +14,7 @@ export const AgentSelector = ({
 }) => {
   return (
     <div
-      className='flex flex-row lg:flex-col gap-4 items-center overflow-x-auto disable-scrollbars h-full lg:bg-[#18181A] lg:border lg:border-[#334155] lg:py-3 lg:rounded-md lg:p-6'
+      className='flex flex-row lg:flex-col gap-4 items-center overflow-x-auto disable-scrollbars h-full lg:bg-[#18181A] lg:border lg:border-[#334155] lg:rounded-md lg:p-6'
       style={{ scrollBehavior: 'smooth', whiteSpace: 'nowrap' }}
     >
       {agentData?.map((data, i) => (
