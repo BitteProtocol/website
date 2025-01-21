@@ -34,11 +34,11 @@ const Filters = ({
           return (
             <button
               key={`${filter.label}-${value}`}
-              className={`first:ml-6 lg:first:ml-0 last:mr-6 lg:last:mr-0 px-4 py-2 flex shrink-0 justify-center rounded-full min-w-[70px] text-xs md:text-sm ${
+              className={`first:ml-6 lg:first:ml-0 last:mr-6 lg:last:mr-0 px-4 py-2 flex shrink-0 justify-center rounded-full min-w-[70px] text-xs md:text-sm border border-transparent ${
                 isSelected
-                  ? 'bg-[#261A32] text-[#C084FC] border border-[#C084FC]'
+                  ? 'bg-[#261A32] text-[#C084FC] border-[#C084FC]'
                   : 'bg-[#18181A] text-[#B5B5B5]'
-              } hover:border hover:border-[#C084FC]`}
+              } hover:border-[#C084FC]`}
               onClick={() => onFilterChange(value, filter.label)}
             >
               {value}
