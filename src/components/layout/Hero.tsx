@@ -102,16 +102,18 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               Accounts
             </p>
           </div>
-          <div className='mt-20 z-10'>
-            <Filters
-              filters={agentData?.filters}
-              selectedFilters={selectedFilters}
-              onFilterChange={handleFilterClick}
-              isHome
-            />
+          <div className='mt-10 z-10 flex flex-col w-full '>
+            <div className='-mx-8 lg:-mx-0'>
+              <Filters
+                filters={agentData?.filters}
+                selectedFilters={selectedFilters}
+                onFilterChange={handleFilterClick}
+                isHome
+              />
+            </div>
           </div>
 
-          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[500px] w-full 2xl:mx-72'>
+          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[700px] lg:h-[500px] w-full 2xl:mx-72'>
             <div className='z-10 -mx-8 lg:-mx-0'>
               <AgentSelector
                 agentData={filteredAgents}
