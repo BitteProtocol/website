@@ -29,7 +29,8 @@ import { NearWalletConnector } from './NearWalletSelector';
 import { Button } from '../ui/button';
 import { useBitteWallet } from '@mintbase-js/react';
 import { DialogTitle } from '@radix-ui/react-dialog';
-import { PlusCircle, User } from 'lucide-react';
+import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
+import Image from 'next/image';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -38,7 +39,15 @@ const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isConnectModalOpen, setConnectModalOpen] = useState(false);
 
-  const { isConnected: isNearConnnected } = useBitteWallet();
+  const { isConnected: isNearConnnected, connect } = useBitteWallet();
+
+  const handleSignIn = async () => {
+    try {
+      await connect();
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
+  };
 
   const { isConnected } = useAccount();
 
@@ -175,7 +184,7 @@ const Header = () => {
                                   <PlusCircle size={32} color='black' />
                                 </div>
                                 <div>
-                                  <appkit-button label='EVM Account' />
+                                  <appkit-connect-button label='EVM Account' />
                                 </div>
                               </div>
                               <NearWalletConnector
@@ -213,16 +222,20 @@ const Header = () => {
                         >
                           <DialogTrigger>
                             <div className='p-3 bg-black rounded-md border border-[#393942]'>
-                              <User size={16} />
+                              <User size={16} color='#FAFAFA' />
                             </div>
                           </DialogTrigger>
                           <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
-                            <DialogTitle className='font-semibold text-xl border-b border-[#334155]'>
+                            <DialogTitle className='font-semibold text-xl'>
                               Manage Accounts
                             </DialogTitle>
-                            <p className='text-white font-semibold'>
-                              Currently Connected
-                            </p>
+                            <div className='border-b border-[#334155] my-6'></div>
+                            <div className='flex items-center gap-2'>
+                              <UserCheck size={20} />
+                              <p className='text-white font-semibold'>
+                                Currently Connected
+                              </p>
+                            </div>
                             <div className='flex flex-col gap-4'>
                               {isConnected && (
                                 <div className='w-full bg-[#141414] h-[80px] flex items-center'>
@@ -236,25 +249,63 @@ const Header = () => {
                                 />
                               )}
                             </div>
-                            <div className='border-b border-[#334155]'></div>
-                            <a
-                              className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
-                              href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
-                              target='_blank'
-                              rel='noreferrer'
-                            >
-                              <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
-                                <PlusCircle size={32} color='black' />
-                              </div>
-                              <div>
-                                <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
-                                  Create New Account
-                                </p>
-                                <p className='text-[#BABDC2] text-xs'>
-                                  for EVM and NEAR chains
+                            <div className='border-b border-[#334155] my-9'></div>
+                            <div>
+                              <div className='flex items-center gap-2 mb-7'>
+                                <UserPlus size={20} />
+                                <p className='text-white font-semibold'>
+                                  Add Accounts
                                 </p>
                               </div>
-                            </a>
+                              <div className='flex flex-col gap-4'>
+                                <appkit-connect-button label='EVM Account' />
+                                <div
+                                  className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
+                                  onClick={() => {
+                                    handleSignIn();
+                                    setConnectModalOpen(false);
+                                  }}
+                                >
+                                  <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
+                                    <Image
+                                      src='/chains/near_wallet_connector_v2.svg'
+                                      width={46}
+                                      height={46}
+                                      alt='connect-wallet-modal-logo-near'
+                                    />
+                                  </div>
+                                  <div>
+                                    <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+                                      NEAR Account
+                                    </p>
+                                    <p className='text-[#BABDC2] text-xs italic'>
+                                      e.g.
+                                      <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
+                                        blackdragon.near
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                                <a
+                                  className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
+                                  href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
+                                  target='_blank'
+                                  rel='noreferrer'
+                                >
+                                  <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
+                                    <PlusCircle size={32} color='black' />
+                                  </div>
+                                  <div>
+                                    <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+                                      Create New Account
+                                    </p>
+                                    <p className='text-[#BABDC2] text-xs'>
+                                      for EVM and NEAR chains
+                                    </p>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
                           </DialogContent>
                         </Dialog>
                       </NavigationMenuItem>
