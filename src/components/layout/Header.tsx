@@ -29,6 +29,7 @@ import { NearWalletConnector } from './NearWalletSelector';
 import { Button } from '../ui/button';
 import { useBitteWallet } from '@mintbase-js/react';
 import { DialogTitle } from '@radix-ui/react-dialog';
+import { PlusCircle } from 'lucide-react';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -154,29 +155,45 @@ const Header = () => {
 
                         {/* Dialog for desktop */}
                         <Dialog
-                        /* open={isConnectModalOpen}
-                        onOpenChange={setConnectModalOpen} */
+                          open={isConnectModalOpen}
+                          onOpenChange={setConnectModalOpen}
                         >
                           <DialogTrigger>
-                            <Button
-                              /* onClick={() => setConnectModalOpen(true)} */
-                              className='min-w-[137px] w-full'
-                            >
+                            <Button className='min-w-[137px] w-full'>
                               Connect
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className='min-w-[500px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
+                          <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
                             <DialogTitle className='font-semibold text-xl'>
                               Connect Wallet
                             </DialogTitle>
                             <div className='flex flex-col gap-4'>
-                              <div className='w-full bg-[#141414] h-[80px]'>
+                              <div className='w-full bg-[#141414] h-[80px] flex items-center'>
                                 <appkit-button label='EVM Account' />
                               </div>
-                              <div className='w-full bg-[#141414] h-[80px]'>
-                                <NearWalletConnector />
-                              </div>
+                              <NearWalletConnector
+                                setConnectModalOpen={setConnectModalOpen}
+                              />
                             </div>
+                            <div className='border-b border-[#334155]'></div>
+                            <a
+                              className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
+                              href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
+                              target='_blank'
+                              rel='noreferrer'
+                            >
+                              <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
+                                <PlusCircle size={32} color='black' />
+                              </div>
+                              <div>
+                                <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+                                  Create New Account
+                                </p>
+                                <p className='text-[#BABDC2] text-xs'>
+                                  for EVM and NEAR chains
+                                </p>
+                              </div>
+                            </a>
                           </DialogContent>
                         </Dialog>
                       </NavigationMenuItem>
@@ -193,12 +210,13 @@ const Header = () => {
                     )}
                     {isNearConnnected && (
                       <NavigationMenuItem>
-                        <NearWalletConnector />
+                        <NearWalletConnector
+                          setConnectModalOpen={setConnectModalOpen}
+                        />
                       </NavigationMenuItem>
                     )}
                   </NavigationMenuList>
                 </NavigationMenu>
-                {/*  <NearWalletConnector /> */}
               </div>
             </div>
           </header>
@@ -236,7 +254,9 @@ const Header = () => {
                 {isConnected && <appkit-network-button />}
               </div>
               <div className='flex'>
-                <NearWalletConnector />
+                <NearWalletConnector
+                  setConnectModalOpen={setConnectModalOpen}
+                />
               </div>
               <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
                 Products
@@ -338,7 +358,9 @@ const Header = () => {
                   <DrawerOverlay />
                   {/* Connect buttons inside the drawer */}
                   <appkit-button label='EVM Connect' />
-                  <NearWalletConnector />
+                  <NearWalletConnector
+                    setConnectModalOpen={setConnectModalOpen}
+                  />
                 </DrawerContent>
               </Drawer>
             </div>

@@ -8,6 +8,7 @@ export const MB_URL = {
   AGENT_STARTER: 'https://www.bitte.ai/registry/agent-starter',
   MINTBASE_OMNI: 'https://mintbase.xyz',
   BITTE_WALLET: 'https://wallet.bitte.ai',
+  BITTE_WALLET_NEW_ACCOUNT: 'https://wallet.bitte.ai/account/new',
   CONTRACT_MANAGER: 'https://www.mintbase.xyz/launchpad/contracts/0',
   MINTBASE_DEV_TG: 'https://t.me/bitteai',
   MINTBASE_TG: 'https://t.me/bitteai',
