@@ -24,7 +24,7 @@ export const AgentSelector = ({
           }}
         >
           <CardContent
-            className={`text-center p-3 flex items-center gap-3 w-full h-full rounded-md ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border border-[#C084FC]' : ''} hover:border hover:border-[#C084FC]`}
+            className={`text-left p-3 flex items-center gap-4 w-full h-full rounded-md ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border border-[#C084FC]' : ''} hover:border hover:border-[#C084FC]`}
           >
             <div>
               <Image
