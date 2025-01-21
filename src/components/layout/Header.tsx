@@ -29,7 +29,7 @@ import { NearWalletConnector } from './NearWalletSelector';
 import { Button } from '../ui/button';
 import { useBitteWallet } from '@mintbase-js/react';
 import { DialogTitle } from '@radix-ui/react-dialog';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, User } from 'lucide-react';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -41,6 +41,8 @@ const Header = () => {
   const { isConnected: isNearConnnected } = useBitteWallet();
 
   const { isConnected } = useAccount();
+
+  console.log('CONNETCIN', isConnected, isNearConnnected);
 
   return (
     <>
@@ -168,8 +170,13 @@ const Header = () => {
                               Connect Wallet
                             </DialogTitle>
                             <div className='flex flex-col gap-4'>
-                              <div className='w-full bg-[#141414] h-[80px] flex items-center'>
-                                <appkit-button label='EVM Account' />
+                              <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'>
+                                <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
+                                  <PlusCircle size={32} color='black' />
+                                </div>
+                                <div>
+                                  <appkit-button label='EVM Account' />
+                                </div>
                               </div>
                               <NearWalletConnector
                                 setConnectModalOpen={setConnectModalOpen}
@@ -198,21 +205,58 @@ const Header = () => {
                         </Dialog>
                       </NavigationMenuItem>
                     )}
-                    {isConnected && (
-                      <>
-                        <NavigationMenuItem className='lg:pr-3'>
-                          <appkit-account-button />
-                        </NavigationMenuItem>
-                        <NavigationMenuItem className='lg:pr-3'>
-                          <appkit-network-button />
-                        </NavigationMenuItem>
-                      </>
-                    )}
-                    {isNearConnnected && (
+                    {(isConnected || isNearConnnected) && (
                       <NavigationMenuItem>
-                        <NearWalletConnector
-                          setConnectModalOpen={setConnectModalOpen}
-                        />
+                        <Dialog
+                          open={isConnectModalOpen}
+                          onOpenChange={setConnectModalOpen}
+                        >
+                          <DialogTrigger>
+                            <div className='p-3 bg-black rounded-md border border-[#393942]'>
+                              <User size={16} />
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
+                            <DialogTitle className='font-semibold text-xl border-b border-[#334155]'>
+                              Manage Accounts
+                            </DialogTitle>
+                            <p className='text-white font-semibold'>
+                              Currently Connected
+                            </p>
+                            <div className='flex flex-col gap-4'>
+                              {isConnected && (
+                                <div className='w-full bg-[#141414] h-[80px] flex items-center'>
+                                  <appkit-account-button />
+                                  <appkit-network-button />
+                                </div>
+                              )}
+                              {isNearConnnected && (
+                                <NearWalletConnector
+                                  setConnectModalOpen={setConnectModalOpen}
+                                />
+                              )}
+                            </div>
+                            <div className='border-b border-[#334155]'></div>
+                            <a
+                              className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
+                              href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
+                              target='_blank'
+                              rel='noreferrer'
+                            >
+                              <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
+                                <PlusCircle size={32} color='black' />
+                              </div>
+                              <div>
+                                <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+                                  Create New Account
+                                </p>
+                                <p className='text-[#BABDC2] text-xs'>
+                                  for EVM and NEAR chains
+                                </p>
+                              </div>
+                            </a>
+                          </DialogContent>
+                        </Dialog>
                       </NavigationMenuItem>
                     )}
                   </NavigationMenuList>
