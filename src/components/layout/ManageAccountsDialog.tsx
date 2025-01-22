@@ -39,13 +39,13 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   const content = (
     <>
       <div className='border-b border-[#334155] my-6'></div>
-      <div className='flex items-center gap-2'>
+      <div className={`flex items-center gap-2 ${isMobile ? 'mb-4' : ''}`}>
         <UserCheck size={20} />
         <p className='text-white font-semibold'>Currently Connected</p>
       </div>
       <div className='flex flex-col gap-4'>
         {isConnected && (
-          <div className='w-full bg-[#141414] h-[80px] flex items-center'>
+          <div className='w-full bg-[#141414] h-[80px] flex items-center rounded-md p-3 cursor-pointer'>
             <appkit-account-button />
             <appkit-network-button />
           </div>
@@ -118,8 +118,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             <User size={16} color='#FAFAFA' />
           </div>
         </DrawerTrigger>
-        <DrawerContent className='p-4 py-6'>
-          <DrawerTitle>Manage Accounts</DrawerTitle>
+        <DrawerContent className='p-6 border-none'>
+          <DrawerTitle className='font-semibold text-xl mt-5'>
+            Manage Accounts
+          </DrawerTitle>
           {content}
         </DrawerContent>
       </Drawer>
