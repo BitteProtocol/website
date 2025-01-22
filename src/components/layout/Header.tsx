@@ -10,12 +10,6 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/layout/NavigationMenu';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
-import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerOverlay,
-} from '@/components/ui/drawer';
 import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
@@ -26,11 +20,11 @@ import React, { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { Modal } from '../ui/Modal';
 import { NearWalletConnector } from './NearWalletSelector';
-import { Button } from '../ui/button';
 import { useBitteWallet } from '@mintbase-js/react';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
 import Image from 'next/image';
+import ConnectDialog from './ConnectDialog';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -162,56 +156,10 @@ const Header = () => {
                       <NavigationMenuItem
                         className={`${!isConnected ? 'lg:pr-3' : ''}`}
                       >
-                        {/* <appkit-button label='EVM Connect' /> */}
-
-                        {/* Dialog for desktop */}
-                        <Dialog
-                          open={isConnectModalOpen}
-                          onOpenChange={setConnectModalOpen}
-                        >
-                          <DialogTrigger>
-                            <Button className='min-w-[137px] w-full'>
-                              Connect
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
-                            <DialogTitle className='font-semibold text-xl'>
-                              Connect Wallet
-                            </DialogTitle>
-                            <div className='flex flex-col gap-4'>
-                              <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'>
-                                <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
-                                  <PlusCircle size={32} color='black' />
-                                </div>
-                                <div>
-                                  <appkit-connect-button label='EVM Account' />
-                                </div>
-                              </div>
-                              <NearWalletConnector
-                                setConnectModalOpen={setConnectModalOpen}
-                              />
-                            </div>
-                            <div className='border-b border-[#334155]'></div>
-                            <a
-                              className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
-                              href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
-                              target='_blank'
-                              rel='noreferrer'
-                            >
-                              <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
-                                <PlusCircle size={32} color='black' />
-                              </div>
-                              <div>
-                                <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
-                                  Create New Account
-                                </p>
-                                <p className='text-[#BABDC2] text-xs'>
-                                  for EVM and NEAR chains
-                                </p>
-                              </div>
-                            </a>
-                          </DialogContent>
-                        </Dialog>
+                        <ConnectDialog
+                          isOpen={isConnectModalOpen}
+                          setConnectModalOpen={setConnectModalOpen}
+                        />
                       </NavigationMenuItem>
                     )}
                     {(isConnected || isNearConnnected) && (
@@ -344,15 +292,6 @@ const Header = () => {
 
           <Modal isOpen={isModalOpen} closeModal={() => setModalOpen(false)}>
             <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black'>
-              <div className='flex items-center'>
-                <appkit-button label='EVM Connect' />
-                {isConnected && <appkit-network-button />}
-              </div>
-              <div className='flex'>
-                <NearWalletConnector
-                  setConnectModalOpen={setConnectModalOpen}
-                />
-              </div>
               <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
                 Products
               </p>
@@ -437,27 +376,10 @@ const Header = () => {
             </div>
             <div className='w-full'>
               {/* Drawer for mobile */}
-              <Drawer
-                open={isConnectModalOpen}
-                onOpenChange={setConnectModalOpen}
-              >
-                <DrawerTrigger asChild>
-                  <Button
-                    onClick={() => setConnectModalOpen(true)}
-                    className='w-full'
-                  >
-                    Connect
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerOverlay />
-                  {/* Connect buttons inside the drawer */}
-                  <appkit-button label='EVM Connect' />
-                  <NearWalletConnector
-                    setConnectModalOpen={setConnectModalOpen}
-                  />
-                </DrawerContent>
-              </Drawer>
+              <ConnectDialog
+                isOpen={isConnectModalOpen}
+                setConnectModalOpen={setConnectModalOpen}
+              />
             </div>
           </Modal>
         </>
