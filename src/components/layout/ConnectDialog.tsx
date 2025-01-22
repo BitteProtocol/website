@@ -73,7 +73,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
             Connect
           </Button>
         </DrawerTrigger>
-        <DrawerContent className='p-6'>
+        <DrawerContent className='p-6 border-none'>
           <DrawerTitle className='font-semibold text-xl mb-7 mt-5'>
             Connect Wallet
           </DrawerTitle>
