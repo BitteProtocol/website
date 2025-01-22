@@ -9,7 +9,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/layout/NavigationMenu';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
@@ -19,12 +18,9 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { Modal } from '../ui/Modal';
-import { NearWalletConnector } from './NearWalletSelector';
 import { useBitteWallet } from '@mintbase-js/react';
-import { DialogTitle } from '@radix-ui/react-dialog';
-import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
-import Image from 'next/image';
 import ConnectDialog from './ConnectDialog';
+import ManageAccountsDialog from './ManageAccountsDialog';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -33,7 +29,7 @@ const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isConnectModalOpen, setConnectModalOpen] = useState(false);
 
-  const { isConnected: isNearConnnected, connect } = useBitteWallet();
+  const { isConnected: isNearConnected, connect } = useBitteWallet();
 
   const handleSignIn = async () => {
     try {
@@ -45,7 +41,7 @@ const Header = () => {
 
   const { isConnected } = useAccount();
 
-  console.log('CONNETCIN', isConnected, isNearConnnected);
+  console.log('CONNETCIN', isConnected, isNearConnected);
 
   return (
     <>
@@ -152,7 +148,7 @@ const Header = () => {
                         Docs <ArrowUpRight size={12} color='#FAFAFA' />
                       </NavigationMenuLink>
                     </NavigationMenuItem>
-                    {!isConnected && !isNearConnnected && (
+                    {!isConnected && !isNearConnected && (
                       <NavigationMenuItem
                         className={`${!isConnected ? 'lg:pr-3' : ''}`}
                       >
@@ -162,100 +158,15 @@ const Header = () => {
                         />
                       </NavigationMenuItem>
                     )}
-                    {(isConnected || isNearConnnected) && (
+                    {(isConnected || isNearConnected) && (
                       <NavigationMenuItem>
-                        <Dialog
-                          open={isConnectModalOpen}
-                          onOpenChange={setConnectModalOpen}
-                        >
-                          <DialogTrigger>
-                            <div className='p-3 bg-black rounded-md border border-[#393942]'>
-                              <User size={16} color='#FAFAFA' />
-                            </div>
-                          </DialogTrigger>
-                          <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
-                            <DialogTitle className='font-semibold text-xl'>
-                              Manage Accounts
-                            </DialogTitle>
-                            <div className='border-b border-[#334155] my-6'></div>
-                            <div className='flex items-center gap-2'>
-                              <UserCheck size={20} />
-                              <p className='text-white font-semibold'>
-                                Currently Connected
-                              </p>
-                            </div>
-                            <div className='flex flex-col gap-4'>
-                              {isConnected && (
-                                <div className='w-full bg-[#141414] h-[80px] flex items-center'>
-                                  <appkit-account-button />
-                                  <appkit-network-button />
-                                </div>
-                              )}
-                              {isNearConnnected && (
-                                <NearWalletConnector
-                                  setConnectModalOpen={setConnectModalOpen}
-                                />
-                              )}
-                            </div>
-                            <div className='border-b border-[#334155] my-9'></div>
-                            <div>
-                              <div className='flex items-center gap-2 mb-7'>
-                                <UserPlus size={20} />
-                                <p className='text-white font-semibold'>
-                                  Add Accounts
-                                </p>
-                              </div>
-                              <div className='flex flex-col gap-4'>
-                                <appkit-connect-button label='EVM Account' />
-                                <div
-                                  className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
-                                  onClick={() => {
-                                    handleSignIn();
-                                    setConnectModalOpen(false);
-                                  }}
-                                >
-                                  <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
-                                    <Image
-                                      src='/chains/near_wallet_connector_v2.svg'
-                                      width={46}
-                                      height={46}
-                                      alt='connect-wallet-modal-logo-near'
-                                    />
-                                  </div>
-                                  <div>
-                                    <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
-                                      NEAR Account
-                                    </p>
-                                    <p className='text-[#BABDC2] text-xs italic'>
-                                      e.g.
-                                      <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
-                                        blackdragon.near
-                                      </span>
-                                    </p>
-                                  </div>
-                                </div>
-                                <a
-                                  className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
-                                  href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
-                                  target='_blank'
-                                  rel='noreferrer'
-                                >
-                                  <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
-                                    <PlusCircle size={32} color='black' />
-                                  </div>
-                                  <div>
-                                    <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
-                                      Create New Account
-                                    </p>
-                                    <p className='text-[#BABDC2] text-xs'>
-                                      for EVM and NEAR chains
-                                    </p>
-                                  </div>
-                                </a>
-                              </div>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
+                        <ManageAccountsDialog
+                          isOpen={isConnectModalOpen}
+                          setConnectModalOpen={setConnectModalOpen}
+                          isConnected={isConnected}
+                          isNearConnected={isNearConnected}
+                          handleSignIn={handleSignIn}
+                        />
                       </NavigationMenuItem>
                     )}
                   </NavigationMenuList>
@@ -375,11 +286,21 @@ const Header = () => {
               </div>
             </div>
             <div className='w-full'>
-              {/* Drawer for mobile */}
-              <ConnectDialog
-                isOpen={isConnectModalOpen}
-                setConnectModalOpen={setConnectModalOpen}
-              />
+              {!isConnected && !isNearConnected && (
+                <ConnectDialog
+                  isOpen={isConnectModalOpen}
+                  setConnectModalOpen={setConnectModalOpen}
+                />
+              )}
+              {(isConnected || isNearConnected) && (
+                <ManageAccountsDialog
+                  isOpen={isConnectModalOpen}
+                  setConnectModalOpen={setConnectModalOpen}
+                  isConnected={isConnected}
+                  isNearConnected={isNearConnected}
+                  handleSignIn={handleSignIn}
+                />
+              )}
             </div>
           </Modal>
         </>
