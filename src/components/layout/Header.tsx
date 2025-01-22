@@ -22,6 +22,7 @@ import { cn } from '@/lib/utils';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { useBitteWallet } from '@mintbase-js/react';
 import { DialogTitle } from '@radix-ui/react-dialog';
+import { ConnectKitButton } from 'connectkit';
 import { ArrowUpRight, Menu, PlusCircle, User, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -170,25 +171,45 @@ const Header = () => {
                               Connect Wallet
                             </DialogTitle>
                             <div className='flex flex-col gap-4'>
-                              <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'>
-                                <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
-                                  <Image
-                                    src='/chains/evm_wallet_connector.svg'
-                                    width={60}
-                                    height={60}
-                                    alt='connect-wallet-modal-logo-near'
-                                  />
-                                </div>
-                                <div>
-                                  <appkit-button label='EVM Account' />
-                                  <p className='text-[#BABDC2] text-xs italic mt-2'>
-                                    e.g.
-                                    <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
-                                      0xd8da6...aa96045
-                                    </span>
-                                  </p>
-                                </div>
-                              </div>
+                              <ConnectKitButton.Custom>
+                                {({
+                                  /* isConnected,
+                                  isConnecting,
+                                  show,
+                                  hide,
+                                  address,
+                                  ensName,
+                                  chain, */ show,
+                                }) => {
+                                  return (
+                                    <div
+                                      className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
+                                      onClick={show}
+                                    >
+                                      <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
+                                        <Image
+                                          src='/chains/evm_wallet_connector.svg'
+                                          width={60}
+                                          height={60}
+                                          alt='connect-wallet-modal-logo-near'
+                                        />
+                                      </div>
+                                      <div>
+                                        <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+                                          EVM Account
+                                        </p>
+                                        <p className='text-[#BABDC2] text-xs italic'>
+                                          e.g.
+                                          <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
+                                            0xd8da6...aa96045
+                                          </span>
+                                        </p>
+                                      </div>
+                                    </div>
+                                  );
+                                }}
+                              </ConnectKitButton.Custom>
+
                               <NearWalletConnector
                                 setConnectModalOpen={setConnectModalOpen}
                               />

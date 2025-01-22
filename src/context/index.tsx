@@ -2,55 +2,46 @@
 
 'use client';
 
-import { projectId, wagmiAdapter } from '@/config';
-import {
-  arbitrum,
-  base,
-  gnosis,
-  mainnet,
-  optimism,
-  polygon,
-  sepolia,
-} from '@reown/appkit/networks';
-import { createAppKit } from '@reown/appkit/react';
+import { wagmiAdapter } from '@/config';
+import { mainnet } from '@reown/appkit/networks';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 import { type ReactNode } from 'react';
-import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
+import {
+  cookieToInitialState,
+  createConfig,
+  http,
+  WagmiProvider,
+  type Config,
+} from 'wagmi';
+
+const config = createConfig(
+  getDefaultConfig({
+    // Your dApps chains
+    chains: [mainnet],
+    transports: {
+      // RPC URL for each chain
+      [mainnet.id]: http(
+        `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
+      ),
+    },
+
+    // Required API Keys
+    walletConnectProjectId:
+      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '',
+
+    // Required App Info
+    appName: 'Your App Name',
+
+    // Optional App Info
+    appDescription: 'Your App Description',
+    appUrl: 'https://family.co', // your app's url
+    appIcon: 'https://family.co/logo.png', // your app's icon, no bigger than 1024x1024px (max. 1MB)
+  })
+);
 
 // Set up queryClient
 const queryClient = new QueryClient();
-
-if (!projectId) {
-  throw new Error('Project ID is not defined');
-}
-
-// Set up metadata
-const metadata = {
-  name: 'bitte AI',
-  description: 'Interact with blockchains usign AI',
-  url: 'https://bitte.ai', // origin must match your domain & subdomain
-  icons: ['https://avatars.githubusercontent.com/u/179229932'],
-};
-
-// Create the modal
-const modal = createAppKit({
-  adapters: [wagmiAdapter],
-  projectId,
-  networks: [mainnet, arbitrum, base, polygon, optimism, gnosis, sepolia],
-  defaultNetwork: mainnet,
-  metadata: metadata,
-  features: {
-    analytics: true, // Optional - defaults to your Cloud configuration
-    email: false,
-    socials: false,
-  },
-  themeMode: 'dark',
-  themeVariables: {
-    '--w3m-color-mix': '#141418',
-    '--w3m-accent': '#141418',
-    '--w3m-font-size-master': '18',
-  },
-});
 
 function ContextProvider({
   children,
@@ -69,7 +60,9 @@ function ContextProvider({
       config={wagmiAdapter.wagmiConfig as Config}
       initialState={initialState}
     >
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ConnectKitProvider>{children}</ConnectKitProvider>
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }
