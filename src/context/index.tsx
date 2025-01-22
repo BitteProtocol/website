@@ -3,7 +3,6 @@
 'use client';
 
 import { wagmiAdapter } from '@/config';
-import { mainnet } from '@reown/appkit/networks';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 import { type ReactNode } from 'react';
@@ -14,11 +13,20 @@ import {
   WagmiProvider,
   type Config,
 } from 'wagmi';
+import {
+  arbitrum,
+  base,
+  gnosis,
+  mainnet,
+  optimism,
+  polygon,
+  sepolia,
+} from 'wagmi/chains';
 
-const config = createConfig(
+export const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [mainnet],
+    chains: [mainnet, arbitrum, base, polygon, optimism, gnosis, sepolia],
     transports: {
       // RPC URL for each chain
       [mainnet.id]: http(
@@ -56,10 +64,7 @@ function ContextProvider({
   );
 
   return (
-    <WagmiProvider
-      config={wagmiAdapter.wagmiConfig as Config}
-      initialState={initialState}
-    >
+    <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider>{children}</ConnectKitProvider>
       </QueryClientProvider>

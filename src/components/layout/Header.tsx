@@ -16,18 +16,21 @@ import {
   DrawerOverlay,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { config } from '@/context';
 import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { useBitteWallet } from '@mintbase-js/react';
 import { DialogTitle } from '@radix-ui/react-dialog';
+import { getChains, switchChain } from '@wagmi/core';
 import { ConnectKitButton } from 'connectkit';
 import { ArrowUpRight, Menu, PlusCircle, User, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useAccount } from 'wagmi';
+import { formatUnits } from 'viem';
+import { useAccount, useBalance } from 'wagmi';
 import { Button } from '../ui/button';
 import { Modal } from '../ui/Modal';
 import { NearWalletConnector } from './NearWalletSelector';
@@ -42,8 +45,11 @@ const Header = () => {
   const { isConnected: isNearConnnected } = useBitteWallet();
 
   const { address, isConnected, chain } = useAccount();
+  const { data } = useBalance({ address });
 
-  console.log('CONNETCIN', isConnected, isNearConnnected);
+  const chains = getChains(config);
+
+  console.log({ chains });
 
   return (
     <>
@@ -173,8 +179,7 @@ const Header = () => {
                             <div className='flex flex-col gap-4'>
                               <ConnectKitButton.Custom>
                                 {({
-                                  /* isConnected,
-                                  isConnecting,
+                                  /*isConnecting,
                                   show,
                                   hide,
                                   address,
@@ -257,9 +262,38 @@ const Header = () => {
                             </p>
                             <div className='flex flex-col gap-4'>
                               {isConnected && (
-                                <div className='w-full bg-[#141414] h-[80px] flex items-center'>
-                                  {address}
-                                  {chain?.name}
+                                <div className='w-full bg-[#141414] h-[80px] flex flex-col items-center'>
+                                  <div> {address}</div>
+                                  <div>{chain?.name}</div>
+                                  {data ? (
+                                    <div>{formatUnits(data?.value, 12)}</div>
+                                  ) : null}
+                                  <select
+                                    className='bg-black text-white p-2 rounded-md'
+                                    onChange={async (e) => {
+                                      console.log({ e: e.target.value });
+
+                                      const selectedChain = chains.find(
+                                        (c) => c.id === Number(e.target.value)
+                                      );
+                                      // Handle chain change logic here
+                                      console.log(
+                                        'Selected chain:',
+                                        selectedChain
+                                      );
+
+                                      if (!selectedChain) return;
+                                      await switchChain(config, {
+                                        chainId: selectedChain?.id,
+                                      });
+                                    }}
+                                  >
+                                    {chains.map((chain) => (
+                                      <option key={chain.id} value={chain.id}>
+                                        {chain.name}
+                                      </option>
+                                    ))}
+                                  </select>
                                 </div>
                               )}
                               {isNearConnnected && (
