@@ -9,27 +9,27 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/layout/NavigationMenu';
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import {
   Drawer,
-  DrawerTrigger,
   DrawerContent,
   DrawerOverlay,
+  DrawerTrigger,
 } from '@/components/ui/drawer';
 import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { useBitteWallet } from '@mintbase-js/react';
+import { DialogTitle } from '@radix-ui/react-dialog';
+import { ArrowUpRight, Menu, PlusCircle, User, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useAccount } from 'wagmi';
-import { Modal } from '../ui/Modal';
-import { NearWalletConnector } from './NearWalletSelector';
 import { Button } from '../ui/button';
-import { useBitteWallet } from '@mintbase-js/react';
-import { DialogTitle } from '@radix-ui/react-dialog';
-import { PlusCircle, User } from 'lucide-react';
+import { Modal } from '../ui/Modal';
+import { EvmConnectWallet } from './evm/EvmConnectWallet';
+import { NearWalletConnector } from './NearWalletSelector';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -170,14 +170,7 @@ const Header = () => {
                               Connect Wallet
                             </DialogTitle>
                             <div className='flex flex-col gap-4'>
-                              <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'>
-                                <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
-                                  <PlusCircle size={32} color='black' />
-                                </div>
-                                <div>
-                                  <appkit-button label='EVM Account' />
-                                </div>
-                              </div>
+                              <EvmConnectWallet />
                               <NearWalletConnector
                                 setConnectModalOpen={setConnectModalOpen}
                               />

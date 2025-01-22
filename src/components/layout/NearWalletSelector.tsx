@@ -37,8 +37,8 @@ export const NearWalletConnector = ({
         <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
           <Image
             src='/chains/near_wallet_connector_v2.svg'
-            width={46}
-            height={46}
+            width={60}
+            height={60}
             alt='connect-wallet-modal-logo-near'
           />
         </div>
