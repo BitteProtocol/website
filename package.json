@@ -10,7 +10,7 @@
     "ts": "tsc --noEmit --incremental",
     "test": "jest",
     "prepare": "husky",
-    "pre-commit": "pnpm run ts && npx lint-staged && git add -A ."
+    "pre-commit": "pnpm run ts && pnpx lint-staged && git add -A ."
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.2",
