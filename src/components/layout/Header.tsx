@@ -13,12 +13,13 @@ import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { useBitteWallet } from '@mintbase-js/react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { Modal } from '../ui/Modal';
-import { useBitteWallet } from '@mintbase-js/react';
 import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
 
@@ -41,18 +42,16 @@ const Header = () => {
 
   const { isConnected } = useAccount();
 
-  console.log('CONNETCIN', isConnected, isNearConnected);
-
   if (isMobile) {
     return (
       <>
         <header className='w-full h-[73px] px-6 md:px-16 border-b border-mb-gray-800 flex top-0 justify-between items-center sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
           <Link href='/' className='flex items-center h-full'>
-            <img
+            <Image
               src='/bitte.svg'
+              width={0}
+              height={0}
               alt='bitte-mobile-logo'
-              width='100px'
-              height='auto'
             />
           </Link>
           {isModalOpen ? (
@@ -71,7 +70,7 @@ const Header = () => {
             <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
               Products
             </p>
-            <a
+            <Link
               rel='noopener noreferrer'
               target='_blank'
               href={MB_URL.BITTE_WALLET}
@@ -82,11 +81,11 @@ const Header = () => {
                 The easiest crypto wallet get started in 30 seconds, non
                 custodial and 100% secure.
               </p>
-            </a>
-            <a
+            </Link>
+            <Link
               rel='noopener noreferrer'
               target='_blank'
-              href={MB_URL.REGISTRY}
+              href='/registry'
               aria-label={`Check out Dev tools`}
             >
               <p className='text-lg text-mb-white-100 font-medium'>
@@ -95,8 +94,8 @@ const Header = () => {
               <p className='text-sm text-mb-gray-350'>
                 Build cross chain agents.
               </p>
-            </a>
-            <a
+            </Link>
+            <Link
               rel='noopener noreferrer'
               target='_blank'
               className='mb-7'
@@ -110,7 +109,7 @@ const Header = () => {
                 The easiest crypto wallet get started in 30 seconds, non
                 custodial and 100% secure.
               </p>
-            </a>
+            </Link>
           </div>
           <div className='flex flex-col gap-7 justify-center border-b border-mb-gray-800 bg-black mt-7'>
             <p className='text-[12px] font-semibold text-mb-gray-350 uppercase'>
@@ -118,7 +117,7 @@ const Header = () => {
             </p>
             <div className='grid grid-cols-2 gap-2 mb-7'>
               {developerLinks?.map((devItem, i) => (
-                <a
+                <Link
                   className='mb-white-100 text-sm font-medium mb-4'
                   key={`dev-links-${i}`}
                   rel='noopener noreferrer'
@@ -126,7 +125,7 @@ const Header = () => {
                   href={devItem?.href}
                 >
                   {devItem?.title}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -136,7 +135,7 @@ const Header = () => {
             </p>
             <div className='grid grid-cols-2 gap-2 mb-7'>
               {communityLinks?.map((communityItem, i) => (
-                <a
+                <Link
                   className='mb-white-100 text-sm font-medium mb-4'
                   key={`community-links-${i}`}
                   rel='noopener noreferrer'
@@ -144,7 +143,7 @@ const Header = () => {
                   href={communityItem?.href}
                 >
                   {communityItem?.title}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -175,11 +174,12 @@ const Header = () => {
       <header className='flex w-full h-20 border-b border-mb-gray-800 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
         <div className='flex justify-between items-center px-8 content-around h-full w-full'>
           <Link href='/' className='flex h-full'>
-            <img
+            <Image
               src='/bitte.svg'
               alt='bitte-desktop-logo'
-              width='120px'
-              height='auto'
+              width={0}
+              height={0}
+              className='w-[120px] h-auto'
             />
           </Link>
           <div className='flex justify-end'>
@@ -199,7 +199,7 @@ const Header = () => {
                         Universal accounts that can talk and execute with
                         blockchains.
                       </ListItem>
-                      <ListItem href={MB_URL.REGISTRY} title='Agent Registry'>
+                      <ListItem href='/registry' title='Agent Registry'>
                         Fork other agents to make them better or bootstrap your
                         own.
                       </ListItem>
@@ -297,13 +297,14 @@ const Header = () => {
 
 const ListItem = React.forwardRef<
   React.ElementRef<'a'>,
-  React.ComponentPropsWithoutRef<'a'> & { newTab?: boolean }
->(({ className, title, children, newTab = false, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<'a'> & { newTab?: boolean; href: string }
+>(({ className, href, title, children, newTab = false, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
+        <Link
           ref={ref}
+          href={href}
           aria-label={`Get more Infos about ${title}`}
           target={newTab ? '_blank' : undefined}
           rel={newTab ? 'noopener noreferrer' : undefined}
@@ -319,7 +320,7 @@ const ListItem = React.forwardRef<
               {children}
             </p>
           ) : null}
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );
