@@ -1,9 +1,7 @@
 'use client';
 
-import { wagmiConfig } from '@/config/wagmit-config';
-import ContextProvider from '@/context';
 import { BitteWalletContextProvider } from '@mintbase-js/react';
-import { WagmiProvider } from 'wagmi';
+import ContextProvider from '@/context';
 
 const BitteWalletSetup = {
   network: 'mainnet',
@@ -18,11 +16,9 @@ type ProvidersProps = {
 
 const Providers: React.FC<ProvidersProps> = ({ children, cookies }) => {
   return (
-    <WagmiProvider config={wagmiConfig}>
-      <BitteWalletContextProvider {...BitteWalletSetup} onlyBitteWallet={true}>
-        <ContextProvider cookies={cookies}>{children}</ContextProvider>
-      </BitteWalletContextProvider>
-    </WagmiProvider>
+    <BitteWalletContextProvider {...BitteWalletSetup} onlyBitteWallet={true}>
+      <ContextProvider cookies={cookies}>{children}</ContextProvider>
+    </BitteWalletContextProvider>
   );
 };
 

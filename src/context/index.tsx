@@ -2,19 +2,19 @@
 
 'use client';
 
-import { wagmiAdapter, projectId } from '@/config';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createAppKit } from '@reown/appkit/react';
+import { projectId, wagmiAdapter } from '@/config';
 import {
-  mainnet,
   arbitrum,
   base,
-  polygon,
-  optimism,
   gnosis,
+  mainnet,
+  optimism,
+  polygon,
   sepolia,
 } from '@reown/appkit/networks';
-import React, { type ReactNode } from 'react';
+import { createAppKit } from '@reown/appkit/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { type ReactNode } from 'react';
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
 
 // Set up queryClient
@@ -46,7 +46,9 @@ const modal = createAppKit({
   },
   themeMode: 'dark',
   themeVariables: {
-    /* '--w3m-border-radius-master': '1', */
+    '--w3m-color-mix': '#141418',
+    '--w3m-accent': '#141418',
+    '--w3m-font-size-master': '18',
   },
 });
 
