@@ -41,7 +41,7 @@ const Header = () => {
 
   const { isConnected: isNearConnnected } = useBitteWallet();
 
-  const { isConnected } = useAccount();
+  const { address, isConnected, chain } = useAccount();
 
   console.log('CONNETCIN', isConnected, isNearConnnected);
 
@@ -258,8 +258,8 @@ const Header = () => {
                             <div className='flex flex-col gap-4'>
                               {isConnected && (
                                 <div className='w-full bg-[#141414] h-[80px] flex items-center'>
-                                  <appkit-account-button />
-                                  <appkit-network-button />
+                                  {address}
+                                  {chain?.name}
                                 </div>
                               )}
                               {isNearConnnected && (
