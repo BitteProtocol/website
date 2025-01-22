@@ -1,22 +1,23 @@
-import React from 'react';
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Drawer,
-  DrawerTrigger,
   DrawerContent,
   DrawerTitle,
+  DrawerTrigger,
 } from '@/components/ui/drawer';
-import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
-import { NearWalletConnector } from './NearWalletSelector';
 import { MB_URL } from '@/lib/url';
-import { Dispatch, SetStateAction } from 'react';
-import Image from 'next/image';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
+import Image from 'next/image';
+import React, { Dispatch, SetStateAction } from 'react';
+import { EvmAccount } from './evm/EvmAccount';
+import { EvmConnectWallet } from './evm/EvmConnectAccount';
+import { NearWalletConnector } from './NearWalletSelector';
 
 interface ManageAccountsDialogProps {
   isOpen: boolean;
@@ -44,12 +45,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
         <p className='text-white font-semibold'>Currently Connected</p>
       </div>
       <div className='flex flex-col gap-4'>
-        {isConnected && (
-          <div className='w-full bg-[#141414] h-[80px] flex items-center rounded-md p-3 cursor-pointer'>
-            <appkit-account-button />
-            <appkit-network-button />
-          </div>
-        )}
+        {isConnected && <EvmAccount />}
         {isNearConnected && (
           <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
         )}
@@ -61,7 +57,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <p className='text-white font-semibold'>Add Accounts</p>
         </div>
         <div className='flex flex-col gap-4'>
-          <appkit-connect-button label='EVM Account' />
+          <EvmConnectWallet />
           <div
             className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
             onClick={() => {
@@ -71,7 +67,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           >
             <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
               <Image
-                src='/chains/near_wallet_connector_v2.svg'
+                src='/wallets/near_wallet_connector_v2.svg'
                 width={46}
                 height={46}
                 alt='connect-wallet-modal-logo-near'
@@ -135,7 +131,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <User size={16} color='#FAFAFA' />
         </div>
       </DialogTrigger>
-      <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
+      <DialogContent className='max-w-[485px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>
           Manage Accounts
         </DialogTitle>

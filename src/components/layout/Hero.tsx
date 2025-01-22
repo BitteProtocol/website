@@ -5,9 +5,8 @@ import { filterHandler } from '@/lib/utils/filters';
 import { BitteAiChat } from '@bitte-ai/chat';
 import '@bitte-ai/chat/style.css';
 import { useBitteWallet } from '@mintbase-js/react';
-import { useAppKitAccount } from '@reown/appkit/react';
 import { useEffect, useState } from 'react';
-import { useSendTransaction } from 'wagmi';
+import { useAccount, useSendTransaction } from 'wagmi';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
@@ -28,7 +27,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
 
   const { selector } = useBitteWallet();
 
-  const { address } = useAppKitAccount();
+  const { address } = useAccount();
   const { data: hash, sendTransaction } = useSendTransaction();
 
   const filteredAgents = selectedFilters?.length

@@ -100,7 +100,6 @@
 }
 
 @media only screen and (min-width: 2000px) {
-
   .header-wrapper,
   .footer-wrapper {
     width: 1600px;
@@ -176,12 +175,19 @@
 }
 
 .gradient-overlay {
-  background: linear-gradient(180deg,
-      rgba(0, 0, 0, 0) 0%,
-      #000000 50%,
-      #000000 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    #000000 50%,
+    #000000 100%
+  );
 }
 
 .snap-center {
   scroll-snap-align: center;
+}
+
+wcm-modal {
+  z-index: 9999999;
+  position: absolute;
 }

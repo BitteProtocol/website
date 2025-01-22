@@ -1,9 +1,12 @@
 'use client';
 
 import { useBitteWallet } from '@mintbase-js/react';
-import { Button } from '../ui/button';
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
+import { Button } from '../ui/button';
+
+import { useNearBalance } from '@/lib/utils/useNearBalance';
+import { utils } from 'near-api-js';
 
 export const NearWalletConnector = ({
   setConnectModalOpen,
@@ -11,6 +14,9 @@ export const NearWalletConnector = ({
   setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const { isConnected, selector, connect, activeAccountId } = useBitteWallet();
+  const balance = useNearBalance(activeAccountId || '');
+
+  console.log({ balance });
 
   const handleSignout = async () => {
     const wallet = await selector.wallet();
@@ -36,7 +42,7 @@ export const NearWalletConnector = ({
       >
         <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
           <Image
-            src='/chains/near_wallet_connector_v2.svg'
+            src='/wallets/near_wallet_connector_v2.svg'
             width={46}
             height={46}
             alt='connect-wallet-modal-logo-near'
@@ -61,14 +67,21 @@ export const NearWalletConnector = ({
     <div className='flex gap-2 items-center justify-between'>
       <div className='flex items-center gap-2'>
         <Image
-          src='/chains/near_wallet_connector_v2.svg'
+          src='/wallets/near_wallet_connector_v2.svg'
           width={46}
           height={46}
           alt='connect-wallet-modal-logo-near'
         />
         <div>
           <p>{activeAccountId}</p>
-          <small>{287.5} NEAR</small>
+          <small>
+            {balance
+              ? utils.format
+                  .formatNearAmount(balance.toString(), 2)
+                  .replace(/,/g, '')
+              : 0.0}{' '}
+            NEAR
+          </small>
         </div>
       </div>
       <Button onClick={handleSignout}>Disconnect</Button>

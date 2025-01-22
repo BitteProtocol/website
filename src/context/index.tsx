@@ -2,26 +2,35 @@
 
 'use client';
 
-import { wagmiAdapter, projectId } from '@/config';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createAppKit } from '@reown/appkit/react';
+
+import { type ReactNode } from 'react';
+import { createConfig, http, WagmiProvider } from 'wagmi';
+import { coinbaseWallet, metaMask, walletConnect } from 'wagmi/connectors';
+
 import {
-  mainnet,
   arbitrum,
   base,
-  polygon,
-  optimism,
   gnosis,
+  mainnet,
+  optimism,
+  polygon,
   sepolia,
-} from '@reown/appkit/networks';
-import React, { type ReactNode } from 'react';
-import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
+} from 'wagmi/chains';
 
 // Set up queryClient
 const queryClient = new QueryClient();
 
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+export const walletConnectId =
+  process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID;
+
 if (!projectId) {
   throw new Error('Project ID is not defined');
+}
+
+if (!walletConnectId) {
+  throw new Error('Wallet Connect ID is not defined');
 }
 
 // Set up metadata
@@ -32,21 +41,26 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/179229932'],
 };
 
-// Create the modal
-const modal = createAppKit({
-  adapters: [wagmiAdapter],
-  projectId,
-  networks: [mainnet, arbitrum, base, polygon, optimism, gnosis, sepolia],
-  defaultNetwork: mainnet,
-  metadata: metadata,
-  features: {
-    analytics: true, // Optional - defaults to your Cloud configuration
-    email: false,
-    socials: false,
-  },
-  themeMode: 'dark',
-  themeVariables: {
-    /* '--w3m-border-radius-master': '1', */
+/* const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [mainnet],
+  [alchemyProvider({ apiKey: 'yourAlchemyApiKey' }), publicProvider()]
+); */
+
+export const config = createConfig({
+  chains: [mainnet, sepolia, arbitrum, base, polygon, optimism, gnosis],
+  connectors: [
+    walletConnect({ projectId: walletConnectId }),
+    metaMask(),
+    coinbaseWallet(),
+  ],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+    [arbitrum.id]: http(),
+    [base.id]: http(),
+    [polygon.id]: http(),
+    [optimism.id]: http(),
+    [gnosis.id]: http(),
   },
 });
 
@@ -57,16 +71,13 @@ function ContextProvider({
   children: ReactNode;
   cookies: string | null;
 }) {
-  const initialState = cookieToInitialState(
+  /*   const initialState = cookieToInitialState(
     wagmiAdapter.wagmiConfig as Config,
     cookies
-  );
+  ); */
 
   return (
-    <WagmiProvider
-      config={wagmiAdapter.wagmiConfig as Config}
-      initialState={initialState}
-    >
+    <WagmiProvider config={config} /* initialState={initialState} */>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
