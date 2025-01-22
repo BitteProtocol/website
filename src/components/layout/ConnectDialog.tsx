@@ -11,7 +11,12 @@ import { NearWalletConnector } from './NearWalletSelector';
 import { MB_URL } from '@/lib/url';
 import { Dispatch, SetStateAction } from 'react';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { Drawer, DrawerTrigger, DrawerContent } from '@/components/ui/drawer';
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerTitle,
+} from '@/components/ui/drawer';
 
 interface ConnectDialogProps {
   isOpen: boolean;
@@ -38,7 +43,9 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
         </div>
         <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
       </div>
-      <div className='border-b border-[#334155]'></div>
+      <div
+        className={`border-b border-[#334155] ${isMobile ? 'my-9' : ''}`}
+      ></div>
       <a
         className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
         href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
@@ -66,7 +73,12 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
             Connect
           </Button>
         </DrawerTrigger>
-        <DrawerContent>{content}</DrawerContent>
+        <DrawerContent className='p-6'>
+          <DrawerTitle className='font-semibold text-xl mb-7 mt-5'>
+            Connect Wallet
+          </DrawerTitle>
+          {content}
+        </DrawerContent>
       </Drawer>
     );
   }
