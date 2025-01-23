@@ -21,38 +21,35 @@ import {
 // Set up queryClient
 const queryClient = new QueryClient();
 
-export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+/* export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID; */
 export const walletConnectId =
   process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID;
 
-if (!projectId) {
+/* if (!projectId) {
   throw new Error('Project ID is not defined');
-}
+} */
 
 if (!walletConnectId) {
   throw new Error('Wallet Connect ID is not defined');
 }
-
-// Set up metadata
-const metadata = {
-  name: 'bitte AI',
-  description: 'Interact with blockchains usign AI',
-  url: 'https://bitte.ai', // origin must match your domain & subdomain
-  icons: ['https://avatars.githubusercontent.com/u/179229932'],
-};
 
 /* const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet],
   [alchemyProvider({ apiKey: 'yourAlchemyApiKey' }), publicProvider()]
 ); */
 
+const connectors =
+  typeof window !== 'undefined'
+    ? [
+        metaMask(),
+        coinbaseWallet({ appName: 'Bitte AI' }),
+        walletConnect({ projectId: walletConnectId }),
+      ]
+    : [];
+
 export const config = createConfig({
   chains: [mainnet, sepolia, arbitrum, base, polygon, optimism, gnosis],
-  connectors: [
-    walletConnect({ projectId: walletConnectId }),
-    metaMask(),
-    coinbaseWallet(),
-  ],
+  connectors,
   transports: {
     [mainnet.id]: http(),
     [sepolia.id]: http(),
