@@ -16,7 +16,7 @@ function shortenAddress(address: string) {
 export function EvmAccount() {
   const { address, chain } = useAccount();
   const { disconnect } = useDisconnect();
-  const { data: balance } = useBalance();
+  const { data: balance } = useBalance({ address });
   const { data: ensName } = useEnsName({ address });
   const { data: ensAvatar } = useEnsAvatar({ name: ensName! });
 
