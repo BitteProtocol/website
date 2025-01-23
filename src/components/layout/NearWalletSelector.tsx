@@ -58,8 +58,19 @@ export const NearWalletConnector = ({
   }
 
   return (
-    <div className='flex gap-2 items-center justify-center'>
-      <p>{activeAccountId}</p>
+    <div className='flex gap-2 items-center justify-between'>
+      <div className='flex items-center gap-2'>
+        <Image
+          src='/chains/near_wallet_connector_v2.svg'
+          width={46}
+          height={46}
+          alt='connect-wallet-modal-logo-near'
+        />
+        <div>
+          <p>{activeAccountId}</p>
+          <small>{287.5} NEAR</small>
+        </div>
+      </div>
       <Button onClick={handleSignout}>Disconnect</Button>
     </div>
   );

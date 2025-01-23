@@ -12,10 +12,10 @@ export const Modal = ({
   useEffect(() => {
     if (!isOpen) return;
     // Disable scrolling on the background (body) when the modal is open
-    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     return () => {
       // Re-enable scrolling when the modal is closed
-      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
     };
   }, [isOpen]);
 
