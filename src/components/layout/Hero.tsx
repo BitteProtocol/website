@@ -143,8 +143,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   //   provider: walletProvider
                   // }
                 }}
-                // TODO: switch to agentId when @bitte-ai/chat is updated
-                agentid={selectedAgent?.id || 'bitte-assistant'}
+                agentId={selectedAgent?.id || 'bitte-assistant'}
                 apiUrl='/api/chat'
                 colors={chatColors}
                 historyApiUrl='api/history'
