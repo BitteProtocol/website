@@ -12,9 +12,9 @@ import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 
 import Providers from '@/lib/providers/Providers';
+import '@near-wallet-selector/modal-ui/styles.css';
 import './globals.css';
 import './markdown.css';
-import '@near-wallet-selector/modal-ui/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -52,7 +52,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookies = headers().get('cookie');
+  const cookies = headers().get('wagmi');
   return (
     <Providers cookies={cookies}>
       <html lang='en' className='overflow-x-hidden'>

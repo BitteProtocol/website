@@ -6,7 +6,7 @@ import { BitteAiChat } from '@bitte-ai/chat';
 import '@bitte-ai/chat/style.css';
 import { useBitteWallet } from '@mintbase-js/react';
 import { useEffect, useState } from 'react';
-import { useAccount, useSendTransaction } from 'wagmi';
+import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
 import AgentSelector from '../ui/agents/AgentSelector';
 import Filters from '../ui/agents/Filters';
 import { AgentData } from './Home';
@@ -27,7 +27,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
 
   const { selector } = useBitteWallet();
 
-  const { address } = useAccount();
+  const { address, chainId } = useAccount();
+  const { switchChain } = useSwitchChain();
   const { data: hash, sendTransaction } = useSendTransaction();
 
   const filteredAgents = selectedFilters?.length
@@ -131,8 +132,9 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                     wallet: wallet,
                   },
                   evm: {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    sendTransaction: sendTransaction as any,
+                    sendTransaction,
+                    switchChain,
+                    chainId,
                     address,
                     hash,
                   },
@@ -141,7 +143,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   //   provider: walletProvider
                   // }
                 }}
-                agentid={selectedAgent?.id!}
+                agentId={selectedAgent?.id!}
                 apiUrl='/api/chat'
                 colors={chatColors}
                 historyApiUrl='api/history'

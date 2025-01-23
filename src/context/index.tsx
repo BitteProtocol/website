@@ -5,7 +5,14 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { type ReactNode } from 'react';
-import { createConfig, http, WagmiProvider } from 'wagmi';
+import {
+  cookieStorage,
+  cookieToInitialState,
+  createConfig,
+  createStorage,
+  http,
+  WagmiProvider,
+} from 'wagmi';
 import { coinbaseWallet, metaMask, walletConnect } from 'wagmi/connectors';
 
 import {
@@ -59,6 +66,10 @@ export const config = createConfig({
     [optimism.id]: http(),
     [gnosis.id]: http(),
   },
+  storage: createStorage({
+    storage: cookieStorage,
+    key: 'wagmi',
+  }),
 });
 
 function ContextProvider({
@@ -68,13 +79,10 @@ function ContextProvider({
   children: ReactNode;
   cookies: string | null;
 }) {
-  /*   const initialState = cookieToInitialState(
-    wagmiAdapter.wagmiConfig as Config,
-    cookies
-  ); */
+  const initialState = cookieToInitialState(config, cookies);
 
   return (
-    <WagmiProvider config={config} /* initialState={initialState} */>
+    <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
