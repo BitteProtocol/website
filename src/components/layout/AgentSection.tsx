@@ -66,7 +66,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         {agentData.agents?.map((data, i) => (
           <Card
             key={`agents-${i}`}
-            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
+            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-[#E087FFB2] hover:shadow-custom'
             onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
@@ -93,7 +93,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         {[...agentData.agents]?.reverse().map((data, i) => (
           <Card
             key={`agents-${i}`}
-            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
+            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
             onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
@@ -113,16 +113,16 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         ))}
       </div>
       <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
-        <Link href={MB_URL.REGISTRY}>
+        <Link href='/registry'>
           <Button variant='default' className='w-full md:w-[200px]'>
             Browse Agents
           </Button>
         </Link>
-        <a href={MB_URL.DEV_DOCS} target='_blank'>
-          <Button variant='secondary' className='w-full md:w-[200px]'>
+        <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+          <Link href={MB_URL.DEV_DOCS} target='_blank'>
             Docs
-          </Button>
-        </a>
+          </Link>
+        </Button>
       </div>
     </section>
   );

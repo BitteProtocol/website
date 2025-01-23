@@ -1,4 +1,5 @@
 export const MB_URL = {
+  APP_URL: 'https://bitte.ai',
   BITTE_TWITTER: 'https://x.com/BitteProtocol',
   PAYMASTER_DOCS: 'https://docs.bitte.ai/wallet/paymaster',
   PAYMASTER: 'https://wallet.bitte.ai/paymaster',
@@ -12,7 +13,6 @@ export const MB_URL = {
   CONTRACT_MANAGER: 'https://www.mintbase.xyz/launchpad/contracts/0',
   MINTBASE_DEV_TG: 'https://t.me/bitteai',
   MINTBASE_TG: 'https://t.me/bitteai',
-  REGISTRY: '/registry',
   GRANTS: 'https://github.com/Mintbase/Grants-Program',
   MINTBASE_WARPCAST: 'https://warpcast.com/~/channel/mintbase',
   MINTBASE_YT: 'https://www.youtube.com/@bitteprotocol',
