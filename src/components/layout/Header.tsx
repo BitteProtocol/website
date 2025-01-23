@@ -13,12 +13,12 @@ import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { useBitteWallet } from '@mintbase-js/react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { Modal } from '../ui/Modal';
-import { useBitteWallet } from '@mintbase-js/react';
 import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
 
@@ -276,7 +276,7 @@ const Header = () => {
                   </NavigationMenuItem>
                 )}
                 {(isConnected || isNearConnected) && (
-                  <NavigationMenuItem>
+                  <NavigationMenuItem className='flex'>
                     <ManageAccountsDialog
                       isOpen={isConnectModalOpen}
                       setConnectModalOpen={setConnectModalOpen}

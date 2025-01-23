@@ -80,6 +80,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
     }
   }, [selectedAgent]);
 
+  console.log({ chainId });
+
   return (
     <section className='w-full'>
       <div className='relative h-full'>
