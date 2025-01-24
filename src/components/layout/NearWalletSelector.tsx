@@ -1,9 +1,9 @@
 'use client';
 
 import { useBitteWallet } from '@mintbase-js/react';
-import { Button } from '../ui/button';
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
+import { Button } from '../ui/button';
 
 export const NearWalletConnector = ({
   setConnectModalOpen,
@@ -27,13 +27,7 @@ export const NearWalletConnector = ({
 
   if (!isConnected) {
     return (
-      <div
-        className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
-        onClick={() => {
-          handleSignIn();
-          setConnectModalOpen(false);
-        }}
-      >
+      <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
         <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
           <Image
             src='/chains/near_wallet_connector_v2.svg'
@@ -43,9 +37,15 @@ export const NearWalletConnector = ({
           />
         </div>
         <div>
-          <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+          <div
+            className='connect-chain-button'
+            onClick={() => {
+              handleSignIn();
+              setConnectModalOpen(false);
+            }}
+          >
             NEAR Account
-          </p>
+          </div>
           <p className='text-[#BABDC2] text-xs italic'>
             e.g.
             <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
