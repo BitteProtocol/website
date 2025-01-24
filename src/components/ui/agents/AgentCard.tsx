@@ -1,12 +1,12 @@
 import { Badge } from '@/components/ui/badge';
 import { RegistryData } from '@/lib/types/agent.types';
-import { MB_URL } from '@/lib/url';
 import { shortenString } from '@/lib/utils/strings';
 import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarImage } from '../avatar';
 import { Button } from '../button';
+import { MB_URL } from '@/lib/url';
 
 const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
   const defaultHref = `/registry/${agent?.id}`;

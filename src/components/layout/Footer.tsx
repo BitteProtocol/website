@@ -1,10 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { communityLinks, developerLinks } from '@/lib/data/navData';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect } from 'react';
+
 import { fira } from '@/app/fonts';
+import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 
 declare global {
@@ -82,7 +84,13 @@ const Footer = () => {
             href='/'
             className='flex items-center h-full order-last md:order-first mt-12 md:mt-0'
           >
-            <img src='/bitte.svg' alt='bitte-logo' width={120} height={36} />
+            <Image
+              src='/bitte.svg'
+              alt='bitte-logo'
+              width={0}
+              height={0}
+              className='w-[120px] h-auto'
+            />
           </Link>
 
           <div className='grid grid-cols-2 gap-20 md:grid-cols-4 order-first md:order-last'>
@@ -104,7 +112,7 @@ const Footer = () => {
                 className='text-sm text-mb-gray-300 hover:text-mb-white-100 hover-icon font-medium flex items-center gap-2 transition-all duration-300'
                 rel='noopener noreferrer'
                 target='_blank'
-                href={MB_URL.REGISTRY}
+                href='/registry'
               >
                 Registry <ArrowUpRight size={14} color='#475569' />
               </a>

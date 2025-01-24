@@ -1,5 +1,6 @@
 import { fira } from '@/app/fonts';
 import { chainData } from '@/lib/data/chainData';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
 export const SupportedChainsSection = ({
@@ -29,10 +30,10 @@ export const SupportedChainsSection = ({
           <div className='flex items-center gap-1.5' key={`chains-${i}`}>
             <Image
               src={data?.logo}
-              className='object-contain'
-              width={isRegistry ? 24 : 32}
-              height={isRegistry ? 24 : 32}
+              className={cn('object-contain', isRegistry ? 'size-6' : 'size-8')}
               alt={`${data?.logo}-logo`}
+              width={0}
+              height={0}
               loading='lazy'
             />
             <div

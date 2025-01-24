@@ -166,18 +166,12 @@ export const ExamplesSection = ({
                 <Image
                   src={card.bg}
                   alt={`background image for ${card.action}`}
-                  loading='lazy'
-                  layout={card.bg.includes('.svg') ? 'intrinsic' : 'fill'}
-                  objectFit={card.bg.includes('.svg') ? 'contain' : 'cover'}
-                  width={
-                    card.bg.includes('.svg')
-                      ? isMobile
-                        ? 180
-                        : 260
-                      : undefined
-                  }
-                  height={card.bg.includes('.svg') ? 72 : undefined}
-                  className={`z-10 ${card.bg.includes('.svg') ? 'absolute inset-0 m-auto ' : ''}`}
+                  fill
+                  sizes='(max-width: 768px) 75vw, (max-width: 1024px) 50vw, 28vw'
+                  style={{
+                    objectFit: card.bg.includes('.svg') ? 'contain' : 'cover',
+                  }}
+                  className='z-10'
                 />
               )}
               {card.gradientLayer && (
