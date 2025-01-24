@@ -17,6 +17,7 @@ import { MB_URL } from '@/lib/url';
 import { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { Button } from '../ui/button';
 
 interface ManageAccountsDialogProps {
   isOpen: boolean;
@@ -45,7 +46,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
       </div>
       <div className='flex flex-col gap-4'>
         {isConnected && (
-          <div className='w-full bg-[#141414] h-[80px] flex items-center rounded-md p-3 cursor-pointer'>
+          <div className='w-full h-[48px] flex items-center justify-between'>
             <appkit-account-button />
             <appkit-network-button />
           </div>
@@ -61,34 +62,61 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <p className='text-white font-semibold'>Add Accounts</p>
         </div>
         <div className='flex flex-col gap-4'>
-          <appkit-connect-button label='EVM Account' />
-          <div
-            className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
-            onClick={() => {
-              handleSignIn();
-              setConnectModalOpen(false);
-            }}
-          >
-            <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
-              <Image
-                src='/chains/near_wallet_connector_v2.svg'
-                width={46}
-                height={46}
-                alt='connect-wallet-modal-logo-near'
-              />
+          {!isConnected && (
+            <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'>
+              <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
+                <Image
+                  src='/chains/evm_wallet_connector.svg'
+                  width={60}
+                  height={60}
+                  alt='connect-wallet-connect-logo'
+                />
+              </div>
+              <div>
+                <div
+                  className='mb-2'
+                  onClick={() => setConnectModalOpen(false)}
+                >
+                  <appkit-connect-button label='EVM Account' />
+                </div>
+                <p className='text-[#BABDC2] text-xs italic'>
+                  e.g.
+                  <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
+                    0xd8da6...aa96045
+                  </span>
+                </p>
+              </div>
             </div>
-            <div>
-              <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
-                NEAR Account
-              </p>
-              <p className='text-[#BABDC2] text-xs italic'>
-                e.g.
-                <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
-                  blackdragon.near
-                </span>
-              </p>
+          )}
+          {!isNearConnected && (
+            <div
+              className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
+              onClick={() => {
+                handleSignIn();
+                setConnectModalOpen(false);
+              }}
+            >
+              <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
+                <Image
+                  src='/chains/near_wallet_connector_v2.svg'
+                  width={46}
+                  height={46}
+                  alt='connect-wallet-modal-logo-near'
+                />
+              </div>
+              <div>
+                <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+                  NEAR Account
+                </p>
+                <p className='text-[#BABDC2] text-xs italic'>
+                  e.g.
+                  <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
+                    blackdragon.near
+                  </span>
+                </p>
+              </div>
             </div>
-          </div>
+          )}
           <a
             className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
             href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
@@ -114,9 +142,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     return (
       <Drawer open={isOpen} onOpenChange={setConnectModalOpen}>
         <DrawerTrigger asChild>
-          <div className='p-3 bg-black rounded-md border border-[#393942]'>
-            <User size={16} color='#FAFAFA' />
-          </div>
+          <Button className='w-full flex items-ceter gap-2 border border-[#60A5FA] bg-[#60A5FA4D] text-[#60A5FA]'>
+            <User size={16} color='#60A5FA' />
+            Accounts
+          </Button>
         </DrawerTrigger>
         <DrawerContent className='p-6 border-none'>
           <DrawerTitle className='font-semibold text-xl mt-5'>
@@ -131,9 +160,13 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
-        <div className='p-3 bg-black rounded-md border border-[#393942]'>
-          <User size={16} color='#FAFAFA' />
-        </div>
+        <Button
+          variant='outline'
+          size='icon'
+          className='border border-[#60A5FA] bg-[#60A5FA4D]'
+        >
+          <User size={16} color='#60A5FA' />
+        </Button>
       </DialogTrigger>
       <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>

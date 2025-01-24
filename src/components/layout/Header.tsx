@@ -14,7 +14,7 @@ import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { useBitteWallet } from '@mintbase-js/react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X, Settings } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -22,6 +22,7 @@ import { useAccount } from 'wagmi';
 import { Modal } from '../ui/Modal';
 import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
+import { Button } from '../ui/button';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -147,22 +148,35 @@ const Header = () => {
               ))}
             </div>
           </div>
-          <div className='w-full'>
-            {!isConnected && !isNearConnected && (
-              <ConnectDialog
-                isOpen={isConnectModalOpen}
-                setConnectModalOpen={setConnectModalOpen}
-              />
-            )}
-            {(isConnected || isNearConnected) && (
-              <ManageAccountsDialog
-                isOpen={isConnectModalOpen}
-                setConnectModalOpen={setConnectModalOpen}
-                isConnected={isConnected}
-                isNearConnected={isNearConnected}
-                handleSignIn={handleSignIn}
-              />
-            )}
+          <div className='fixed inset-x-0 bottom-0 mt-6 border-t border-gray-200 bg-background p-4 shadow-md md:relative md:border-t-0 md:bg-transparent md:p-0 md:shadow-none'>
+            <div className='flex w-full items-center justify-center gap-4'>
+              {isNearConnected && (
+                <Link
+                  href={MB_URL.BITTE_WALLET_SETTINGS}
+                  className='w-full'
+                  target='_blank'
+                >
+                  <Button variant='outline' className='block w-full md:hidden'>
+                    Settings
+                  </Button>
+                </Link>
+              )}
+              {!isConnected && !isNearConnected && (
+                <ConnectDialog
+                  isOpen={isConnectModalOpen}
+                  setConnectModalOpen={setConnectModalOpen}
+                />
+              )}
+              {(isConnected || isNearConnected) && (
+                <ManageAccountsDialog
+                  isOpen={isConnectModalOpen}
+                  setConnectModalOpen={setConnectModalOpen}
+                  isConnected={isConnected}
+                  isNearConnected={isNearConnected}
+                  handleSignIn={handleSignIn}
+                />
+              )}
+            </div>
           </div>
         </Modal>
       </>
@@ -284,6 +298,19 @@ const Header = () => {
                       isNearConnected={isNearConnected}
                       handleSignIn={handleSignIn}
                     />
+                  </NavigationMenuItem>
+                )}
+                {isNearConnected && (
+                  <NavigationMenuItem>
+                    <Link
+                      href={MB_URL.BITTE_WALLET_SETTINGS}
+                      className='w-full ml-2'
+                      target='_blank'
+                    >
+                      <Button variant='outline' size='icon'>
+                        <Settings className='text-text-primary' size={16} />
+                      </Button>
+                    </Link>
                   </NavigationMenuItem>
                 )}
               </NavigationMenuList>
