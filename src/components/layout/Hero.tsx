@@ -1,16 +1,16 @@
 'use client';
 
-import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
-import { filterHandler } from '@/lib/utils/filters';
 import { BitteAiChat } from '@bitte-ai/chat';
 import '@bitte-ai/chat/style.css';
 import { useBitteWallet } from '@mintbase-js/react';
-import { useAppKitAccount } from '@reown/appkit/react';
 import { useEffect, useState } from 'react';
-import { useSendTransaction } from 'wagmi';
-import AgentSelector from '../ui/agents/AgentSelector';
-import Filters from '../ui/agents/Filters';
-import { AgentData } from './Home';
+import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
+
+import { AgentData } from '@/components/layout/Home';
+import AgentSelector from '@/components/ui/agents/AgentSelector';
+import Filters from '@/components/ui/agents/Filters';
+import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
+import { filterHandler } from '@/lib/utils/filters';
 
 const chatColors = {
   generalBackground: '#18181A',
@@ -28,8 +28,9 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
 
   const { selector } = useBitteWallet();
 
-  const { address } = useAppKitAccount();
+  const { address } = useAccount();
   const { data: hash, sendTransaction } = useSendTransaction();
+  const { switchChain } = useSwitchChain();
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -132,8 +133,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                     wallet: wallet,
                   },
                   evm: {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    sendTransaction: sendTransaction as any,
+                    sendTransaction,
+                    switchChain,
                     address,
                     hash,
                   },
@@ -142,7 +143,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   //   provider: walletProvider
                   // }
                 }}
-                agentid={selectedAgent?.id!}
+                agentId={selectedAgent?.id || 'bitte-assistant'}
                 apiUrl='/api/chat'
                 colors={chatColors}
                 historyApiUrl='api/history'

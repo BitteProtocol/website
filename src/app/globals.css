@@ -100,7 +100,6 @@
 }
 
 @media only screen and (min-width: 2000px) {
-
   .header-wrapper,
   .footer-wrapper {
     width: 1600px;
@@ -176,12 +175,32 @@
 }
 
 .gradient-overlay {
-  background: linear-gradient(180deg,
-      rgba(0, 0, 0, 0) 0%,
-      #000000 50%,
-      #000000 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    #000000 50%,
+    #000000 100%
+  );
 }
 
 .snap-center {
   scroll-snap-align: center;
+}
+
+/* class to achieve reown appkit button ui */
+.connect-chain-button {
+  background: var(--wui-color-accent-100);
+  border: 1px solid var(--wui-color-gray-glass-010);
+  border-radius: var(--wui-border-radius-m);
+  gap: var(--wui-spacing-xs);
+  padding: 9px var(--wui-spacing-l) 9px var(--wui-spacing-l);
+  margin-bottom: 8px;
+  font-size: 13px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+/* reown appkit modals */
+w3m-modal.open {
+  z-index: 99999 !important;
 }
