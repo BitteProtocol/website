@@ -1,23 +1,22 @@
-import React from 'react';
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Drawer,
-  DrawerTrigger,
   DrawerContent,
   DrawerTitle,
+  DrawerTrigger,
 } from '@/components/ui/drawer';
-import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
-import { NearWalletConnector } from './NearWalletSelector';
 import { MB_URL } from '@/lib/url';
-import { Dispatch, SetStateAction } from 'react';
-import Image from 'next/image';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
+import Image from 'next/image';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
+import { NearWalletConnector } from './NearWalletSelector';
 
 interface ManageAccountsDialogProps {
   isOpen: boolean;
@@ -63,7 +62,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
         </div>
         <div className='flex flex-col gap-4'>
           {!isConnected && (
-            <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'>
+            <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
               <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
                 <Image
                   src='/chains/evm_wallet_connector.svg'
@@ -73,10 +72,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
                 />
               </div>
               <div>
-                <div
-                  className='mb-2'
-                  onClick={() => setConnectModalOpen(false)}
-                >
+                <div className='mb-2'>
                   <appkit-connect-button label='EVM Account' />
                 </div>
                 <p className='text-[#BABDC2] text-xs italic'>
@@ -89,13 +85,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             </div>
           )}
           {!isNearConnected && (
-            <div
-              className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
-              onClick={() => {
-                handleSignIn();
-                setConnectModalOpen(false);
-              }}
-            >
+            <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
               <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
                 <Image
                   src='/chains/near_wallet_connector_v2.svg'
@@ -105,9 +95,16 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
                 />
               </div>
               <div>
-                <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+                <div
+                  className='connect-chain-button'
+                  onClick={() => {
+                    handleSignIn();
+                    setConnectModalOpen(false);
+                  }}
+                >
                   NEAR Account
-                </p>
+                </div>
+
                 <p className='text-[#BABDC2] text-xs italic'>
                   e.g.
                   <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>

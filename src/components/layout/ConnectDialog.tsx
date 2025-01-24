@@ -34,7 +34,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   const content = (
     <>
       <div className='flex flex-col gap-4'>
-        <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer'>
+        <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
           <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
             <Image
               src='/chains/evm_wallet_connector.svg'
@@ -44,7 +44,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
             />
           </div>
           <div>
-            <div className='mb-2' onClick={() => setConnectModalOpen(false)}>
+            <div className='mb-2'>
               <appkit-connect-button label='EVM Account' />
             </div>
             <p className='text-[#BABDC2] text-xs italic'>
