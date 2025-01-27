@@ -96,11 +96,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
         <div className='flex justify-center flex-col text-center items-center px-8 pt-14 md:pt-12 lg:pt-12 xl:pt-24  2xl:pt-40  py-28'>
           <div className='z-10 md:pointer-events-none max-w-[530px]'>
             <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
-              Interact with blockchains using natural language
-            </p>
-            <p className='text-mb-gray-300 md:text-[22px] font-normal mt-4 leading-tight drop-shadow-2xl'>
-              On-chain agent market for transaction building with Universal Safe
-              Accounts
+              What transaction can we help you with?
             </p>
           </div>
           <div className='mt-10 z-10 flex flex-col w-full '>
