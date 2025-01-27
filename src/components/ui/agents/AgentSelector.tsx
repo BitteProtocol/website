@@ -42,7 +42,7 @@ export const AgentSelector = ({
               {data?.name}
             </div>
             <Link
-              href={`${window.location.origin}/registry/${data.id}`}
+              href={`/registry/${data.id}`}
               target='_blank'
               rel='noreferrer'
               onClick={(e) => e.stopPropagation()}
