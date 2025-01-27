@@ -26,9 +26,9 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [wallet, setWallet] = useState<any>();
 
-  const { selector } = useBitteWallet();
+  const { selector, isConnected } = useBitteWallet();
 
-  const { address } = useAccount();
+  const { address, isConnected: isEvmConnected } = useAccount();
   const { data: hash, sendTransaction } = useSendTransaction();
   const { switchChain } = useSwitchChain();
 
@@ -94,11 +94,13 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
           <source src='/video/brains.mp4' type='video/mp4' />
         </video>
         <div className='flex justify-center flex-col text-center items-center px-8 pt-14 md:pt-12 lg:pt-12 xl:pt-24  2xl:pt-40  py-28'>
-          <div className='z-10 md:pointer-events-none max-w-[530px]'>
-            <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
-              What transaction can we help you with?
-            </p>
-          </div>
+          {!isConnected && !isEvmConnected ? (
+            <div className='z-10 md:pointer-events-none max-w-[530px]'>
+              <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
+                What transaction can we help you with?
+              </p>
+            </div>
+          ) : null}
           <div className='mt-10 z-10 flex flex-col w-full '>
             <div className='-mx-8 lg:-mx-0'>
               <Filters
