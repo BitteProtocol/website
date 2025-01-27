@@ -20,6 +20,21 @@ import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
 
+const getChainSvgPath = (chainId?: number): string => {
+  const defaultSVG = '/chains/evm_wallet_connector.svg';
+  if (!chainId) return defaultSVG;
+  const chainSvgMap: { [key: number]: string } = {
+    1: '/chains/new_eth.svg',
+    10: '/chains/new_op.svg',
+    42161: '/chains/new_arbi.svg',
+    8453: '/chains/new_base.svg',
+    137: '/chains/new_polygon.svg',
+    100: '/chains/new_gnosis.svg',
+  };
+
+  return chainSvgMap[chainId] || defaultSVG;
+};
+
 const shortenAddress = (address?: string) => {
   if (!address) return '';
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -43,7 +58,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
-  const { address } = useAccount();
+  const { address, chainId } = useAccount();
   const { disconnect } = useDisconnect();
   const { data: balance } = useBalance({ address });
 
@@ -59,10 +74,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <div className='flex gap-2 items-center justify-between flex-wrap'>
             <div className='flex items-center gap-2'>
               <Image
-                src='/chains/evm_wallet_connector.svg'
+                src={getChainSvgPath(chainId)}
                 width={46}
                 height={46}
-                alt='connect-wallet-modal-logo-near'
+                alt='connected-evm-chain'
               />
               <div>
                 <p> {shortenAddress(address)}</p>
