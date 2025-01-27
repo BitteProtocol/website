@@ -2,6 +2,8 @@ import { RegistryData } from '@/lib/types/agent.types';
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 import { Card, CardContent } from '../card';
+import { Info } from 'lucide-react';
+import Link from 'next/link';
 
 export const AgentSelector = ({
   agentData,
@@ -39,6 +41,14 @@ export const AgentSelector = ({
             <div className='font-medium text-[#F8FAFC] break-words w-full overflow-hidden text-ellipsis'>
               {data?.name}
             </div>
+            <Link
+              href={`${window.location.origin}/registry/${data.id}`}
+              target='_blank'
+              rel='noreferrer'
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Info size={16} />
+            </Link>
           </CardContent>
         </Card>
       ))}
