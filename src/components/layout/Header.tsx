@@ -203,7 +203,7 @@ const Header = () => {
                   <NavigationMenuTrigger className='bg-transparent'>
                     Products
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className='border-zinc-800'>
                     <ul className='grid gap-3 p-4 w-full md:w-[350px]'>
                       <ListItem
                         href={MB_URL.BITTE_WALLET}
@@ -241,7 +241,7 @@ const Header = () => {
                   <NavigationMenuTrigger className='bg-transparent'>
                     Developers
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className='border-zinc-800'>
                     <ul className='grid gap-3 p-4 w-full md:w-[205px]'>
                       {developerLinks.map((devs) => (
                         <ListItem
@@ -257,7 +257,7 @@ const Header = () => {
                   <NavigationMenuTrigger className='bg-transparent'>
                     Community
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className='border-zinc-800'>
                     <ul className='grid gap-3 p-4 w-full md:w-[205px]'>
                       {communityLinks.map((community) => (
                         <ListItem
