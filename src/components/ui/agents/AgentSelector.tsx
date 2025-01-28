@@ -46,8 +46,14 @@ export const AgentSelector = ({
               target='_blank'
               rel='noreferrer'
               onClick={(e) => e.stopPropagation()}
+              className='group'
             >
-              <Info size={16} />
+              <span className='hover:text-white group-hover:text-white'>
+                <Info
+                  size={16}
+                  className='text-gray-400 group-hover:text-white'
+                />
+              </span>
             </Link>
           </CardContent>
         </Card>

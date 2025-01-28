@@ -10,6 +10,7 @@ import { AgentData } from '@/components/layout/Home';
 import AgentSelector from '@/components/ui/agents/AgentSelector';
 import Filters from '@/components/ui/agents/Filters';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
+import { cn } from '@/lib/utils';
 import { filterHandler } from '@/lib/utils/filters';
 
 const chatColors = {
@@ -44,6 +45,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
         });
       })
     : agentData.agents;
+
+  const isWalletDisconnected = !isConnected && !isEvmConnected;
 
   const handleFilterClick = (value: string, label: string) => {
     setSelectedFilters((prevFilters) =>
@@ -93,9 +96,16 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
         >
           <source src='/video/brains.mp4' type='video/mp4' />
         </video>
-        <div className='flex justify-center flex-col text-center items-center px-8 pt-14 md:pt-12 lg:pt-12 xl:pt-24  2xl:pt-40  py-28'>
-          {!isConnected && !isEvmConnected ? (
-            <div className='z-10 md:pointer-events-none max-w-[530px]'>
+        <div
+          className={cn(
+            'flex justify-center flex-col text-center items-center px-8 py-28',
+            isWalletDisconnected
+              ? 'pt-14 md:pt-12 lg:pt-12 xl:pt-24 2xl:pt-40'
+              : 'pt-4'
+          )}
+        >
+          {isWalletDisconnected ? (
+            <div className='z-10 md:pointer-events-none'>
               <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
                 What transaction can we help you with?
               </p>
@@ -112,7 +122,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             </div>
           </div>
 
-          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[700px] lg:h-[500px] xl:h-[700px] 2xl:h-[1024px] w-full 2xl:mx-72'>
+          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[700px] lg:h-[500px] xl:h-[600px] 2xl:h-[1000px] w-full 2xl:w-4/5'>
             <div className='z-10 -mx-8 lg:-mx-0'>
               <AgentSelector
                 agentData={filteredAgents}
