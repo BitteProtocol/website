@@ -10,7 +10,7 @@ export const productCardsData = {
       id: 1,
       badge: 'Hackathon',
       title: 'Safe Agent Hackathon',
-      sub: 'Build an agent for any of the Safe Partners: Aave, Lido, Balancer ',
+      sub: 'Build an agent for any of the Safe Partners like Aave, Lido, Balancer ',
       bg: '/examples/safe.jpg',
       btn_text: 'See Bounty',
       link: '/events/safe',
@@ -19,10 +19,10 @@ export const productCardsData = {
       id: 2,
       badge: 'Hackathon',
       title: 'NEAR Hackathon',
-      sub: 'Fork other agents to make them better or bootstrap your own.',
+      sub: 'Build NEAR dapp agents.',
       bg: '/examples/near.jpg',
-      btn_text: 'Agents',
-      link: '/events/safe',
+      btn_text: 'Register Now',
+      link: 'https://1t-agents.devpost.com/',
     },
   ],
 };
@@ -42,7 +42,7 @@ export const EventsUI = () => {
       <div className='flex w-full flex-col p-24'>
         <RegistryBanner
           header='Events + Hackathons'
-          subHeader='Upcoming events'
+          subHeader='Build Chain Agents and earn bounties at some upcoming events for all the chains.'
         />
         <ProductCardsSection data={productCardsData} />
       </div>

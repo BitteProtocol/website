@@ -7,7 +7,7 @@ export const revalidate = 0;
 
 const events = {
   safe: {
-    title: 'Safe + Bitte son',
+    title: 'Safe + Bitte',
   },
 };
 
@@ -88,7 +88,7 @@ export default async function AgentDetail({
         </div>
 
         <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
-          <Link href='/registry'>
+          <Link href='https://safe.global/ai' target='_blank'>
             <Button variant='default' className='w-full md:w-[200px]'>
               Register Now
             </Button>
