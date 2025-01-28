@@ -10,6 +10,7 @@ import { AgentData } from '@/components/layout/Home';
 import AgentSelector from '@/components/ui/agents/AgentSelector';
 import Filters from '@/components/ui/agents/Filters';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
+import { cn } from '@/lib/utils';
 import { filterHandler } from '@/lib/utils/filters';
 
 const chatColors = {
@@ -44,6 +45,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
         });
       })
     : agentData.agents;
+
+  const isWalletDisconnected = !isConnected && !isEvmConnected;
 
   const handleFilterClick = (value: string, label: string) => {
     setSelectedFilters((prevFilters) =>
@@ -93,8 +96,15 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
         >
           <source src='/video/brains.mp4' type='video/mp4' />
         </video>
-        <div className='flex justify-center flex-col text-center items-center px-8 pt-14 md:pt-12 lg:pt-12 xl:pt-24  2xl:pt-40  py-28'>
-          {!isConnected && !isEvmConnected ? (
+        <div
+          className={cn(
+            'flex justify-center flex-col text-center items-center px-8 py-28',
+            isWalletDisconnected
+              ? 'pt-14 md:pt-12 lg:pt-12 xl:pt-24 2xl:pt-40'
+              : 'pt-4'
+          )}
+        >
+          {isWalletDisconnected ? (
             <div className='z-10 md:pointer-events-none max-w-[530px]'>
               <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
                 What transaction can we help you with?
