@@ -18,7 +18,7 @@ export const ProductCardsSection = ({
   };
 
   return (
-    <section className='my-12 md:my-20 px-6 xl:px-20 bg-black w-screen'>
+    <section className='my-12 md:my-20 px-6 xl:px-20 w-full'>
       <p
         className={`${fira.className} text-sm text-mb-gray-300 font-normal text-center uppercase mb-10`}
       >

@@ -1,5 +1,6 @@
 export const MB_URL = {
   APP_URL: 'https://bitte.ai',
+  EVENTS: '/events',
   BITTE_TWITTER: 'https://x.com/BitteProtocol',
   PAYMASTER_DOCS: 'https://docs.bitte.ai/wallet/paymaster',
   PAYMASTER: 'https://wallet.bitte.ai/paymaster',
@@ -46,5 +47,6 @@ export const MB_URL = {
   NEARCON_MINSTA: 'https://nearcon.mintbase.xyz',
   SMART_ACTIONS_PROMPT: 'https://wallet.bitte.ai/smart-actions/prompt',
   SMART_ACTIONS: 'https://wallet.bitte.ai/smart-actions',
+  BLOG: 'https://bitteprotocol.substack.com/',
   WHITE_PAPER: 'https://docsend.com/view/ngd388tyqh7jhe4y',
 };
