@@ -105,7 +105,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
           )}
         >
           {isWalletDisconnected ? (
-            <div className='z-10 md:pointer-events-none max-w-[530px]'>
+            <div className='z-10 md:pointer-events-none'>
               <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
                 What transaction can we help you with?
               </p>
