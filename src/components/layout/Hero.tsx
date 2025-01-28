@@ -12,6 +12,9 @@ import Filters from '@/components/ui/agents/Filters';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { cn } from '@/lib/utils';
 import { filterHandler } from '@/lib/utils/filters';
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { MB_URL } from '@/lib/url';
 
 const chatColors = {
   generalBackground: '#18181A',
@@ -86,16 +89,18 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
 
   return (
     <section className='w-full'>
-      <div className='relative h-full'>
-        <video
-          autoPlay
-          loop
-          playsInline
-          muted
-          className='absolute w-screen h-full object-cover border-b border-[#313E52] opacity-20'
-        >
-          <source src='/video/brains.mp4' type='video/mp4' />
-        </video>
+      <div className='relative'>
+        {isWalletDisconnected ? (
+          <video
+            autoPlay
+            loop
+            playsInline
+            muted
+            className='absolute w-screen h-full object-cover border-b border-[#313E52] opacity-20'
+          >
+            <source src='/video/brains.mp4' type='video/mp4' />
+          </video>
+        ) : null}
         <div
           className={cn(
             'flex justify-center flex-col text-center items-center px-8 py-28',
@@ -157,6 +162,18 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 historyApiUrl='api/history'
               />
             </div>
+          </div>
+          <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
+            <Link href='/registry'>
+              <Button variant='secondary' className='w-full md:w-[200px]'>
+                Browse Agents
+              </Button>
+            </Link>
+            <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+              <Link href={MB_URL.DEV_DOCS} target='_blank'>
+                Build Chain Agent
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

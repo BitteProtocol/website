@@ -120,7 +120,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         </Link>
         <Button asChild variant='secondary' className='w-full md:w-[200px]'>
           <Link href={MB_URL.DEV_DOCS} target='_blank'>
-            Docs
+            Build Chain Agent
           </Link>
         </Button>
       </div>

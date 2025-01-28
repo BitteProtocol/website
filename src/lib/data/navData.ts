@@ -25,13 +25,21 @@ export const communityLinks: { title: string; href: string }[] = [
     href: MB_URL.BITTE_TWITTER,
   },
   {
+    title: 'Events',
+    href: MB_URL.EVENTS,
+  },
+  {
+    title: 'Blog',
+    href: MB_URL.BLOG,
+  },
+  {
     title: 'Telegram',
     href: MB_URL.MINTBASE_TG,
   },
-  {
-    title: 'Warpcast',
-    href: MB_URL.MINTBASE_WARPCAST,
-  },
+  // {
+  //   title: 'Warpcast',
+  //   href: MB_URL.MINTBASE_WARPCAST,
+  // },
   {
     title: 'Youtube',
     href: MB_URL.MINTBASE_YT,
