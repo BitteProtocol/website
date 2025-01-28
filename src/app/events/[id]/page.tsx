@@ -71,7 +71,7 @@ export default async function AgentDetail({
           </Button>
           <Button asChild variant='secondary' className='w-full md:w-[200px]'>
             <Link
-              href='https://www.bitte.ai/registry/near-cow-agent.vercel.app'
+              href='https://www.bitte.ai/registry/near-uniswap-agent.vercel.app'
               target='_blank'
             >
               Uniswap Agent
@@ -79,7 +79,7 @@ export default async function AgentDetail({
           </Button>
           <Button asChild variant='secondary' className='w-full md:w-[200px]'>
             <Link
-              href='https://www.bitte.ai/registry/near-cow-agent.vercel.app'
+              href='https://www.bitte.ai/registry/near-safe-agent.vercel.app'
               target='_blank'
             >
               Safe Agent
