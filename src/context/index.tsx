@@ -12,6 +12,7 @@ import {
   polygon,
   sepolia,
   avalanche,
+  mode,
 } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -45,6 +46,7 @@ const modal = createAppKit({
     optimism,
     avalanche,
     gnosis,
+    mode,
     sepolia,
   ],
   defaultNetwork: mainnet,
