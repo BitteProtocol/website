@@ -11,6 +11,7 @@ import {
   optimism,
   polygon,
   sepolia,
+  avalanche,
 } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -36,9 +37,21 @@ const metadata = {
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [mainnet, arbitrum, base, polygon, optimism, gnosis, sepolia],
+  networks: [
+    mainnet,
+    arbitrum,
+    base,
+    polygon,
+    optimism,
+    avalanche,
+    gnosis,
+    sepolia,
+  ],
   defaultNetwork: mainnet,
   metadata: metadata,
+  featuredWalletIds: [
+    'fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa',
+  ],
   features: {
     analytics: true, // Optional - defaults to your Cloud configuration
     email: false,

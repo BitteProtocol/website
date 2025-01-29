@@ -8,6 +8,7 @@ import {
   optimism,
   gnosis,
   sepolia,
+  avalanche,
 } from '@reown/appkit/networks';
 
 // Get projectId from https://cloud.reown.com
@@ -23,6 +24,7 @@ export const networks = [
   base,
   polygon,
   optimism,
+  avalanche,
   gnosis,
   sepolia,
 ];
