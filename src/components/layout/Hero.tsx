@@ -64,13 +64,13 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   }, [agentData]);
 
   useEffect(() => {
-    const x = async () => {
-      const y = await selector.wallet();
+    const getWalletChat = async () => {
+      const wallet = await selector.wallet();
 
-      setWallet(y);
+      setWallet(wallet);
     };
 
-    if (selector) x();
+    if (selector) getWalletChat();
   }, [selector, isConnected]);
 
   useEffect(() => {
