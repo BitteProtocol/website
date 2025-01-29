@@ -1,32 +1,33 @@
-import React from 'react';
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
-import { PlusCircle } from 'lucide-react';
-import { Button } from '../ui/button';
-import { NearWalletConnector } from './NearWalletSelector';
-import { MB_URL } from '@/lib/url';
-import { Dispatch, SetStateAction } from 'react';
-import { useWindowSize } from '@/lib/utils/useWindowSize';
 import {
   Drawer,
-  DrawerTrigger,
   DrawerContent,
   DrawerTitle,
+  DrawerTrigger,
 } from '@/components/ui/drawer';
+import { MB_URL } from '@/lib/url';
+import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { PlusCircle } from 'lucide-react';
 import Image from 'next/image';
+import React, { Dispatch, SetStateAction } from 'react';
+import { Button } from '../ui/button';
+import { NearWalletConnector } from './NearWalletSelector';
 
 interface ConnectDialogProps {
   isOpen: boolean;
   setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
+  isWelcomeMessage?: boolean;
 }
 
 const ConnectDialog: React.FC<ConnectDialogProps> = ({
   isOpen,
   setConnectModalOpen,
+  isWelcomeMessage,
 }) => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
@@ -83,7 +84,10 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
     return (
       <Drawer open={isOpen} onOpenChange={setConnectModalOpen}>
         <DrawerTrigger asChild>
-          <Button onClick={() => setConnectModalOpen(true)} className='w-full'>
+          <Button
+            onClick={() => setConnectModalOpen(true)}
+            className={`${isWelcomeMessage ? 'w-[137px]' : 'w-full'}`}
+          >
             Connect
           </Button>
         </DrawerTrigger>
@@ -100,7 +104,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
-        <Button className='min-w-[137px] w-full'>Connect</Button>
+        <Button className='w-[137px]'>Connect</Button>
       </DialogTrigger>
       <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>

@@ -180,6 +180,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                       <ConnectDialog
                         isOpen={isConnectModalOpen}
                         setConnectModalOpen={setConnectModalOpen}
+                        isWelcomeMessage
                       />
                     </div>
                   ) : undefined
