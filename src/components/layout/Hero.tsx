@@ -10,11 +10,11 @@ import { AgentData } from '@/components/layout/Home';
 import AgentSelector from '@/components/ui/agents/AgentSelector';
 import Filters from '@/components/ui/agents/Filters';
 import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
+import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { filterHandler } from '@/lib/utils/filters';
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import { MB_URL } from '@/lib/url';
 
 const chatColors = {
   generalBackground: '#18181A',
@@ -66,11 +66,12 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   useEffect(() => {
     const x = async () => {
       const y = await selector.wallet();
+
       setWallet(y);
     };
 
     if (selector) x();
-  }, [selector]);
+  }, [selector, isConnected]);
 
   useEffect(() => {
     // Retrieve the selected agent from sessionStorage when the component mounts
