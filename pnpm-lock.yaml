@@ -23,6 +23,12 @@ importers:
       '@mintbase-js/react':
         specifier: ^0.6.5
         version: 0.6.5(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)
+      '@near-wallet-selector/core':
+        specifier: ^8.9.16
+        version: 8.9.16(near-api-js@5.0.1)
+      '@near-wallet-selector/meteor-wallet':
+        specifier: ^8.9.16
+        version: 8.9.16
       '@near-wallet-selector/modal-ui':
         specifier: ^8.9.14
         version: 8.9.14(near-api-js@5.0.1)
@@ -971,11 +977,19 @@ packages:
       '@near-js/providers': latest
       near-api-js: 4.0.3
 
+  '@near-wallet-selector/core@8.9.16':
+    resolution: {integrity: sha512-Bq+bZvwpsYgs8g4mtDMEMUpHwD/+VlHY3hj5pLv6o6C/3Ym0/540/8ydd9VUhMsdpY0Dhv2SLamKiL6PJK6THA==}
+    peerDependencies:
+      near-api-js: ^4.0.0 || ^5.0.0
+
   '@near-wallet-selector/here-wallet@8.9.12':
     resolution: {integrity: sha512-rE1TWI52y8zIk/+MSpJdyqV2Rgh5GZVlcZkDEQpvlNdQoT3sQeroyAgmQIJMw85WvjoZHmNf3gXMpQ3IHmMIkg==}
 
   '@near-wallet-selector/meteor-wallet@8.9.12':
     resolution: {integrity: sha512-AB7q7Un+JVxltxNCWFOFZO5PajXWP+kCaHC1JgrBPxbJv6WvQ/7QydPghDFs4d2aDhcb9E5Ujbim7U1Ga/Echg==}
+
+  '@near-wallet-selector/meteor-wallet@8.9.16':
+    resolution: {integrity: sha512-ByrFgj8jGmKeKXSZ/R231qhFXEeJPe3frdmhH/JnElN8F9BPzM/aZUmfuhMcQGHJdGbYTKnBtmScGPOmnKDaKQ==}
 
   '@near-wallet-selector/modal-ui@8.9.12':
     resolution: {integrity: sha512-U+KHKbJNvqwl6aAj3tOXLPVHEUDI9i4g51kPuH64QXyZnEJHaho5njT1LOSttoBaI+zPs0Zj1VHjQssWHeXV4w==}
@@ -6645,7 +6659,7 @@ snapshots:
       '@ai-sdk/xai': 1.0.5(zod@3.24.1)
       '@mintbase-js/data': 0.6.5(graphql@16.9.0)
       '@mintbase-js/rpc': 0.6.5
-      '@near-wallet-selector/core': 8.9.14(near-api-js@4.0.3)
+      '@near-wallet-selector/core': 8.9.16(near-api-js@4.0.3)
       '@radix-ui/react-accordion': 1.2.2(@types/react-dom@18.2.19)(@types/react@18.2.60)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-label': 2.1.1(@types/react-dom@18.2.19)(@types/react@18.2.60)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-slot': 1.1.1(@types/react@18.2.60)(react@18.2.0)
@@ -6681,7 +6695,6 @@ snapshots:
       - '@azure/keyvault-secrets'
       - '@azure/storage-blob'
       - '@capacitor/preferences'
-      - '@near-js/providers'
       - '@netlify/blobs'
       - '@planetscale/database'
       - '@react-native-async-storage/async-storage'
@@ -7271,7 +7284,7 @@ snapshots:
       pump: 3.0.2
       readable-stream: 3.6.2
       socket.io-client: 4.8.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      tslib: 2.6.2
+      tslib: 2.8.1
       util: 0.12.5
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -7424,7 +7437,7 @@ snapshots:
       '@motionone/easing': 10.18.0
       '@motionone/types': 10.17.1
       '@motionone/utils': 10.18.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@motionone/dom@10.18.0':
     dependencies:
@@ -7433,23 +7446,23 @@ snapshots:
       '@motionone/types': 10.17.1
       '@motionone/utils': 10.18.0
       hey-listen: 1.0.8
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@motionone/easing@10.18.0':
     dependencies:
       '@motionone/utils': 10.18.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@motionone/generators@10.18.0':
     dependencies:
       '@motionone/types': 10.17.1
       '@motionone/utils': 10.18.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@motionone/svelte@10.16.4':
     dependencies:
       '@motionone/dom': 10.18.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@motionone/types@10.17.1': {}
 
@@ -7457,12 +7470,12 @@ snapshots:
     dependencies:
       '@motionone/types': 10.17.1
       hey-listen: 1.0.8
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@motionone/vue@10.16.4':
     dependencies:
       '@motionone/dom': 10.18.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@near-js/accounts@1.2.1':
     dependencies:
@@ -7745,14 +7758,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@near-wallet-selector/core@8.9.14(near-api-js@4.0.3)':
-    dependencies:
-      borsh: 0.7.0
-      events: 3.3.0
-      js-sha256: 0.9.0
-      near-api-js: 4.0.3
-      rxjs: 7.8.1
-
   '@near-wallet-selector/core@8.9.14(near-api-js@4.0.4)':
     dependencies:
       borsh: 0.7.0
@@ -7764,6 +7769,22 @@ snapshots:
   '@near-wallet-selector/core@8.9.14(near-api-js@5.0.1)':
     dependencies:
       borsh: 0.7.0
+      events: 3.3.0
+      js-sha256: 0.9.0
+      near-api-js: 5.0.1
+      rxjs: 7.8.1
+
+  '@near-wallet-selector/core@8.9.16(near-api-js@4.0.3)':
+    dependencies:
+      borsh: 1.0.0
+      events: 3.3.0
+      js-sha256: 0.9.0
+      near-api-js: 4.0.3
+      rxjs: 7.8.1
+
+  '@near-wallet-selector/core@8.9.16(near-api-js@5.0.1)':
+    dependencies:
+      borsh: 1.0.0
       events: 3.3.0
       js-sha256: 0.9.0
       near-api-js: 5.0.1
@@ -7782,6 +7803,14 @@ snapshots:
     dependencies:
       '@meteorwallet/sdk': 1.0.9(near-api-js@4.0.3)
       '@near-wallet-selector/core': 8.9.12
+      near-api-js: 4.0.3
+    transitivePeerDependencies:
+      - encoding
+
+  '@near-wallet-selector/meteor-wallet@8.9.16':
+    dependencies:
+      '@meteorwallet/sdk': 1.0.9(near-api-js@4.0.3)
+      '@near-wallet-selector/core': 8.9.16(near-api-js@4.0.3)
       near-api-js: 4.0.3
     transitivePeerDependencies:
       - encoding
@@ -9052,7 +9081,7 @@ snapshots:
 
   '@swc/helpers@0.5.2':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@tanstack/query-core@5.62.16': {}
 
@@ -10273,7 +10302,7 @@ snapshots:
 
   aria-hidden@1.2.3:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   aria-query@5.3.0:
     dependencies:
@@ -13777,7 +13806,7 @@ snapshots:
     dependencies:
       react: 18.2.0
       react-style-singleton: 2.2.1(@types/react@18.2.60)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.60
 
@@ -13785,7 +13814,7 @@ snapshots:
     dependencies:
       react: 18.2.0
       react-style-singleton: 2.2.1(@types/react@18.2.60)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.60
 
@@ -13794,7 +13823,7 @@ snapshots:
       react: 18.2.0
       react-remove-scroll-bar: 2.3.5(@types/react@18.2.60)(react@18.2.0)
       react-style-singleton: 2.2.1(@types/react@18.2.60)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.8.1
       use-callback-ref: 1.3.1(@types/react@18.2.60)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.2.60)(react@18.2.0)
     optionalDependencies:
@@ -13805,7 +13834,7 @@ snapshots:
       react: 18.2.0
       react-remove-scroll-bar: 2.3.6(@types/react@18.2.60)(react@18.2.0)
       react-style-singleton: 2.2.1(@types/react@18.2.60)(react@18.2.0)
-      tslib: 2.6.2
+      tslib: 2.8.1
       use-callback-ref: 1.3.1(@types/react@18.2.60)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.2.60)(react@18.2.0)
     optionalDependencies:
@@ -13824,7 +13853,7 @@ snapshots:
       get-nonce: 1.0.1
       invariant: 2.2.4
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.60
 
@@ -14021,7 +14050,7 @@ snapshots:
 
   rxjs@7.8.1:
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   safe-array-concat@1.1.0:
     dependencies:
@@ -14596,7 +14625,7 @@ snapshots:
   use-callback-ref@1.3.1(@types/react@18.2.60)(react@18.2.0):
     dependencies:
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.60
 
@@ -14604,7 +14633,7 @@ snapshots:
     dependencies:
       detect-node-es: 1.1.0
       react: 18.2.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.60
 
