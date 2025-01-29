@@ -167,7 +167,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                   !isConnected && !isEvmConnected ? (
                     <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
                       <img
-                        className='bitte-mx-auto bitte-mb-4'
+                        className='mx-auto mb-4'
                         width={40}
                         height={28}
                         src={'/logo.svg'}
