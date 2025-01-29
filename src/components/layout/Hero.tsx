@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils';
 import { filterHandler } from '@/lib/utils/filters';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import ConnectDialog from './ConnectDialog';
 
 const chatColors = {
   generalBackground: '#18181A',
@@ -29,6 +30,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [wallet, setWallet] = useState<any>();
+  const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
 
   const { selector, isConnected } = useBitteWallet();
 
@@ -161,6 +163,25 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 apiUrl='/api/chat'
                 colors={chatColors}
                 historyApiUrl='api/history'
+                welcomeMessageComponent={
+                  !isConnected && !isEvmConnected ? (
+                    <div className='bitte-flex bitte-flex-col bitte-gap-4 bitte-items-center bitte-justify-center bitte-absolute bitte-left-1/2 bitte--translate-x-1/2 bitte-top-1/2 bitte--translate-y-1/2 bitte-text-center bitte-w-full'>
+                      <img
+                        className='bitte-mx-auto bitte-mb-4'
+                        width={40}
+                        height={28}
+                        src={'/logo.svg'}
+                      />
+                      <div className='bitte-mb-8 bitte-text-[20px] bitte-font-medium bitte-text-gray-40'>
+                        Execute Transactions with AI
+                      </div>
+                      <ConnectDialog
+                        isOpen={isConnectModalOpen}
+                        setConnectModalOpen={setConnectModalOpen}
+                      />
+                    </div>
+                  ) : undefined
+                }
               />
             </div>
           </div>

@@ -28,8 +28,8 @@ const Header = () => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isConnectModalOpen, setConnectModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
 
   const { isConnected: isNearConnected, connect } = useBitteWallet();
 
