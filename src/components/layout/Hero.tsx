@@ -127,7 +127,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             </div>
           </div>
 
-          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[700px] lg:h-[500px] xl:h-[600px] 2xl:h-[1000px] w-full 2xl:w-4/5'>
+          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[700px] lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
             <div className='z-10 -mx-8 lg:-mx-0'>
               <AgentSelector
                 agentData={filteredAgents}
