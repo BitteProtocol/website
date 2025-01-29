@@ -30,6 +30,7 @@ const getChainSvgPath = (chainId?: number): string => {
     8453: '/chains/new_base.svg',
     137: '/chains/new_polygon.svg',
     100: '/chains/new_gnosis.svg',
+    43114: '/chains/avax.svg',
   };
 
   return chainSvgMap[chainId] || defaultSVG;
