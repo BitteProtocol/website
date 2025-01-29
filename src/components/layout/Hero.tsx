@@ -172,7 +172,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                         height={28}
                         src={'/logo.svg'}
                       />
-                      <div className='bitte-mb-8 bitte-text-[20px] bitte-font-medium bitte-text-gray-40'>
+                      <div className='mb-8 text-[20px] font-medium text-gray-40'>
                         Execute Transactions with AI
                       </div>
                       <ConnectDialog
