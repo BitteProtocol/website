@@ -165,7 +165,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 historyApiUrl='api/history'
                 welcomeMessageComponent={
                   !isConnected && !isEvmConnected ? (
-                    <div className='bitte-flex bitte-flex-col bitte-gap-4 bitte-items-center bitte-justify-center bitte-absolute bitte-left-1/2 bitte--translate-x-1/2 bitte-top-1/2 bitte--translate-y-1/2 bitte-text-center bitte-w-full'>
+                    <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
                       <img
                         className='bitte-mx-auto bitte-mb-4'
                         width={40}
