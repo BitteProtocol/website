@@ -13,6 +13,7 @@ import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { filterHandler } from '@/lib/utils/filters';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import ConnectDialog from './ConnectDialog';
@@ -166,11 +167,12 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 welcomeMessageComponent={
                   !isConnected && !isEvmConnected ? (
                     <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
-                      <img
+                      <Image
+                        alt='bitte-ai-logo'
                         className='mx-auto mb-4'
                         width={40}
                         height={28}
-                        src={'/logo.svg'}
+                        src='/logo.svg'
                       />
                       <div className='mb-8 text-[20px] font-medium text-gray-40'>
                         Execute Transactions with AI
