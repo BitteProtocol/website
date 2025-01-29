@@ -2,7 +2,7 @@
 
 import { BitteAiChat } from '@bitte-ai/chat';
 import '@bitte-ai/chat/style.css';
-import { useBitteWallet } from '@mintbase-js/react';
+import { useBitteWallet, Wallet } from '@mintbase-js/react';
 import { useEffect, useState } from 'react';
 import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
 
@@ -28,8 +28,8 @@ const chatColors = {
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [wallet, setWallet] = useState<any>();
+
+  const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
 
   const { selector, isConnected } = useBitteWallet();
