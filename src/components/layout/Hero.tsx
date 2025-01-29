@@ -163,7 +163,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               />
             </div>
           </div>
-          <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
+          <div className='mt-11 flex items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/registry'>
               <Button variant='secondary' className='w-full md:w-[200px]'>
                 Browse Agents
