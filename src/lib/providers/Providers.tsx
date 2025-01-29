@@ -1,7 +1,8 @@
 'use client';
 
-import { BitteWalletContextProvider } from '@mintbase-js/react';
 import ContextProvider from '@/context';
+import { BitteWalletContextProvider } from '@mintbase-js/react';
+import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 
 const BitteWalletSetup = {
   network: 'mainnet',
@@ -16,7 +17,10 @@ type ProvidersProps = {
 
 const Providers: React.FC<ProvidersProps> = ({ children, cookies }) => {
   return (
-    <BitteWalletContextProvider {...BitteWalletSetup} onlyBitteWallet={true}>
+    <BitteWalletContextProvider
+      {...BitteWalletSetup}
+      additionalWallets={[setupMeteorWallet()]}
+    >
       <ContextProvider cookies={cookies}>{children}</ContextProvider>
     </BitteWalletContextProvider>
   );
