@@ -25,7 +25,7 @@ export const AgentDetailComponent = ({
         </div>
         <div className='w-full lg:w-2/3 my-6 lg:my-16'>
           <div className='h-[600px] mb-6'>
-            <AiChat selectedAgent={agent} />
+            <AiChat selectedAgent={agent} isAgentPage />
           </div>
           <div className='markdownBody'>
             <MarkdownBody

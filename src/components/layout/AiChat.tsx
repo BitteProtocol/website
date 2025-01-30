@@ -16,7 +16,13 @@ const chatColors = {
   borderColor: '#334155',
 };
 
-const AiChat = ({ selectedAgent }: { selectedAgent: RegistryData | null }) => {
+const AiChat = ({
+  selectedAgent,
+  isAgentPage,
+}: {
+  selectedAgent: RegistryData | null;
+  isAgentPage?: boolean;
+}) => {
   const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
 
@@ -60,7 +66,7 @@ const AiChat = ({ selectedAgent }: { selectedAgent: RegistryData | null }) => {
       colors={chatColors}
       historyApiUrl='api/history'
       welcomeMessageComponent={
-        isWalletDisconnected ? (
+        isWalletDisconnected && !isAgentPage ? (
           <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
             <Image
               alt='bitte-ai-logo'
