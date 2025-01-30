@@ -1,10 +1,9 @@
 'use client';
 
-import { BitteAiChat } from '@bitte-ai/chat';
 import '@bitte-ai/chat/style.css';
-import { useBitteWallet, Wallet } from '@mintbase-js/react';
+import { useBitteWallet } from '@mintbase-js/react';
 import { useEffect, useState } from 'react';
-import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import { AgentData } from '@/components/layout/Home';
 import AgentSelector from '@/components/ui/agents/AgentSelector';
@@ -13,31 +12,18 @@ import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { filterHandler } from '@/lib/utils/filters';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import ConnectDialog from './ConnectDialog';
-
-const chatColors = {
-  generalBackground: '#18181A',
-  messageBackground: '#000000',
-  textColor: '#FFFFFF',
-  buttonColor: '#0F172A',
-  borderColor: '#334155',
-};
+import AiChat from './AiChat';
 
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
 
-  const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
-  const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
+  const { isConnected } = useBitteWallet();
 
-  const { selector, isConnected } = useBitteWallet();
-
-  const { address, isConnected: isEvmConnected } = useAccount();
-  const { data: hash, sendTransaction } = useSendTransaction();
-  const { switchChain } = useSwitchChain();
+  const { isConnected: isEvmConnected } = useAccount();
+  const isWalletDisconnected = !isConnected && !isEvmConnected;
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
@@ -52,8 +38,6 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
       })
     : agentData.agents;
 
-  const isWalletDisconnected = !isConnected && !isEvmConnected;
-
   const handleFilterClick = (value: string, label: string) => {
     setSelectedFilters((prevFilters) =>
       filterHandler(prevFilters, value, label)
@@ -65,16 +49,6 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
       setSelectedAgent(agentData.agents[0]);
     }
   }, [agentData]);
-
-  useEffect(() => {
-    const getWalletChat = async () => {
-      const wallet = await selector.wallet();
-
-      setWallet(wallet);
-    };
-
-    if (selector) getWalletChat();
-  }, [selector, isConnected]);
 
   useEffect(() => {
     // Retrieve the selected agent from sessionStorage when the component mounts
@@ -140,52 +114,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               />
             </div>
             <div className='lg:w-full h-full -mx-8 lg:-mx-0'>
-              <BitteAiChat
-                options={{
-                  agentImage: selectedAgent?.coverImage,
-                  agentName: selectedAgent?.name,
-                }}
-                wallet={{
-                  near: {
-                    wallet: wallet,
-                  },
-                  evm: {
-                    sendTransaction,
-                    switchChain,
-                    address,
-                    hash,
-                  },
-                  // solana: {
-                  //   connection,
-                  //   provider: walletProvider
-                  // }
-                }}
-                agentId={selectedAgent?.id || 'bitte-assistant'}
-                apiUrl='/api/chat'
-                colors={chatColors}
-                historyApiUrl='api/history'
-                welcomeMessageComponent={
-                  !isConnected && !isEvmConnected ? (
-                    <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
-                      <Image
-                        alt='bitte-ai-logo'
-                        className='mx-auto mb-4'
-                        width={40}
-                        height={28}
-                        src='/logo.svg'
-                      />
-                      <div className='mb-8 text-[20px] font-medium text-gray-40'>
-                        Execute Transactions with AI
-                      </div>
-                      <ConnectDialog
-                        isOpen={isConnectModalOpen}
-                        setConnectModalOpen={setConnectModalOpen}
-                        isWelcomeMessage
-                      />
-                    </div>
-                  ) : undefined
-                }
-              />
+              <AiChat selectedAgent={selectedAgent} />
             </div>
           </div>
           <div className='mt-11 flex items-center justify-center gap-3 md:gap-6 z-10'>

@@ -1,10 +1,10 @@
-import { RegistryData } from '@/lib/types/agent.types';
 import { DetailsSideBar } from '@/components/layout/DetailsSidebar';
-import { MarkdownBody } from './MarkdownBody';
-import { Card, CardContent } from '../ui/card';
-import { RelatedTemplates } from './Related';
+import { RegistryData } from '@/lib/types/agent.types';
 import { Calendar } from '../ui/calendar';
+import { Card, CardContent } from '../ui/card';
 import GitCommitHistory from './CommitHistory';
+import { MarkdownBody } from './MarkdownBody';
+import { RelatedTemplates } from './Related';
 export const AgentDetailComponent = ({
   agent,
   relatedAgents,
