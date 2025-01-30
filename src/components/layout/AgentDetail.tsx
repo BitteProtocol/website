@@ -2,6 +2,7 @@ import { DetailsSideBar } from '@/components/layout/DetailsSidebar';
 import { RegistryData } from '@/lib/types/agent.types';
 import { Calendar } from '../ui/calendar';
 import { Card, CardContent } from '../ui/card';
+import AiChat from './AiChat';
 import GitCommitHistory from './CommitHistory';
 import { MarkdownBody } from './MarkdownBody';
 import { RelatedTemplates } from './Related';
@@ -23,6 +24,9 @@ export const AgentDetailComponent = ({
           <DetailsSideBar {...{ agent }} />
         </div>
         <div className='w-full lg:w-2/3 my-6 lg:my-16'>
+          <div className='h-[600px] mb-6'>
+            <AiChat selectedAgent={agent} />
+          </div>
           <div className='markdownBody'>
             <MarkdownBody
               data={agent?.generatedDescription || agent.description || ''}

@@ -54,10 +54,6 @@ const AiChat = ({ selectedAgent }: { selectedAgent: RegistryData | null }) => {
           address,
           hash,
         },
-        // solana: {
-        //   connection,
-        //   provider: walletProvider
-        // }
       }}
       agentId={selectedAgent?.id || 'bitte-assistant'}
       apiUrl='/api/chat'
