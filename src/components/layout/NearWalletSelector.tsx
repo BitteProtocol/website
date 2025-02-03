@@ -2,8 +2,12 @@
 
 import { useBitteWallet } from '@mintbase-js/react';
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Button } from '../ui/button';
+import { getBalance } from '@mintbase-js/rpc';
+/* import BN from 'bn.js'; */
+import { useState } from 'react';
+import { formatNearAmount } from 'near-api-js/lib/utils/format';
 
 export const NearWalletConnector = ({
   setConnectModalOpen,
@@ -11,6 +15,8 @@ export const NearWalletConnector = ({
   setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const { isConnected, selector, connect, activeAccountId } = useBitteWallet();
+
+  const [balance, setBalance] = useState<string>('0');
 
   const handleSignout = async () => {
     const wallet = await selector.wallet();
@@ -24,6 +30,19 @@ export const NearWalletConnector = ({
       console.error('Failed to connect wallet:', error);
     }
   };
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (activeAccountId) {
+        const balance = await getBalance({
+          accountId: activeAccountId,
+          rpcUrl: 'https://rpc.mainnet.near.org',
+        });
+        setBalance(balance);
+      }
+    };
+    fetchBalance();
+  }, [activeAccountId]);
 
   if (!isConnected) {
     return (
@@ -68,7 +87,7 @@ export const NearWalletConnector = ({
         />
         <div>
           <p>{activeAccountId}</p>
-          <small>{287.5} NEAR</small>
+          <small>{formatNearAmount(balance, 2)} NEAR</small>
         </div>
       </div>
       <Button onClick={handleSignout}>Disconnect</Button>

@@ -23,6 +23,9 @@ importers:
       '@mintbase-js/react':
         specifier: ^0.6.5
         version: 0.6.5(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)
+      '@mintbase-js/rpc':
+        specifier: 0.6.3
+        version: 0.6.3
       '@near-wallet-selector/core':
         specifier: ^8.9.16
         version: 8.9.16(near-api-js@5.0.1)
@@ -834,6 +837,9 @@ packages:
 
   '@mintbase-js/react@0.6.5':
     resolution: {integrity: sha512-nlCMINhDGsNeKqMdcRg4wBoTiSYvywIHvz2VoVNcGHzR5hXgB5WDoNb05Di6I2xzbKn9bDn7S5yBMAj1IPfNPg==}
+
+  '@mintbase-js/rpc@0.6.3':
+    resolution: {integrity: sha512-fv7PbT2ra3r1xWHirAMHg3sA46/MvcjxabAtYURf7InMRJruAORWe3GbISYb+8epXws53kZQvk82bfQvMXrrzQ==}
 
   '@mintbase-js/rpc@0.6.5':
     resolution: {integrity: sha512-EuBFnnBDSGBxVWTd8H34qVY3C75RiK0yUxQsupJGEleRd00elpiGnBlsUbwyK17zVPPB6CE6MQs44dhJ6tv57g==}
@@ -7402,6 +7408,14 @@ snapshots:
       - borsh
       - encoding
       - graphql
+
+  '@mintbase-js/rpc@0.6.3':
+    dependencies:
+      '@types/node': 18.11.9
+      bn.js: 5.2.1
+      cross-fetch: 4.0.0
+    transitivePeerDependencies:
+      - encoding
 
   '@mintbase-js/rpc@0.6.5':
     dependencies:
