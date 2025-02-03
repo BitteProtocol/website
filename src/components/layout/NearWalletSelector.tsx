@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Button } from '../ui/button';
 import { getBalance } from '@mintbase-js/rpc';
-/* import BN from 'bn.js'; */
 import { useState } from 'react';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
 
