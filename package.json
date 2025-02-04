@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.5",
-    "@bitte-ai/chat": "0.0.16",
+    "@bitte-ai/chat": "latest",
     "@google-cloud/firestore": "^7.10.0",
-    "@mintbase-js/react": "^0.6.5",
+    "@bitte-ai/react": "latest",
     "@mintbase-js/rpc": "0.6.3",
     "@near-wallet-selector/core": "^8.9.16",
     "@near-wallet-selector/meteor-wallet": "^8.9.16",

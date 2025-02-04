@@ -5,7 +5,21 @@ import {
 } from '@/lib/api/ai-registry/registry';
 import { getAllDailyPingsByAgentId } from '@/lib/api/kv';
 
+interface Params {
+  agentId: string;
+}
+
 export const revalidate = 0;
+
+export async function generateMetadata({ params }: { params: Params }) {
+  const agentId = params.agentId as string;
+  const data = await getAssistantById(agentId);
+
+  return {
+    title: `Bitte.ai - Agent: ${data?.name}`,
+    description: data?.description,
+  };
+}
 
 export default async function AgentDetail({
   params,

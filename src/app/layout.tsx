@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description:
       'Your portal to effortlessly launch cutting-edge Web3 experiences.',
     siteId: '1467726470533754880',
-    creator: 'Mintbase',
+    creator: 'Bitte',
     images: 'https://bitte.ai/thumbnail.png',
   },
   description:
