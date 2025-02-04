@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   const data = await getAssistantById(agentId);
 
   return {
-    title: `Bitte.ai - ${data?.name} Agent`,
+    title: `${data?.name} Agent | Bitte.ai`,
     description: data?.description,
   };
 }
