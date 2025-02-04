@@ -13,7 +13,7 @@ import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { useBitteWallet } from '@mintbase-js/react';
+import { useBitteWallet } from '@bitte-ai/react';
 import { ArrowUpRight, Menu, X, Settings } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -1,7 +1,7 @@
 'use client';
 
 import '@bitte-ai/chat/style.css';
-import { useBitteWallet } from '@mintbase-js/react';
+import { useBitteWallet } from '@bitte-ai/react';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 

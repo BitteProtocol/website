@@ -16,12 +16,11 @@ import { MB_URL } from '@/lib/url';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Bitte',
+  title: 'Bitte.ai - Blockchain empowered by AI Agents',
   openGraph: {
-    title: 'Bitte - https://bitte.ai',
+    title: 'Bitte.ai - Blockchain empowered by AI Agents',
     description:
       'Your portal to effortlessly launch cutting-edge Web3 experiences.',
-
     images: [
       {
         type: 'image/png',
@@ -33,11 +32,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bitte',
+    title: 'Bitte.ai - Blockchain empowered by AI Agents',
     description:
       'Your portal to effortlessly launch cutting-edge Web3 experiences.',
     siteId: '1467726470533754880',
-    creator: 'Mintbase',
+    creator: 'Bitte',
     images: 'https://bitte.ai/thumbnail.png',
   },
   description:

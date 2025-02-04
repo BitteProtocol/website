@@ -1,6 +1,6 @@
 'use client';
 
-import { useBitteWallet } from '@mintbase-js/react';
+import { useBitteWallet } from '@bitte-ai/react';
 import Image from 'next/image';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Button } from '../ui/button';

@@ -1,7 +1,7 @@
 'use client';
 
 import ContextProvider from '@/context';
-import { BitteWalletContextProvider } from '@mintbase-js/react';
+import { BitteWalletContextProvider } from '@bitte-ai/react';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 
 const BitteWalletSetup = {

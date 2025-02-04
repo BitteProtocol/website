@@ -1,9 +1,36 @@
 import { RegistryBanner } from '@/components/layout/RegistryBanner';
 import { Button } from '@/components/ui/button';
 import { MB_URL } from '@/lib/url';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const revalidate = 0;
+
+export const metadata: Metadata = {
+  title: 'Safe + Bitte Hackaton | Bitte.ai',
+  openGraph: {
+    title: 'Safe + Bitte Hackaton | Bitte.ai',
+    description: 'Bounty $5k USDC on NEAR',
+    images: [
+      {
+        type: 'image/png',
+        url: 'https://bitte.ai/thumbnail.png',
+        width: '1200',
+        height: '630',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Safe + Bitte Hackaton | Bitte.ai',
+    description: 'Bounty $5k USDC on NEAR',
+    siteId: '1467726470533754880',
+    creator: 'Bitte',
+    images: 'https://bitte.ai/thumbnail.png',
+  },
+  description: 'Bounty $5k USDC on NEAR',
+  metadataBase: new URL(MB_URL.APP_URL),
+};
 
 const events = {
   safe: {
@@ -42,7 +69,7 @@ export default async function AgentDetail({
           providing flexibility while onboarding new users.
         </span>
         <span className='text-3xl md:text-4xl font-semibold mb-6'>
-          Requirments
+          Requirements
         </span>
         <span className='text-base md:text-xl text-mb-gray-300 mb-9'>
           A video overview of the agent-building transactions is required. The

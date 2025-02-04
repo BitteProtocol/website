@@ -45,7 +45,7 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
       <li className='w-full flex mb-5'>
         <div className='text-mb-gray-200 text-sm'>Publisher</div>
         <div className='text-right text-sm ml-auto font-semibold'>
-          {agent.publisher || 'Bitte'}
+          {agent.publisher || agent.author || 'Bitte'}
         </div>
       </li>
 
