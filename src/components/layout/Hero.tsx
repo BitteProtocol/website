@@ -105,7 +105,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             </div>
           </div>
 
-          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 h-[700px] lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
+          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
             <div className='z-10 -mx-8 lg:-mx-0'>
               <AgentSelector
                 agentData={filteredAgents}
@@ -113,7 +113,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 selectedAgent={selectedAgent}
               />
             </div>
-            <div className='lg:w-full h-full -mx-8 lg:-mx-0'>
+            <div className='lg:w-full h-[520px] lg:h-full -mx-8 lg:-mx-0'>
               <AiChat selectedAgent={selectedAgent} />
             </div>
           </div>
