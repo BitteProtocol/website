@@ -201,7 +201,6 @@
 }
 
 /* reown appkit modals */
-wcm-modal {
-  position: absolute !important;
+w3m-modal.open {
   z-index: 9999 !important;
 }
