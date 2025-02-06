@@ -84,7 +84,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
                 <p> {shortenAddress(address)}</p>
                 <small>
                   {balance?.value
-                    ? Number(formatEther(balance?.value)).toFixed(2)
+                    ? Number(formatEther(balance?.value)).toFixed(4)
                     : 0.0}{' '}
                   {balance?.symbol}
                 </small>
