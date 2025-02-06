@@ -23,6 +23,7 @@ import { Modal } from '../ui/Modal';
 import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
 import { Button } from '../ui/button';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -33,6 +34,8 @@ const Header = () => {
 
   const { isConnected: isNearConnected, connect } = useBitteWallet();
 
+  const pathname = usePathname();
+
   const handleSignIn = async () => {
     try {
       await connect();
@@ -42,6 +45,10 @@ const Header = () => {
   };
 
   const { isConnected } = useAccount();
+
+  if (pathname.includes('/dashboard')) {
+    return;
+  }
 
   if (isMobile) {
     return (
