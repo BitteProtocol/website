@@ -17,6 +17,7 @@ export const MB_URL = {
   MINTBASE_TG: 'https://t.me/bitteai',
   GRANTS: 'https://github.com/Mintbase/Grants-Program',
   MINTBASE_WARPCAST: 'https://warpcast.com/~/channel/mintbase',
+  API_KEY: 'https://key.bitte.ai/dashboard',
   MINTBASE_YT: 'https://www.youtube.com/@bitteprotocol',
   MINTBASE_LINKEDIN: 'https://www.linkedin.com/company/bitteprotocol',
   MINTBASE_GITHUB: 'https://github.com/BitteProtocol',
