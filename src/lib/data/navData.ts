@@ -6,8 +6,12 @@ export const developerLinks: { title: string; href: string }[] = [
     href: MB_URL.DEV_DOCS,
   },
   {
+    title: 'Get API KEY',
+    href: MB_URL.API_KEY,
+  },
+  {
     title: 'Telegram',
-    href: MB_URL.MINTBASE_DEV_TG,
+    href: MB_URL.MINTBASE_TG,
   },
   {
     title: 'GitHub',
