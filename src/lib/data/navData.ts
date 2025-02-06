@@ -6,7 +6,7 @@ export const developerLinks: { title: string; href: string }[] = [
     href: MB_URL.DEV_DOCS,
   },
   {
-    title: 'Get API KEY',
+    title: 'Get API Key',
     href: MB_URL.API_KEY,
   },
   {
