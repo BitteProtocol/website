@@ -15,7 +15,7 @@ import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
-import { formatUnits } from 'viem';
+import { formatEther } from 'viem';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
@@ -83,7 +83,9 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
               <div>
                 <p> {shortenAddress(address)}</p>
                 <small>
-                  {balance?.value ? formatUnits(balance?.value, 12) : 0.0}{' '}
+                  {balance?.value
+                    ? Number(formatEther(balance?.value)).toFixed(4)
+                    : 0.0}{' '}
                   {balance?.symbol}
                 </small>
               </div>
