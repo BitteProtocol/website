@@ -1,21 +1,11 @@
 import * as React from 'react';
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  TerminalSquare,
-} from 'lucide-react';
+import { Bot, Frame, PieChart, TerminalSquare } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
-import { NavUser } from '@/components/nav-user';
-/* import { TeamSwitcher } from '@/components/team-switcher'; */
+import { useState } from 'react';
+import { useBitteWallet } from '@bitte-ai/react';
+import { useAccount } from 'wagmi';
 import {
   Sidebar,
   SidebarMenu,
@@ -26,15 +16,12 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import Image from 'next/image';
+import ConnectDialog from './layout/ConnectDialog';
+import ManageAccountsDialog from './layout/ManageAccountsDialog';
+import { useSidebar } from '@/components/ui/sidebar';
 
 // This is sample data.
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
-
   navMain: [
     {
       title: 'Chat',
@@ -63,6 +50,23 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
+
+  const { isConnected: isNearConnected, connect } = useBitteWallet();
+
+  const handleSignIn = async () => {
+    try {
+      await connect();
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
+  };
+
+  const { isConnected } = useAccount();
+
+  const { open } = useSidebar();
+  console.log('OPEN', open);
+
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
@@ -82,8 +86,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
+      <SidebarFooter className='p-4 w-full'>
+        {!isConnected && !isNearConnected && (
+          <ConnectDialog
+            isOpen={isConnectModalOpen}
+            setConnectModalOpen={setConnectModalOpen}
+            isSidebar
+            sidebarOpen={open}
+          />
+        )}
+        {(isConnected || isNearConnected) && (
+          <ManageAccountsDialog
+            isOpen={isConnectModalOpen}
+            setConnectModalOpen={setConnectModalOpen}
+            isConnected={isConnected}
+            isNearConnected={isNearConnected}
+            handleSignIn={handleSignIn}
+            sidebarOpen={open}
+          />
+        )}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

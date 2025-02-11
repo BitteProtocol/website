@@ -47,6 +47,7 @@ interface ManageAccountsDialogProps {
   isNearConnected: boolean;
   handleSignIn: () => void;
   setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
+  sidebarOpen?: boolean;
 }
 
 const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
@@ -55,6 +56,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   isNearConnected,
   handleSignIn,
   setConnectModalOpen,
+  sidebarOpen,
 }) => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
@@ -203,13 +205,19 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
-        <Button
-          variant='outline'
-          size='icon'
-          className='border border-[#60A5FA] bg-[#60A5FA4D]'
-        >
-          <User size={16} color='#60A5FA' />
-        </Button>
+        {sidebarOpen ? (
+          <Button className='border border-[#60A5FA] bg-[#60A5FA4D] w-full text-[#60A5FA] flex items-center gap-1'>
+            <User size={16} color='#60A5FA' /> Connected
+          </Button>
+        ) : (
+          <Button
+            variant='outline'
+            size='icon'
+            className='border border-[#60A5FA] bg-[#60A5FA4D]'
+          >
+            <User size={16} color='#60A5FA' />
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>
