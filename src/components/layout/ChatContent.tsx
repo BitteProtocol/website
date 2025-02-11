@@ -23,12 +23,14 @@ const ChatContent = ({
   agentData: { agents: RegistryData[] };
 }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
-  const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+  const [selectedFilters] = useState<AgentFilters[]>([]);
 
   const { isConnected } = useBitteWallet();
 
   const { isConnected: isEvmConnected } = useAccount();
   const isWalletDisconnected = !isConnected && !isEvmConnected;
+
+  console.log({ isWalletDisconnected });
 
   const filteredAgents = selectedFilters?.length
     ? agentData.agents.filter((agent) => {
