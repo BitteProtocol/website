@@ -24,6 +24,7 @@ import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
 import { Button } from '../ui/button';
 import { usePathname } from 'next/navigation';
+import { shouldShowHeader } from '@/lib/utils/useShowHeader';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -46,7 +47,7 @@ const Header = () => {
 
   const { isConnected } = useAccount();
 
-  if (pathname.includes('/dashboard')) {
+  if (!shouldShowHeader(pathname)) {
     return;
   }
 
