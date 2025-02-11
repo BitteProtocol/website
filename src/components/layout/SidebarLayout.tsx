@@ -1,22 +1,21 @@
 'use client';
 
-import { ReactNode, useState, useEffect } from 'react';
 import { AppSidebar } from '@/components/app-sidebar';
-import {
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
+import { ReactNode, useEffect, useState } from 'react';
 
 interface MainLayoutProps {
   children: ReactNode;

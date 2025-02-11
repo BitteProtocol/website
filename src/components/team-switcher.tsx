@@ -1,20 +1,5 @@
+import { useSidebar } from '@/components/ui/sidebar';
 import * as React from 'react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from '@/components/ui/sidebar';
-import { CaretSortIcon, PlusIcon } from '@radix-ui/react-icons';
 
 export function TeamSwitcher({
   teams,
@@ -27,6 +12,8 @@ export function TeamSwitcher({
 }) {
   const { isMobile } = useSidebar();
   const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+
+  console.log({ isMobile, activeTeam, setActiveTeam });
 
   return {
     /* <SidebarMenu>
