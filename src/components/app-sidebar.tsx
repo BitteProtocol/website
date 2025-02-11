@@ -1,16 +1,5 @@
+import { Bot, Frame, PieChart, TerminalSquare } from 'lucide-react';
 import * as React from 'react';
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  TerminalSquare,
-} from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
@@ -18,12 +7,12 @@ import { NavUser } from '@/components/nav-user';
 /* import { TeamSwitcher } from '@/components/team-switcher'; */
 import {
   Sidebar,
-  SidebarMenu,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
+  SidebarMenu,
   SidebarMenuItem,
+  SidebarRail,
 } from '@/components/ui/sidebar';
 import Image from 'next/image';
 
@@ -62,7 +51,9 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  ...props
+}: React.ComponentPropsWithRef<typeof Sidebar>) {
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
