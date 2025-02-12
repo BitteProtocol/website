@@ -59,14 +59,10 @@ const Filters = ({
           (selectedFilter) => selectedFilter.label === filter.label
         )?.[0]?.values?.length;
         return (
-          <AccordionItem
-            key={filter.label}
-            value={filter.label}
-            className={`border-mb-gray-500 ${index === 0 ? 'border-t' : ''}`}
-          >
+          <AccordionItem key={filter.label} value={filter.label}>
             <AccordionTrigger>
               <div className='flex items-center justify-between w-full'>
-                <div>{filter.label}</div>
+                <div className='text-xs'>{filter.label}</div>
                 {selectedAmount ? (
                   <Badge className='bg-mb-gray-600 text-mb-gray-200'>
                     {selectedAmount}
@@ -78,7 +74,7 @@ const Filters = ({
               {filter.values.map((value: string) => (
                 <div
                   key={value}
-                  className='flex items-center space-x-2 bg-mb-gray-950 rounded-md py-4 px-6 hover:bg-mb-gray-250 transition-all duration-500 cursor-pointer'
+                  className='flex items-center space-x-2 bg-mb-gray-950 rounded-md py-3.5 px-6 hover:bg-mb-gray-250 transition-all duration-500 cursor-pointer'
                   onClick={() => onFilterChange(value, filter?.label)}
                 >
                   <Checkbox
