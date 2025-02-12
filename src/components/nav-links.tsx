@@ -5,7 +5,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
   SidebarSeparator,
 } from '@/components/ui/sidebar';
 
@@ -18,7 +17,7 @@ export function NavLinks({
     icon: LucideIcon;
   }[];
 }) {
-  const { isMobile } = useSidebar();
+  /* const { isMobile } = useSidebar(); */
 
   return (
     <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
@@ -27,7 +26,7 @@ export function NavLinks({
         {links.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <a href={item.url}>
+              <a href={item.url} target='_blank' ref="noreferer">
                 <span>{item.name}</span>
                 <item.icon />
               </a>

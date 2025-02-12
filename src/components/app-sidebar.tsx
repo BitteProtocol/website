@@ -38,12 +38,12 @@ const data = {
   links: [
     {
       name: 'Build Agent',
-      url: '#',
+      url: 'https://docs.bitte.ai/agents/quick-start',
       icon: ArrowUpRight,
     },
     {
       name: 'Documentation',
-      url: '#',
+      url: 'https://docs.bitte.ai/',
       icon: ArrowUpRight,
     },
   ],
@@ -65,7 +65,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { isConnected } = useAccount();
 
   const { open } = useSidebar();
-  console.log('OPEN', open);
 
   return (
     <Sidebar collapsible='icon' {...props}>
