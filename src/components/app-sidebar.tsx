@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Bot, Frame, PieChart, TerminalSquare } from 'lucide-react';
+import { Bot, TerminalSquare, ArrowUpRight } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
-import { NavProjects } from '@/components/nav-projects';
+import { NavLinks } from '@/components/nav-links';
 import { useState } from 'react';
 import { useBitteWallet } from '@bitte-ai/react';
 import { useAccount } from 'wagmi';
@@ -35,16 +35,16 @@ const data = {
       icon: Bot,
     },
   ],
-  projects: [
+  links: [
     {
       name: 'Build Agent',
       url: '#',
-      icon: Frame,
+      icon: ArrowUpRight,
     },
     {
       name: 'Documentation',
       url: '#',
-      icon: PieChart,
+      icon: ArrowUpRight,
     },
   ],
 };
@@ -84,7 +84,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavLinks links={data.links} />
       </SidebarContent>
       <SidebarFooter className='p-4 w-full'>
         {!isConnected && !isNearConnected && (
