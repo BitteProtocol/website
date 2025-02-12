@@ -19,8 +19,10 @@ const AiChatWithNoSSR = dynamic(() => import('@/components/layout/AiChat'), {
 
 const ChatContent = ({
   agentData,
+  chatId,
 }: {
   agentData: { agents: RegistryData[] };
+  chatId?: string;
 }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [selectedFilters] = useState<AgentFilters[]>([]);
@@ -77,7 +79,7 @@ const ChatContent = ({
           />
         </div>
         <div className='lg:w-full h-[560px] lg:h-full -mx-8 lg:-mx-0'>
-          <AiChatWithNoSSR selectedAgent={selectedAgent} />
+          <AiChatWithNoSSR selectedAgent={selectedAgent} chatId={chatId} />
         </div>
       </div>
     </SidebarLayout>

@@ -10,6 +10,7 @@ import { RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import HeroPromptInput from './HeroPromptInput';
 
 const Hero = ({ agentData }: { agentData: AgentData }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
@@ -103,11 +104,9 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               <AiChat selectedAgent={selectedAgent} />
             </div>
           </div> */}
-            <Link href='/chat'>
-              <Button variant='secondary' className='w-full md:w-[200px]'>
-                AI CHAT
-              </Button>
-            </Link>
+            <div className='w-1/2 mx-auto'>
+              <HeroPromptInput />
+            </div>
           </div>
           <div className='mt-11 flex items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/registry'>
