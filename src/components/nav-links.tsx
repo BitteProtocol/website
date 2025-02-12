@@ -26,7 +26,7 @@ export function NavLinks({
         {links.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <a href={item.url} target='_blank' ref="noreferer">
+              <a href={item.url} target='_blank' rel='noopener noreferrer'>
                 <span>{item.name}</span>
                 <item.icon />
               </a>
