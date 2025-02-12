@@ -54,7 +54,7 @@ const Filters = ({
       collapsible
       defaultValue={filters[0].label}
     >
-      {filters.map((filter, index) => {
+      {filters.map((filter) => {
         const selectedAmount = selectedFilters?.filter(
           (selectedFilter) => selectedFilter.label === filter.label
         )?.[0]?.values?.length;
