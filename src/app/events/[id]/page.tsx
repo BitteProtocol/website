@@ -81,7 +81,7 @@ export default async function AgentDetail({
         <span className='text-base md:text-xl text-mb-gray-300 mb-9'>
           Fork one of these agents as a base to get started{' '}
           <a
-            href='https://www.bitte.ai/registry/near-cow-agent.vercel.app'
+            href='https://www.bitte.ai/agents/near-cow-agent.vercel.app'
             target='_blank'
           >
             Cow Swap
@@ -90,7 +90,7 @@ export default async function AgentDetail({
         <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
           <Button asChild variant='secondary' className='w-full md:w-[200px]'>
             <Link
-              href='https://www.bitte.ai/registry/near-cow-agent.vercel.app'
+              href='https://www.bitte.ai/agents/near-cow-agent.vercel.app'
               target='_blank'
             >
               Cow Swap Agent
@@ -98,7 +98,7 @@ export default async function AgentDetail({
           </Button>
           <Button asChild variant='secondary' className='w-full md:w-[200px]'>
             <Link
-              href='https://www.bitte.ai/registry/near-uniswap-agent.vercel.app'
+              href='https://www.bitte.ai/agents/near-uniswap-agent.vercel.app'
               target='_blank'
             >
               Uniswap Agent
@@ -106,7 +106,7 @@ export default async function AgentDetail({
           </Button>
           <Button asChild variant='secondary' className='w-full md:w-[200px]'>
             <Link
-              href='https://www.bitte.ai/registry/near-safe-agent.vercel.app'
+              href='https://www.bitte.ai/agents/near-safe-agent.vercel.app'
               target='_blank'
             >
               Safe Agent

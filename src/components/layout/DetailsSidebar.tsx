@@ -16,12 +16,6 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
 
   return (
     <aside className='sticky top-4'>
-      <Link href='/registry' className='w-[200px] flex mb-8'>
-        <Button variant='link' className='text-mb-white-100'>
-          <ArrowLeft width={18} height={18} className='mr-2' /> Back to Registry
-        </Button>
-      </Link>
-
       <div className='flex w-full items-center gap-7'>
         <div className='w-[75px] h-[75px] relative aspect-square shrink-0'>
           <Image

@@ -94,7 +94,7 @@ const Header = () => {
             <Link
               rel='noopener noreferrer'
               target='_blank'
-              href='/registry'
+              href='/agents'
               aria-label={`Check out Dev tools`}
             >
               <p className='text-lg text-mb-white-100 font-medium'>

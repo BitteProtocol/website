@@ -75,7 +75,7 @@ export const AgentSelector = ({
                 </div>
                 {agent.id !== 'bitte-assistant' ? (
                   <a
-                    href={`/registry/${agent.id}`}
+                    href={`/agents/${agent.id}`}
                     target='_blank'
                     rel='noreferrer'
                     onClick={(e) => e.stopPropagation()}
