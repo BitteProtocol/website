@@ -1,63 +1,128 @@
 import { RegistryData } from '@/lib/types/agent.types';
+import { cn } from '@/lib/utils';
+import { ArrowUpRight, HelpCircle, Info } from 'lucide-react';
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
-import { Card, CardContent } from '../card';
-import { Info } from 'lucide-react';
 import Link from 'next/link';
-
+import InfoTooltip from '../InfoTooltip';
+import { Switch } from '../switch';
 export const AgentSelector = ({
   agentData,
   onSelectAgent,
   selectedAgent,
+  isPlayground,
+  togglePlayground,
 }: {
   agentData: RegistryData[];
-  onSelectAgent: Dispatch<SetStateAction<RegistryData | null>>;
+  onSelectAgent: (agent: RegistryData) => void;
   selectedAgent: RegistryData | null;
+  isPlayground?: boolean;
+  togglePlayground: (value: boolean) => void;
 }) => {
+  const selectedAgentId = selectedAgent?.id;
+
   return (
-    <div className='flex flex-row lg:flex-col gap-4 items-center overflow-x-auto disable-scrollbars h-full lg:bg-[#18181A] lg:border lg:border-[#334155] lg:rounded-md lg:p-6 scroll-smooth whitespace-nowrap'>
-      {agentData?.map((data, i) => (
-        <Card
-          key={`agents-${i}`}
-          className='first:ml-6 lg:first:ml-0 last:mr-6 lg:last:mr-0 min-w-[219px] lg:min-w-[307px] h-[76px] flex items-center bg-black border-none cursor-pointer'
-          onClick={() => {
-            onSelectAgent(data);
-            sessionStorage.setItem('selectedAgent', JSON.stringify(data)); // Save to sessionStorage when an agent is selected
-          }}
-        >
-          <CardContent
-            className={`text-start p-3 flex items-center gap-4 w-full h-full rounded-md border border-transparent ${selectedAgent?.id == data.id ? 'bg-[#C084FC33] border-[#C084FC]' : 'border-transparent'} hover:border-[#C084FC]`}
-          >
-            <div>
-              <Image
-                src={data?.coverImage || '/bitte-symbol-black.svg'}
-                className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.coverImage ? 'bg-white' : ''}`}
-                width={56}
-                height={56}
-                alt={`${data?.id}-logo`}
-                loading='lazy'
-              />
-            </div>
-            <div className='font-medium text-[#F8FAFC] break-words w-full overflow-hidden text-ellipsis'>
-              {data?.name}
-            </div>
-            <Link
-              href={`/registry/${data.id}`}
-              target='_blank'
-              rel='noreferrer'
-              onClick={(e) => e.stopPropagation()}
-              className='group'
+    <div className='border border-[#334155] bg-[#09090B] rounded-md h-full'>
+      <div className='border-b p-4 border-[#334155]'>
+        <p className='font-semibold text-white'>Agents</p>
+        <p className='text-[#CBD5E1] text-sm'>
+          Choose agents to perform specific tasks.
+        </p>
+        {/*           <div className='relative mt-2'>
+            <SearchIcon
+              className='pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground'
+              size={18}
+            />
+            <Input
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              placeholder='Search'
+              className='pl-8'
+            />
+          </div> */}
+      </div>
+      <div className='flex h-[366px] flex-col gap-2 overflow-y-auto py-4 lg:px-4'>
+        {agentData?.map((agent) => {
+          const isSelected = selectedAgentId === agent.id;
+
+          return (
+            <div
+              key={agent.id}
+              /* ref={isSelected ? selectedAgentRef : null} */
+              onClick={() => {
+                onSelectAgent(agent);
+                sessionStorage.setItem('selectedAgent', JSON.stringify(agent)); // Save to sessionStorage when an agent is selected
+              }}
+              className={cn(
+                'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent',
+                isSelected
+                  ? 'bg-[#C084FC33] border-[#C084FC]'
+                  : 'bg-[#18181A] hover:border-[#C084FC]'
+              )}
             >
-              <span className='hover:text-white group-hover:text-white'>
-                <Info
-                  size={16}
-                  className='text-gray-400 group-hover:text-white'
-                />
-              </span>
-            </Link>
-          </CardContent>
-        </Card>
-      ))}
+              <div className='mb-2 flex items-center justify-between gap-2'>
+                <div className='flex items-center gap-2'>
+                  <Image
+                    src={agent?.coverImage || '/bitte-symbol-black.svg'}
+                    className={`object-contain ${!agent?.coverImage ? 'bg-white' : ''}`}
+                    width={24}
+                    height={24}
+                    alt={`${agent?.id}-logo`}
+                    loading='lazy'
+                  />
+                  <p className='font-medium transition-all duration-500 text-[#F8FAFC] text-sm'>
+                    {agent.name}
+                  </p>
+                </div>
+                {agent.id !== 'bitte-assistant' ? (
+                  <a
+                    href={`/registry/${agent.id}`}
+                    target='_blank'
+                    rel='noreferrer'
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Info size={16} />
+                  </a>
+                ) : null}
+              </div>
+              <p className='line-clamp-2 text-sm transition-all duration-500 text-[#CBD5E1]'>
+                {agent.description}
+              </p>
+            </div>
+          );
+        })}
+        {/*           {isLoadingAgents ? (
+            <>
+              <Skeleton className='h-[76px] w-full' />
+              <Skeleton className='h-[76px] w-full' />
+              <Skeleton className='h-[76px] w-full' />
+            </>
+          ) : agentsError ? (
+            <p className='text-xs'>
+              There was an error fetching the agents, please try again later.
+            </p>
+          ) : ( */}
+      </div>
+      <div className='flex items-center justify-between border-t border-[#334155] p-4'>
+        <div className='flex items-center gap-2'>
+          <Switch checked={isPlayground} onCheckedChange={togglePlayground} />
+          <span className='flex items-center gap-1.5 text-sm font-medium'>
+            Playground
+            <InfoTooltip
+              text='Beta agents mode: errors may occur.'
+              trigger={<HelpCircle size={16} />}
+            />
+          </span>
+        </div>
+        <Link
+          href='https://docs.bitte.ai/agents/quick-start'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='flex gap-1 text-sm font-semibold'
+        >
+          Create Agent
+          <ArrowUpRight width={18} height={18} />
+        </Link>
+      </div>
     </div>
   );
 };
