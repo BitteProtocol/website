@@ -14,13 +14,13 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useBitteWallet } from '@bitte-ai/react';
+import { generateId } from 'ai';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
-import { generateId } from 'ai';
 
 // This is sample data.
 const data = {
