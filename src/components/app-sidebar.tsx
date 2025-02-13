@@ -26,7 +26,7 @@ const data = {
   navMain: [
     {
       title: 'Chat',
-      url: '/chat/3',
+      url: '/chat',
       icon: TerminalSquare,
       isActive: true,
     },
