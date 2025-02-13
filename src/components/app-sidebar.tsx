@@ -71,13 +71,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <Image
-              alt='sidebar-logo'
-              width={100}
-              height={20}
-              src='/bitte.svg'
-              className='my-6 mx-4'
-            />
+            {open ? (
+              <Image
+                alt='sidebar-logo'
+                width={100}
+                height={20}
+                src='/bitte.svg'
+                className='my-6 mx-4'
+              />
+            ) : (
+              <div className='h-[32px] w-[32px] rounded-md bg-black m-auto flex items-center justify-center mt-4'>
+                <Image
+                  alt='sidebar-logo-closed'
+                  width={27}
+                  height={20}
+                  src='/bitte_stars_white_sidebar.png'
+                />
+              </div>
+            )}
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -102,6 +113,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             isNearConnected={isNearConnected}
             handleSignIn={handleSignIn}
             sidebarOpen={open}
+            isSidebar
           />
         )}
       </SidebarFooter>

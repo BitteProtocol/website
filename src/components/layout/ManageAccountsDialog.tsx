@@ -48,6 +48,7 @@ interface ManageAccountsDialogProps {
   handleSignIn: () => void;
   setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
   sidebarOpen?: boolean;
+  isSidebar?: boolean;
 }
 
 const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
@@ -57,6 +58,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   handleSignIn,
   setConnectModalOpen,
   sidebarOpen,
+  isSidebar,
 }) => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
@@ -213,7 +215,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <Button
             variant='outline'
             size='icon'
-            className='border border-[#60A5FA] bg-[#60A5FA4D]'
+            className={`border border-[#60A5FA] bg-[#60A5FA4D] ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
           >
             <User size={16} color='#60A5FA' />
           </Button>

@@ -8,6 +8,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import { type LucideIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -28,20 +29,22 @@ export function NavMain({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const { open } = useSidebar();
   return (
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) => (
-          <SidebarMenuItem key={item.title}>
+          <SidebarMenuItem
+            key={item.title}
+            className={`${open ? '' : 'mx-auto'}`}
+          >
             <SidebarMenuButton
               tooltip={item.title}
               isActive={pathname === item.url}
               onClick={() => router.push(item.url)}
             >
-              {/* <a href={item.url} className='flex'> */}
               {item.icon && <item.icon />}
               <span>{item.title}</span>
-              {/* </a> */}
             </SidebarMenuButton>
             <SidebarMenuSub>
               {item.items?.map((subItem) => (
