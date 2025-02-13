@@ -30,7 +30,7 @@ const HeroPromptInput = () => {
   const handleSubmit = () => {
     setValue('');
     const id = generateId();
-    router.push(`/chat/${id}`);
+    router.push(`/chat/${id}?prompt=${value}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -39,8 +39,6 @@ const HeroPromptInput = () => {
       handleSubmit();
     }
   };
-
-  console.log(value, !!value);
 
   return (
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>

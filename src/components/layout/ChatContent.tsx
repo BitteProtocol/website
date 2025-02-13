@@ -21,12 +21,14 @@ const AiChatWithNoSSR = dynamic(() => import('@/components/layout/AiChat'), {
 const ChatContent = ({
   agentData,
   chatId,
+  prompt,
 }: {
   agentData: {
     agents: RegistryData[];
     unverifiedAgents: RegistryData[];
   };
   chatId?: string;
+  prompt?: string;
 }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [isAgentsDrawerOpen, setIsAgentsDrawerOpen] = useState(false);
@@ -105,6 +107,7 @@ const ChatContent = ({
           <AiChatWithNoSSR
             selectedAgent={selectedAgent}
             chatId={chatId}
+            prompt={prompt}
             agentsButton={
               <Button
                 className='w-full'
