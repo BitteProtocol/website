@@ -20,13 +20,14 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
+import { generateId } from 'ai';
 
 // This is sample data.
 const data = {
   navMain: [
     {
       title: 'Chat',
-      url: '/chat',
+      url: `/chat/${generateId()}`,
       icon: TerminalSquare,
       isActive: true,
     },
