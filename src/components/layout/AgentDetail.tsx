@@ -22,11 +22,11 @@ export const AgentDetailComponent = ({
   return (
     <SidebarLayout>
       <div className='container m-auto'>
-        <div className='w-full lg:flex gap-20'>
+        <div className='w-full lg:flex gap-20 justify-center'>
           <div className='w-full lg:w-1/3'>
             <DetailsSideBar {...{ agent }} />
           </div>
-          <div className='w-full lg:w-2/3'>
+          <div className='w-full lg:w-[680px]'>
             <div className='h-[600px] mb-6'>
               <AiChat selectedAgent={agent} isAgentPage />
             </div>
