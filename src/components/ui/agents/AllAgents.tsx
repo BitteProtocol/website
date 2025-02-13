@@ -109,7 +109,7 @@ const AllAgents = ({
           </Dialog>
         </div>
         <div className='col-span-1 hidden lg:block w-full'>
-          <div className='mb-6 hidden lg:flex lg:items-center lg:justify-between w-full'>
+          <div className='mb-6 hidden lg:flex lg:items-center lg:justify-between w-full sticky top-4'>
             <p className='text-mb-gray-200 text-xs font-semibold'>Filters</p>
             <Button
               variant='ghost'
@@ -119,15 +119,17 @@ const AllAgents = ({
               Clear
             </Button>
           </div>
-          <div className='mb-6'>
+          <div className='mb-6 sticky top-16'>
             <PlaygroundSwitch />
           </div>
 
-          <Filters
-            filters={filters}
-            selectedFilters={selectedFilters}
-            onFilterChange={handleFilterClick}
-          />
+          <div className='sticky top-24'>
+            <Filters
+              filters={filters}
+              selectedFilters={selectedFilters}
+              onFilterChange={handleFilterClick}
+            />
+          </div>
         </div>
         <div className='lg:col-span-4 grid-cols-1 lg-card:grid-cols-2 grid gap-8 w-full h-fit'>
           {filteredAgents?.length ? (
