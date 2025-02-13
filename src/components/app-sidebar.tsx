@@ -1,24 +1,25 @@
+import { ArrowUpRight, Bot, TerminalSquare } from 'lucide-react';
 import * as React from 'react';
-import { Bot, TerminalSquare, ArrowUpRight } from 'lucide-react';
 
-import { NavMain } from '@/components/nav-main';
 import { NavLinks } from '@/components/nav-links';
-import { useState } from 'react';
-import { useBitteWallet } from '@bitte-ai/react';
-import { useAccount } from 'wagmi';
+import { NavMain } from '@/components/nav-main';
 import {
   Sidebar,
-  SidebarMenu,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
+  SidebarMenu,
   SidebarMenuItem,
+  SidebarRail,
+  useSidebar,
 } from '@/components/ui/sidebar';
+import { useBitteWallet } from '@bitte-ai/react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
-import { useSidebar } from '@/components/ui/sidebar';
 
 // This is sample data.
 const data = {
@@ -72,21 +73,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             {open ? (
-              <Image
-                alt='sidebar-logo'
-                width={100}
-                height={20}
-                src='/bitte.svg'
-                className='my-6 mx-4'
-              />
+              <Link href='/'>
+                <Image
+                  alt='sidebar-logo'
+                  width={100}
+                  height={20}
+                  src='/bitte.svg'
+                  className='my-6 mx-4'
+                />
+              </Link>
             ) : (
               <div className='h-[32px] w-[32px] rounded-md bg-black m-auto flex items-center justify-center mt-4'>
-                <Image
-                  alt='sidebar-logo-closed'
-                  width={27}
-                  height={20}
-                  src='/bitte_stars_white_sidebar.png'
-                />
+                <Link href='/'>
+                  <Image
+                    alt='sidebar-logo-closed'
+                    width={27}
+                    height={20}
+                    src='/bitte_stars_white_sidebar.png'
+                  />
+                </Link>
               </div>
             )}
           </SidebarMenuItem>
