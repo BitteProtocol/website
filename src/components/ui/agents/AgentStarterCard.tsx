@@ -7,7 +7,7 @@ import Link from 'next/link';
 export const AgentStarterCard = (): JSX.Element => {
   return (
     <div className='w-full md:w-[402px]'>
-      <Link href='/registry/agent-starter'>
+      <Link href='/agents/agent-starter'>
         <Card className='border border-[#CAFFF280] hover:bg-[#17171F] transition-all duration-500'>
           <CardContent className='p-4 flex items-center justify-between'>
             <div>
