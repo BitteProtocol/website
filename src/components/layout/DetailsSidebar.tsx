@@ -14,7 +14,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
     : '/logo.svg';
 
   return (
-    <aside className='sticky top-4'>
+    <aside className='sticky top-20'>
       <div className='flex w-full items-center gap-7'>
         <div className='w-[75px] h-[75px] relative aspect-square shrink-0'>
           <Image
