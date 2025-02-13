@@ -3,10 +3,25 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 import { generateId } from 'ai';
 import { ArrowUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+
+const AgentBadge = ({ className }: { className?: string }) => {
+  return (
+    <Badge
+      variant='outline'
+      className={cn(
+        'w-fit rounded-full border-[#475569] border-dashed text-[#C084FC] bg-zinc-900/90 py-1 text-[12px]',
+        className
+      )}
+    >
+      BITTE ASSISTANT
+    </Badge>
+  );
+};
 
 const HeroPromptInput = () => {
   const [value, setValue] = useState('');
@@ -28,22 +43,17 @@ const HeroPromptInput = () => {
   console.log(value, !!value);
 
   return (
-    <div className='relative rounded-2xl bg-zinc-900/90 p-2 shadow-lg'>
+    <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>
+      <AgentBadge className='sm:hidden flex' />
       <div className='relative'>
         <Textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder='Enter your prompt...'
-          style={{ textIndent: '136px' }}
-          className='min-h-[100px] w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-sm leading-relaxed [&::placeholder]:text-left'
+          className='min-h-[100px] w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-sm leading-relaxed [&::placeholder]:text-left sm:indent-[148px] px-0'
         />
-        <Badge
-          variant='outline'
-          className='absolute left-2 top-2 rounded-full border-[#475569] border-dashed text-[#C084FC] bg-zinc-900/90 py-1 text-[12px]'
-        >
-          BITTE ASSISTANT
-        </Badge>
+        <AgentBadge className='absolute left-2 top-2 hidden sm:block' />
         <Button
           onClick={handleSubmit}
           disabled={value?.length === 0}
