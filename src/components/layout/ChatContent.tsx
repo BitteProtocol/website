@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import SidebarLayout from '@/components/layout/SidebarLayout';
-import { useBitteWallet } from '@bitte-ai/react';
 import { RegistryData } from '@/lib/types/agent.types';
-import { Filters as AgentFilters } from '@/lib/types/agent.types';
-import { useAccount } from 'wagmi';
+import { AssistantsMode } from '@bitte-ai/chat';
+import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { AgentsDrawer } from '../ui/agents/AgentsDrawer';
+import { Button } from '../ui/button';
 
 // Dynamically import components that rely on client-side navigation
 const AgentSelectorWithNoSSR = dynamic(
@@ -21,37 +22,46 @@ const ChatContent = ({
   agentData,
   chatId,
 }: {
-  agentData: { agents: RegistryData[] };
+  agentData: {
+    agents: RegistryData[];
+    unverifiedAgents: RegistryData[];
+  };
   chatId?: string;
 }) => {
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
-  const [selectedFilters] = useState<AgentFilters[]>([]);
+  const [isAgentsDrawerOpen, setIsAgentsDrawerOpen] = useState(false);
 
-  const { isConnected } = useBitteWallet();
+  const searchParams = useSearchParams();
+  const modeParam = searchParams.get('mode');
 
-  const { isConnected: isEvmConnected } = useAccount();
-  const isWalletDisconnected = !isConnected && !isEvmConnected;
+  const togglePlayground = (value: boolean) => {
+    const params = new URLSearchParams(searchParams);
+    if (value) {
+      params.set('mode', AssistantsMode.DEBUG);
+    } else {
+      params.delete('mode');
+    }
 
-  console.log({ isWalletDisconnected });
+    history.replaceState({}, '', `?${params.toString()}`);
+  };
 
-  const filteredAgents = selectedFilters?.length
-    ? agentData.agents.filter((agent) => {
-        if (!agent) return false;
+  const mode = modeParam || AssistantsMode.DEFAULT;
+  const isPlayground = mode === AssistantsMode.DEBUG;
 
-        return selectedFilters.every((filter) => {
-          if (filter.label === 'Category' && agent.category) {
-            return filter.values.includes(agent.category);
-          }
-          return true;
-        });
-      })
+  const agentsList = isPlayground
+    ? agentData.unverifiedAgents
     : agentData.agents;
 
+  const handleSelectAgent = (agent: RegistryData) => {
+    setSelectedAgent(agent);
+    setIsAgentsDrawerOpen(false);
+  };
+
   useEffect(() => {
-    if (agentData.agents.length) {
-      setSelectedAgent(agentData.agents[0]);
+    if (agentsList.length) {
+      setSelectedAgent(agentsList[0]);
     }
-  }, [agentData]);
+  }, [agentsList]);
 
   useEffect(() => {
     // Retrieve the selected agent from sessionStorage when the component mounts
@@ -68,15 +78,34 @@ const ChatContent = ({
     }
   }, [selectedAgent]);
 
+  const agentContentComponent = (
+    <AgentSelectorWithNoSSR
+      agentData={agentsList}
+      onSelectAgent={handleSelectAgent}
+      selectedAgent={selectedAgent}
+      isPlayground={isPlayground}
+      togglePlayground={togglePlayground}
+    />
+  );
+
   return (
     <SidebarLayout>
-      <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
-        <div className='z-10 -mx-8 lg:-mx-0'>
-          <AgentSelectorWithNoSSR
-            agentData={filteredAgents}
-            onSelectAgent={setSelectedAgent}
-            selectedAgent={selectedAgent}
-          />
+      <div className='mt-6 z-10 flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
+        <Button
+          className='w-full lg:hidden'
+          onClick={() => setIsAgentsDrawerOpen(true)}
+        >
+          Agents
+        </Button>
+        <AgentsDrawer
+          open={isAgentsDrawerOpen}
+          onOpenChange={setIsAgentsDrawerOpen}
+        >
+          {agentContentComponent}
+        </AgentsDrawer>
+
+        <div className='z-10 -mx-8 lg:-mx-0 w-1/3'>
+          <div className='hidden lg:flex h-full'>{agentContentComponent}</div>
         </div>
         <div className='lg:w-full h-[560px] lg:h-full -mx-8 lg:-mx-0'>
           <AiChatWithNoSSR selectedAgent={selectedAgent} chatId={chatId} />
