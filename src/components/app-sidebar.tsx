@@ -14,6 +14,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useBitteWallet } from '@bitte-ai/react';
+import { generateId } from 'ai';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -26,7 +27,7 @@ const data = {
   navMain: [
     {
       title: 'Chat',
-      url: '/chat',
+      url: `/chat/${generateId()}`,
       icon: TerminalSquare,
       isActive: true,
     },
