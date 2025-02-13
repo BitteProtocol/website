@@ -6,6 +6,8 @@ import AiChat from './AiChat';
 import GitCommitHistory from './CommitHistory';
 import { MarkdownBody } from './MarkdownBody';
 import { RelatedTemplates } from './Related';
+import SidebarLayout from './SidebarLayout';
+
 export const AgentDetailComponent = ({
   agent,
   relatedAgents,
@@ -18,81 +20,84 @@ export const AgentDetailComponent = ({
   if (!agent) return null;
 
   return (
-    <div className='container m-auto'>
-      <div className='w-full lg:flex gap-20'>
-        <div className='w-full lg:w-1/3 h-auto'>
-          <DetailsSideBar {...{ agent }} />
-        </div>
-        <div className='w-full lg:w-2/3 my-6 lg:my-16'>
-          <div className='h-[600px] mb-6'>
-            <AiChat selectedAgent={agent} isAgentPage />
+    <SidebarLayout>
+      <div className='container m-auto'>
+        <div className='w-full lg:flex gap-20'>
+          <div className='w-full lg:w-1/3'>
+            <DetailsSideBar {...{ agent }} />
           </div>
-          <div className='markdownBody'>
-            <MarkdownBody
-              data={agent?.generatedDescription || agent.description || ''}
-            />
-          </div>
+          <div className='w-full lg:w-2/3'>
+            <div className='h-[600px] mb-6'>
+              <AiChat selectedAgent={agent} isAgentPage />
+            </div>
+            <div className='markdownBody'>
+              <MarkdownBody
+                data={agent?.generatedDescription || agent.description || ''}
+              />
+            </div>
 
-          {pings && (
-            <>
-              <div className='grid gap-4 lg:grid-cols-3 my-8'>
-                <Card className='border border-[#313E52]'>
-                  <CardContent className='p-6'>
-                    <div className='text-sm text-gray-400 mb-2'>
-                      Total Pings
-                    </div>
-                    <div className='text-2xl font-bold text-white'>
-                      {Object.values(pings).reduce(
-                        (sum, count) => sum + count,
-                        0
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className='border border-[#313E52]'>
-                  <CardContent className='p-6'>
-                    <div className='text-sm text-gray-400 mb-2'>
-                      Daily Average
-                    </div>
-                    <div className='text-2xl font-bold text-white'>
-                      {Math.round(
-                        Object.values(pings).reduce(
+            {pings && (
+              <>
+                <div className='grid gap-4 lg:grid-cols-3 my-8'>
+                  <Card className='border border-[#313E52]'>
+                    <CardContent className='p-6'>
+                      <div className='text-sm text-gray-400 mb-2'>
+                        Total Pings
+                      </div>
+                      <div className='text-2xl font-bold text-white'>
+                        {Object.values(pings).reduce(
                           (sum, count) => sum + count,
                           0
-                        ) / Object.keys(pings).length
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className='border border-[#313E52]'>
-                  <CardContent className='p-6'>
-                    <div className='text-sm text-gray-400 mb-2'>
-                      Last 7 Days
-                    </div>
-                    <div className='text-2xl font-bold text-white'>
-                      {Object.entries(pings)
-                        .sort(
-                          (a, b) =>
-                            new Date(b[0]).getTime() - new Date(a[0]).getTime()
-                        )
-                        .slice(0, 7)
-                        .reduce((sum, entry) => sum + entry?.[1], 0)}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className='border border-[#313E52]'>
+                    <CardContent className='p-6'>
+                      <div className='text-sm text-gray-400 mb-2'>
+                        Daily Average
+                      </div>
+                      <div className='text-2xl font-bold text-white'>
+                        {Math.round(
+                          Object.values(pings).reduce(
+                            (sum, count) => sum + count,
+                            0
+                          ) / Object.keys(pings).length
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className='border border-[#313E52]'>
+                    <CardContent className='p-6'>
+                      <div className='text-sm text-gray-400 mb-2'>
+                        Last 7 Days
+                      </div>
+                      <div className='text-2xl font-bold text-white'>
+                        {Object.entries(pings)
+                          .sort(
+                            (a, b) =>
+                              new Date(b[0]).getTime() -
+                              new Date(a[0]).getTime()
+                          )
+                          .slice(0, 7)
+                          .reduce((sum, entry) => sum + entry?.[1], 0)}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
 
-              <div className='my-8'>
-                <Calendar record={pings} />
-              </div>
-              <div className='my-8'>
-                <GitCommitHistory repoUrl={agent.repoUrl} />
-              </div>
-            </>
-          )}
+                <div className='my-8'>
+                  <Calendar record={pings} />
+                </div>
+                <div className='my-8'>
+                  <GitCommitHistory repoUrl={agent.repoUrl} />
+                </div>
+              </>
+            )}
+          </div>
         </div>
+        <RelatedTemplates relatedAgents={relatedAgents} />
       </div>
-      <RelatedTemplates relatedAgents={relatedAgents} />
-    </div>
+    </SidebarLayout>
   );
 };

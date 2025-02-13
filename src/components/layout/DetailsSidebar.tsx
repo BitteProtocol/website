@@ -15,7 +15,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
     : '/logo.svg';
 
   return (
-    <aside className='sticky py-6 md:py-16 top-0'>
+    <aside className='sticky top-4'>
       <Link href='/registry' className='w-[200px] flex mb-8'>
         <Button variant='link' className='text-mb-white-100'>
           <ArrowLeft width={18} height={18} className='mr-2' /> Back to Registry
