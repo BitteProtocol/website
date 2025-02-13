@@ -1,7 +1,10 @@
 'use client';
 
 import ContextProvider from '@/context';
-import { BitteWalletContextProvider } from '@bitte-ai/react';
+import {
+  BitteWalletContextProvider,
+  WalletModuleFactory,
+} from '@bitte-ai/react';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 
 const BitteWalletSetup = {
@@ -19,7 +22,7 @@ const Providers: React.FC<ProvidersProps> = ({ children, cookies }) => {
   return (
     <BitteWalletContextProvider
       {...BitteWalletSetup}
-      additionalWallets={[setupMeteorWallet()]}
+      additionalWallets={[setupMeteorWallet() as WalletModuleFactory]}
     >
       <ContextProvider cookies={cookies}>{children}</ContextProvider>
     </BitteWalletContextProvider>

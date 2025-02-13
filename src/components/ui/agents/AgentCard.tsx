@@ -9,7 +9,7 @@ import { Button } from '../button';
 import { MB_URL } from '@/lib/url';
 
 const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
-  const defaultHref = `/registry/${agent?.id}`;
+  const defaultHref = `/agents/${agent?.id}`;
 
   if (!agent) return null;
   const coverImage = agent?.coverImage

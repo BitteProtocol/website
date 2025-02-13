@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/drawer';
 import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Link2 } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
@@ -22,12 +22,16 @@ interface ConnectDialogProps {
   isOpen: boolean;
   setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
   isWelcomeMessage?: boolean;
+  isSidebar?: boolean;
+  sidebarOpen?: boolean;
 }
 
 const ConnectDialog: React.FC<ConnectDialogProps> = ({
   isOpen,
   setConnectModalOpen,
   isWelcomeMessage,
+  isSidebar,
+  sidebarOpen,
 }) => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
@@ -104,7 +108,15 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
-        <Button className='w-[137px]'>Connect</Button>
+        {sidebarOpen ? (
+          <Button className='w-full'>{'Connect Wallet'}</Button>
+        ) : isSidebar ? (
+          <Button size='icon'>
+            <Link2 size={16} />
+          </Button>
+        ) : (
+          <Button className='w-[137px]'>Connect</Button>
+        )}
       </DialogTrigger>
       <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>

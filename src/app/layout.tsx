@@ -6,7 +6,7 @@ import { Inter } from 'next/font/google';
 import { headers } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 
-import '@/app/globals.css';
+import '@/app/styles/globals.css';
 import '@/app/markdown.css';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';

@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { fira } from '@/app/fonts';
 import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
+import { shouldShowFooter } from '@/lib/utils/useShowHeader';
+import { usePathname } from 'next/navigation';
 
 declare global {
   interface Window {
@@ -59,6 +61,12 @@ const Footer = () => {
     // Load the script when the component mounts
     loadSubstackScript();
   }, []);
+
+  const pathname = usePathname();
+
+  if (!shouldShowFooter(pathname)) {
+    return;
+  }
 
   return (
     <footer className='w-full border-t border-mb-gray-800 bg-black py-12 flex flex-col items-center'>
@@ -112,7 +120,7 @@ const Footer = () => {
                 className='text-sm text-mb-gray-300 hover:text-mb-white-100 hover-icon font-medium flex items-center gap-2 transition-all duration-300'
                 rel='noopener noreferrer'
                 target='_blank'
-                href='/registry'
+                href='/agents'
               >
                 Registry <ArrowUpRight size={14} color='#475569' />
               </a>

@@ -58,24 +58,8 @@ const AllAgents = ({
       : templates;
 
   return (
-    <section className='my-12 md:my-24 w-full'>
-      <p className='text-mb-gray-200 text-[20px] md:text-[24px] font-semibold my-8'>
-        Find agents
-      </p>
-
+    <section className='w-full'>
       {/* Filters */}
-      <div className='mb-6 hidden lg:grid lg:grid-cols-5 lg:justify-between w-full'>
-        <div className='col-span-1 flex items-center justify-between'>
-          <p className='text-mb-gray-200 text-[20px] font-semibold'>Filters</p>
-          <Button
-            variant='ghost'
-            onClick={clearFilters}
-            className={selectedFilters?.length ? 'visible' : 'invisible'}
-          >
-            Clear
-          </Button>
-        </div>
-      </div>
       <div className='grid grid-cols-1 lg:grid-cols-5 gap-8 w-full'>
         <div className='lg:hidden'>
           <Dialog>
@@ -125,16 +109,27 @@ const AllAgents = ({
           </Dialog>
         </div>
         <div className='col-span-1 hidden lg:block w-full'>
-          <div className='border-b border-mb-gray-500 mb-6'></div>
-          <div className='mb-6'>
+          <div className='mb-6 hidden lg:flex lg:items-center lg:justify-between w-full sticky top-20'>
+            <p className='text-mb-gray-200 text-xs font-semibold'>Filters</p>
+            <Button
+              variant='ghost'
+              onClick={clearFilters}
+              className={`${selectedFilters?.length ? 'visible' : 'invisible'} text-xs`}
+            >
+              Clear
+            </Button>
+          </div>
+          <div className='mb-6 sticky top-36'>
             <PlaygroundSwitch />
           </div>
 
-          <Filters
-            filters={filters}
-            selectedFilters={selectedFilters}
-            onFilterChange={handleFilterClick}
-          />
+          <div className='sticky top-48'>
+            <Filters
+              filters={filters}
+              selectedFilters={selectedFilters}
+              onFilterChange={handleFilterClick}
+            />
+          </div>
         </div>
         <div className='lg:col-span-4 grid-cols-1 lg-card:grid-cols-2 grid gap-8 w-full h-fit'>
           {filteredAgents?.length ? (

@@ -23,6 +23,8 @@ import { Modal } from '../ui/Modal';
 import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
 import { Button } from '../ui/button';
+import { usePathname } from 'next/navigation';
+import { shouldShowHeader } from '@/lib/utils/useShowHeader';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -33,6 +35,8 @@ const Header = () => {
 
   const { isConnected: isNearConnected, connect } = useBitteWallet();
 
+  const pathname = usePathname();
+
   const handleSignIn = async () => {
     try {
       await connect();
@@ -42,6 +46,10 @@ const Header = () => {
   };
 
   const { isConnected } = useAccount();
+
+  if (!shouldShowHeader(pathname)) {
+    return;
+  }
 
   if (isMobile) {
     return (
@@ -86,7 +94,7 @@ const Header = () => {
             <Link
               rel='noopener noreferrer'
               target='_blank'
-              href='/registry'
+              href='/agents'
               aria-label={`Check out Dev tools`}
             >
               <p className='text-lg text-mb-white-100 font-medium'>
