@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
-import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { ActionLink } from './ActionLink';
 import { MB_URL } from '@/lib/url';
