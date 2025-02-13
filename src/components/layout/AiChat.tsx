@@ -20,10 +20,12 @@ const AiChat = ({
   selectedAgent,
   isAgentPage,
   chatId,
+  agentsButton,
 }: {
   selectedAgent: RegistryData | null;
   isAgentPage?: boolean;
   chatId?: string;
+  agentsButton?: JSX.Element;
 }) => {
   const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -89,6 +91,7 @@ const AiChat = ({
           </div>
         ) : undefined
       }
+      mobileInputExtraButton={agentsButton}
     />
   );
 };

@@ -91,12 +91,6 @@ const ChatContent = ({
   return (
     <SidebarLayout>
       <div className='mt-6 z-10 flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
-        <Button
-          className='w-full lg:hidden'
-          onClick={() => setIsAgentsDrawerOpen(true)}
-        >
-          Agents
-        </Button>
         <AgentsDrawer
           open={isAgentsDrawerOpen}
           onOpenChange={setIsAgentsDrawerOpen}
@@ -108,7 +102,18 @@ const ChatContent = ({
           <div className='hidden lg:flex h-full'>{agentContentComponent}</div>
         </div>
         <div className='lg:w-full h-[560px] lg:h-full -mx-8 lg:-mx-0'>
-          <AiChatWithNoSSR selectedAgent={selectedAgent} chatId={chatId} />
+          <AiChatWithNoSSR
+            selectedAgent={selectedAgent}
+            chatId={chatId}
+            agentsButton={
+              <Button
+                className='w-full'
+                onClick={() => setIsAgentsDrawerOpen(true)}
+              >
+                Agents
+              </Button>
+            }
+          />
         </div>
       </div>
     </SidebarLayout>
