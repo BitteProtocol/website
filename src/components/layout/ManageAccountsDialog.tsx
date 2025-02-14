@@ -208,14 +208,14 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
         {sidebarOpen ? (
-          <Button className='border border-[#60A5FA] bg-[#60A5FA4D] w-full text-[#60A5FA] flex items-center gap-1'>
+          <Button className='border border-[#60A5FA] bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 w-full text-[#60A5FA] flex items-center gap-1'>
             <User size={16} color='#60A5FA' /> Connected
           </Button>
         ) : (
           <Button
             variant='outline'
             size='icon'
-            className={`border border-[#60A5FA] bg-[#60A5FA4D] ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
+            className={`border border-[#60A5FA] bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
           >
             <User size={16} color='#60A5FA' />
           </Button>
