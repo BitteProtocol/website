@@ -30,10 +30,10 @@ const HeroPromptInput = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    setValue('');
     const id = generateId();
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    router.push(`/chat/${id}`);
+    router.push(`/chat/${id}?prompt=${value}`);
+    setValue('');
     setIsLoading(false);
   };
 
@@ -43,8 +43,6 @@ const HeroPromptInput = () => {
       handleSubmit();
     }
   };
-
-  console.log(value, !!value);
 
   return (
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>
