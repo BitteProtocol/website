@@ -98,10 +98,10 @@ const ChatContent = ({
           {agentContentComponent}
         </AgentsDrawer>
 
-        <div className='z-10 -mx-8 lg:-mx-0 w-1/3 lg:min-w-[310px]'>
+        <div className='w-1/3 lg:min-w-[310px]'>
           <div className='hidden lg:flex h-full'>{agentContentComponent}</div>
         </div>
-        <div className='w-full h-[560px] lg:h-full -mx-8 lg:-mx-0'>
+        <div className='w-full h-[560px] lg:h-full'>
           <AiChatWithNoSSR
             selectedAgent={selectedAgent}
             chatId={chatId}
