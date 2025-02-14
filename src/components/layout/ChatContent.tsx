@@ -90,7 +90,7 @@ const ChatContent = ({
 
   return (
     <SidebarLayout>
-      <div className='mt-6 z-10 flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
+      <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-360px)] w-full 2xl:w-4/5'>
         <AgentsDrawer
           open={isAgentsDrawerOpen}
           onOpenChange={setIsAgentsDrawerOpen}
