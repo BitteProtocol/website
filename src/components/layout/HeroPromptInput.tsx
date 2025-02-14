@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { generateId } from 'ai';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -24,13 +24,17 @@ const AgentBadge = ({ className }: { className?: string }) => {
 };
 
 const HeroPromptInput = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSubmit = () => {
-    setValue('');
+  const handleSubmit = async () => {
+    setIsLoading(true);
     const id = generateId();
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     router.push(`/chat/${id}?prompt=${value}`);
+    setValue('');
+    setIsLoading(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -58,7 +62,11 @@ const HeroPromptInput = () => {
           size='icon'
           className='absolute bottom-2 right-2 h-10 w-10 rounded-lg bg-white text-black hover:bg-zinc-200'
         >
-          <ArrowUp className='h-4 w-4' />
+          {isLoading ? (
+            <Loader2 className='h-4 w-4 animate-spin' />
+          ) : (
+            <ArrowUp className='h-4 w-4' />
+          )}
         </Button>
       </div>
     </div>

@@ -92,7 +92,7 @@ const ChatContent = ({
 
   return (
     <SidebarLayout>
-      <div className='mt-6 z-10 flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
+      <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-360px)] w-full 2xl:w-4/5'>
         <AgentsDrawer
           open={isAgentsDrawerOpen}
           onOpenChange={setIsAgentsDrawerOpen}
@@ -100,10 +100,10 @@ const ChatContent = ({
           {agentContentComponent}
         </AgentsDrawer>
 
-        <div className='z-10 -mx-8 lg:-mx-0 w-1/3 lg:min-w-[310px]'>
+        <div className='w-1/3 lg:min-w-[310px]'>
           <div className='hidden lg:flex h-full'>{agentContentComponent}</div>
         </div>
-        <div className='lg:w-full h-[560px] lg:h-full -mx-8 lg:-mx-0'>
+        <div className='w-full h-[560px] lg:h-full'>
           <AiChatWithNoSSR
             selectedAgent={selectedAgent}
             chatId={chatId}
