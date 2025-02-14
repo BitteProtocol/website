@@ -21,7 +21,7 @@ export const AgentSelector = ({
   const selectedAgentId = selectedAgent?.id;
 
   return (
-    <div className='border border-[#334155] bg-[#09090B] rounded-md h-full'>
+    <div className='border border-[#334155] bg-[#09090B] rounded-md h-full flex flex-col'>
       <div className='border-b p-4 border-[#334155]'>
         <p className='font-semibold text-white'>Agents</p>
         <p className='text-[#CBD5E1] text-sm'>
@@ -40,7 +40,7 @@ export const AgentSelector = ({
             />
           </div> */}
       </div>
-      <div className='flex h-[366px] flex-col gap-2 overflow-y-auto py-4 lg:px-4'>
+      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 lg:px-4 h-[360px] lg:h-auto'>
         {agentData?.map((agent) => {
           const isSelected = selectedAgentId === agent.id;
 
