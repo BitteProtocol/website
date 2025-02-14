@@ -11,7 +11,8 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { type LucideIcon } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export function NavMain({
   items,
@@ -27,7 +28,6 @@ export function NavMain({
     }[];
   }[];
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const { open } = useSidebar();
   return (
@@ -38,14 +38,15 @@ export function NavMain({
             key={item.title}
             className={`${open ? '' : 'mx-auto'}`}
           >
-            <SidebarMenuButton
-              tooltip={item.title}
-              isActive={pathname === item.url}
-              onClick={() => router.push(item.url)}
-            >
-              {item.icon && <item.icon />}
-              <span>{item.title}</span>
-            </SidebarMenuButton>
+            <Link href={item.url} className='w-full'>
+              <SidebarMenuButton
+                tooltip={item.title}
+                isActive={pathname === item.url}
+              >
+                {item.icon && <item.icon />}
+                <span>{item.title}</span>
+              </SidebarMenuButton>
+            </Link>
             <SidebarMenuSub>
               {item.items?.map((subItem) => (
                 <SidebarMenuSubItem key={subItem.title}>

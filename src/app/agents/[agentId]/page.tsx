@@ -4,6 +4,8 @@ import {
   getAssistantsByCategory,
 } from '@/lib/api/ai-registry/registry';
 import { getAllDailyPingsByAgentId } from '@/lib/api/kv';
+import { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Params {
   agentId: string;
@@ -37,10 +39,20 @@ export default async function AgentDetail({
   }
 
   return (
-    <AgentDetailComponent
-      agent={data}
-      relatedAgents={relatedAgents}
-      pings={pings}
-    />
+    <Suspense
+      fallback={
+        <div className='flex gap-5'>
+          <Skeleton className='w-1/6 h-[100vh]' />
+          <Skeleton className='w-2/6 h-[35vh] mt-20' />
+          <Skeleton className='w-3/6 h-[100vh] mt-20' />
+        </div>
+      }
+    >
+      <AgentDetailComponent
+        agent={data}
+        relatedAgents={relatedAgents}
+        pings={pings}
+      />
+    </Suspense>
   );
 }

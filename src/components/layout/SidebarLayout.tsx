@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect, useState } from 'react';
+import { Skeleton } from '../ui/skeleton';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -54,21 +55,28 @@ export default function SidebarLayout({ children }: MainLayoutProps) {
           <Separator orientation='vertical' className='mr-2 h-4' />
           <Breadcrumb>
             <BreadcrumbList>
-              {breadcrumbs.map((crumb, index) => {
-                const isActive =
-                  `/${breadcrumbs.slice(0, index + 1).join('/')}` === pathname;
-                return (
-                  <BreadcrumbItem key={index}>
-                    <BreadcrumbLink
-                      href={`/${breadcrumbs.slice(0, index + 1).join('/')}`}
-                      className={`uppercase text-xs font-semibold ${isActive ? 'text-[#FAFAFA]' : 'text-[#7C7C7C]'}`}
-                    >
-                      {crumb}
-                    </BreadcrumbLink>
-                    {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
-                  </BreadcrumbItem>
-                );
-              })}
+              {breadcrumbs?.length === 0
+                ? Array.from({ length: 2 }).map((_, index) => (
+                    <Skeleton key={index} className='w-20 h-4 rounded' />
+                  ))
+                : breadcrumbs.map((crumb, index) => {
+                    const isActive =
+                      `/${breadcrumbs.slice(0, index + 1).join('/')}` ===
+                      pathname;
+                    return (
+                      <BreadcrumbItem key={index}>
+                        <BreadcrumbLink
+                          href={`/${breadcrumbs.slice(0, index + 1).join('/')}`}
+                          className={`uppercase text-xs font-semibold ${isActive ? 'text-[#FAFAFA]' : 'text-[#7C7C7C]'}`}
+                        >
+                          {crumb}
+                        </BreadcrumbLink>
+                        {index < breadcrumbs.length - 1 && (
+                          <BreadcrumbSeparator />
+                        )}
+                      </BreadcrumbItem>
+                    );
+                  })}
             </BreadcrumbList>
           </Breadcrumb>
         </header>
