@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Card,
@@ -11,6 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { GitCommit, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface Commit {
   id: string;
@@ -94,7 +94,7 @@ export default function GitCommitHistory({ repoUrl }: GitCommitHistoryProps) {
   }
 
   return (
-    <Card className='w-full'>
+    <Card className='border border-[#313E52] w-full'>
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <GitCommit className='h-6 w-6' />

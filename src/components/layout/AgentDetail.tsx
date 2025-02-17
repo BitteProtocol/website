@@ -22,13 +22,15 @@ export const AgentDetailComponent = ({
   return (
     <SidebarLayout>
       <div className='container m-auto'>
-        <div className='w-full lg:flex gap-20 justify-center'>
+        <div className='w-full lg:flex gap-12 justify-center'>
           <div className='w-full lg:w-1/3'>
             <DetailsSideBar {...{ agent }} />
           </div>
-          <div className='w-full lg:w-[680px]'>
-            <div className='h-[600px] mb-6'>
-              <AiChat selectedAgent={agent} isAgentPage />
+          <div className='w-full xl:w-[680px]'>
+            <div className='grid grid-cols-1'>
+              <div className='h-[420px] lg:h-[600px] mb-6 '>
+                <AiChat selectedAgent={agent} isAgentPage />
+              </div>
             </div>
             <div className='markdownBody'>
               <MarkdownBody
@@ -86,7 +88,7 @@ export const AgentDetailComponent = ({
                   </Card>
                 </div>
 
-                <div className='my-8'>
+                <div className='my-8 grid grid-cols-1'>
                   <Calendar record={pings} />
                 </div>
                 <div className='my-8'>
