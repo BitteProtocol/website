@@ -58,7 +58,7 @@ const HeroPromptInput = () => {
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder='Enter your prompt...'
-          className='min-h-[100px] w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-sm leading-relaxed [&::placeholder]:text-left sm:indent-[178px] px-0'
+          className='min-h-[100px] w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base leading-relaxed [&::placeholder]:text-left sm:indent-[178px] px-0'
         />
         <AgentBadge className='absolute left-2 top-2 hidden sm:block' />
         <Button
