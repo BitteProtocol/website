@@ -18,7 +18,7 @@ export const SupportedChainsSection = ({
     >
       {!noTitle && (
         <p
-          className={`${fira.className} text-sm text-mb-gray-300 font-normal text-center uppercase mb-6`}
+          className={`${fira.className} text-sm text-[#89898A] font-normal text-center uppercase mb-6`}
         >
           Supported Chains
         </p>
@@ -37,7 +37,7 @@ export const SupportedChainsSection = ({
               loading='lazy'
             />
             <div
-              className={`${isRegistry ? 'text-sm text-[#94A3B8]' : 'text-base text-mb-white-100 font-medium'}`}
+              className={`${isRegistry ? 'text-sm text-[#94A3B8]' : 'text-base text-[#89898A] font-medium'}`}
             >
               {data?.name}
             </div>
