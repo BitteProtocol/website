@@ -44,6 +44,28 @@ export default function SidebarLayout({ children }: MainLayoutProps) {
     setBreadcrumbs(pathParts);
   }, [pathname]);
 
+  function formatBreadcrumb(crumb: string) {
+    const substringsToRemove = [
+      '.vercel.app',
+      '.azurewebsites.net',
+      '.interar.tech',
+      'hqd5dzcjajhpc3fa.eastus-01',
+    ];
+
+    // Remove unwanted substrings
+    substringsToRemove.forEach((substring) => {
+      crumb = crumb.replace(substring, '');
+    });
+
+    // Replace hyphens and dots with spaces and capitalize each word
+    return crumb
+      .replace(/[-.]/g, ' ')
+      .split(' ')
+      .filter((word) => word) // Remove empty strings
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -69,7 +91,7 @@ export default function SidebarLayout({ children }: MainLayoutProps) {
                           href={`/${breadcrumbs.slice(0, index + 1).join('/')}`}
                           className={`uppercase text-xs font-semibold ${isActive ? 'text-[#FAFAFA]' : 'text-[#7C7C7C]'}`}
                         >
-                          {crumb}
+                          {formatBreadcrumb(crumb)}
                         </BreadcrumbLink>
                         {index < breadcrumbs.length - 1 && (
                           <BreadcrumbSeparator />
