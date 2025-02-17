@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { generateId } from 'ai';
 import { ArrowUp, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const AgentBadge = ({ className }: { className?: string }) => {
   return (
@@ -26,12 +26,12 @@ const AgentBadge = ({ className }: { className?: string }) => {
 const HeroPromptInput = () => {
   const [value, setValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [id, setId] = useState<string>('');
+
   const router = useRouter();
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const id = generateId();
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     router.push(`/chat/${id}?prompt=${value}`);
     setValue('');
     setIsLoading(false);
@@ -43,6 +43,10 @@ const HeroPromptInput = () => {
       handleSubmit();
     }
   };
+
+  useEffect(() => {
+    setId(generateId());
+  }, []);
 
   return (
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>
