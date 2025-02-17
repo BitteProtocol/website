@@ -15,10 +15,13 @@ export const AgentsDrawer: FC<AgentsDrawerProps> = ({
 }) => {
   return (
     <div
-      className={cn('fixed inset-0 z-50 lg:hidden', open ? 'block' : 'hidden')}
+      className={cn(
+        'fixed inset-0 z-[999] lg:hidden',
+        open ? 'block' : 'hidden'
+      )}
     >
       <div
-        className={cn('fixed inset-0 bg-black/80')}
+        className={cn('fixed inset-0 bg-black/90')}
         onClick={() => onOpenChange(false)}
       />
       <div
