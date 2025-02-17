@@ -41,7 +41,7 @@ export function NavMain({
             <Link href={item.url} className='w-full'>
               <SidebarMenuButton
                 tooltip={item.title}
-                isActive={pathname === item.url}
+                isActive={item.isActive ?? pathname === item.url}
               >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>

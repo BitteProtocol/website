@@ -21,38 +21,41 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
-
-// This is sample data.
-const data = {
-  navMain: [
-    {
-      title: 'Chat',
-      url: `/chat/${generateId()}`,
-      icon: TerminalSquare,
-      isActive: true,
-    },
-    {
-      title: 'Browse Agents',
-      url: '/agents',
-      icon: Bot,
-    },
-  ],
-  links: [
-    {
-      name: 'Build Agent',
-      url: 'https://docs.bitte.ai/agents/quick-start',
-      icon: ArrowUpRight,
-    },
-    {
-      name: 'Documentation',
-      url: 'https://docs.bitte.ai/',
-      icon: ArrowUpRight,
-    },
-  ],
-};
+import { usePathname } from 'next/navigation';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
+
+  const pathname = usePathname();
+
+  const data = {
+    navMain: [
+      {
+        title: 'Chat',
+        url: `/chat/${generateId()}`,
+        icon: TerminalSquare,
+        isActive: pathname.startsWith('/chat/'),
+      },
+      {
+        title: 'Browse Agents',
+        url: '/agents',
+        icon: Bot,
+        isActive: pathname.startsWith('/agents'),
+      },
+    ],
+    links: [
+      {
+        name: 'Build Agent',
+        url: 'https://docs.bitte.ai/agents/quick-start',
+        icon: ArrowUpRight,
+      },
+      {
+        name: 'Documentation',
+        url: 'https://docs.bitte.ai/',
+        icon: ArrowUpRight,
+      },
+    ],
+  };
 
   const { isConnected: isNearConnected, connect } = useBitteWallet();
 
