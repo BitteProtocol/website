@@ -32,7 +32,6 @@ const HeroPromptInput = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     router.push(`/chat/${id}?prompt=${value}`);
     setValue('');
     setIsLoading(false);
