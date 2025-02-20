@@ -14,14 +14,8 @@ import {
   videosCardData,
 } from '@/lib/data/exampleCardData';
 import { AgentSection } from './AgentSection';
-import { Filters, RegistryData } from '@/lib/types/agent.types';
 import VideoSection from './VideoSection';
-
-export type AgentData = {
-  agents: RegistryData[];
-  unverifiedAgents: RegistryData[];
-  filters: Filters[];
-};
+import { useAssistants } from '@/hooks/useAssistants';
 
 const headerTextSection = {
   title: 'Blockchain empowered by AI Agents',
@@ -58,7 +52,8 @@ const crossSection = {
   isDisabled: false,
 };
 
-export const HomeComponent = ({ agentData }: { agentData: AgentData }) => {
+export const HomeComponent = () => {
+  const { data: agentData, error, loading } = useAssistants();
   return (
     <>
       <SupportedChainsSection />

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { AgentData } from './Home';
+import { AgentData } from '@/lib/types/agent.types';
 
 export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
   const scrollContainerRef1 = useRef<HTMLDivElement>(null);
@@ -53,6 +53,10 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
       '_blank'
     );
   };
+
+  if (!agentData) {
+    return null;
+  }
 
   return (
     <section className='relative mb-12'>

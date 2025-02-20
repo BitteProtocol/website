@@ -2,19 +2,20 @@
 
 import '@bitte-ai/chat/style.css';
 import { useEffect, useState } from 'react';
-
-import { AgentData } from '@/components/layout/Home';
 import { RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import HeroPromptInput from './HeroPromptInput';
+import AgentRow from './AgentRow';
+import { useAssistants } from '@/hooks/useAssistants';
 
-const Hero = ({ agentData }: { agentData: AgentData }) => {
+const Hero = () => {
+  const { data: agentData, error, loading } = useAssistants();
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
 
   useEffect(() => {
-    if (agentData.agents.length) {
+    if (agentData?.agents?.length) {
       setSelectedAgent(agentData.agents[0]);
     }
   }, [agentData]);
@@ -33,6 +34,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
       sessionStorage.setItem('selectedAgent', JSON.stringify(selectedAgent));
     }
   }, [selectedAgent]);
+
+  console.log('AGENT DATA', agentData);
 
   return (
     <section className='w-full'>
@@ -78,6 +81,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
+            {/* <AgentRow agents={agentData?.agents} /> */}
           </div>
           <div className='mt-11 flex items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
