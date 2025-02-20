@@ -11,7 +11,7 @@ const ChatPage = async ({
   searchParams: URLSearchParams;
 }) => {
   const { id } = params;
-  const searchParamsObj = new URLSearchParams(searchParams);
+  const searchParamsObj = new URLSearchParams(searchParams.toString());
   const prompt = searchParamsObj.get('prompt') || undefined;
 
   const agentData = await getAssistants();

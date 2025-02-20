@@ -7,20 +7,22 @@ import { getAllDailyPingsByAgentId } from '@/lib/api/kv';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-interface Params {
-  agentId: string;
-}
+export const revalidate = 3600;
+export const dynamic = 'force-static';
+export const dynamicParams = true;
 
-export const revalidate = 0;
-
-export async function generateMetadata({ params }: { params: Params }) {
-  const agentId = params.agentId as string;
-  const data = await getAssistantById(agentId);
-
-  return {
-    title: `${data?.name} Agent | Bitte.ai`,
-    description: data?.description,
-  };
+// Generate static params for common agent pages
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/agents`);
+    const agents = await res.json();
+    return agents.map((agent: { id: string }) => ({
+      agentId: agent.id,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 }
 
 export default async function AgentDetail({
@@ -30,13 +32,18 @@ export default async function AgentDetail({
 }) {
   const agentId = params.agentId as string;
 
+  // Get initial data first since we need the category for related agents
   const data = await getAssistantById(agentId);
-  const relatedAgents = await getAssistantsByCategory(data?.category);
-  const pings = await getAllDailyPingsByAgentId(agentId);
 
   if (!data) {
     return null;
   }
+
+  // Then fetch related data in parallel
+  const [relatedAgents, pings] = await Promise.all([
+    getAssistantsByCategory(data.category),
+    getAllDailyPingsByAgentId(agentId),
+  ]);
 
   return (
     <Suspense

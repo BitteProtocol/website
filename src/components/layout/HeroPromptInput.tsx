@@ -30,11 +30,23 @@ const HeroPromptInput = () => {
 
   const router = useRouter();
 
+  useEffect(() => {
+    setId(generateId());
+    router.prefetch('/chat');
+  }, [router]);
+
   const handleSubmit = async () => {
+    if (!value.trim() || isLoading) return;
+    
     setIsLoading(true);
-    router.push(`/chat/${id}?prompt=${value}`);
-    setValue('');
-    setIsLoading(false);
+    const chatPath = `/chat/${id}?prompt=${encodeURIComponent(value)}`;
+    
+    try {
+      await router.replace(chatPath);
+    } finally {
+      setValue('');
+      // Keep loading true since we're navigating away
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -43,10 +55,6 @@ const HeroPromptInput = () => {
       handleSubmit();
     }
   };
-
-  useEffect(() => {
-    setId(generateId());
-  }, []);
 
   return (
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>

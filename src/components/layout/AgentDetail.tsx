@@ -6,7 +6,6 @@ import AiChat from './AiChat';
 import GitCommitHistory from './CommitHistory';
 import { MarkdownBody } from './MarkdownBody';
 import { RelatedTemplates } from './Related';
-import SidebarLayout from './SidebarLayout';
 
 export const AgentDetailComponent = ({
   agent,
@@ -20,7 +19,6 @@ export const AgentDetailComponent = ({
   if (!agent) return null;
 
   return (
-    <SidebarLayout>
       <div className='container m-auto'>
         <div className='w-full lg:flex gap-12 justify-center'>
           <div className='w-full lg:w-1/3'>
@@ -100,6 +98,5 @@ export const AgentDetailComponent = ({
         </div>
         <RelatedTemplates relatedAgents={relatedAgents} />
       </div>
-    </SidebarLayout>
   );
 };
