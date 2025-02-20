@@ -1,7 +1,7 @@
 'use client';
 
 import { RegistryData } from '@/lib/types/agent.types';
-import { BitteAiChat } from '@bitte-ai/chat';
+import { BitteAiChat, MessageGroupComponentProps } from '@bitte-ai/chat';
 import { useBitteWallet, Wallet } from '@bitte-ai/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -49,8 +49,7 @@ const AiChat = ({
     isUser,
     userName,
     children,
-    style,
-  }) => (
+  }: MessageGroupComponentProps) => (
     <div className='rounded-lg shadow-lg mb-4 bg-white'>
       <div className='p-4 border-b border-black'>
         <div className='flex items-center gap-2'>
