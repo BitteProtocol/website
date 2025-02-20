@@ -44,6 +44,27 @@ const AiChat = ({
     if (selector) getWalletChat();
   }, [selector, isConnected]);
 
+  const CustomMessageContainer = ({
+    message,
+    isUser,
+    userName,
+    children,
+    style,
+  }) => (
+    <div className='rounded-lg shadow-lg mb-4 bg-white'>
+      <div className='p-4 border-b border-black'>
+        <div className='flex items-center gap-2'>
+          {isUser ? (
+            <span className='font-medium'>{userName}</span>
+          ) : (
+            <span className='font-medium'>{message.agentId}</span>
+          )}
+        </div>
+      </div>
+      <div className='p-4'>{children}</div>
+    </div>
+  );
+
   return (
     <BitteAiChat
       options={{
@@ -65,6 +86,7 @@ const AiChat = ({
       apiUrl='/api/chat'
       colors={chatColors}
       historyApiUrl='api/history'
+      messageComponents={{ MessageContainer: CustomMessageContainer }}
       welcomeMessageComponent={
         isWalletDisconnected && !isAgentPage ? (
           <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
