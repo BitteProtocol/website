@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.5",
-    "@bitte-ai/chat": "0.0.19",
+    "@bitte-ai/chat": "0.1.0-custom-ui-components-e698d27",
     "@google-cloud/firestore": "^7.10.0",
     "@bitte-ai/react": "latest",
     "@mintbase-js/rpc": "0.6.3",

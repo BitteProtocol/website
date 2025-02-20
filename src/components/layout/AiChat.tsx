@@ -1,7 +1,7 @@
 'use client';
 
 import { RegistryData } from '@/lib/types/agent.types';
-import { BitteAiChat } from '@bitte-ai/chat';
+import { BitteAiChat, MessageGroupComponentProps } from '@bitte-ai/chat';
 import { useBitteWallet, Wallet } from '@bitte-ai/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -44,11 +44,52 @@ const AiChat = ({
     if (selector) getWalletChat();
   }, [selector, isConnected]);
 
+  const CustomMessageContainer = ({
+    message,
+    isUser,
+    userName,
+    children,
+  }: MessageGroupComponentProps) => (
+    <div className='rounded-lg shadow-lg mb-4 bg-white'>
+      <div className='p-4 border-b border-black'>
+        <div className='flex items-center gap-2'>
+          {isUser ? (
+            <span className='font-medium'>{userName}</span>
+          ) : (
+            <span className='font-medium'>{message.agentId}</span>
+          )}
+        </div>
+      </div>
+      <div className='p-4'>{children}</div>
+    </div>
+  );
+
   return (
     <BitteAiChat
       options={{
         agentImage: selectedAgent?.coverImage,
         agentName: selectedAgent?.name,
+        colors: chatColors,
+        welcomeMessageComponent:
+          isWalletDisconnected && !isAgentPage ? (
+            <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
+              <Image
+                alt='bitte-ai-logo'
+                className='mx-auto mb-4'
+                width={40}
+                height={28}
+                src='/logo.svg'
+              />
+              <div className='mb-8 text-[20px] font-medium text-gray-40'>
+                Execute Transactions with AI
+              </div>
+              <ConnectDialog
+                isOpen={isConnectModalOpen}
+                setConnectModalOpen={setConnectModalOpen}
+                isWelcomeMessage
+              />
+            </div>
+          ) : undefined,
       }}
       wallet={{
         near: {
@@ -63,29 +104,8 @@ const AiChat = ({
       }}
       agentId={selectedAgent?.id || 'bitte-assistant'}
       apiUrl='/api/chat'
-      colors={chatColors}
       historyApiUrl='api/history'
-      welcomeMessageComponent={
-        isWalletDisconnected && !isAgentPage ? (
-          <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
-            <Image
-              alt='bitte-ai-logo'
-              className='mx-auto mb-4'
-              width={40}
-              height={28}
-              src='/logo.svg'
-            />
-            <div className='mb-8 text-[20px] font-medium text-gray-40'>
-              Execute Transactions with AI
-            </div>
-            <ConnectDialog
-              isOpen={isConnectModalOpen}
-              setConnectModalOpen={setConnectModalOpen}
-              isWelcomeMessage
-            />
-          </div>
-        ) : undefined
-      }
+      messageComponents={{ MessageContainer: CustomMessageContainer }}
     />
   );
 };
