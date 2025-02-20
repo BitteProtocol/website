@@ -1,6 +1,5 @@
 'use client';
 
-import SidebarLayout from '@/components/layout/SidebarLayout';
 import { RegistryData } from '@/lib/types/agent.types';
 import { AssistantsMode } from '@bitte-ai/chat';
 import dynamic from 'next/dynamic';
@@ -37,7 +36,7 @@ const ChatContent = ({
   const modeParam = searchParams.get('mode');
 
   const togglePlayground = (value: boolean) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     if (value) {
       params.set('mode', AssistantsMode.DEBUG);
     } else {
@@ -61,22 +60,33 @@ const ChatContent = ({
 
   useEffect(() => {
     if (agentsList.length) {
-      setSelectedAgent(agentsList[0]);
+      // Only set initial agent if none is selected
+      if (!selectedAgent) {
+        const storedAgent = sessionStorage.getItem('selectedAgent');
+        if (storedAgent) {
+          try {
+            const parsed = JSON.parse(storedAgent);
+            // Verify the stored agent exists in current list
+            if (agentsList.some(agent => agent.id === parsed.id)) {
+              setSelectedAgent(parsed);
+              return;
+            }
+          } catch (e) {
+            console.error('Error parsing stored agent:', e);
+          }
+        }
+        setSelectedAgent(agentsList[0]);
+      }
     }
-  }, [agentsList]);
+  }, [agentsList, selectedAgent]);
 
+  // Debounce saving to sessionStorage to prevent excessive writes
   useEffect(() => {
-    // Retrieve the selected agent from sessionStorage when the component mounts
-    const storedAgent = sessionStorage.getItem('selectedAgent');
-    if (storedAgent) {
-      setSelectedAgent(JSON.parse(storedAgent));
-    }
-  }, []);
-
-  useEffect(() => {
-    // Save the selected agent to sessionStorage whenever it changes
     if (selectedAgent) {
-      sessionStorage.setItem('selectedAgent', JSON.stringify(selectedAgent));
+      const timeoutId = setTimeout(() => {
+        sessionStorage.setItem('selectedAgent', JSON.stringify(selectedAgent));
+      }, 300);
+      return () => clearTimeout(timeoutId);
     }
   }, [selectedAgent]);
 
@@ -91,37 +101,35 @@ const ChatContent = ({
   );
 
   return (
-    <SidebarLayout>
-      <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)] w-full 2xl:w-4/5 mx-auto'>
-        <AgentsDrawer
-          open={isAgentsDrawerOpen}
-          onOpenChange={setIsAgentsDrawerOpen}
-        >
-          {agentContentComponent}
-        </AgentsDrawer>
+    <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)] w-full 2xl:w-4/5 mx-auto'>
+      <AgentsDrawer
+        open={isAgentsDrawerOpen}
+        onOpenChange={setIsAgentsDrawerOpen}
+      >
+        {agentContentComponent}
+      </AgentsDrawer>
 
-        <div className='w-1/3 lg:min-w-[310px]'>
-          <div className='hidden lg:flex h-full'>{agentContentComponent}</div>
-        </div>
-        <div className='grid grid-cols-1 w-full'>
-          <div className='w-full h-[560px] lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)]'>
-            <AiChatWithNoSSR
-              selectedAgent={selectedAgent}
-              chatId={chatId}
-              prompt={prompt}
-              agentsButton={
-                <Button
-                  className='w-full bg-[#27272A] hover:bg-[#27272A] hover:bg-opacity-60 text-white'
-                  onClick={() => setIsAgentsDrawerOpen(true)}
-                >
-                  Agents
-                </Button>
-              }
-            />
-          </div>
+      <div className='w-1/3 lg:min-w-[310px]'>
+        <div className='hidden lg:flex h-full'>{agentContentComponent}</div>
+      </div>
+      <div className='grid grid-cols-1 w-full'>
+        <div className='w-full h-[560px] lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)]'>
+          <AiChatWithNoSSR
+            selectedAgent={selectedAgent}
+            chatId={chatId}
+            prompt={prompt}
+            agentsButton={
+              <Button
+                className='w-full bg-[#27272A] hover:bg-[#27272A] hover:bg-opacity-60 text-white'
+                onClick={() => setIsAgentsDrawerOpen(true)}
+              >
+                Agents
+              </Button>
+            }
+          />
         </div>
       </div>
-    </SidebarLayout>
+    </div>
   );
 };
 

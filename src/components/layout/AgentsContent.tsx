@@ -1,6 +1,5 @@
 'use client';
 
-import SidebarLayout from '@/components/layout/SidebarLayout';
 import dynamic from 'next/dynamic';
 import { Filters, RegistryData } from '@/lib/types/agent.types';
 
@@ -19,15 +18,13 @@ const AgentContent = ({
   };
 }) => {
   return (
-    <SidebarLayout>
-      <div className='relative z-30'>
-        <AllAgentsWithNoSSR
-          templates={data.agents}
-          filters={data.filters}
-          unverifiedAgents={data.unverifiedAgents}
-        />
-      </div>
-    </SidebarLayout>
+    <div className='relative z-30'>
+      <AllAgentsWithNoSSR
+        templates={data.agents}
+        filters={data.filters}
+        unverifiedAgents={data.unverifiedAgents}
+      />
+    </div>
   );
 };
 
