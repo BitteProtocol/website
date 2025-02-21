@@ -64,7 +64,7 @@ export function Calendar({ record }: CalendarProps) {
           Agent Pings
         </CardTitle>
       </CardHeader>
-      <CardContent className='flex justify-center'>
+      <CardContent className='w-full'>
         <ActivityCalendar
           ref={calendarRef}
           data={allDates}

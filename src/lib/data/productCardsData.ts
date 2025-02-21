@@ -19,7 +19,7 @@ export const productCardsData = {
       sub: 'Fork other agents to make them better or bootstrap your own.',
       bg: '/examples/image_39.svg',
       btn_text: 'Agents',
-      link: '/registry',
+      link: '/agents',
     },
   ],
 };

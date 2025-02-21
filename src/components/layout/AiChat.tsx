@@ -19,9 +19,15 @@ const chatColors = {
 const AiChat = ({
   selectedAgent,
   isAgentPage,
+  chatId,
+  agentsButton,
+  prompt,
 }: {
   selectedAgent: RegistryData | null;
   isAgentPage?: boolean;
+  chatId?: string;
+  agentsButton?: JSX.Element;
+  prompt?: string;
 }) => {
   const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -49,6 +55,8 @@ const AiChat = ({
       options={{
         agentImage: selectedAgent?.coverImage,
         agentName: selectedAgent?.name,
+        chatId,
+        prompt,
       }}
       wallet={{
         near: {
@@ -86,6 +94,7 @@ const AiChat = ({
           </div>
         ) : undefined
       }
+      mobileInputExtraButton={agentsButton}
     />
   );
 };

@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
-import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { ActionLink } from './ActionLink';
 import { MB_URL } from '@/lib/url';
@@ -15,13 +14,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
     : '/logo.svg';
 
   return (
-    <aside className='sticky py-6 md:py-16 top-0'>
-      <Link href='/registry' className='w-[200px] flex mb-8'>
-        <Button variant='link' className='text-mb-white-100'>
-          <ArrowLeft width={18} height={18} className='mr-2' /> Back to Registry
-        </Button>
-      </Link>
-
+    <aside className='sticky top-20'>
       <div className='flex w-full items-center gap-7'>
         <div className='w-[75px] h-[75px] relative aspect-square shrink-0'>
           <Image

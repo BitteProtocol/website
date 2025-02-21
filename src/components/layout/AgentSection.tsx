@@ -113,7 +113,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         ))}
       </div>
       <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
-        <Link href='/registry'>
+        <Link href='/agents'>
           <Button variant='default' className='w-full md:w-[200px]'>
             Browse Agents
           </Button>

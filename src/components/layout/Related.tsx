@@ -21,10 +21,8 @@ export const RelatedTemplates = ({
         ))}
       </div>
       <div className='w-full flex justify-center p-20'>
-        <Link href='/registry'>
-          <Button variant='secondary' className='w-[200px]'>
-            View All Agents
-          </Button>
+        <Link href='/agents'>
+          <Button variant='secondary'>View All Agents</Button>
         </Link>
       </div>
     </div>
