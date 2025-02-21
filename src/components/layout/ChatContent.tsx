@@ -67,7 +67,7 @@ const ChatContent = ({
           try {
             const parsed = JSON.parse(storedAgent);
             // Verify the stored agent exists in current list
-            if (agentsList.some(agent => agent.id === parsed.id)) {
+            if (agentsList.some((agent) => agent.id === parsed.id)) {
               setSelectedAgent(parsed);
               return;
             }
@@ -99,6 +99,8 @@ const ChatContent = ({
       togglePlayground={togglePlayground}
     />
   );
+
+  console.log({ prompt });
 
   return (
     <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)] w-full 2xl:w-4/5 mx-auto'>
