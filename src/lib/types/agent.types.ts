@@ -11,6 +11,7 @@ export interface RegistryData {
   verified: boolean;
   publisher?: string;
   repoUrl?: string;
+  chainIds?: number[];
 }
 
 export interface Filters {

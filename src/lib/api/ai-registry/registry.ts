@@ -231,4 +231,5 @@ const mapAssistantToRegistryData = (
   category: assistant.category || 'Other',
   verified: assistant.verified || false,
   repoUrl: assistant.repo,
+  chainIds: assistant.chainIds,
 });

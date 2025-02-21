@@ -81,7 +81,7 @@ const Hero = () => {
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
-            {/* <AgentRow agents={agentData?.agents} /> */}
+            {agentData ? <AgentRow agents={agentData} /> : null}
           </div>
           <div className='mt-11 flex items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
