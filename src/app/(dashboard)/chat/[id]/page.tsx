@@ -1,7 +1,7 @@
 import ChatContent from '@/components/layout/ChatContent';
+import { Skeleton } from '@/components/ui/skeleton';
 import { getAssistants } from '@/lib/api/ai-registry/registry';
 import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 
 const ChatPage = async ({
   params,
@@ -11,7 +11,8 @@ const ChatPage = async ({
   searchParams: URLSearchParams;
 }) => {
   const { id } = params;
-  const searchParamsObj = new URLSearchParams(searchParams.toString());
+
+  const searchParamsObj = new URLSearchParams(searchParams);
   const prompt = searchParamsObj.get('prompt') || undefined;
 
   const agentData = await getAssistants();
