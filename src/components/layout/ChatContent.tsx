@@ -100,7 +100,6 @@ const ChatContent = ({
     />
   );
 
-
   return (
     <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)] w-full 2xl:w-4/5 mx-auto'>
       <AgentsDrawer
