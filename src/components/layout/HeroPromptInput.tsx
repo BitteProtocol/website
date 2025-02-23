@@ -37,10 +37,10 @@ const HeroPromptInput = () => {
 
   const handleSubmit = async () => {
     if (!value.trim() || isLoading) return;
-    
+
     setIsLoading(true);
     const chatPath = `/chat/${id}?prompt=${encodeURIComponent(value)}`;
-    
+
     try {
       await router.replace(chatPath);
     } finally {
@@ -60,14 +60,17 @@ const HeroPromptInput = () => {
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>
       <AgentBadge className='sm:hidden flex' />
       <div className='relative'>
-        <Textarea
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder='Enter your prompt...'
-          className='min-h-[100px] w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base leading-relaxed [&::placeholder]:text-left sm:indent-[178px] px-0'
-        />
-        <AgentBadge className='absolute left-2 top-2 hidden sm:block' />
+        <div className='pb-[36px]'>
+          <Textarea
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder='Enter your prompt...'
+            className='w-full resize-none border-0 bg-transparent pt-2.5 h-[88px] text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base leading-relaxed [&::placeholder]:text-left sm:indent-[178px] px-0'
+          />
+          <AgentBadge className='absolute left-2 top-2 hidden sm:block' />
+        </div>
+
         <Button
           onClick={handleSubmit}
           disabled={value?.length === 0}
