@@ -19,6 +19,11 @@ const nextConfig = {
         destination: '/agents',
         permanent: true,
       },
+      {
+        source: '/registry/:id',
+        destination: '/agents/:id',
+        permanent: true,
+      },
     ];
   },
   experimental: {
