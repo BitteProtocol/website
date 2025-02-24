@@ -110,7 +110,7 @@ const HeroPromptInput = () => {
           onClick={handleSubmit}
           disabled={value?.length === 0}
           size='icon'
-          className='absolute bottom-2 right-2 h-10 w-10 rounded-lg bg-white text-black hover:bg-zinc-200'
+          className='absolute bottom-2 right-0 h-10 w-10 rounded-lg bg-white text-black hover:bg-zinc-200'
         >
           {isLoading ? (
             <Loader2 className='h-4 w-4 animate-spin' />
