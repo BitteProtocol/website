@@ -19,9 +19,9 @@ export const AgentDetailComponent = ({
   relatedAgents: RegistryData[];
   pings?: Record<string, number>;
 }) => {
-  if (!agent) return null;
-
   const searchParams = useSearchParams();
+
+  if (!agent) return null;
 
   return (
     <div className='container m-auto'>
