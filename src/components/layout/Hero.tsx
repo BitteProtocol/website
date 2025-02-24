@@ -48,8 +48,8 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
         </video>
         <div className='flex justify-center flex-col text-center items-center px-8 py-28 pt-14 md:pt-12 lg:pt-12 xl:pt-24 2xl:pt-40'>
           <div className='z-10 md:pointer-events-none'>
-            <p className='font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto '>
-              What transaction can we help you with?
+            <p className='font-semibold text-white text-[32px] md:text-[30px] leading-tight mx-auto '>
+              Ceate Transactions for any Dapp / Chatting with Chains
             </p>
           </div>
           <div className='mt-10 z-10 flex flex-col w-full '>
@@ -79,7 +79,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               <HeroPromptInput />
             </div>
           </div>
-          <div className='mt-11 flex items-center justify-center gap-3 md:gap-6 z-10'>
+          <div className='mt-11 flex xs:flex-col sm:flex-col md:flex-row items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
               <Button variant='secondary' className='w-full md:w-[200px]'>
                 Browse Agents
@@ -87,7 +87,12 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             </Link>
             <Button asChild variant='secondary' className='w-full md:w-[200px]'>
               <Link href={MB_URL.DEV_DOCS} target='_blank'>
-                Build Chain Agent
+                Build Agent
+              </Link>
+            </Button>
+            <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+              <Link href={MB_URL.EMBED_DOCS} target='_blank'>
+                Embed Agent
               </Link>
             </Button>
           </div>
