@@ -8,7 +8,10 @@ import { Avatar, AvatarImage } from '../avatar';
 import { Button } from '../button';
 
 const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
-  const defaultHref = `/agents/${agent?.id}`;
+  const goToAgentDetail = (message: string) => {
+    const encodedPrompt = encodeURIComponent(message);
+    return `agents/${agent.id}?prompt=${encodedPrompt}`;
+  };
 
   if (!agent) return null;
   const coverImage = agent?.coverImage
@@ -21,7 +24,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
 
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
-      <Link href={defaultHref}>
+      <Link href={goToAgentDetail('Hey, what can you do for me?')}>
         <div className='bg-mb-gray-900 p-6 rounded-md hover:bg-mb-gray-1000 transition-all duration-500'>
           <div className='flex flex-col gap-4'>
             <div className='flex justify-between items-center text-white'>
@@ -45,7 +48,10 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                 </div>
               </div>
               <div className='hidden lg:flex items-center gap-4'>
-                <Link href={defaultHref} className='w-full'>
+                <Link
+                  href={goToAgentDetail('Hey, what can you do for me?')}
+                  className='w-full'
+                >
                   <Button variant='secondary'>Run Agent</Button>
                 </Link>
               </div>
@@ -74,7 +80,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                     className={
                       agent?.id === 'simple-token-drop' ? 'hidden' : ''
                     }
-                    href={defaultHref}
+                    href={goToAgentDetail('Hey, what can you do for me?')}
                   >
                     <Button variant='secondary'>Run Agent</Button>
                   </Link>

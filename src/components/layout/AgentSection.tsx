@@ -49,9 +49,9 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
     window.requestAnimationFrame(step);
   }, []);
 
-  const goToAgentDetail = (agentId: string) => {
-    /* const encodedPrompt = encodeURIComponent(message); */
-    router.push(`agents/${agentId}/`);
+  const goToAgentDetail = (agentId: string, message: string) => {
+    const encodedPrompt = encodeURIComponent(message);
+    router.push(`agents/${agentId}?prompt=${encodedPrompt}`);
   };
 
   return (
@@ -67,7 +67,9 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
           <Card
             key={`agents-${i}`}
             className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-[#E087FFB2] hover:shadow-custom'
-            onClick={() => goToAgentDetail(data.id)}
+            onClick={() =>
+              goToAgentDetail(data.id, 'Hey, what can you do for me?')
+            }
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
@@ -94,7 +96,9 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
           <Card
             key={`agents-${i}`}
             className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
-            onClick={() => goToAgentDetail(data.id)}
+            onClick={() =>
+              goToAgentDetail(data.id, 'Hey, what can you do for me?')
+            }
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
