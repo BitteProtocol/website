@@ -12,6 +12,7 @@ export const useAssistants = () => {
 
   useEffect(() => {
     const fetchAssistants = async () => {
+      console.log('I GET CALLED');
       try {
         const response = await fetch(
           'https://registry-gules.vercel.app/api/agents'
@@ -20,6 +21,7 @@ export const useAssistants = () => {
           throw new Error('Failed to fetch agents');
         }
         const result = await response.json();
+        console.log('RES', result);
         setData(result);
       } catch (err) {
         setError(err as Error);

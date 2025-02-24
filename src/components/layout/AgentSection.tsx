@@ -76,8 +76,8 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
                 <Image
-                  src={data?.coverImage || '/bitte-symbol-black.svg'}
-                  className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.coverImage ? 'bg-white' : ''}`}
+                  src={data?.image || '/bitte-symbol-black.svg'}
+                  className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
                   width={56}
                   height={56}
                   alt={`${data?.id}-logo`}
@@ -108,8 +108,8 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
               <CardContent className='text-center p-3 flex items-center gap-3'>
                 <div>
                   <Image
-                    src={data?.coverImage || '/bitte-symbol-black.svg'}
-                    className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.coverImage ? 'bg-white' : ''}`}
+                    src={data?.image || '/bitte-symbol-black.svg'}
+                    className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
                     width={56}
                     height={56}
                     alt={`${data?.id}-logo`}

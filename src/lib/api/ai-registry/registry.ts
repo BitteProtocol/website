@@ -18,7 +18,7 @@ export type BitteAssistantConfig = {
   generatedDescription?: string;
   category?: string;
   repo?: string;
-  chainIds?: string[];
+  chainIds?: number[];
 };
 
 export type BitteToolSpec = PluginToolSpec | FunctionTool;
@@ -222,7 +222,7 @@ const mapAssistantToRegistryData = (
 ): RegistryData => ({
   id: assistant.id || '',
   name: assistant.name || '',
-  coverImage: assistant.image || '',
+  image: assistant.image || '',
   generatedDescription: assistant.generatedDescription || undefined,
   description: assistant.description || '',
   previewUrl: assistant.id ? `https://${assistant.id}` : '',

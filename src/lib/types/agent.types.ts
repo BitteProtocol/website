@@ -1,7 +1,7 @@
 export interface RegistryData {
   id: string;
   name: string;
-  coverImage: string;
+  image: string;
   generatedDescription?: string;
   description?: string;
   previewUrl?: string;
