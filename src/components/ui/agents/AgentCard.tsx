@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarImage } from '../avatar';
 import { Button } from '../button';
-import { MB_URL } from '@/lib/url';
 
 const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
   const defaultHref = `/agents/${agent?.id}`;
