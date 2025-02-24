@@ -5,10 +5,13 @@ import { useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { AgentData } from './Home';
+import { useRouter } from 'next/navigation';
 
 export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
   const scrollContainerRef1 = useRef<HTMLDivElement>(null);
   const scrollContainerRef2 = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const scrollStep = (
@@ -46,12 +49,9 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
     window.requestAnimationFrame(step);
   }, []);
 
-  const goToSmartActions = (message: string, agentId: string) => {
-    const encodedPrompt = encodeURIComponent(message);
-    window.open(
-      `${MB_URL.SMART_ACTIONS_PROMPT}/${encodedPrompt}?agentId=${agentId}`,
-      '_blank'
-    );
+  const goToAgentDetail = (agentId: string) => {
+    /* const encodedPrompt = encodeURIComponent(message); */
+    router.push(`agents/${agentId}/`);
   };
 
   return (
@@ -67,7 +67,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
           <Card
             key={`agents-${i}`}
             className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-[#E087FFB2] hover:shadow-custom'
-            onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
+            onClick={() => goToAgentDetail(data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
@@ -94,7 +94,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
           <Card
             key={`agents-${i}`}
             className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
-            onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
+            onClick={() => goToAgentDetail(data.id)}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
