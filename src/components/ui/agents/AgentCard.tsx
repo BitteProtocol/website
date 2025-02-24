@@ -20,12 +20,6 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
       : `/${agent.coverImage.replace(/^\//, '')}`
     : '/logo.svg';
 
-  const handleAgentClick = (agentId: string, event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    window.open(`${MB_URL.SMART_ACTIONS}?agentId=${agentId}`, '_blank');
-  };
-
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
       <Link href={defaultHref}>
