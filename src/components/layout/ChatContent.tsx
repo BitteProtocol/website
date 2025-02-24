@@ -67,7 +67,7 @@ const ChatContent = ({
           try {
             const parsed = JSON.parse(storedAgent);
             // Verify the stored agent exists in current list
-            if (agentsList.some(agent => agent.id === parsed.id)) {
+            if (agentsList.some((agent) => agent.id === parsed.id)) {
               setSelectedAgent(parsed);
               return;
             }

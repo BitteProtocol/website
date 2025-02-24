@@ -3,18 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { getAssistants } from '@/lib/api/ai-registry/registry';
 import { Suspense } from 'react';
 
-const ChatPage = async ({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: URLSearchParams;
-}) => {
-  const { id } = params;
-
-  const searchParamsObj = new URLSearchParams(searchParams);
-  const prompt = searchParamsObj.get('prompt') || undefined;
-
+const ChatPage = async () => {
   const agentData = await getAssistants();
 
   if (!agentData) {
@@ -31,7 +20,7 @@ const ChatPage = async ({
         </div>
       }
     >
-      <ChatContent agentData={agentData} chatId={id} prompt={prompt} />
+      <ChatContent agentData={agentData} />
     </Suspense>
   );
 };

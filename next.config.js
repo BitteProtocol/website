@@ -12,6 +12,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/registry',
+        destination: '/agents',
+        permanent: true,
+      },
+    ];
+  },
   experimental: {
     serverComponentsExternalPackages: ['pino', 'pino-pretty'],
   },
