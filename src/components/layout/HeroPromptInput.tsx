@@ -27,6 +27,7 @@ const HeroPromptInput = () => {
   const [value, setValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [id, setId] = useState<string>('');
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -72,6 +73,13 @@ const HeroPromptInput = () => {
     }
   };
 
+  const handleScroll = (e: React.UIEvent<HTMLTextAreaElement>) => {
+    setScrollPosition(e.currentTarget.scrollTop);
+  };
+
+  // Calculate opacity based on scroll position
+  const badgeOpacity = Math.max(0, 1 - scrollPosition / 20);
+
   useEffect(() => {
     adjustTextareaHeight();
   }, []);
@@ -85,11 +93,17 @@ const HeroPromptInput = () => {
             ref={textareaRef}
             value={value}
             onKeyDown={handleKeyDown}
+            onScroll={handleScroll}
             onChange={handleTextareaChange}
             placeholder='Enter your prompt...'
             className='w-full resize-none border-0 bg-transparent pt-2.5 h-[88px] text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base leading-relaxed [&::placeholder]:text-left sm:indent-[178px] px-0'
           />
-          <AgentBadge className='absolute left-2 top-2 hidden sm:block' />
+          <div
+            className='absolute left-2 top-2 hidden sm:block pointer-events-none'
+            style={{ opacity: badgeOpacity }}
+          >
+            <AgentBadge />
+          </div>
         </div>
 
         <Button
