@@ -90,6 +90,11 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
                 Build Chain Agent
               </Link>
             </Button>
+            <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+              <Link href={MB_URL.EMBED_DOCS} target='_blank'>
+                Embed Agent
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

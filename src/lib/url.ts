@@ -26,6 +26,7 @@ export const MB_URL = {
   BOUNTY: 'https://templates.mintbase.xyz/bounty',
   INDEXER_DOCS: 'https://docs.mintbase.xyz/dev/mintbase-graph',
   INDEXER_STATUS: 'https://www.mintbase.xyz/health',
+  EMBED_DOCS: 'https://docs.bitte.ai/agents/embeddable-chat-component',
   TEMPLATES_GITHUB_README:
     'https://github.com/Mintbase/templates/blob/main/README.md',
   TEMPLATES_GITHUB_URL: 'https://github.com/Mintbase/templates/',
