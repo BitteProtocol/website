@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { generateId } from 'ai';
 import { ArrowUp, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const AgentBadge = ({ className }: { className?: string }) => {
   return (
@@ -27,6 +27,8 @@ const HeroPromptInput = () => {
   const [value, setValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [id, setId] = useState<string>('');
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const router = useRouter();
 
@@ -49,6 +51,20 @@ const HeroPromptInput = () => {
     }
   };
 
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto';
+      const newHeight = Math.min(textarea.scrollHeight, 200);
+      textarea.style.height = `${newHeight}px`;
+    }
+  };
+
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(e.target.value);
+    adjustTextareaHeight();
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -56,15 +72,20 @@ const HeroPromptInput = () => {
     }
   };
 
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, []);
+
   return (
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>
       <AgentBadge className='sm:hidden flex' />
       <div className='relative'>
         <div className='pb-[36px]'>
           <Textarea
+            ref={textareaRef}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
+            onChange={handleTextareaChange}
             placeholder='Enter your prompt...'
             className='w-full resize-none border-0 bg-transparent pt-2.5 h-[88px] text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base leading-relaxed [&::placeholder]:text-left sm:indent-[178px] px-0'
           />
