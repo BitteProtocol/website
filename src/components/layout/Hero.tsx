@@ -79,7 +79,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
               <HeroPromptInput />
             </div>
           </div>
-          <div className='mt-11 flex items-center justify-center gap-3 md:gap-6 z-10'>
+          <div className='mt-11 flex xs:flex-col sm:flex-col md:flex-row items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
               <Button variant='secondary' className='w-full md:w-[200px]'>
                 Browse Agents
@@ -87,7 +87,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             </Link>
             <Button asChild variant='secondary' className='w-full md:w-[200px]'>
               <Link href={MB_URL.DEV_DOCS} target='_blank'>
-                Build Chain Agent
+                Build Agent
               </Link>
             </Button>
             <Button asChild variant='secondary' className='w-full md:w-[200px]'>
