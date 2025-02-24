@@ -52,12 +52,9 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                 </div>
               </div>
               <div className='hidden lg:flex items-center gap-4'>
-                <Button
-                  variant='secondary'
-                  onClick={(e) => handleAgentClick(agent.id, e)}
-                >
-                  Run Agent
-                </Button>
+                <Link href={defaultHref} className='w-full'>
+                  <Button variant='secondary'>Run Agent</Button>
+                </Link>
               </div>
             </div>
             <div className='h-[64px] md:h-[54px]'>
@@ -80,15 +77,14 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                   <span className='mr-3'>{agent?.author}</span>
                 </div>
                 <div className='lg:hidden'>
-                  <Button
-                    variant='secondary'
+                  <Link
                     className={
                       agent?.id === 'simple-token-drop' ? 'hidden' : ''
                     }
-                    onClick={(e) => handleAgentClick(agent.id, e)}
+                    href={defaultHref}
                   >
-                    Run Agent
-                  </Button>
+                    <Button variant='secondary'>Run Agent</Button>
+                  </Link>
                 </div>
                 <div className='flex gap-2'>
                   {agent.category && (
