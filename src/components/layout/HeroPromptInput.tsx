@@ -96,10 +96,10 @@ const HeroPromptInput = () => {
             onScroll={handleScroll}
             onChange={handleTextareaChange}
             placeholder='Enter your prompt...'
-            className='w-full resize-none border-0 bg-transparent pt-2.5 h-[88px] text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base leading-relaxed [&::placeholder]:text-left sm:indent-[178px] px-0'
+            className='w-full resize-none border-0 bg-transparent pt-2.5 h-[88px] text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base md:text-base [&::placeholder]:text-left sm:indent-[178px] px-0'
           />
           <div
-            className='absolute left-2 top-2 hidden sm:block pointer-events-none'
+            className='absolute top-2 hidden sm:block pointer-events-none'
             style={{ opacity: badgeOpacity }}
           >
             <AgentBadge />
