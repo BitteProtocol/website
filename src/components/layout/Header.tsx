@@ -25,6 +25,8 @@ import ManageAccountsDialog from './ManageAccountsDialog';
 import { Button } from '../ui/button';
 import { usePathname } from 'next/navigation';
 import { shouldShowHeader } from '@/lib/utils/useShowHeader';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const { width } = useWindowSize();
@@ -32,10 +34,12 @@ const Header = () => {
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
+  const [hasRedirected, setHasRedirected] = useState<boolean>(false);
 
   const { isConnected: isNearConnected, connect } = useBitteWallet();
 
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleSignIn = async () => {
     try {
@@ -46,6 +50,22 @@ const Header = () => {
   };
 
   const { isConnected } = useAccount();
+
+  useEffect(() => {
+    router.prefetch('/chat');
+  }, [router]);
+
+  useEffect(() => {
+    if (
+      (isConnected || isNearConnected) &&
+      !pathname.includes('/chat') &&
+      pathname === '/' &&
+      !hasRedirected
+    ) {
+      router.replace('/chat');
+      setHasRedirected(true);
+    }
+  }, [isConnected, isNearConnected, pathname, router, hasRedirected]);
 
   if (!shouldShowHeader(pathname)) {
     return;
