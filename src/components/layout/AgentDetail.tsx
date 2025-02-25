@@ -1,5 +1,8 @@
+'use client';
+
 import { DetailsSideBar } from '@/components/layout/DetailsSidebar';
 import { RegistryData } from '@/lib/types/agent.types';
+import { useSearchParams } from 'next/navigation';
 import { Calendar } from '../ui/calendar';
 import { Card, CardContent } from '../ui/card';
 import AiChat from './AiChat';
@@ -16,6 +19,8 @@ export const AgentDetailComponent = ({
   relatedAgents: RegistryData[];
   pings?: Record<string, number>;
 }) => {
+  const searchParams = useSearchParams();
+
   if (!agent) return null;
 
   return (
@@ -27,7 +32,11 @@ export const AgentDetailComponent = ({
         <div className='w-full xl:w-[680px] 2xl:w-full'>
           <div className='grid grid-cols-1'>
             <div className='h-[420px] lg:h-[600px] mb-6 '>
-              <AiChat selectedAgent={agent} isAgentPage />
+              <AiChat
+                selectedAgent={agent}
+                isAgentPage
+                prompt={searchParams.get('prompt') || ''}
+              />
             </div>
           </div>
           <div className='markdownBody'>
