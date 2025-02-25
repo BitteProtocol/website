@@ -53,7 +53,7 @@ const AiChat = ({
   return (
     <BitteAiChat
       options={{
-        agentImage: selectedAgent?.coverImage,
+        agentImage: selectedAgent?.image,
         agentName: selectedAgent?.name,
         chatId,
         prompt,

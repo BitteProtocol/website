@@ -15,7 +15,7 @@ import {
 } from '@/lib/data/exampleCardData';
 import { AgentSection } from './AgentSection';
 import VideoSection from './VideoSection';
-import { useAssistants } from '@/hooks/useAssistants';
+import { useVerifiedAssistants } from '@/hooks/useAssistants';
 
 const headerTextSection = {
   title: 'Blockchain empowered by AI Agents',
@@ -53,7 +53,7 @@ const crossSection = {
 };
 
 export const HomeComponent = () => {
-  const { data: agentData, error, loading } = useAssistants();
+  const { verifiedAgents: agentData, error, loading } = useVerifiedAssistants();
   return (
     <>
       <SupportedChainsSection />

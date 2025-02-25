@@ -8,10 +8,10 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import HeroPromptInput from './HeroPromptInput';
 import AgentRow from './AgentRow';
-import { useAssistants } from '@/hooks/useAssistants';
+import { useVerifiedAssistants } from '@/hooks/useAssistants';
 
 const Hero = () => {
-  const { data: agentData, error, loading } = useAssistants();
+  const { verifiedAgents: agentData, error, loading } = useVerifiedAssistants();
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const Hero = () => {
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
-            {agentData ? <AgentRow agents={agentData} /> : null}
+            {agentData ? <AgentRow agentData={agentData} /> : null}
           </div>
           <div className='mt-11 flex xs:flex-col sm:flex-col md:flex-row items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>

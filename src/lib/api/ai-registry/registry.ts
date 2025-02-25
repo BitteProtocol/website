@@ -38,47 +38,6 @@ export type ExecutionDefinition = {
   httpMethod: string;
 };
 
-/* export const getAssistantsWithChainIds = async (): Promise<{
-  agents: RegistryData[];
-  unverifiedAgents: RegistryData[];
-  filters: Filters[];
-}> => {
-  const assistants = await readAll<BitteAssistantConfig>('ai-assistants');
-  const filteredAssistants = assistants.filter(filterLocalAndTunnelUrls);
-
-  const updatedAssistants = await Promise.all(
-    filteredAssistants.map(updateAssistantDescription)
-  );
-
-  const agentIds = updatedAssistants.map((a) => a.id);
-  const pingCounts = await getTotalPingsByAgentIds(agentIds);
-  const agents = updatedAssistants
-    .map(mapAssistantToRegistryData)
-    .sort((a, b) => {
-      const aCount = pingCounts[a.id] || 0;
-      const bCount = pingCounts[b.id] || 0;
-      return bCount - aCount;
-    });
-
-  const verifiedAgents = agents.filter((agent) => agent.verified);
-  const unverifiedAgents = agents.filter((agent) => !agent.verified);
-
-  const categories = [...new Set(agents.map((agent) => agent.category))].filter(
-    Boolean
-  );
-
-  return {
-    agents: verifiedAgents,
-    unverifiedAgents: unverifiedAgents,
-    filters: [
-      {
-        label: 'Category',
-        values: categories as string[],
-      },
-    ],
-  };
-}; */
-
 export const getAssistants = async (): Promise<{
   agents: RegistryData[];
   unverifiedAgents: RegistryData[];

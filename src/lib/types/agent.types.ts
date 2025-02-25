@@ -21,6 +21,5 @@ export interface Filters {
 
 export type AgentData = {
   agents: RegistryData[];
-  unverifiedAgents: RegistryData[];
   filters: Filters[];
 } | null;
