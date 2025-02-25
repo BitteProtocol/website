@@ -57,7 +57,6 @@ const HeroPromptInput = () => {
     if (textarea && value) {
       textarea.style.height = 'auto';
       const newHeight = Math.min(textarea.scrollHeight, 200);
-      console.log({ newHeight });
       textarea.style.height = `${newHeight}px`;
     }
   };
