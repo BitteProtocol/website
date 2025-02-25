@@ -2,13 +2,13 @@
 
 import { DetailsSideBar } from '@/components/layout/DetailsSidebar';
 import { RegistryData } from '@/lib/types/agent.types';
+import { useSearchParams } from 'next/navigation';
 import { Calendar } from '../ui/calendar';
 import { Card, CardContent } from '../ui/card';
 import AiChat from './AiChat';
 import GitCommitHistory from './CommitHistory';
 import { MarkdownBody } from './MarkdownBody';
 import { RelatedTemplates } from './Related';
-import { useSearchParams } from 'next/navigation';
 
 export const AgentDetailComponent = ({
   agent,
@@ -24,12 +24,12 @@ export const AgentDetailComponent = ({
   if (!agent) return null;
 
   return (
-    <div className='container m-auto'>
+    <div className='w-full 2xl:w-4/5 mx-auto'>
       <div className='w-full lg:flex gap-12 justify-center'>
         <div className='w-full lg:w-1/3'>
           <DetailsSideBar {...{ agent }} />
         </div>
-        <div className='w-full xl:w-[680px]'>
+        <div className='w-full xl:w-[680px] 2xl:w-full'>
           <div className='grid grid-cols-1'>
             <div className='h-[420px] lg:h-[600px] mb-6 '>
               <AiChat

@@ -66,6 +66,7 @@ export function Calendar({ record }: CalendarProps) {
       </CardHeader>
       <CardContent className='w-full'>
         <ActivityCalendar
+          style={{ margin: '0 auto' }}
           ref={calendarRef}
           data={allDates}
           theme={explicitTheme}
