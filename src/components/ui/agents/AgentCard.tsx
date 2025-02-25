@@ -6,10 +6,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarImage } from '../avatar';
 import { Button } from '../button';
-import { MB_URL } from '@/lib/url';
 
 const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
-  const defaultHref = `/agents/${agent?.id}`;
+  const goToAgentDetail = (message: string) => {
+    const encodedPrompt = encodeURIComponent(message);
+    return `agents/${agent.id}?prompt=${encodedPrompt}`;
+  };
 
   if (!agent) return null;
   const coverImage = agent?.image
@@ -20,15 +22,9 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 
-  const handleAgentClick = (agentId: string, event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    window.open(`${MB_URL.SMART_ACTIONS}?agentId=${agentId}`, '_blank');
-  };
-
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
-      <Link href={defaultHref}>
+      <Link href={goToAgentDetail('Hey, what can you do for me?')}>
         <div className='bg-mb-gray-900 p-6 rounded-md hover:bg-mb-gray-1000 transition-all duration-500'>
           <div className='flex flex-col gap-4'>
             <div className='flex justify-between items-center text-white'>
@@ -52,12 +48,12 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                 </div>
               </div>
               <div className='hidden lg:flex items-center gap-4'>
-                <Button
-                  variant='secondary'
-                  onClick={(e) => handleAgentClick(agent.id, e)}
+                <Link
+                  href={goToAgentDetail('Hey, what can you do for me?')}
+                  className='w-full'
                 >
-                  Run Agent
-                </Button>
+                  <Button variant='secondary'>Run Agent</Button>
+                </Link>
               </div>
             </div>
             <div className='h-[64px] md:h-[54px]'>
@@ -80,15 +76,14 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                   <span className='mr-3'>{agent?.author}</span>
                 </div>
                 <div className='lg:hidden'>
-                  <Button
-                    variant='secondary'
+                  <Link
                     className={
                       agent?.id === 'simple-token-drop' ? 'hidden' : ''
                     }
-                    onClick={(e) => handleAgentClick(agent.id, e)}
+                    href={goToAgentDetail('Hey, what can you do for me?')}
                   >
-                    Run Agent
-                  </Button>
+                    <Button variant='secondary'>Run Agent</Button>
+                  </Link>
                 </div>
                 <div className='flex gap-2'>
                   {agent.category && (

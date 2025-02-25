@@ -5,10 +5,13 @@ import { useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { AgentData } from '@/lib/types/agent.types';
+import { useRouter } from 'next/navigation';
 
 export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
   const scrollContainerRef1 = useRef<HTMLDivElement>(null);
   const scrollContainerRef2 = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const scrollStep = (
@@ -46,12 +49,9 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
     window.requestAnimationFrame(step);
   }, []);
 
-  const goToSmartActions = (message: string, agentId: string) => {
+  const goToAgentDetail = (agentId: string, message: string) => {
     const encodedPrompt = encodeURIComponent(message);
-    window.open(
-      `${MB_URL.SMART_ACTIONS_PROMPT}/${encodedPrompt}?agentId=${agentId}`,
-      '_blank'
-    );
+    router.push(`agents/${agentId}?prompt=${encodedPrompt}`);
   };
 
   if (!agentData) {
@@ -71,7 +71,9 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
           <Card
             key={`agents-${i}`}
             className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-[#E087FFB2] hover:shadow-custom'
-            onClick={() => goToSmartActions(`What can you do for me?`, data.id)}
+            onClick={() =>
+              goToAgentDetail(data.id, 'Hey, what can you do for me?')
+            }
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
@@ -102,7 +104,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
               key={`agents-${i}`}
               className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
               onClick={() =>
-                goToSmartActions(`What can you do for me?`, data.id)
+                goToAgentDetail(data.id, 'Hey, what can you do for me?')
               }
             >
               <CardContent className='text-center p-3 flex items-center gap-3'>
