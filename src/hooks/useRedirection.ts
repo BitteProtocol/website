@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBitteWallet } from '@bitte-ai/react';
 import { useAccount } from 'wagmi';
@@ -9,10 +9,6 @@ export const useRedirection = () => {
   const { isConnected, isConnecting } = useAccount();
   const router = useRouter();
   const pathname = usePathname();
-
-  const [hasRedirected, setHasRedirected] = useState<boolean>(
-    localStorage.getItem('hasRedirected') === 'true'
-  );
 
   useEffect(() => {
     const redirected = localStorage.getItem('hasRedirected') === 'true';
@@ -26,7 +22,6 @@ export const useRedirection = () => {
       ) {
         router.replace('/chat');
         localStorage.setItem('hasRedirected', 'true');
-        setHasRedirected(true);
       }
     };
 
@@ -38,7 +33,6 @@ export const useRedirection = () => {
       // Delay the removal of the redirection flag to allow state stabilization
       const timeoutId = setTimeout(() => {
         localStorage.removeItem('hasRedirected');
-        setHasRedirected(false);
       }, 500);
 
       return () => clearTimeout(timeoutId);
