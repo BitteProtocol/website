@@ -27,19 +27,26 @@ import { usePathname } from 'next/navigation';
 import { shouldShowHeader } from '@/lib/utils/useShowHeader';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useRedirection } from '@/hooks/useRedirection';
 
 const Header = () => {
+  useRedirection();
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
-  const [hasRedirected, setHasRedirected] = useState<boolean>(false);
 
   const { isConnected: isNearConnected, connect } = useBitteWallet();
+  const { isConnected } = useAccount();
 
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    // Prefetch the /chat route to make navigation faster
+    router.prefetch('/chat');
+  }, [router]);
 
   const handleSignIn = async () => {
     try {
@@ -48,24 +55,6 @@ const Header = () => {
       console.error('Failed to connect wallet:', error);
     }
   };
-
-  const { isConnected } = useAccount();
-
-  useEffect(() => {
-    router.prefetch('/chat');
-  }, [router]);
-
-  useEffect(() => {
-    if (
-      (isConnected || isNearConnected) &&
-      !pathname.includes('/chat') &&
-      pathname === '/' &&
-      !hasRedirected
-    ) {
-      router.replace('/chat');
-      setHasRedirected(true);
-    }
-  }, [isConnected, isNearConnected, pathname, router, hasRedirected]);
 
   if (!shouldShowHeader(pathname)) {
     return;
