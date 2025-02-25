@@ -83,18 +83,18 @@ const Hero = () => {
             </div>
             {agentData ? <AgentRow agentData={agentData} /> : null}
           </div>
-          <div className='mt-11 flex xs:flex-col sm:flex-col md:flex-row items-center justify-center gap-3 md:gap-6 z-10'>
+          <div className='mt-11 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
-              <Button variant='secondary' className='w-full md:w-[200px]'>
+              <Button variant='secondary' className='w-fit md:w-[200px]'>
                 Browse Agents
               </Button>
             </Link>
-            <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+            <Button asChild variant='secondary' className='w-fit md:w-[200px]'>
               <Link href={MB_URL.DEV_DOCS} target='_blank'>
                 Build Agent
               </Link>
             </Button>
-            <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+            <Button asChild variant='secondary' className='w-fit md:w-[200px]'>
               <Link href={MB_URL.EMBED_DOCS} target='_blank'>
                 Embed Agent
               </Link>
