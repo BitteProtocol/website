@@ -54,9 +54,10 @@ const HeroPromptInput = () => {
 
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
-    if (textarea) {
+    if (textarea && value) {
       textarea.style.height = 'auto';
       const newHeight = Math.min(textarea.scrollHeight, 200);
+      console.log({ newHeight });
       textarea.style.height = `${newHeight}px`;
     }
   };
@@ -96,7 +97,7 @@ const HeroPromptInput = () => {
             onScroll={handleScroll}
             onChange={handleTextareaChange}
             placeholder='Enter your prompt...'
-            className='w-full resize-none border-0 bg-transparent pt-2.5 h-[88px] text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base md:text-base [&::placeholder]:text-left sm:indent-[178px] px-0'
+            className='w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base md:text-base [&::placeholder]:text-left sm:indent-[178px] px-0'
           />
           <div
             className='absolute top-2 hidden sm:block pointer-events-none'
