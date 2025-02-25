@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default async function Agents() {
   const data = await getAssistants();
+  console.log('AGENTS LENGTH', data.filters);
 
   if (!data) {
     return null;

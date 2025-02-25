@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { AgentData } from './Home';
+import { AgentData } from '@/lib/types/agent.types';
 import { useRouter } from 'next/navigation';
 
 export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
@@ -54,6 +54,10 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
     router.push(`agents/${agentId}?prompt=${encodedPrompt}`);
   };
 
+  if (!agentData) {
+    return null;
+  }
+
   return (
     <section className='relative mb-12'>
       <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
@@ -74,8 +78,8 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
                 <Image
-                  src={data?.coverImage || '/bitte-symbol-black.svg'}
-                  className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.coverImage ? 'bg-white' : ''}`}
+                  src={data?.image || '/bitte-symbol-black.svg'}
+                  className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
                   width={56}
                   height={56}
                   alt={`${data?.id}-logo`}
@@ -92,29 +96,32 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         ref={scrollContainerRef2}
         style={{ scrollBehavior: 'auto', paddingLeft: '50px' }}
       >
-        {[...agentData.agents]?.reverse().map((data, i) => (
-          <Card
-            key={`agents-${i}`}
-            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
-            onClick={() =>
-              goToAgentDetail(data.id, 'Hey, what can you do for me?')
-            }
-          >
-            <CardContent className='text-center p-3 flex items-center gap-3'>
-              <div>
-                <Image
-                  src={data?.coverImage || '/bitte-symbol-black.svg'}
-                  className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.coverImage ? 'bg-white' : ''}`}
-                  width={56}
-                  height={56}
-                  alt={`${data?.id}-logo`}
-                  loading='lazy'
-                />
-              </div>
-              <div className='font-medium text-[#F8FAFC]'>{data?.name}</div>
-            </CardContent>
-          </Card>
-        ))}
+        {agentData?.agents
+          ?.slice()
+          .reverse()
+          .map((data, i) => (
+            <Card
+              key={`agents-${i}`}
+              className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
+              onClick={() =>
+                goToAgentDetail(data.id, 'Hey, what can you do for me?')
+              }
+            >
+              <CardContent className='text-center p-3 flex items-center gap-3'>
+                <div>
+                  <Image
+                    src={data?.image || '/bitte-symbol-black.svg'}
+                    className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
+                    width={56}
+                    height={56}
+                    alt={`${data?.id}-logo`}
+                    loading='lazy'
+                  />
+                </div>
+                <div className='font-medium text-[#F8FAFC]'>{data?.name}</div>
+              </CardContent>
+            </Card>
+          ))}
       </div>
       <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
         <Link href='/agents'>
