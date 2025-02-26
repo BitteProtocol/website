@@ -25,8 +25,12 @@ import ManageAccountsDialog from './ManageAccountsDialog';
 import { Button } from '../ui/button';
 import { usePathname } from 'next/navigation';
 import { shouldShowHeader } from '@/lib/utils/useShowHeader';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useRedirection } from '@/hooks/useRedirection';
 
 const Header = () => {
+  useRedirection();
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
@@ -34,8 +38,15 @@ const Header = () => {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
 
   const { isConnected: isNearConnected, connect } = useBitteWallet();
+  const { isConnected } = useAccount();
 
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Prefetch the /chat route to make navigation faster
+    router.prefetch('/chat');
+  }, [router]);
 
   const handleSignIn = async () => {
     try {
@@ -44,8 +55,6 @@ const Header = () => {
       console.error('Failed to connect wallet:', error);
     }
   };
-
-  const { isConnected } = useAccount();
 
   if (!shouldShowHeader(pathname)) {
     return;
