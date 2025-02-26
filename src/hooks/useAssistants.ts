@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { RegistryData, Filters } from '@/lib/types/agent.types';
+import { RegistryData, Filters, AgentData } from '@/lib/types/agent.types';
 
 // Helper function to filter out local and tunnel URLs
 const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
@@ -14,6 +14,79 @@ const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
   ];
   return !excludedDomains.some((domain) => id.includes(domain));
 };
+
+/* export const useAssistants = (fetchAll: boolean) => {
+  const [data, setData] = useState<AgentData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchAssistants = async () => {
+      try {
+        const response = await fetch(
+          `https://registry-gules.vercel.app/api/agents?verifiedOnly=${!fetchAll}&limit=${fetchAll ? '100' : '50'}`
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch agents');
+        }
+        const result = await response.json();
+
+        const filteredAssistants = result.filter(filterLocalAndTunnelUrls);
+        console.log('FILTERED ASS', filteredAssistants);
+
+        if (fetchAll) {
+          const unverifiedAgents = filteredAssistants.filter(
+            (agent: RegistryData) => !agent.verified
+          );
+
+          const categories = [
+            ...new Set(
+              filteredAssistants.map((agent: RegistryData) => agent.category)
+            ),
+          ].filter(Boolean);
+
+          setData({
+            unverifiedAgents: unverifiedAgents,
+            filters: [
+              {
+                label: 'Category',
+                values: categories as string[],
+              },
+            ],
+          });
+        } else {
+          const verifiedAgents = filteredAssistants.filter(
+            (agent: RegistryData) => agent.verified
+          );
+
+          const categories = [
+            ...new Set(
+              verifiedAgents.map((agent: RegistryData) => agent.category)
+            ),
+          ].filter(Boolean);
+
+          setData({
+            agents: verifiedAgents,
+            filters: [
+              {
+                label: 'Category',
+                values: categories as string[],
+              },
+            ],
+          });
+        }
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAssistants();
+  }, [fetchAll]);
+
+  return { data, loading, error };
+}; */
 
 export const useVerifiedAssistants = () => {
   const [data, setData] = useState<{
@@ -65,18 +138,15 @@ export const useVerifiedAssistants = () => {
 };
 
 export const useAllAssistants = () => {
-  const [data, setData] = useState<{
-    agents: RegistryData[];
-    filters: Filters[];
-  } | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<AgentData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchUnverifiedAssistants = async () => {
       try {
         const response = await fetch(
-          'https://registry-gules.vercel.app/api/agents?verifiedOnly=false'
+          'https://registry-gules.vercel.app/api/agents?verifiedOnly=false&limit=100'
         );
         if (!response.ok) {
           throw new Error('Failed to fetch unverified agents');
@@ -84,6 +154,14 @@ export const useAllAssistants = () => {
         const result = await response.json();
 
         const filteredAssistants = result.filter(filterLocalAndTunnelUrls);
+        console.log('FILTERED ASS', filteredAssistants);
+
+        const verifiedAgents = filteredAssistants.filter(
+          (agent: RegistryData) => agent.verified
+        );
+        const unverifiedAgents = filteredAssistants.filter(
+          (agent: RegistryData) => !agent.verified
+        );
 
         const categories = [
           ...new Set(
@@ -92,7 +170,8 @@ export const useAllAssistants = () => {
         ].filter(Boolean);
 
         setData({
-          agents: filteredAssistants,
+          agents: verifiedAgents,
+          unverifiedAgents: unverifiedAgents,
           filters: [
             {
               label: 'Category',

@@ -21,7 +21,7 @@ export default async function Agents() {
         </div>
       }
     >
-      <AgentContent data={data} />
+      <AgentContent />
     </Suspense>
   );
 }

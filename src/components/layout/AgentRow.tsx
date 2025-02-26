@@ -1,10 +1,14 @@
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
-import { AgentData } from '@/lib/types/agent.types';
+import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { mapChainIdsToNetworks } from '@/lib/utils/chainIds';
 import { useRef, useEffect } from 'react';
 
-export default function AgentRow({ agentData }: { agentData: AgentData }) {
+export default function AgentRow({
+  agentData,
+}: {
+  agentData: VerifiedAgentData;
+}) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export default function AgentRow({ agentData }: { agentData: AgentData }) {
         ref={scrollContainerRef}
         style={{ scrollBehavior: 'auto' }}
       >
-        {agentData?.agents.map((agent) => (
+        {agentData?.agents?.map((agent) => (
           <Card
             key={agent.name}
             className='flex flex-col min-w-[280px] p-4 bg-black/40 backdrop-blur-sm border-gray-800 hover:bg-black/50 transition-colors cursor-pointer'

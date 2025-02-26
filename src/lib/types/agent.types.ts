@@ -19,7 +19,13 @@ export interface Filters {
   label: string;
 }
 
+export type VerifiedAgentData = {
+  agents: RegistryData[];
+  filters: Filters[];
+} | null;
+
 export type AgentData = {
   agents: RegistryData[];
+  unverifiedAgents: RegistryData[];
   filters: Filters[];
 } | null;

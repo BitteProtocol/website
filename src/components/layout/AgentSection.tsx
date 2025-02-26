@@ -4,10 +4,14 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { AgentData } from '@/lib/types/agent.types';
+import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { useRouter } from 'next/navigation';
 
-export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
+export const AgentSection = ({
+  agentData,
+}: {
+  agentData: VerifiedAgentData;
+}) => {
   const scrollContainerRef1 = useRef<HTMLDivElement>(null);
   const scrollContainerRef2 = useRef<HTMLDivElement>(null);
 

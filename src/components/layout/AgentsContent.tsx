@@ -2,27 +2,22 @@
 
 import dynamic from 'next/dynamic';
 import { Filters, RegistryData } from '@/lib/types/agent.types';
+import { useAllAssistants } from '@/hooks/useAssistants';
 
 const AllAgentsWithNoSSR = dynamic(
   () => import('@/components/ui/agents/AllAgents'),
   { ssr: false }
 );
 
-const AgentContent = ({
-  data,
-}: {
-  data: {
-    agents: RegistryData[];
-    filters: Filters[];
-    unverifiedAgents: RegistryData[];
-  };
-}) => {
+const AgentContent = () => {
+  const { allAgents: data } = useAllAssistants();
+  console.log('ALL', data?.unverifiedAgents?.length);
   return (
     <div className='relative z-30'>
       <AllAgentsWithNoSSR
-        templates={data.agents}
-        filters={data.filters}
-        unverifiedAgents={data.unverifiedAgents}
+        agents={data?.agents || []}
+        filters={data?.filters || []}
+        unverifiedAgents={data?.unverifiedAgents || []}
       />
     </div>
   );

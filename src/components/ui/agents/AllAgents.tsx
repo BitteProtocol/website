@@ -17,16 +17,15 @@ import {
 import AgentCard from './AgentCard';
 import Filters from './Filters';
 import PlaygroundSwitch from './PlaygroundSwitch';
+import { AgentData } from '@/lib/types/agent.types';
 
-const AllAgents = ({
-  templates,
-  filters,
-  unverifiedAgents,
-}: {
-  templates: RegistryData[];
-  filters: AgentFilters[];
-  unverifiedAgents: RegistryData[];
-}) => {
+const AllAgents = (props: AgentData) => {
+  if (!props) {
+    return null; // Handle the null case appropriately
+  }
+
+  const { agents, filters, unverifiedAgents } = props;
+
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
 
   const searchParams = useSearchParams();
@@ -43,7 +42,7 @@ const AllAgents = ({
   };
 
   const filteredAgents = selectedFilters?.length
-    ? (isPlayground ? unverifiedAgents : templates).filter((agent) => {
+    ? (isPlayground ? unverifiedAgents : agents).filter((agent) => {
         if (!agent) return false;
 
         return selectedFilters.every((filter) => {
@@ -55,7 +54,7 @@ const AllAgents = ({
       })
     : isPlayground
       ? unverifiedAgents
-      : templates;
+      : agents;
 
   return (
     <section className='w-full'>
