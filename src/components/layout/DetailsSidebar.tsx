@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
 import Link from 'next/link';
 import { ActionLink } from './ActionLink';
-import { MB_URL } from '@/lib/url';
 
 export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
   if (!agent) return null;

@@ -141,7 +141,7 @@ const ChatContent = ({
           <AiChatWithNoSSR
             selectedAgent={selectedAgent}
             chatId={chatId}
-            prompt={prompt}
+            prompt={(prompt ?? promptParam) || undefined}
             agentsButton={
               <Button
                 className='w-full bg-[#27272A] hover:bg-[#27272A] hover:bg-opacity-60 text-white'
