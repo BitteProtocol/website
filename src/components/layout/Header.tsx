@@ -81,6 +81,16 @@ const Header = () => {
             </p>
             <Link
               rel='noopener noreferrer'
+              href={MB_URL.CHAT}
+              aria-label={`Check out Dev tools`}
+            >
+              <p className='text-lg text-mb-white-100 font-medium'>AI Chat</p>
+              <p className='text-sm text-mb-gray-350'>
+                Create transactions chatting with smart contracts.
+              </p>
+            </Link>
+            <Link
+              rel='noopener noreferrer'
               target='_blank'
               href={MB_URL.BITTE_WALLET}
               aria-label={`AI Universal Accounts Wallet`}
@@ -93,7 +103,6 @@ const Header = () => {
             </Link>
             <Link
               rel='noopener noreferrer'
-              target='_blank'
               href='/agents'
               aria-label={`Check out Dev tools`}
             >
@@ -207,6 +216,16 @@ const Header = () => {
           <div className='flex justify-end'>
             <NavigationMenu>
               <NavigationMenuList>
+                <NavigationMenuItem className='bg-transparent'>
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} gap-1.5 bg-transparent`}
+                    rel='noopener noreferrer'
+                    href={MB_URL.CHAT}
+                  >
+                    AI
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
                 <NavigationMenuItem value='products'>
                   <NavigationMenuTrigger className='bg-transparent'>
                     Products
