@@ -45,14 +45,14 @@ const Hero = () => {
           loop
           playsInline
           muted
-          className='absolute w-screen h-full object-cover border-b border-[#313E52] opacity-20'
+          className='absolute -top-20 w-screen h-full object-cover border-b border-[#313E52] opacity-20'
         >
-          <source src='/video/brains.mp4' type='video/mp4' />
+          <source src='/video/human.mp4' type='video/mp4' />
         </video>
-        <div className='flex justify-center flex-col text-center items-center px-8 py-28 pt-14 md:pt-12 lg:pt-12 xl:pt-24 2xl:pt-40'>
+        <div className='flex justify-center flex-col text-center items-center px-8 pt-20 md:pt-12 lg:pt-20 xl:pt-24 2xl:pt-60 pb-56  2xl:pb-80'>
           <div className='z-10 md:pointer-events-none'>
-            <p className='font-semibold text-white text-[32px] md:text-[30px] leading-tight mx-auto '>
-              {process.env.NEXT_PUBLIC_HERO}
+            <p className='font-semibold text-white text-opacity-30 text-[32px] md:text-[50px] leading-tight mx-auto '>
+              Chat with Dapps
             </p>
           </div>
           <div className='mt-10 z-10 flex flex-col w-full '>

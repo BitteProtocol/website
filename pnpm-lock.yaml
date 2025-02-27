@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5(zod@3.24.1)
       '@bitte-ai/chat':
-        specifier: 0.0.23
-        version: 0.0.23(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
+        specifier: 0.1.2
+        version: 0.1.2(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
       '@bitte-ai/react':
         specifier: latest
         version: 0.6.6-beta-prerelease.40(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)
@@ -513,8 +513,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@bitte-ai/chat@0.0.23':
-    resolution: {integrity: sha512-+h8YE022/d7KGBlw7xidBuwbK54mGvYj1dZcikFS0lXr6azCpBy7vhWAoNbBT2MM2s3miQ//oe00qHSgY8Xf2g==}
+  '@bitte-ai/chat@0.1.2':
+    resolution: {integrity: sha512-sBqxVT0etRxkxeNMvqy3t95wWFUtbqBKEg2Sqjv3Rf5hQJH7g2bl3ueCNNNops9+d6PiMDDJ/fFnvq/a8lxL3A==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -6947,7 +6947,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@bitte-ai/chat@0.0.23(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)':
+  '@bitte-ai/chat@0.1.2(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@ai-sdk/anthropic': 1.0.3(zod@3.24.1)
       '@ai-sdk/openai': 1.0.5(zod@3.24.1)
