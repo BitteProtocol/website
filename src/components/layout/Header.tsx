@@ -63,7 +63,7 @@ const Header = () => {
   if (isMobile) {
     return (
       <>
-        <header className='w-full h-[73px] px-6 md:px-16 border-b border-mb-gray-800 flex top-0 justify-between items-center sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
+        <header className='w-full h-[73px] px-6 md:px-16 border-b border-black flex top-0 justify-between items-center sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
           <Link href='/' className='flex items-center h-full'>
             <Image
               src='/bitte.svg'
@@ -211,7 +211,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='flex w-full h-20 border-b border-mb-gray-800 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
+      <header className='flex w-full h-20  top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
         <div className='flex justify-between items-center px-8 content-around h-full w-full'>
           <Link href='/' className='flex h-full'>
             <Image
