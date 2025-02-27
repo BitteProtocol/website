@@ -48,7 +48,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
         </video>
         <div className='flex justify-center flex-col text-center items-center px-8 pt-20 md:pt-12 lg:pt-20 xl:pt-24 2xl:pt-60 pb-56  2xl:pb-80'>
           <div className='z-10 md:pointer-events-none'>
-            <p className='font-semibold text-white text-opacity-40 text-[32px] md:text-[50px] leading-tight mx-auto '>
+            <p className='font-semibold text-white text-opacity-30 text-[32px] md:text-[50px] leading-tight mx-auto '>
               Chat with Dapps
             </p>
           </div>
