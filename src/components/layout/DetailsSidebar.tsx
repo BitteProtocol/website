@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
 import Link from 'next/link';
 import { ActionLink } from './ActionLink';
-import { MB_URL } from '@/lib/url';
 
 export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
   if (!agent) return null;
@@ -41,12 +40,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             </Button>
           </Link>
         ) : null}
-        <Link
-          target='_blank'
-          rel='noreferrer'
-          className='w-full'
-          href={`${MB_URL.SMART_ACTIONS}?agentId=${agent.id}`}
-        >
+        <Link className='w-full' href={`/chat?agentid=${agent.id}`}>
           <Button variant='default' className='w-full'>
             Run Agent
           </Button>
@@ -68,12 +62,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             </Button>
           </Link>
         ) : null}
-        <Link
-          target='_blank'
-          rel='noreferrer'
-          className='w-full'
-          href={`${MB_URL.SMART_ACTIONS}?agentId=${agent.id}`}
-        >
+        <Link className='w-full' href={`/chat?agentid=${agent.id}`}>
           <Button variant='default' className='w-full'>
             Run Agent
           </Button>
