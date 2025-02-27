@@ -89,7 +89,7 @@ const HeroPromptInput = () => {
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>
       <AgentBadge className='sm:hidden flex' />
       <div className='relative'>
-        <div className='pb-[36px]'>
+        <div className='pb-[52px]'>
           <Textarea
             ref={textareaRef}
             value={value}
