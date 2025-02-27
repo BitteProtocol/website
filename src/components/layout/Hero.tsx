@@ -44,9 +44,9 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
           muted
           className='absolute w-screen h-full object-cover border-b border-[#313E52] opacity-20'
         >
-          <source src='/video/brains.mp4' type='video/mp4' />
+          <source src='/video/brains3.mp4' type='video/mp4' />
         </video>
-        <div className='flex justify-center flex-col text-center items-center px-8 py-28 pt-14 md:pt-12 lg:pt-12 xl:pt-24 2xl:pt-40'>
+        <div className='flex justify-center flex-col text-center items-center px-8 py-20 md:py-12 lg:py-20 xl:py-24 2xl:py-52'>
           <div className='z-10 md:pointer-events-none'>
             <p className='font-semibold text-white text-[32px] md:text-[30px] leading-tight mx-auto '>
               {process.env.NEXT_PUBLIC_HERO}
