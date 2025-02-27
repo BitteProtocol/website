@@ -189,7 +189,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     return (
       <Drawer open={isOpen} onOpenChange={setConnectModalOpen}>
         <DrawerTrigger asChild>
-          <Button className='w-full flex items-ceter gap-2 border border-[#60A5FA] bg-[#60A5FA4D] text-[#60A5FA]'>
+          <Button className='w-full flex items-center gap-2 border border-[#60A5FA] bg-[#60A5FA4D] text-[#60A5FA]'>
             <User size={16} color='#60A5FA' />
             Accounts
           </Button>
