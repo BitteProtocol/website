@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import InfoTooltip from '../InfoTooltip';
 import { Switch } from '../switch';
+import { useEffect, useRef } from 'react';
+
 export const AgentSelector = ({
   agentData,
   onSelectAgent,
@@ -19,6 +21,18 @@ export const AgentSelector = ({
   togglePlayground: (value: boolean) => void;
 }) => {
   const selectedAgentId = selectedAgent?.id;
+
+  const selectedAgentRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (selectedAgentRef.current) {
+      selectedAgentRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      });
+    }
+  }, [selectedAgentId, agentData]);
 
   return (
     <div className='border border-[#334155] bg-[#09090B] rounded-md h-full flex flex-col'>
@@ -47,7 +61,7 @@ export const AgentSelector = ({
           return (
             <div
               key={agent.id}
-              /* ref={isSelected ? selectedAgentRef : null} */
+              ref={isSelected ? selectedAgentRef : null}
               onClick={() => {
                 onSelectAgent(agent);
                 sessionStorage.setItem('selectedAgent', JSON.stringify(agent)); // Save to sessionStorage when an agent is selected
