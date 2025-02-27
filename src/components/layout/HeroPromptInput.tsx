@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { generateId } from 'ai';
 import { ArrowUp, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
@@ -88,7 +89,7 @@ const HeroPromptInput = () => {
     <div className='relative rounded-2xl bg-zinc-900/90 p-3 shadow-lg'>
       <AgentBadge className='sm:hidden flex' />
       <div className='relative'>
-        <div className='pb-[36px]'>
+        <div className='pb-[52px]'>
           <Textarea
             ref={textareaRef}
             value={value}
@@ -106,18 +107,26 @@ const HeroPromptInput = () => {
           </div>
         </div>
 
-        <Button
-          onClick={handleSubmit}
-          disabled={value?.length === 0}
-          size='icon'
-          className='absolute bottom-2 right-0 h-10 w-10 rounded-lg bg-white text-black hover:bg-zinc-200'
-        >
-          {isLoading ? (
-            <Loader2 className='h-4 w-4 animate-spin' />
-          ) : (
-            <ArrowUp className='h-4 w-4' />
-          )}
-        </Button>
+        <div className='flex gap-2 items-center absolute bottom-2 right-0'>
+          <Link href={`/chat/${id}`}>
+            <Button className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA]'>
+              Open App
+            </Button>
+          </Link>
+
+          <Button
+            onClick={handleSubmit}
+            disabled={value?.length === 0}
+            size='icon'
+            className='h-10 w-10 rounded-lg bg-white text-black hover:bg-zinc-200'
+          >
+            {isLoading ? (
+              <Loader2 className='h-4 w-4 animate-spin' />
+            ) : (
+              <ArrowUp className='h-4 w-4' />
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
