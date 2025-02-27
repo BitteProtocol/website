@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
 import Link from 'next/link';
 import { ActionLink } from './ActionLink';
+import { MB_URL } from '@/lib/url';
 
 export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
   if (!agent) return null;
@@ -50,6 +51,16 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
         <ActionLink agent={agent} />
       </div>
       <div className='hidden lg:flex items-center gap-3 w-full'>
+        <Link
+          className='w-full'
+          href={MB_URL.EMBED_DOCS}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Button variant='secondary' className='w-full'>
+            Embed
+          </Button>
+        </Link>
         {agent.repoUrl ? (
           <Link
             className='w-full'
