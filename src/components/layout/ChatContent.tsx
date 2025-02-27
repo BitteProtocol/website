@@ -34,6 +34,8 @@ const ChatContent = ({
 
   const searchParams = useSearchParams();
   const modeParam = searchParams.get('mode');
+  const agentIdParam = searchParams.get('agentid');
+  const promptParam = searchParams.get('prompt');
 
   const togglePlayground = (value: boolean) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -56,10 +58,32 @@ const ChatContent = ({
   const handleSelectAgent = (agent: RegistryData) => {
     setSelectedAgent(agent);
     setIsAgentsDrawerOpen(false);
+    selectAgent(agent.id);
+  };
+
+  const selectAgent = (newAgentId: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (agentIdParam === newAgentId) {
+      params.delete('agentid');
+    } else {
+      params.set('agentid', newAgentId);
+    }
+
+    history.replaceState({}, '', `?${params.toString()}`);
   };
 
   useEffect(() => {
     if (agentsList.length) {
+      // Check if agentIdParam exists and set the agent based on it
+      if (agentIdParam && !selectedAgent) {
+        const agentById = agentsList.find((agent) => agent.id === agentIdParam);
+        if (agentById) {
+          setSelectedAgent(agentById);
+          return;
+        }
+      }
+
       // Only set initial agent if none is selected
       if (!selectedAgent) {
         const storedAgent = sessionStorage.getItem('selectedAgent');
@@ -78,7 +102,7 @@ const ChatContent = ({
         setSelectedAgent(agentsList[0]);
       }
     }
-  }, [agentsList, selectedAgent]);
+  }, [agentsList, selectedAgent, agentIdParam]);
 
   // Debounce saving to sessionStorage to prevent excessive writes
   useEffect(() => {
@@ -101,7 +125,7 @@ const ChatContent = ({
   );
 
   return (
-    <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)] w-full 2xl:w-4/5 mx-auto'>
+    <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-156px)] 2xl:h-[calc(100vh-280px)] w-full mx-auto'>
       <AgentsDrawer
         open={isAgentsDrawerOpen}
         onOpenChange={setIsAgentsDrawerOpen}
@@ -117,7 +141,7 @@ const ChatContent = ({
           <AiChatWithNoSSR
             selectedAgent={selectedAgent}
             chatId={chatId}
-            prompt={prompt}
+            prompt={(prompt ?? promptParam) || undefined}
             agentsButton={
               <Button
                 className='w-full bg-[#27272A] hover:bg-[#27272A] hover:bg-opacity-60 text-white'

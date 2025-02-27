@@ -24,12 +24,12 @@ export const AgentDetailComponent = ({
   if (!agent) return null;
 
   return (
-    <div className='w-full 2xl:w-4/5 mx-auto'>
+    <div className='w-full mx-auto'>
       <div className='w-full lg:flex gap-12 justify-center'>
         <div className='w-full lg:w-1/3'>
           <DetailsSideBar {...{ agent }} />
         </div>
-        <div className='w-full xl:w-[680px] 2xl:w-full'>
+        <div className='w-full'>
           <div className='grid grid-cols-1'>
             <div className='h-[420px] lg:h-[600px] mb-6 '>
               <AiChat

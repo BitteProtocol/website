@@ -56,6 +56,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                 </Link>
               </div>
             </div>
+
             <div className='h-[64px] md:h-[54px]'>
               <div className='text-mb-gray-200 line-clamp-5 text-[14px]'>
                 <div className='hidden md:block'>

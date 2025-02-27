@@ -41,12 +41,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             </Button>
           </Link>
         ) : null}
-        <Link
-          target='_blank'
-          rel='noreferrer'
-          className='w-full'
-          href={`${MB_URL.SMART_ACTIONS}?agentId=${agent.id}`}
-        >
+        <Link className='w-full' href={`/chat?agentid=${agent.id}`}>
           <Button variant='default' className='w-full'>
             Run Agent
           </Button>
@@ -56,6 +51,16 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
         <ActionLink agent={agent} />
       </div>
       <div className='hidden lg:flex items-center gap-3 w-full'>
+        <Link
+          className='w-full'
+          href={MB_URL.EMBED_DOCS}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <Button variant='secondary' className='w-full'>
+            Embed
+          </Button>
+        </Link>
         {agent.repoUrl ? (
           <Link
             className='w-full'
@@ -68,12 +73,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             </Button>
           </Link>
         ) : null}
-        <Link
-          target='_blank'
-          rel='noreferrer'
-          className='w-full'
-          href={`${MB_URL.SMART_ACTIONS}?agentId=${agent.id}`}
-        >
+        <Link className='w-full' href={`/chat?agentid=${agent.id}`}>
           <Button variant='default' className='w-full'>
             Run Agent
           </Button>

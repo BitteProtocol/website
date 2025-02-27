@@ -6,6 +6,8 @@ import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { useRouter } from 'next/navigation';
+import { useBitteWallet } from '@bitte-ai/react';
+import { useAccount } from 'wagmi';
 
 export const AgentSection = ({
   agentData,
@@ -16,6 +18,9 @@ export const AgentSection = ({
   const scrollContainerRef2 = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
+
+  const { isConnected: isNearConnected } = useBitteWallet();
+  const { isConnected } = useAccount();
 
   useEffect(() => {
     const scrollStep = (
@@ -53,9 +58,18 @@ export const AgentSection = ({
     window.requestAnimationFrame(step);
   }, []);
 
-  const goToAgentDetail = (agentId: string, message: string) => {
+  useEffect(() => {
+    // Prefetch the /chat route to make navigation faster
+    router.prefetch('/chat');
+  }, [router]);
+
+  const goToAgent = (agentId: string, message: string) => {
     const encodedPrompt = encodeURIComponent(message);
-    router.push(`agents/${agentId}?prompt=${encodedPrompt}`);
+    let url = `/chat?agentid=${agentId}`;
+    if (isConnected || isNearConnected) {
+      url += `&prompt=${encodedPrompt}`;
+    }
+    router.replace(url);
   };
 
   if (!agentData) {
@@ -75,9 +89,7 @@ export const AgentSection = ({
           <Card
             key={`agents-${i}`}
             className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-[#E087FFB2] hover:shadow-custom'
-            onClick={() =>
-              goToAgentDetail(data.id, 'Hey, what can you do for me?')
-            }
+            onClick={() => goToAgent(data.id, 'Hey, what can you do for me?')}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
@@ -107,9 +119,7 @@ export const AgentSection = ({
             <Card
               key={`agents-${i}`}
               className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-[#E087FFB2] hover:shadow-custom'
-              onClick={() =>
-                goToAgentDetail(data.id, 'Hey, what can you do for me?')
-              }
+              onClick={() => goToAgent(data.id, 'Hey, what can you do for me?')}
             >
               <CardContent className='text-center p-3 flex items-center gap-3'>
                 <div>
