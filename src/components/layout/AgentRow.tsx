@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/card';
 import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { mapChainIdsToNetworks } from '@/lib/utils/chainIds';
 import { useRef, useEffect } from 'react';
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 export default function AgentRow({
   agentData,
@@ -32,9 +34,10 @@ export default function AgentRow({
       window.requestAnimationFrame(step);
     }
   }, []);
+  console.log('DATA ROW', agentData);
 
   return (
-    <section className='relative my-40'>
+    <section className='relative my-20'>
       <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
       <div className='absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-l from-black to-transparent z-10'></div>
       <div
@@ -44,44 +47,55 @@ export default function AgentRow({
       >
         {agentData?.agents?.map((agent) => (
           <Card
-            key={agent.name}
-            className='flex flex-col min-w-[280px] p-4 bg-black/40 backdrop-blur-sm border-gray-800 hover:bg-black/50 transition-colors cursor-pointer'
+            key={agent.id}
+            className='flex flex-col min-w-[280px] min-h-[125px] p-4 bg-[#18181A] border-none hover:bg-black/50 transition-colors cursor-pointer'
           >
-            <div className='flex items-start gap-3'>
-              <div className='relative w-10 h-10'>
+            <div className='flex items-start gap-3 mb-4'>
+              <div className='relative w-12 h-12 rounded-md overflow-hidden'>
                 <Image
                   src={agent.image || '/placeholder.svg'}
                   alt={`${agent.name} logo`}
-                  fill
-                  className='object-contain'
+                  width={48}
+                  height={48}
+                  className='object-cover rounded-md'
+                  loading='lazy'
+                  unoptimized
                 />
               </div>
-              <span className='text-lg font-medium text-white'>
-                {agent.name}
-              </span>
+              <div className='flex flex-col gap-1'>
+                <span className='text-base font-medium text-white'>
+                  {agent.name}
+                </span>
+                {agent.chainIds ? (
+                  <div className='flex gap-1'>
+                    {mapChainIdsToNetworks(agent.chainIds).map(
+                      (network, index) => (
+                        <div
+                          key={`${agent.name}-${network.name}-${index}`}
+                          className='relative w-5 h-5'
+                        >
+                          <Image
+                            src={network.icon}
+                            alt={`${network.name} icon`}
+                            fill
+                            className='object-contain rounded-md'
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
+                ) : null}
+              </div>
             </div>
 
-            {agent.chainIds ? (
-              <div className='flex gap-1 mt-3 mb-4'>
-                {mapChainIdsToNetworks(agent.chainIds).map((network, index) => (
-                  <div
-                    key={`${agent.name}-${network.name}-${index}`}
-                    className='relative w-5 h-5'
-                  >
-                    <Image
-                      src={network.icon}
-                      alt={`${network.name} icon`}
-                      fill
-                      className='object-contain rounded-full'
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : null}
-
-            {/* <span className='mt-auto text-sm text-blue-400 hover:text-blue-300 transition-colors'>
-              {agent?.actionText} →
-            </span> */}
+            <Link href={`/chat/`} className='mt-auto'>
+              <Button
+                variant='link'
+                className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA] w-full'
+              >
+                Open App
+              </Button>
+            </Link>
           </Card>
         ))}
       </div>
