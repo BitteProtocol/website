@@ -1,50 +1,17 @@
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
-import { VerifiedAgentData } from '@/lib/types/agent.types';
+import { RegistryData } from '@/lib/types/agent.types';
 import { mapChainIdsToNetworks } from '@/lib/utils/chainIds';
-import { useRef, useEffect } from 'react';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
-export default function AgentRow({
-  agentData,
-}: {
-  agentData: VerifiedAgentData;
-}) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      const scrollAmount = 1; // Adjust the speed of scrolling here
-      const step = () => {
-        if (
-          scrollContainer.scrollLeft >=
-          scrollContainer.scrollWidth - scrollContainer.clientWidth
-        ) {
-          // Reset scroll to the start
-          scrollContainer.scrollLeft = 0;
-        } else {
-          // Move the scroll
-          scrollContainer.scrollLeft += scrollAmount;
-        }
-        window.requestAnimationFrame(step);
-      };
-
-      window.requestAnimationFrame(step);
-    }
-  }, []);
-
+export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   return (
-    <section className='relative my-20'>
-      <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
-      <div className='absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-l from-black to-transparent z-10'></div>
+    <section className='relative w-screen mt-16 mb-12 overflow-hidden'>
       <div
-        className='flex itmes-center gap-6 max-w-[100vw] overflow-x-auto disable-scrollbars'
-        ref={scrollContainerRef}
-        style={{ scrollBehavior: 'auto' }}
+        className='flex justify-center items-center gap-6'
       >
-        {agentData?.agents?.map((agent) => (
+        {agentData?.map((agent) => (
           <Card
             key={agent.id}
             className='flex flex-col min-w-[280px] min-h-[125px] p-4 bg-[#18181A] border-none hover:bg-black/50 transition-colors cursor-pointer'

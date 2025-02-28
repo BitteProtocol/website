@@ -36,6 +36,16 @@ const Hero = () => {
     }
   }, [selectedAgent]);
 
+  // Filter agents to include only the specified IDs
+  const filteredAgents = agentData?.agents.filter((agent) =>
+    [
+      'near-cow-agent.vercel.app',
+      'coingecko-ai.vercel.app',
+      'near-safe-agent.vercel.app',
+      'near-uniswap-agent.vercel.app',
+    ].includes(agent.id)
+  );
+
   return (
     <section className='w-full'>
       <div className='relative'>
@@ -80,12 +90,12 @@ const Hero = () => {
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
-            {agentData ? (
-              <AgentRow agentData={agentData} />
+            {filteredAgents ? (
+              <AgentRow agentData={filteredAgents} />
             ) : loading ? (
               <div className='flex gap-2 items-center justify-center my-10'>
-                {[1, 2, 3, 4, 5].map(() => (
-                  <Skeleton className='w-[280px] h-[135px]' />
+                {[1, 2, 3, 4].map((_, i) => (
+                  <Skeleton key={i} className='w-[280px] h-[135px]' />
                 ))}
               </div>
             ) : null}
