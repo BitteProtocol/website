@@ -1,5 +1,5 @@
 'use client';
-import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
+import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { ChevronRight } from 'lucide-react';
 import { useSearchParams } from 'next/dist/client/components/navigation';

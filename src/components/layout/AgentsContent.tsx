@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Filters, RegistryData } from '@/lib/types/agent.types';
 import { useAllAssistants } from '@/hooks/useAssistants';
 import { Skeleton } from '../ui/skeleton';
 

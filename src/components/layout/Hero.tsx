@@ -12,7 +12,7 @@ import { useVerifiedAssistants } from '@/hooks/useAssistants';
 import { Skeleton } from '../ui/skeleton';
 
 const Hero = () => {
-  const { verifiedAgents: agentData, error, loading } = useVerifiedAssistants();
+  const { verifiedAgents: agentData, loading } = useVerifiedAssistants();
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
 
   useEffect(() => {
