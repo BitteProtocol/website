@@ -1,7 +1,7 @@
-import { getAssistants } from '@/lib/api/ai-registry/registry';
 import AgentContent from '@/components/layout/AgentsContent';
-import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { getAssistants } from '@/lib/api/ai-registry/registry';
+import { Suspense } from 'react';
 
 export default async function Agents() {
   const data = await getAssistants();
@@ -14,9 +14,8 @@ export default async function Agents() {
     <Suspense
       fallback={
         <div className='flex gap-3'>
-          <Skeleton className='w-1/6 h-[100vh]' />
-          <Skeleton className='w-1/6 h-[45vh] mt-20' />
-          <Skeleton className='w-4/6 h-[100vh] mt-20' />
+          <Skeleton className='w-1/3 h-[70vh]' />
+          <Skeleton className='w-2/3 h-[70vh]' />
         </div>
       }
     >

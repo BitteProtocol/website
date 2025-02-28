@@ -25,9 +25,8 @@ const ChatPage = async ({
     <Suspense
       fallback={
         <div className='flex gap-3'>
-          <Skeleton className='w-1/6 h-[100vh]' />
-          <Skeleton className='w-1/6 h-[70vh] mt-20' />
-          <Skeleton className='w-4/6 h-[70vh] mt-20' />
+          <Skeleton className='w-1/3 h-[70vh]' />
+          <Skeleton className='w-2/3 h-[70vh]' />
         </div>
       }
     >

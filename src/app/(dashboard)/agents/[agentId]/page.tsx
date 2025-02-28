@@ -1,11 +1,11 @@
 import { AgentDetailComponent } from '@/components/layout/AgentDetail';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   getAssistantById,
   getAssistantsByCategory,
 } from '@/lib/api/ai-registry/registry';
 import { getAllDailyPingsByAgentId } from '@/lib/api/kv';
 import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 
 export const revalidate = 3600;
 export const dynamic = 'force-static';
@@ -48,10 +48,9 @@ export default async function AgentDetail({
   return (
     <Suspense
       fallback={
-        <div className='flex gap-5'>
-          <Skeleton className='w-1/6 h-[100vh]' />
-          <Skeleton className='w-2/6 h-[35vh] mt-20' />
-          <Skeleton className='w-3/6 h-[100vh] mt-20' />
+        <div className='flex gap-3'>
+          <Skeleton className='w-1/3 h-[70vh]' />
+          <Skeleton className='w-2/3 h-[70vh]' />
         </div>
       }
     >
