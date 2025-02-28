@@ -34,7 +34,6 @@ export default function AgentRow({
       window.requestAnimationFrame(step);
     }
   }, []);
-  console.log('DATA ROW', agentData);
 
   return (
     <section className='relative my-20'>
@@ -63,7 +62,7 @@ export default function AgentRow({
                 />
               </div>
               <div className='flex flex-col gap-1'>
-                <span className='text-base font-medium text-white'>
+                <span className='text-base font-medium text-white text-left'>
                   {agent.name}
                 </span>
                 {agent.chainIds ? (

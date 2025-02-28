@@ -9,6 +9,7 @@ import { Button } from '../ui/button';
 import HeroPromptInput from './HeroPromptInput';
 import AgentRow from './AgentRow';
 import { useVerifiedAssistants } from '@/hooks/useAssistants';
+import { Skeleton } from '../ui/skeleton';
 
 const Hero = () => {
   const { verifiedAgents: agentData, error, loading } = useVerifiedAssistants();
@@ -34,8 +35,6 @@ const Hero = () => {
       sessionStorage.setItem('selectedAgent', JSON.stringify(selectedAgent));
     }
   }, [selectedAgent]);
-
-  console.log('AGENT DATA', agentData);
 
   return (
     <section className='w-full'>
@@ -81,7 +80,15 @@ const Hero = () => {
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
-            {agentData ? <AgentRow agentData={agentData} /> : null}
+            {agentData ? (
+              <AgentRow agentData={agentData} />
+            ) : loading ? (
+              <div className='flex gap-2 items-center justify-center my-10'>
+                {[1, 2, 3, 4, 5].map(() => (
+                  <Skeleton className='w-[280px] h-[135px]' />
+                ))}
+              </div>
+            ) : null}
           </div>
           <div className='mt-11 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
