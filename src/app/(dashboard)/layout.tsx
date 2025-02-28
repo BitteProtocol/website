@@ -13,11 +13,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { usePathname, useRouter } from 'next/navigation';
-import { ReactNode, useEffect, useState, useTransition, Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { ReactNode, Suspense, useEffect, useState, useTransition } from 'react';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -101,10 +101,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </header>
         <Suspense
           fallback={
-            <div className='flex gap-5'>
-              <Skeleton className='w-1/6 h-[100vh]' />
-              <Skeleton className='w-2/6 h-[35vh] mt-20' />
-              <Skeleton className='w-3/6 h-[100vh] mt-20' />
+            <div className='flex gap-3 mx-4 mt-4'>
+              <Skeleton className='w-1/3 h-[70vh]' />
+              <Skeleton className='w-2/3 h-[70vh]' />
             </div>
           }
         >

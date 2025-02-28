@@ -11,14 +11,13 @@ const AllAgentsWithNoSSR = dynamic(
 );
 
 const AgentContent = () => {
-  const { allAgents: data, loading, error } = useAllAssistants();
+  const { allAgents: data, loading } = useAllAssistants();
 
   if (loading) {
     return (
       <div className='flex gap-3'>
-        <Skeleton className='w-1/6 h-[100vh]' />
-        <Skeleton className='w-1/6 h-[45vh] mt-20' />
-        <Skeleton className='w-4/6 h-[100vh] mt-20' />
+        <Skeleton className='w-1/3 h-[70vh]' />
+        <Skeleton className='w-2/3 h-[70vh]' />
       </div>
     );
   }
