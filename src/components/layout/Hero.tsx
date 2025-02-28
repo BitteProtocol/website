@@ -93,9 +93,9 @@ const Hero = () => {
             {filteredAgents ? (
               <AgentRow agentData={filteredAgents} />
             ) : loading ? (
-              <div className='flex gap-2 items-center justify-center my-10'>
+              <div className='flex gap-6 items-center justify-center my-10'>
                 {[1, 2, 3, 4].map((_, i) => (
-                  <Skeleton key={i} className='w-[280px] h-[135px]' />
+                  <Skeleton key={i} className='w-[300px] h-[135px]' />
                 ))}
               </div>
             ) : null}
