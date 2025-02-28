@@ -24,9 +24,8 @@ export type AgentData = {
 };
 
 const headerTextSection = {
-  title: 'Blockchain empowered by AI Agents',
-  subHeader:
-    'Explore existing agents or create your own. Any API can easily become an agent.',
+  title: 'Chain Agents Live',
+  subHeader: 'Explore existing agents or fork one to create your own.',
   factTitle: '',
   fact: '',
   isDisabled: false,

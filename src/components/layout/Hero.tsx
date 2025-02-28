@@ -42,7 +42,7 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
           loop
           playsInline
           muted
-          className='absolute -top-20 w-screen h-full object-cover border-b border-[#313E52] opacity-20'
+          className='absolute md:-top-20 w-screen h-full object-cover border-b border-[#313E52] opacity-20 z-0'
         >
           <source src='/video/human.mp4' type='video/mp4' />
         </video>

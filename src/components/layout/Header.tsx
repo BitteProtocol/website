@@ -211,7 +211,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='flex w-full h-20  top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
+      <header className='flex w-full h-20 top-0 sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
         <div className='flex justify-between items-center px-8 content-around h-full w-full'>
           <Link href='/' className='flex h-full'>
             <Image
