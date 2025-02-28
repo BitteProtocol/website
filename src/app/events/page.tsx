@@ -1,8 +1,6 @@
 import { EventsUI } from '@/components/layout/Events';
-import { getAssistants } from '@/lib/api/ai-registry/registry';
 import { MB_URL } from '@/lib/url';
 import { Metadata } from 'next';
-import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Events + Hackathons| Bitte.ai',
@@ -34,11 +32,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Registry() {
-  const data = await getAssistants();
-
   return (
     <main className='flex flex-col items-center justify-between'>
-      <Suspense>{data ? <EventsUI /> : null}</Suspense>
+      <EventsUI />
     </main>
   );
 }

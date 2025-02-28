@@ -7,10 +7,10 @@ import { MB_URL } from '@/lib/url';
 
 export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
   if (!agent) return null;
-  const coverImage = agent?.coverImage
-    ? agent.coverImage.startsWith('http')
-      ? agent.coverImage
-      : `/${agent.coverImage.replace(/^\//, '')}`
+  const coverImage = agent?.image
+    ? agent.image.startsWith('http')
+      ? agent.image
+      : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 
   return (

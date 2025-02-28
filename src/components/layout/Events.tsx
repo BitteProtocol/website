@@ -1,4 +1,5 @@
 'use client';
+
 import { RegistryBanner } from './RegistryBanner';
 import Image from 'next/image';
 import { ProductCardsSection } from './ProductCardsSection';

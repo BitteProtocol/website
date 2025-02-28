@@ -1,7 +1,6 @@
 'use client';
 
 import { DetailsSideBar } from '@/components/layout/DetailsSidebar';
-import { RegistryData } from '@/lib/types/agent.types';
 import { useSearchParams } from 'next/navigation';
 import { Calendar } from '../ui/calendar';
 import { Card, CardContent } from '../ui/card';
@@ -9,19 +8,44 @@ import AiChat from './AiChat';
 import GitCommitHistory from './CommitHistory';
 import { MarkdownBody } from './MarkdownBody';
 import { RelatedTemplates } from './Related';
+import {
+  useAssistantById,
+  useAssistantsByCategory,
+} from '@/hooks/useAssistants';
+import { Skeleton } from '../ui/skeleton';
 
 export const AgentDetailComponent = ({
-  agent,
-  relatedAgents,
+  agentId,
   pings,
 }: {
-  agent: RegistryData;
-  relatedAgents: RegistryData[];
+  agentId: string;
   pings?: Record<string, number>;
 }) => {
+  const {
+    agent,
+    loading: agentLoading,
+    error: agentError,
+  } = useAssistantById(agentId);
+  const {
+    agents: relatedAgents,
+    loading: relatedLoading,
+    error: relatedError,
+  } = useAssistantsByCategory(agent?.category);
+
   const searchParams = useSearchParams();
 
-  if (!agent) return null;
+  if (agentLoading || relatedLoading) {
+    return (
+      <div className='flex gap-3'>
+        <Skeleton className='w-1/3 h-[70vh]' />
+        <Skeleton className='w-2/3 h-[70vh]' />
+      </div>
+    );
+  }
+
+  if (agentError || relatedError || !agent) {
+    return <div>Error loading agent details.</div>;
+  }
 
   return (
     <div className='w-full mx-auto'>

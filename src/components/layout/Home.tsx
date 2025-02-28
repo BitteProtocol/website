@@ -14,14 +14,8 @@ import {
   videosCardData,
 } from '@/lib/data/exampleCardData';
 import { AgentSection } from './AgentSection';
-import { Filters, RegistryData } from '@/lib/types/agent.types';
 import VideoSection from './VideoSection';
-
-export type AgentData = {
-  agents: RegistryData[];
-  unverifiedAgents: RegistryData[];
-  filters: Filters[];
-};
+import { useVerifiedAssistants } from '@/hooks/useAssistants';
 
 const headerTextSection = {
   title: 'Chain Agents Live',
@@ -57,7 +51,8 @@ const crossSection = {
   isDisabled: false,
 };
 
-export const HomeComponent = ({ agentData }: { agentData: AgentData }) => {
+export const HomeComponent = () => {
+  const { verifiedAgents: agentData } = useVerifiedAssistants();
   return (
     <>
       <SupportedChainsSection />

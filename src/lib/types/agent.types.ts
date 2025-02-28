@@ -1,7 +1,7 @@
 export interface RegistryData {
   id: string;
   name: string;
-  coverImage: string;
+  image: string;
   generatedDescription?: string;
   description?: string;
   previewUrl?: string;
@@ -11,9 +11,21 @@ export interface RegistryData {
   verified: boolean;
   publisher?: string;
   repoUrl?: string;
+  chainIds?: number[];
 }
 
 export interface Filters {
   values: string[];
   label: string;
 }
+
+export type VerifiedAgentData = {
+  agents: RegistryData[];
+  filters: Filters[];
+} | null;
+
+export type AgentData = {
+  agents: RegistryData[];
+  unverifiedAgents: RegistryData[];
+  filters: Filters[];
+} | null;

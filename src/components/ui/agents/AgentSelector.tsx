@@ -76,8 +76,8 @@ export const AgentSelector = ({
               <div className='mb-2 flex items-center justify-between gap-2'>
                 <div className='flex items-center gap-2'>
                   <Image
-                    src={agent?.coverImage || '/bitte-symbol-black.svg'}
-                    className={`object-contain ${!agent?.coverImage ? 'bg-white' : ''}`}
+                    src={agent?.image || '/bitte-symbol-black.svg'}
+                    className={`object-contain ${!agent?.image ? 'bg-white' : ''}`}
                     width={24}
                     height={24}
                     alt={`${agent?.id}-logo`}
