@@ -6,6 +6,8 @@ import { generateText } from 'ai';
 import { FunctionTool } from 'openai/resources/beta/assistants';
 import { FunctionDefinition } from 'openai/resources/index';
 
+// TO DO: SURGE: ADjust the file, pick the things u need from here regarding generateText and update agents
+
 export type BitteAssistantConfig = {
   id: string;
   name: string;

@@ -20,16 +20,12 @@ import PlaygroundSwitch from './PlaygroundSwitch';
 import { AgentData } from '@/lib/types/agent.types';
 
 const AllAgents = (props: AgentData) => {
-  if (!props) {
-    return null; // Handle the null case appropriately
-  }
-
-  const { agents, filters, unverifiedAgents } = props;
-
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
 
   const searchParams = useSearchParams();
   const isPlayground = searchParams.get('isPlayground') === 'true';
+
+  const { agents = [], filters = [], unverifiedAgents = [] } = props || {};
 
   const handleFilterClick = (value: string, label: string) => {
     setSelectedFilters((prevFilters) =>
@@ -55,6 +51,10 @@ const AllAgents = (props: AgentData) => {
     : isPlayground
       ? unverifiedAgents
       : agents;
+
+  if (!props) {
+    return null;
+  }
 
   return (
     <section className='w-full'>
