@@ -1,11 +1,5 @@
 import { AgentDetailComponent } from '@/components/layout/AgentDetail';
-import {
-  getAssistantById,
-  getAssistantsByCategory,
-} from '@/lib/api/ai-registry/registry';
 import { getAllDailyPingsByAgentId } from '@/lib/api/kv';
-import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 
 export const revalidate = 3600;
 export const dynamic = 'force-static';
@@ -32,34 +26,8 @@ export default async function AgentDetail({
 }) {
   const agentId = params.agentId as string;
 
-  // Get initial data first since we need the category for related agents
-  const data = await getAssistantById(agentId);
-
-  if (!data) {
-    return null;
-  }
-
   // Then fetch related data in parallel
-  const [relatedAgents, pings] = await Promise.all([
-    getAssistantsByCategory(data.category),
-    getAllDailyPingsByAgentId(agentId),
-  ]);
+  const [pings] = await Promise.all([getAllDailyPingsByAgentId(agentId)]);
 
-  return (
-    <Suspense
-      fallback={
-        <div className='flex gap-5'>
-          <Skeleton className='w-1/6 h-[100vh]' />
-          <Skeleton className='w-2/6 h-[35vh] mt-20' />
-          <Skeleton className='w-3/6 h-[100vh] mt-20' />
-        </div>
-      }
-    >
-      <AgentDetailComponent
-        agent={data}
-        relatedAgents={relatedAgents}
-        pings={pings}
-      />
-    </Suspense>
-  );
+  return <AgentDetailComponent agentId={agentId} pings={pings} />;
 }

@@ -15,6 +15,46 @@ const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
   return !excludedDomains.some((domain) => id.includes(domain));
 };
 
+export const useAssistantsByCategory = (category?: string) => {
+  const [agents, setAgents] = useState<RegistryData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchAssistantsByCategory = async () => {
+      try {
+        const response = await fetch(
+          'https://registry-gules.vercel.app/api/agents?verifiedOnly=false&limit=100'
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch agents');
+        }
+        const result = await response.json();
+
+        const filteredAssistants = result.filter(filterLocalAndTunnelUrls);
+
+        const categoryAgents = filteredAssistants.filter(
+          (agent: RegistryData) =>
+            agent.verified &&
+            (!category ||
+              (agent.category &&
+                agent.category.toLowerCase() === category.toLowerCase()))
+        );
+
+        setAgents(categoryAgents.slice(0, 2)); // Limit to 2 agents as per original logic
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAssistantsByCategory();
+  }, [category]);
+
+  return { agents, loading, error };
+};
+
 export const useVerifiedAssistants = () => {
   const [data, setData] = useState<{
     agents: RegistryData[];
