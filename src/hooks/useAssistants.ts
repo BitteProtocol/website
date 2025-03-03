@@ -103,7 +103,7 @@ export const useVerifiedAssistants = () => {
   return { verifiedAgents: data, loading, error };
 };
 
-export const useAllAssistants = () => {
+export const useAllAssistants = (offset?: number, limit?: number) => {
   const [data, setData] = useState<AgentData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -112,7 +112,7 @@ export const useAllAssistants = () => {
     const fetchUnverifiedAssistants = async () => {
       try {
         const response = await fetch(
-          `${MB_URL.REGISTRY_API_BASE}/agents?verifiedOnly=false&limit=100`
+          `${MB_URL.REGISTRY_API_BASE}/agents?verifiedOnly=false&limit=${limit ? limit : 100}&offset=${offset ? offset : 0}`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch unverified agents');
@@ -134,16 +134,19 @@ export const useAllAssistants = () => {
           ),
         ].filter(Boolean);
 
-        setData({
-          agents: verifiedAgents,
-          unverifiedAgents: unverifiedAgents,
+        setData((prevData) => ({
+          agents: [...(prevData?.agents || []), ...verifiedAgents],
+          unverifiedAgents: [
+            ...(prevData?.unverifiedAgents || []),
+            ...unverifiedAgents,
+          ],
           filters: [
             {
               label: 'Category',
               values: categories as string[],
             },
           ],
-        });
+        }));
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -152,7 +155,7 @@ export const useAllAssistants = () => {
     };
 
     fetchUnverifiedAssistants();
-  }, []);
+  }, [offset, limit]);
 
   return { allAgents: data, loading, error };
 };
