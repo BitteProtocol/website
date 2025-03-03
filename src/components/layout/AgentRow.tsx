@@ -7,6 +7,12 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from '../ui/tooltip';
 
 const actionTexts: Record<string, string> = {
   'near-cow-agent.vercel.app': 'Swap 50USDC for Weth on Arbitrum',
@@ -56,17 +62,26 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
                   <div className='flex gap-1'>
                     {mapChainIdsToNetworks(agent.chainIds).map(
                       (network, index) => (
-                        <div
+                        <TooltipProvider
                           key={`${agent.name}-${network.name}-${index}`}
-                          className='relative w-5 h-5'
                         >
-                          <Image
-                            src={network.icon}
-                            alt={`${network.name} icon`}
-                            fill
-                            className='object-contain rounded-md'
-                          />
-                        </div>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div
+                                key={`${agent.name}-${network.name}-${index}`}
+                                className='relative w-5 h-5'
+                              >
+                                <Image
+                                  src={network.icon}
+                                  alt={`${network.name} icon`}
+                                  fill
+                                  className='object-contain rounded-md'
+                                />
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>{network.name}</TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       )
                     )}
                   </div>
