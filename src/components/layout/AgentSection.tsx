@@ -128,11 +128,11 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
       </div>
       <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
         <Link href='/agents'>
-          <Button variant='default' className='w-full md:w-[200px]'>
+          <Button variant='default' className='md:w-[200px]'>
             Browse Agents
           </Button>
         </Link>
-        <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+        <Button asChild variant='secondary' className='md:w-[200px]'>
           <Link href={MB_URL.DEV_DOCS} target='_blank'>
             Build Chain Agent
           </Link>
