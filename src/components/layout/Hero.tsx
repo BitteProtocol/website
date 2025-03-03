@@ -86,11 +86,11 @@ const Hero = () => {
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
-            {filteredAgents ? (
+            {filteredAgents && filteredAgents?.length > 0 ? (
               <AgentRow agentData={filteredAgents} />
             ) : loading ? (
               <div className='flex gap-6 items-center justify-center my-10'>
-                {Array(4).map((_, i) => (
+                {Array.from({ length: 4 }).map((_, i) => (
                   <Skeleton key={i} className='w-[300px] h-[135px]' />
                 ))}
               </div>
