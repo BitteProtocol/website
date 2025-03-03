@@ -73,7 +73,7 @@ export const AgentSection = ({
   };
 
   if (!agentData) {
-    return null;
+    return <></>;
   }
 
   return (
