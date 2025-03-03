@@ -94,7 +94,7 @@ const Hero = () => {
               <AgentRow agentData={filteredAgents} />
             ) : loading ? (
               <div className='flex gap-6 items-center justify-center my-10'>
-                {[1, 2, 3, 4].map((_, i) => (
+                {Array(4).map((_, i) => (
                   <Skeleton key={i} className='w-[300px] h-[135px]' />
                 ))}
               </div>
