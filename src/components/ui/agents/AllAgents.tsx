@@ -53,7 +53,7 @@ const AllAgents = (props: AgentData) => {
       : agents;
 
   if (!props) {
-    return null;
+    return <></>;
   }
 
   return (
