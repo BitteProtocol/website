@@ -24,7 +24,7 @@ export const ProductCardsSection = ({
       >
         {data.title}
       </p>
-      <div className='flex lg:flex-row flex-col itmes-center justify-center gap-6'>
+      <div className='flex lg:flex-row flex-col items-center justify-center gap-6'>
         {data.cards.map((data) => (
           <Card
             className='bg-black border border-[#313E52] w-full lg:w-2/3 h-full md:h-[350px] relative overflow-hidden hover:border-[#E087FFB2] hover:shadow-custom transition-all duration-300 cursor-pointer'

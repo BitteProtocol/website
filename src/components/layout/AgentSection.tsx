@@ -81,7 +81,7 @@ export const AgentSection = ({
       <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
       <div className='absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-l from-black to-transparent z-10'></div>
       <div
-        className='flex itmes-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars mb-3'
+        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars mb-3'
         ref={scrollContainerRef1}
         style={{ scrollBehavior: 'auto' }}
       >
@@ -108,7 +108,7 @@ export const AgentSection = ({
         ))}
       </div>
       <div
-        className='flex itmes-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars'
+        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars'
         ref={scrollContainerRef2}
         style={{ scrollBehavior: 'auto', paddingLeft: '50px' }}
       >
@@ -137,13 +137,13 @@ export const AgentSection = ({
             </Card>
           ))}
       </div>
-      <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
+      <div className='mt-16 md:mt-10 flex items-center justify-center gap-3 md:gap-6'>
         <Link href='/agents'>
-          <Button variant='default' className='w-full md:w-[200px]'>
+          <Button variant='default' className='w-[136px] md:w-[200px]'>
             Browse Agents
           </Button>
         </Link>
-        <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+        <Button asChild variant='secondary' className='w-[136px] md:w-[200px]'>
           <Link href={MB_URL.DEV_DOCS} target='_blank'>
             Build Chain Agent
           </Link>
