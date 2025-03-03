@@ -126,13 +126,13 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
           </Card>
         ))}
       </div>
-      <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
+      <div className='mt-16 md:mt-10 flex items-center justify-center gap-3 md:gap-6'>
         <Link href='/agents'>
-          <Button variant='default' className='md:w-[200px]'>
+          <Button variant='default' className='w-[136px] md:w-[200px]'>
             Browse Agents
           </Button>
         </Link>
-        <Button asChild variant='secondary' className='md:w-[200px]'>
+        <Button asChild variant='secondary' className='w-[136px] md:w-[200px]'>
           <Link href={MB_URL.DEV_DOCS} target='_blank'>
             Build Chain Agent
           </Link>
