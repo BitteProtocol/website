@@ -89,9 +89,9 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
             >
               <Button
                 size='sm'
-                className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA] text-sm h-8'
+                className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA] h-8'
               >
-                <span className='flex items-center gap-1'>
+                <span className='flex items-center gap-1 text-[13px]'>
                   {ACTION_TEXTS[agent.id]}
                   <ArrowUpRight size={16} />
                 </span>
