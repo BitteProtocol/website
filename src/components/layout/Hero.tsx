@@ -10,6 +10,7 @@ import HeroPromptInput from './HeroPromptInput';
 import AgentRow from './AgentRow';
 import { useVerifiedAssistants } from '@/hooks/useAssistants';
 import { Skeleton } from '../ui/skeleton';
+import { AGENT_IDS } from '@/lib/agentConstants';
 
 const Hero = () => {
   const { verifiedAgents: agentData, loading } = useVerifiedAssistants();
@@ -38,12 +39,7 @@ const Hero = () => {
 
   // Filter agents to include only the specified IDs
   const filteredAgents = agentData?.agents.filter((agent) =>
-    [
-      'near-cow-agent.vercel.app',
-      'coingecko-ai.vercel.app',
-      'near-safe-agent.vercel.app',
-      'near-uniswap-agent.vercel.app',
-    ].includes(agent.id)
+    AGENT_IDS.includes(agent.id)
   );
 
   return (

@@ -13,13 +13,7 @@ import {
   TooltipContent,
   TooltipProvider,
 } from '../ui/tooltip';
-
-const actionTexts: Record<string, string> = {
-  'near-cow-agent.vercel.app': 'Swap 50USDC for Weth on Arbitrum',
-  'coingecko-ai.vercel.app': 'Current price of BTC',
-  'near-safe-agent.vercel.app': 'Deploy a safe on Ethereum mainnet',
-  'near-uniswap-agent.vercel.app': 'Send 0.5ETH',
-};
+import { ACTION_TEXTS } from '@/lib/agentConstants';
 
 export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   const router = useRouter();
@@ -38,7 +32,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
             className='flex-shrink-0 flex flex-col min-w-[306px] min-h-[125px] p-4 bg-[#18181A] border-none hover:bg-black/50 transition-colors cursor-pointer'
             onClick={() =>
               router.replace(
-                `/chat?agentid=${agent.id}&prompt=${actionTexts[agent.id]}`
+                `/chat?agentid=${agent.id}&prompt=${ACTION_TEXTS[agent.id]}`
               )
             }
           >
@@ -90,7 +84,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
             </div>
 
             <Link
-              href={`/chat?agentid=${agent.id}&prompt=${actionTexts[agent.id]}`}
+              href={`/chat?agentid=${agent.id}&prompt=${ACTION_TEXTS[agent.id]}`}
               className='flex items-center justify-start'
             >
               <Button
@@ -98,7 +92,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
                 className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA] text-sm h-8'
               >
                 <span className='flex items-center gap-1'>
-                  {actionTexts[agent.id]}
+                  {ACTION_TEXTS[agent.id]}
                   <ArrowUpRight size={16} />
                 </span>
               </Button>
