@@ -73,7 +73,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
       <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
       <div className='absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-l from-black to-transparent z-10'></div>
       <div
-        className='flex itmes-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars mb-3'
+        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars mb-3'
         ref={scrollContainerRef1}
         style={{ scrollBehavior: 'auto' }}
       >
@@ -100,7 +100,7 @@ export const AgentSection = ({ agentData }: { agentData: AgentData }) => {
         ))}
       </div>
       <div
-        className='flex itmes-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars'
+        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars'
         ref={scrollContainerRef2}
         style={{ scrollBehavior: 'auto', paddingLeft: '50px' }}
       >

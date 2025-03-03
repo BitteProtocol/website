@@ -23,7 +23,7 @@ const AiSection = () => {
 
   return (
     <div className='mt-9 md:mt-16'>
-      <div className='flex itmes-center md:justify-center gap-4 max-w-[100vw] overflow-x-auto disable-scrollbars right-edge-extension'>
+      <div className='flex items-center md:justify-center gap-4 max-w-[100vw] overflow-x-auto disable-scrollbars right-edge-extension'>
         {aiCardsData?.map((data) => (
           <Card
             className='bg-[#414D7D40] border border-[#313E52] hover:border-[#E087FFB2] hover:shadow-custom backdrop-blur supports-[backdrop-filter]:bg-[#414D7D40]/55 min-w-[300px] cursor-pointer transition-all duration-300'

@@ -24,7 +24,7 @@ export const SupportedChainsSection = ({
         </p>
       )}
       <div
-        className={`flex flex-wrap itmes-center ${noSpacing ? '' : 'justify-center'} gap-6 md:gap-8`}
+        className={`flex flex-wrap items-center ${noSpacing ? '' : 'justify-center'} gap-6 md:gap-8`}
       >
         {chainData?.map((data, i) => (
           <div className='flex items-center gap-1.5' key={`chains-${i}`}>
