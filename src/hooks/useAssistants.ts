@@ -120,7 +120,6 @@ export const useAllAssistants = () => {
         const result = await response.json();
 
         const filteredAssistants = result.filter(filterLocalAndTunnelUrls);
-        console.log('FILTERED ASS', filteredAssistants);
 
         const verifiedAgents = filteredAssistants.filter(
           (agent: RegistryData) => agent.verified
