@@ -24,12 +24,12 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   }, [router]);
 
   return (
-    <section className='relative mt-20 mb-12'>
-      <div className='flex flex-wrap justify-center items-center gap-6'>
+    <section className='relative mt-7'>
+      <div className='flex md:items-center md:justify-center overflow-x-auto space-x-6 disable-scrollbars -mx-8 md:-mx-0 pl-6 md:pl-0'>
         {agentData?.map((agent) => (
           <Card
             key={agent.id}
-            className='flex flex-col min-w-[306px] min-h-[125px] p-4 bg-[#18181A] border-none hover:bg-black/50 transition-colors cursor-pointer'
+            className='flex-shrink-0 flex flex-col min-w-[306px] min-h-[125px] p-4 bg-[#18181A] border-none hover:bg-black/50 transition-colors cursor-pointer'
             onClick={() =>
               router.replace(
                 `/chat?agentid=${agent.id}&prompt=${actionTexts[agent.id]}`
@@ -80,7 +80,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
             >
               <Button
                 size='sm'
-                className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA] text-sm'
+                className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA] text-sm h-8'
               >
                 <span className='flex items-center gap-1'>
                   {actionTexts[agent.id]}

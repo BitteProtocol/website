@@ -100,7 +100,7 @@ const Hero = () => {
               </div>
             ) : null}
           </div>
-          <div className='mt-11 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
+          <div className='mt-7 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
               <Button variant='secondary' className='w-fit md:w-[200px]'>
                 Browse Agents
