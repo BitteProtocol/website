@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { RegistryData, Filters, AgentData } from '@/lib/types/agent.types';
+import { MB_URL } from '@/lib/url';
 
 // Helper function to filter out local and tunnel URLs
 const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
@@ -24,7 +25,7 @@ export const useAssistantsByCategory = (category?: string) => {
     const fetchAssistantsByCategory = async () => {
       try {
         const response = await fetch(
-          'https://registry-gules.vercel.app/api/agents?verifiedOnly=false&limit=100'
+          `${MB_URL.REGISTRY_API_BASE}/agents?verifiedOnly=false&limit=100`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch agents');
@@ -66,9 +67,7 @@ export const useVerifiedAssistants = () => {
   useEffect(() => {
     const fetchVerifiedAssistants = async () => {
       try {
-        const response = await fetch(
-          'https://registry-gules.vercel.app/api/agents'
-        );
+        const response = await fetch(`${MB_URL.REGISTRY_API_BASE}/agents`);
         if (!response.ok) {
           throw new Error('Failed to fetch verified agents');
         }
@@ -113,7 +112,7 @@ export const useAllAssistants = () => {
     const fetchUnverifiedAssistants = async () => {
       try {
         const response = await fetch(
-          'https://registry-gules.vercel.app/api/agents?verifiedOnly=false&limit=100'
+          `${MB_URL.REGISTRY_API_BASE}/agents?verifiedOnly=false&limit=100`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch unverified agents');
@@ -168,7 +167,7 @@ export const useAssistantById = (agentId: string) => {
     const fetchAgentById = async () => {
       try {
         const response = await fetch(
-          `https://registry-gules.vercel.app/api/agents/${agentId}`
+          `${MB_URL.REGISTRY_API_BASE}/agents/${agentId}`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch agent by ID');
