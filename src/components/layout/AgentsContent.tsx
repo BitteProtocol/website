@@ -5,6 +5,7 @@ import { useAllAssistants } from '@/hooks/useAssistants';
 import { Skeleton } from '../ui/skeleton';
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useSearchParams } from 'next/navigation';
 
 const AllAgentsWithNoSSR = dynamic(
   () => import('@/components/ui/agents/AllAgents'),
@@ -12,15 +13,31 @@ const AllAgentsWithNoSSR = dynamic(
 );
 
 const AgentContent = () => {
-  const [offset, setOffset] = useState(1);
-  const { allAgents: data, loading } = useAllAssistants(offset, 50);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const searchParams = useSearchParams();
+  const isPlayground = searchParams.get('isPlayground') === 'true';
+  const { allAgents: data, loading } = useAllAssistants(offset, 30);
   const { ref, inView } = useInView();
 
+  console.log('VERIFIED', data?.agents);
+
   useEffect(() => {
-    if (inView && !loading) {
-      setOffset((prevPage) => prevPage + 1);
+    if (inView && !loading && hasMore) {
+      setOffset((prevOffset) => prevOffset + 30);
     }
-  }, [inView, loading]);
+  }, [inView, loading, hasMore]);
+
+  useEffect(() => {
+    if (data) {
+      const totalAgents = isPlayground
+        ? data.unverifiedAgents.length
+        : data.agents.length;
+      if (totalAgents < 30) {
+        setHasMore(false);
+      }
+    }
+  }, [data, isPlayground]);
 
   /* if (loading) {
     return (
