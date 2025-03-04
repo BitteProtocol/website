@@ -3,6 +3,9 @@
 import dynamic from 'next/dynamic';
 import { useAllAssistants } from '@/hooks/useAssistants';
 import { Skeleton } from '../ui/skeleton';
+import { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useSearchParams } from 'next/navigation';
 
 const AllAgentsWithNoSSR = dynamic(
   () => import('@/components/ui/agents/AllAgents'),
@@ -10,16 +13,38 @@ const AllAgentsWithNoSSR = dynamic(
 );
 
 const AgentContent = () => {
-  const { allAgents: data, loading } = useAllAssistants();
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const searchParams = useSearchParams();
+  const isPlayground = searchParams.get('isPlayground') === 'true';
+  const { allAgents: data, loading } = useAllAssistants(offset, 30);
+  const { ref, inView } = useInView();
 
-  if (loading) {
+  useEffect(() => {
+    if (inView && !loading && hasMore) {
+      setOffset((prevOffset) => prevOffset + 30);
+    }
+  }, [inView, loading, hasMore]);
+
+  useEffect(() => {
+    if (data) {
+      const totalAgents = isPlayground
+        ? data.unverifiedAgents.length
+        : data.agents.length;
+      if (totalAgents < 30) {
+        setHasMore(false);
+      }
+    }
+  }, [data, isPlayground]);
+
+  /* if (loading) {
     return (
       <div className='flex gap-3'>
         <Skeleton className='w-1/3 h-[70vh]' />
         <Skeleton className='w-2/3 h-[70vh]' />
       </div>
     );
-  }
+  } */
 
   return (
     <div className='relative z-30'>
@@ -28,6 +53,13 @@ const AgentContent = () => {
         filters={data?.filters || []}
         unverifiedAgents={data?.unverifiedAgents || []}
       />
+      {loading && (
+        <div className='flex gap-3'>
+          <Skeleton className='w-1/3 h-[70vh]' />
+          <Skeleton className='w-2/3 h-[70vh]' />
+        </div>
+      )}
+      <div ref={ref} />
     </div>
   );
 };
