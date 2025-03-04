@@ -20,8 +20,6 @@ const AgentContent = () => {
   const { allAgents: data, loading } = useAllAssistants(offset, 30);
   const { ref, inView } = useInView();
 
-  console.log('VERIFIED', data?.agents);
-
   useEffect(() => {
     if (inView && !loading && hasMore) {
       setOffset((prevOffset) => prevOffset + 30);
