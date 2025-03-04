@@ -52,4 +52,5 @@ export const MB_URL = {
   SMART_ACTIONS: 'https://wallet.bitte.ai/smart-actions',
   BLOG: 'https://bitteprotocol.substack.com/',
   WHITE_PAPER: 'https://docsend.com/view/ngd388tyqh7jhe4y',
+  REGISTRY_API_BASE: 'https://registry-gules.vercel.app/api',
 };

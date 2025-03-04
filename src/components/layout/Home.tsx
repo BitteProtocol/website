@@ -14,14 +14,9 @@ import {
   videosCardData,
 } from '@/lib/data/exampleCardData';
 import { AgentSection } from './AgentSection';
-import { Filters, RegistryData } from '@/lib/types/agent.types';
 import VideoSection from './VideoSection';
-
-export type AgentData = {
-  agents: RegistryData[];
-  unverifiedAgents: RegistryData[];
-  filters: Filters[];
-};
+import { useVerifiedAssistants } from '@/hooks/useAssistants';
+import { Skeleton } from '../ui/skeleton';
 
 const headerTextSection = {
   title: 'Chain Agents Live',
@@ -57,12 +52,28 @@ const crossSection = {
   isDisabled: false,
 };
 
-export const HomeComponent = ({ agentData }: { agentData: AgentData }) => {
+export const HomeComponent = () => {
+  const { verifiedAgents: agentData, loading } = useVerifiedAssistants();
   return (
     <>
       <SupportedChainsSection />
       <TextSection {...headerTextSection} />
-      <AgentSection agentData={agentData} />
+      {agentData && agentData?.agents?.length > 0 ? (
+        <AgentSection agentData={agentData} />
+      ) : loading ? (
+        <div className='mb-12'>
+          <div className='flex gap-6 items-center justify-center mb-3'>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className='w-[305px] h-[75px]' />
+            ))}
+          </div>
+          <div className='flex gap-6 items-center justify-center'>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className='w-[305px] h-[75px]' />
+            ))}
+          </div>
+        </div>
+      ) : null}
       <ProductCardsSection data={productCardsData} />
 
       <ExamplesSection data={dropCardData} isVideo={false} />

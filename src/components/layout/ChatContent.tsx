@@ -7,6 +7,8 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AgentsDrawer } from '../ui/agents/AgentsDrawer';
 import { Button } from '../ui/button';
+import { useAllAssistants } from '@/hooks/useAssistants';
+import { Skeleton } from '../ui/skeleton';
 
 // Dynamically import components that rely on client-side navigation
 const AgentSelectorWithNoSSR = dynamic(
@@ -18,17 +20,14 @@ const AiChatWithNoSSR = dynamic(() => import('@/components/layout/AiChat'), {
 });
 
 const ChatContent = ({
-  agentData,
   chatId,
   prompt,
 }: {
-  agentData: {
-    agents: RegistryData[];
-    unverifiedAgents: RegistryData[];
-  };
   chatId?: string;
   prompt?: string;
 }) => {
+  const { allAgents: agentData, loading, error } = useAllAssistants();
+
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [isAgentsDrawerOpen, setIsAgentsDrawerOpen] = useState(false);
 
@@ -52,8 +51,8 @@ const ChatContent = ({
   const isPlayground = mode === AssistantsMode.DEBUG;
 
   const agentsList = isPlayground
-    ? agentData.unverifiedAgents
-    : agentData.agents;
+    ? agentData?.unverifiedAgents
+    : agentData?.agents;
 
   const handleSelectAgent = (agent: RegistryData) => {
     setSelectedAgent(agent);
@@ -74,7 +73,7 @@ const ChatContent = ({
   };
 
   useEffect(() => {
-    if (agentsList.length) {
+    if (agentsList?.length) {
       // Check if agentIdParam exists and set the agent based on it
       if (agentIdParam && !selectedAgent) {
         const agentById = agentsList.find((agent) => agent.id === agentIdParam);
@@ -114,7 +113,7 @@ const ChatContent = ({
     }
   }, [selectedAgent]);
 
-  const agentContentComponent = (
+  const agentContentComponent = agentsList ? (
     <AgentSelectorWithNoSSR
       agentData={agentsList}
       onSelectAgent={handleSelectAgent}
@@ -122,7 +121,20 @@ const ChatContent = ({
       isPlayground={isPlayground}
       togglePlayground={togglePlayground}
     />
-  );
+  ) : null;
+
+  if (loading) {
+    return (
+      <div className='flex gap-3'>
+        <Skeleton className='w-1/3 h-[70vh]' />
+        <Skeleton className='w-2/3 h-[70vh]' />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error loading agents: {error.message}</div>;
+  }
 
   return (
     <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 lg:h-[calc(100vh-96px)] w-full mx-auto'>

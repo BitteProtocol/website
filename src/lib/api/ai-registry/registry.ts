@@ -6,6 +6,8 @@ import { generateText } from 'ai';
 import { FunctionTool } from 'openai/resources/beta/assistants';
 import { FunctionDefinition } from 'openai/resources/index';
 
+// TO DO: SURGE: ADjust the file, pick the things u need from here regarding generateText and update agents
+
 export type BitteAssistantConfig = {
   id: string;
   name: string;
@@ -18,6 +20,7 @@ export type BitteAssistantConfig = {
   generatedDescription?: string;
   category?: string;
   repo?: string;
+  chainIds?: number[];
 };
 
 export type BitteToolSpec = PluginToolSpec | FunctionTool;
@@ -180,7 +183,7 @@ const mapAssistantToRegistryData = (
 ): RegistryData => ({
   id: assistant.id || '',
   name: assistant.name || '',
-  coverImage: assistant.image || '',
+  image: assistant.image || '',
   generatedDescription: assistant.generatedDescription || undefined,
   description: assistant.description || '',
   previewUrl: assistant.id ? `https://${assistant.id}` : '',
@@ -189,4 +192,5 @@ const mapAssistantToRegistryData = (
   category: assistant.category || 'Other',
   verified: assistant.verified || false,
   repoUrl: assistant.repo,
+  chainIds: assistant.chainIds,
 });

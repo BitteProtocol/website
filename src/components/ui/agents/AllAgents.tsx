@@ -1,5 +1,5 @@
 'use client';
-import { Filters as AgentFilters, RegistryData } from '@/lib/types/agent.types';
+import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { ChevronRight } from 'lucide-react';
 import { useSearchParams } from 'next/dist/client/components/navigation';
@@ -17,20 +17,15 @@ import {
 import AgentCard from './AgentCard';
 import Filters from './Filters';
 import PlaygroundSwitch from './PlaygroundSwitch';
+import { AgentData } from '@/lib/types/agent.types';
 
-const AllAgents = ({
-  templates,
-  filters,
-  unverifiedAgents,
-}: {
-  templates: RegistryData[];
-  filters: AgentFilters[];
-  unverifiedAgents: RegistryData[];
-}) => {
+const AllAgents = (props: AgentData) => {
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
 
   const searchParams = useSearchParams();
   const isPlayground = searchParams.get('isPlayground') === 'true';
+
+  const { agents = [], filters = [], unverifiedAgents = [] } = props || {};
 
   const handleFilterClick = (value: string, label: string) => {
     setSelectedFilters((prevFilters) =>
@@ -43,7 +38,7 @@ const AllAgents = ({
   };
 
   const filteredAgents = selectedFilters?.length
-    ? (isPlayground ? unverifiedAgents : templates).filter((agent) => {
+    ? (isPlayground ? unverifiedAgents : agents).filter((agent) => {
         if (!agent) return false;
 
         return selectedFilters.every((filter) => {
@@ -55,7 +50,11 @@ const AllAgents = ({
       })
     : isPlayground
       ? unverifiedAgents
-      : templates;
+      : agents;
+
+  if (!props) {
+    return <></>;
+  }
 
   return (
     <section className='w-full'>

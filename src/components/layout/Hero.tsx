@@ -2,19 +2,22 @@
 
 import '@bitte-ai/chat/style.css';
 import { useEffect, useState } from 'react';
-
-import { AgentData } from '@/components/layout/Home';
 import { RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import HeroPromptInput from './HeroPromptInput';
+import AgentRow from './AgentRow';
+import { useVerifiedAssistants } from '@/hooks/useAssistants';
+import { Skeleton } from '../ui/skeleton';
+import { AGENT_IDS } from '@/lib/agentConstants';
 
-const Hero = ({ agentData }: { agentData: AgentData }) => {
+const Hero = () => {
+  const { verifiedAgents: agentData, loading } = useVerifiedAssistants();
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
 
   useEffect(() => {
-    if (agentData.agents.length) {
+    if (agentData?.agents?.length) {
       setSelectedAgent(agentData.agents[0]);
     }
   }, [agentData]);
@@ -33,6 +36,11 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
       sessionStorage.setItem('selectedAgent', JSON.stringify(selectedAgent));
     }
   }, [selectedAgent]);
+
+  // Filter agents to include only the specified IDs
+  const filteredAgents = agentData?.agents.filter((agent) =>
+    AGENT_IDS.includes(agent.id)
+  );
 
   return (
     <section className='w-full'>
@@ -78,8 +86,17 @@ const Hero = ({ agentData }: { agentData: AgentData }) => {
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
+            {filteredAgents && filteredAgents?.length > 0 ? (
+              <AgentRow agentData={filteredAgents} />
+            ) : loading ? (
+              <div className='flex gap-6 items-center justify-center my-10'>
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={i} className='w-[300px] h-[135px]' />
+                ))}
+              </div>
+            ) : null}
           </div>
-          <div className='mt-11 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
+          <div className='mt-7 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
               <Button variant='secondary' className='w-fit md:w-[200px]'>
                 Browse Agents
