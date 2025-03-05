@@ -19,6 +19,7 @@ const config: Config = {
       screens: {
         'lg-card': '1390px',
         'hero-xl': '1350px',
+        '4k': '2100px',
       },
       colors: {
         'mb-black': '#09090B',

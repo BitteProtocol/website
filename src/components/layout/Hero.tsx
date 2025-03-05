@@ -60,9 +60,9 @@ const Hero = () => {
               Chat with Dapps
             </p>
           </div>
-          <div className='mt-10 z-10 flex flex-col w-full hero-xl:w-[1300px] mx-auto'>
+          <div className='mt-10 z-10 flex flex-col w-full'>
             <div className='flex flex-col gap-4'>
-              <div className='flex-grow'>
+              <div className='flex-grow lg:w-1/2 4k:w-[1300px] mx-auto'>
                 <HeroPromptInput />
               </div>
               <div className='flex-grow'>
