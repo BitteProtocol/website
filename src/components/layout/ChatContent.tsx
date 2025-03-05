@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AgentsDrawer } from '../ui/agents/AgentsDrawer';
 import { Button } from '../ui/button';
-import { Skeleton } from '../ui/skeleton';
+import PageLoaderSkeleton from './PageLoaderSkeleton';
 
 // Dynamically import components that rely on client-side navigation
 const AgentSelectorWithNoSSR = dynamic(
@@ -124,12 +124,7 @@ const ChatContent = ({
   ) : null;
 
   if (loading) {
-    return (
-      <div className='flex gap-3'>
-        <Skeleton className='w-full md:w-1/3 h-[70vh]' />
-        <Skeleton className='w-2/3 h-[70vh] hidden md:block' />
-      </div>
-    );
+    return <PageLoaderSkeleton />;
   }
 
   if (error) {
