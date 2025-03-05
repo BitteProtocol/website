@@ -1,8 +1,8 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useAllAssistants } from '@/hooks/useAssistants';
-import { Skeleton } from '../ui/skeleton';
+import dynamic from 'next/dynamic';
+import PageLoaderSkeleton from './PageLoaderSkeleton';
 
 const AllAgentsWithNoSSR = dynamic(
   () => import('@/components/ui/agents/AllAgents'),
@@ -13,12 +13,7 @@ const AgentContent = () => {
   const { allAgents: data, loading } = useAllAssistants();
 
   if (loading) {
-    return (
-      <div className='flex gap-3'>
-        <Skeleton className='w-1/3 h-[70vh]' />
-        <Skeleton className='w-2/3 h-[70vh]' />
-      </div>
-    );
+    return <PageLoaderSkeleton />;
   }
 
   return (
