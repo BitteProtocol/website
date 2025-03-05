@@ -42,7 +42,7 @@ export const AgentSelector = ({
           Choose agents to perform specific tasks.
         </p>
       </div>
-      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 lg:px-4 h-[360px] lg:h-auto'>
+      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 px-4 h-[360px] lg:h-auto'>
         {agentData?.map((agent) => {
           const isSelected = selectedAgentId === agent.id;
 
