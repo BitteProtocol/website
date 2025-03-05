@@ -1,16 +1,16 @@
 'use client';
 
-import '@bitte-ai/chat/style.css';
-import { useEffect, useState } from 'react';
+import { useVerifiedAssistants } from '@/hooks/useAssistants';
+import { AGENT_IDS } from '@/lib/agentConstants';
 import { RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
+import '@bitte-ai/chat/style.css';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import HeroPromptInput from './HeroPromptInput';
-import AgentRow from './AgentRow';
-import { useVerifiedAssistants } from '@/hooks/useAssistants';
 import { Skeleton } from '../ui/skeleton';
-import { AGENT_IDS } from '@/lib/agentConstants';
+import AgentRow from './AgentRow';
+import HeroPromptInput from './HeroPromptInput';
 
 const Hero = () => {
   const { verifiedAgents: agentData, loading } = useVerifiedAssistants();
@@ -61,28 +61,6 @@ const Hero = () => {
             </p>
           </div>
           <div className='mt-10 z-10 flex flex-col w-full '>
-            {/*       <div className='-mx-8 lg:-mx-0'>
-              <Filters
-                filters={agentData?.filters}
-                selectedFilters={selectedFilters}
-                onFilterChange={handleFilterClick}
-                isHome
-              />
-            </div>
-          </div>
-
-          <div className='mt-6 z-10 flex flex-col lg:flex-row gap-6 lg:h-[500px] 2xl:h-[800px] w-full 2xl:w-4/5'>
-            <div className='z-10 -mx-8 lg:-mx-0'>
-              <AgentSelector
-                agentData={filteredAgents}
-                onSelectAgent={setSelectedAgent}
-                selectedAgent={selectedAgent}
-              />
-            </div>
-            <div className='lg:w-full h-[560px] lg:h-full -mx-8 lg:-mx-0'>
-              <AiChat selectedAgent={selectedAgent} />
-            </div>
-          </div> */}
             <div className='w-full lg:w-1/2 mx-auto'>
               <HeroPromptInput />
             </div>
