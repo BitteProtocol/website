@@ -3,9 +3,9 @@ import { cn } from '@/lib/utils';
 import { ArrowUpRight, HelpCircle, Info } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import InfoTooltip from '../InfoTooltip';
 import { Switch } from '../switch';
-import { useEffect, useRef } from 'react';
 
 export const AgentSelector = ({
   agentData,
@@ -41,18 +41,6 @@ export const AgentSelector = ({
         <p className='text-[#CBD5E1] text-sm'>
           Choose agents to perform specific tasks.
         </p>
-        {/*           <div className='relative mt-2'>
-            <SearchIcon
-              className='pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground'
-              size={18}
-            />
-            <Input
-              value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
-              placeholder='Search'
-              className='pl-8'
-            />
-          </div> */}
       </div>
       <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 lg:px-4 h-[360px] lg:h-auto'>
         {agentData?.map((agent) => {
@@ -104,17 +92,6 @@ export const AgentSelector = ({
             </div>
           );
         })}
-        {/*           {isLoadingAgents ? (
-            <>
-              <Skeleton className='h-[76px] w-full' />
-              <Skeleton className='h-[76px] w-full' />
-              <Skeleton className='h-[76px] w-full' />
-            </>
-          ) : agentsError ? (
-            <p className='text-xs'>
-              There was an error fetching the agents, please try again later.
-            </p>
-          ) : ( */}
       </div>
       <div className='flex items-center justify-between border-t border-[#334155] p-4'>
         <div className='flex items-center gap-2'>
