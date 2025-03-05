@@ -37,8 +37,8 @@ export const AgentDetailComponent = ({
   if (agentLoading || relatedLoading) {
     return (
       <div className='flex gap-3'>
-        <Skeleton className='w-1/3 h-[70vh]' />
-        <Skeleton className='w-2/3 h-[70vh]' />
+        <Skeleton className='w-full md:w-1/3 h-[70vh]' />
+        <Skeleton className='w-2/3 h-[70vh] hidden md:block' />
       </div>
     );
   }

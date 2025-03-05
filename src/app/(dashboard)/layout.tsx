@@ -102,8 +102,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <Suspense
           fallback={
             <div className='flex gap-3 mx-4 mt-4'>
-              <Skeleton className='w-1/3 h-[70vh]' />
-              <Skeleton className='w-2/3 h-[70vh]' />
+              <Skeleton className='w-full md:w-1/3 h-[70vh]' />
+              <Skeleton className='w-2/3 h-[70vh] hidden md:block' />
             </div>
           }
         >
