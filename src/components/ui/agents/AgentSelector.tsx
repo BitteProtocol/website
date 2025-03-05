@@ -113,17 +113,6 @@ export const AgentSelector = ({
             </div>
           );
         })}
-        {/*           {isLoadingAgents ? (
-            <>
-              <Skeleton className='h-[76px] w-full' />
-              <Skeleton className='h-[76px] w-full' />
-              <Skeleton className='h-[76px] w-full' />
-            </>
-          ) : agentsError ? (
-            <p className='text-xs'>
-              There was an error fetching the agents, please try again later.
-            </p>
-          ) : ( */}
       </div>
       <div className='flex items-center justify-between border-t border-[#334155] p-4'>
         <div className='flex items-center gap-2'>
