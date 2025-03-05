@@ -60,19 +60,23 @@ const Hero = () => {
               Chat with Dapps
             </p>
           </div>
-          <div className='mt-10 z-10 flex flex-col w-full '>
-            <div className='w-full lg:w-1/2 mx-auto'>
-              <HeroPromptInput />
-            </div>
-            {filteredAgents && filteredAgents?.length > 0 ? (
-              <AgentRow agentData={filteredAgents} />
-            ) : loading ? (
-              <div className='flex gap-6 items-center justify-center my-10'>
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <Skeleton key={i} className='w-[300px] h-[135px]' />
-                ))}
+          <div className='mt-10 z-10 flex flex-col w-full hero-xl:w-[1300px] mx-auto'>
+            <div className='flex flex-col gap-4'>
+              <div className='flex-grow'>
+                <HeroPromptInput />
               </div>
-            ) : null}
+              <div className='flex-grow'>
+                {filteredAgents && filteredAgents?.length > 0 ? (
+                  <AgentRow agentData={filteredAgents} />
+                ) : loading ? (
+                  <div className='flex gap-6 items-center justify-center my-10'>
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <Skeleton key={i} className='w-[300px] h-[135px]' />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </div>
           <div className='mt-7 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>

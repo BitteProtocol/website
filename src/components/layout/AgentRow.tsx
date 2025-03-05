@@ -25,7 +25,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
 
   return (
     <section className='relative mt-7'>
-      <div className='flex md:items-center md:justify-center overflow-x-auto space-x-6 disable-scrollbars -mx-8 md:-mx-0 pl-6 md:pl-0'>
+      <div className='flex hero-xl:items-center hero-xl:justify-center overflow-x-auto space-x-6 disable-scrollbars -mx-8 hero-xl:-mx-0 pl-6 hero-xl:pl-0'>
         {agentData?.map((agent) => (
           <Card
             key={agent.id}
