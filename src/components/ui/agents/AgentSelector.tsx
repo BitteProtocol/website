@@ -1,10 +1,11 @@
 import { RegistryData } from '@/lib/types/agent.types';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight, HelpCircle, Info } from 'lucide-react';
+import { ArrowUpRight, HelpCircle, Info, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import InfoTooltip from '../InfoTooltip';
+import { Input } from '../input';
 import { Switch } from '../switch';
 
 export const AgentSelector = ({
@@ -20,9 +21,17 @@ export const AgentSelector = ({
   isPlayground?: boolean;
   togglePlayground: (value: boolean) => void;
 }) => {
+  const [searchKeyword, setSearchKeyword] = useState('');
+
   const selectedAgentId = selectedAgent?.id;
 
   const selectedAgentRef = useRef<HTMLDivElement | null>(null);
+
+  const filteredAgents = searchKeyword.length
+    ? agentData?.filter((agent) =>
+        agent.name.toLowerCase().includes(searchKeyword.toLowerCase())
+      )
+    : agentData;
 
   useEffect(() => {
     if (selectedAgentRef.current) {
@@ -41,9 +50,21 @@ export const AgentSelector = ({
         <p className='text-[#CBD5E1] text-sm'>
           Choose agents to perform specific tasks.
         </p>
+        <div className='relative mt-2'>
+          <SearchIcon
+            className='pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground'
+            size={18}
+          />
+          <Input
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            placeholder='Search'
+            className='pl-8'
+          />
+        </div>
       </div>
-      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 px-4 h-[360px] lg:h-auto'>
-        {agentData?.map((agent) => {
+      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 lg:px-4 h-[360px] lg:h-auto'>
+        {filteredAgents?.map((agent) => {
           const isSelected = selectedAgentId === agent.id;
 
           return (
