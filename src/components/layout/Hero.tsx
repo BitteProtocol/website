@@ -62,7 +62,7 @@ const Hero = () => {
           </div>
           <div className='mt-10 z-10 flex flex-col w-full'>
             <div className='flex flex-col gap-4'>
-              <div className='flex-grow lg:w-1/2 4k:w-[1300px] mx-auto'>
+              <div className='flex-grow w-full lg:w-1/2 4k:w-[1300px] mx-auto'>
                 <HeroPromptInput />
               </div>
               <div className='flex-grow'>
