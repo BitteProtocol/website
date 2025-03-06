@@ -12,7 +12,8 @@ import {
 } from '@/components/ui/drawer';
 import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { PlusCircle, Link2 } from 'lucide-react';
+import { useAppKit } from '@reown/appkit/react';
+import { Link2, PlusCircle } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
@@ -36,6 +37,8 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
+  const { open } = useAppKit();
+
   const content = (
     <>
       <div className='flex flex-col gap-4'>
@@ -50,7 +53,8 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
           </div>
           <div>
             <div className='mb-2'>
-              <appkit-connect-button label='EVM Account' />
+              {/* <appkit-connect-button label='EVM Account' /> */}
+              <button onClick={() => open()}>Open</button>
             </div>
             <p className='text-[#BABDC2] text-xs italic'>
               e.g.
