@@ -1,4 +1,5 @@
 import { Filters as AgentFilters } from '@/lib/types/agent.types';
+import { cn } from '@/lib/utils';
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +8,6 @@ import {
 } from '../accordion';
 import { Badge } from '../badge';
 import { Checkbox } from '../checkbox';
-import { cn } from '@/lib/utils';
 
 const Filters = ({
   selectedFilters,
