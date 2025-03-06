@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { RegistryData, Filters, AgentData } from '@/lib/types/agent.types';
+import { BITTE_AGENTID } from '@/lib/agentConstants';
+import { AgentData, Filters, RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
+import { useEffect, useState } from 'react';
 
 // Helper function to filter out local and tunnel URLs
 const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
@@ -121,9 +122,14 @@ export const useAllAssistants = () => {
 
         const filteredAssistants = result.filter(filterLocalAndTunnelUrls);
 
-        const verifiedAgents = filteredAssistants.filter(
-          (agent: RegistryData) => agent.verified
-        );
+        const verifiedAgents = filteredAssistants
+          .filter((agent: RegistryData) => agent.verified)
+          .sort((a: RegistryData, b: RegistryData) => {
+            if (a.id === BITTE_AGENTID) return -1;
+            if (b.id === BITTE_AGENTID) return 1;
+            return 0;
+          });
+
         const unverifiedAgents = filteredAssistants.filter(
           (agent: RegistryData) => !agent.verified
         );

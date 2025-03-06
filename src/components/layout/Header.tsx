@@ -9,25 +9,24 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/layout/NavigationMenu';
+import { useRedirection } from '@/hooks/useRedirection';
+import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { communityLinks, developerLinks } from '@/lib/data/navData';
 import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
+import { shouldShowHeader } from '@/lib/utils/useShowHeader';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { useBitteWallet } from '@bitte-ai/react';
-import { ArrowUpRight, Menu, X, Settings } from 'lucide-react';
+import { ArrowUpRight, Menu, Settings, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
+import { Button } from '../ui/button';
 import { Modal } from '../ui/Modal';
 import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
-import { Button } from '../ui/button';
-import { usePathname } from 'next/navigation';
-import { shouldShowHeader } from '@/lib/utils/useShowHeader';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useRedirection } from '@/hooks/useRedirection';
 
 const Header = () => {
   useRedirection();
@@ -90,7 +89,7 @@ const Header = () => {
             </p>
             <Link
               rel='noopener noreferrer'
-              href={MB_URL.CHAT}
+              href={`/chat?agentid=${BITTE_AGENTID}`}
               aria-label={`Check out Dev tools`}
             >
               <p className='text-lg text-mb-white-100 font-medium'>AI Chat</p>
@@ -229,7 +228,7 @@ const Header = () => {
                   <NavigationMenuLink
                     className={`${navigationMenuTriggerStyle()} gap-1.5 bg-transparent`}
                     rel='noopener noreferrer'
-                    href={MB_URL.CHAT}
+                    href={`/chat?agentid=${BITTE_AGENTID}`}
                   >
                     AI
                   </NavigationMenuLink>

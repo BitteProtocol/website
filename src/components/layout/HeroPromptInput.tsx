@@ -3,6 +3,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { cn } from '@/lib/utils';
 import { generateId } from 'ai';
 import { ArrowUp, Loader2 } from 'lucide-react';
@@ -19,7 +20,7 @@ const AgentBadge = ({ className }: { className?: string }) => {
         className
       )}
     >
-      CoWSwap Assistant
+      Bitte Assistant
     </Badge>
   );
 };
@@ -43,7 +44,7 @@ const HeroPromptInput = () => {
     if (!value.trim() || isLoading) return;
 
     setIsLoading(true);
-    const chatPath = `/chat/${id}?prompt=${encodeURIComponent(value)}`;
+    const chatPath = `/chat/${id}?agentid=${BITTE_AGENTID}&prompt=${encodeURIComponent(value)}`;
 
     try {
       await router.replace(chatPath);
@@ -97,7 +98,7 @@ const HeroPromptInput = () => {
             onScroll={handleScroll}
             onChange={handleTextareaChange}
             placeholder='Enter your prompt...'
-            className='w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base md:text-base [&::placeholder]:text-left sm:indent-[178px] px-0'
+            className='w-full resize-none border-0 bg-transparent pt-2.5 text-zinc-200 placeholder:text-zinc-500 focus-visible:ring-0 text-base md:text-base [&::placeholder]:text-left sm:indent-[136px] px-0'
           />
           <div
             className='absolute top-2 hidden sm:block pointer-events-none'
@@ -108,7 +109,7 @@ const HeroPromptInput = () => {
         </div>
 
         <div className='flex gap-2 items-center absolute bottom-2 right-0'>
-          <Link href={`/chat/${id}`}>
+          <Link href={`/chat/${id}?agentid=${BITTE_AGENTID}`}>
             <Button className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA]'>
               Open App
             </Button>
