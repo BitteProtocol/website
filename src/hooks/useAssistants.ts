@@ -140,8 +140,6 @@ export const useAllAssistants = () => {
           ),
         ].filter(Boolean);
 
-        console.log({ verifiedAgents });
-
         setData({
           agents: verifiedAgents,
           unverifiedAgents: unverifiedAgents,
