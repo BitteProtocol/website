@@ -191,6 +191,6 @@ const mapAssistantToRegistryData = (
   author: assistant.accountId || '',
   category: assistant.category || 'Other',
   verified: assistant.verified || false,
-  repoUrl: assistant.repo,
+  repo: assistant.repo,
   chainIds: assistant.chainIds,
 });

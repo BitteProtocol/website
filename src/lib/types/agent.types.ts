@@ -1,3 +1,6 @@
+import { FunctionTool } from 'openai/resources/beta/assistants';
+import { FunctionDefinition } from 'openai/resources/index';
+
 export interface RegistryData {
   id: string;
   name: string;
@@ -10,8 +13,10 @@ export interface RegistryData {
   category?: string;
   verified: boolean;
   publisher?: string;
-  repoUrl?: string;
+  repo?: string;
   chainIds?: number[];
+  instructions?: string;
+  tools?: BitteToolSpec[];
 }
 
 export interface Filters {
@@ -29,3 +34,20 @@ export type AgentData = {
   unverifiedAgents: RegistryData[];
   filters: Filters[];
 } | null;
+
+export type BitteToolSpec = PluginToolSpec | FunctionTool;
+
+export type PluginToolSpec = {
+  id: string;
+  agentId: string;
+  type: 'function';
+  function: FunctionDefinition;
+  execution: ExecutionDefinition;
+  verified: boolean;
+};
+
+export type ExecutionDefinition = {
+  baseUrl: string;
+  path: string;
+  httpMethod: string;
+};

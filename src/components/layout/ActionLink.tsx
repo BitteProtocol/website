@@ -17,7 +17,7 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
 
   return (
     <ul>
-      <li className='w-full flex mb-5'>
+      <li className='w-full flex mb-5 items-center'>
         <div className='text-mb-gray-200 text-sm'>Category</div>
         <div className='text-right text-sm text-mb-white-100 flex ml-auto gap-2'>
           <Badge variant='secondary' className='bg-mb-gray-700 rounded-full'>
@@ -42,26 +42,26 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
         </div>
       </li>
 
-      <li className='w-full flex mb-5'>
+      <li className='w-full flex mb-5 items-center'>
         <div className='text-mb-gray-200 text-sm'>Publisher</div>
         <div className='text-right text-sm ml-auto font-semibold'>
-          {agent.publisher || agent.author || 'Bitte'}
+          {agent.publisher || agent.accountId || 'Bitte'}
         </div>
       </li>
 
-      <li className='w-full flex mb-5'>
+      <li className='w-full flex mb-5 items-center'>
         <div className='text-mb-gray-200 text-sm'>Id</div>
         <div className='text-right text-sm ml-auto font-semibold'>
           {agent.id}
         </div>
       </li>
 
-      <li className='w-full flex mb-5'>
+      <li className='w-full flex mb-5 items-center'>
         <div className='text-mb-gray-200 text-sm'>Repository</div>
         <div className='text-right text-mb-white-100 text-sm flex ml-auto gap-2'>
-          {agent.repoUrl ? (
+          {agent.repo ? (
             <Link
-              href={agent.repoUrl}
+              href={agent.repo}
               target='_blank'
               className={buttonCss}
               onClick={() => handleActionClick('GitHub')}
