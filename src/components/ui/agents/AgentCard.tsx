@@ -43,7 +43,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                     {agent?.name}
                   </div>
                   <div className='text-mb-gray-400 lg:hidden text-[14px]'>
-                    By {agent?.author}
+                    By {agent?.accountId}
                   </div>
                 </div>
               </div>
@@ -74,7 +74,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                   <Avatar className='bg-mb-gray-700 p-[2px] h-6 w-6 ml-2 mr-0.5'>
                     <AvatarImage src='/logo.svg' alt='bitte' />
                   </Avatar>
-                  <span className='mr-3'>{agent?.author}</span>
+                  <span className='mr-3'>{agent?.accountId}</span>
                 </div>
                 <div className='lg:hidden'>
                   <Link

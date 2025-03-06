@@ -117,7 +117,7 @@ export const AgentDetailComponent = ({
                 <Calendar record={pings} />
               </div>
               <div className='my-8'>
-                <GitCommitHistory repoUrl={agent.repoUrl} />
+                <GitCommitHistory repoUrl={agent.repo} />
               </div>
             </>
           )}
