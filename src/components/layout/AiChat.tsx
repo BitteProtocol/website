@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
 import ConnectDialog from './ConnectDialog';
+import CustomChatSendButton from './CustomChatSendBtn';
 
 const chatColors = {
   generalBackground: '#18181A',
@@ -58,27 +59,30 @@ const AiChat = ({
         chatId,
         prompt,
         colors: chatColors,
-        welcomeMessageComponent:
-          isWalletDisconnected && !isAgentPage ? (
-            <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
-              <Image
-                alt='bitte-ai-logo'
-                className='mx-auto mb-4'
-                width={40}
-                height={28}
-                src='/logo.svg'
-              />
-              <div className='mb-8 text-[20px] font-medium text-gray-40'>
-                Execute Transactions with AI
+        customComponents: {
+          welcomeMessageComponent:
+            isWalletDisconnected && !isAgentPage ? (
+              <div className='flex flex-col gap-4 items-center justify-center absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-center w-full'>
+                <Image
+                  alt='bitte-ai-logo'
+                  className='mx-auto mb-4'
+                  width={40}
+                  height={28}
+                  src='/logo.svg'
+                />
+                <div className='mb-8 text-[20px] font-medium text-gray-40'>
+                  Execute Transactions with AI
+                </div>
+                <ConnectDialog
+                  isOpen={isConnectModalOpen}
+                  setConnectModalOpen={setConnectModalOpen}
+                  isWelcomeMessage
+                />
               </div>
-              <ConnectDialog
-                isOpen={isConnectModalOpen}
-                setConnectModalOpen={setConnectModalOpen}
-                isWelcomeMessage
-              />
-            </div>
-          ) : undefined,
-        mobileInputExtraButton: agentsButton,
+            ) : undefined,
+          mobileInputExtraButton: agentsButton,
+          sendButtonComponent: CustomChatSendButton,
+        },
       }}
       wallet={{
         near: {

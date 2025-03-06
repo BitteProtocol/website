@@ -1,6 +1,7 @@
 'use client';
 
 import { AppSidebar } from '@/components/app-sidebar';
+import PageLoaderSkeleton from '@/components/layout/PageLoaderSkeleton';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -99,14 +100,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <Suspense
-          fallback={
-            <div className='flex gap-3 mx-4 mt-4'>
-              <Skeleton className='w-1/3 h-[70vh]' />
-              <Skeleton className='w-2/3 h-[70vh]' />
-            </div>
-          }
-        >
+        <Suspense fallback={<PageLoaderSkeleton className='mx-4 mt-4' />}>
           <main className='flex flex-1 flex-col gap-4 p-4'>{children}</main>
         </Suspense>
       </SidebarInset>

@@ -1,18 +1,18 @@
 'use client';
 
 import { DetailsSideBar } from '@/components/layout/DetailsSidebar';
+import {
+  useAssistantById,
+  useAssistantsByCategory,
+} from '@/hooks/useAssistants';
 import { useSearchParams } from 'next/navigation';
 import { Calendar } from '../ui/calendar';
 import { Card, CardContent } from '../ui/card';
 import AiChat from './AiChat';
 import GitCommitHistory from './CommitHistory';
 import { MarkdownBody } from './MarkdownBody';
+import PageLoaderSkeleton from './PageLoaderSkeleton';
 import { RelatedTemplates } from './Related';
-import {
-  useAssistantById,
-  useAssistantsByCategory,
-} from '@/hooks/useAssistants';
-import { Skeleton } from '../ui/skeleton';
 
 export const AgentDetailComponent = ({
   agentId,
@@ -35,12 +35,7 @@ export const AgentDetailComponent = ({
   const searchParams = useSearchParams();
 
   if (agentLoading || relatedLoading) {
-    return (
-      <div className='flex gap-3'>
-        <Skeleton className='w-1/3 h-[70vh]' />
-        <Skeleton className='w-2/3 h-[70vh]' />
-      </div>
-    );
+    return <PageLoaderSkeleton />;
   }
 
   if (agentError || relatedError || !agent) {
@@ -122,7 +117,7 @@ export const AgentDetailComponent = ({
                 <Calendar record={pings} />
               </div>
               <div className='my-8'>
-                <GitCommitHistory repoUrl={agent.repoUrl} />
+                <GitCommitHistory repoUrl={agent.repo} />
               </div>
             </>
           )}

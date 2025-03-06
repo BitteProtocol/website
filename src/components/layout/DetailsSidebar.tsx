@@ -29,10 +29,10 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
         </h1>
       </div>
       <div className='lg:hidden flex items-center gap-3 w-full mt-10'>
-        {agent.repoUrl ? (
+        {agent.repo ? (
           <Link
             className='w-full'
-            href={agent.repoUrl}
+            href={agent.repo}
             target='_blank'
             rel='noreferrer'
           >
@@ -61,10 +61,10 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             Embed
           </Button>
         </Link>
-        {agent.repoUrl ? (
+        {agent.repo ? (
           <Link
             className='w-full'
-            href={agent.repoUrl}
+            href={agent.repo}
             target='_blank'
             rel='noreferrer'
           >
