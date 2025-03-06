@@ -7,6 +7,7 @@ import {
 } from '../accordion';
 import { Badge } from '../badge';
 import { Checkbox } from '../checkbox';
+import { cn } from '@/lib/utils';
 
 const Filters = ({
   selectedFilters,
@@ -63,11 +64,16 @@ const Filters = ({
             <AccordionTrigger>
               <div className='flex items-center justify-between w-full'>
                 <div className='text-xs'>{filter.label}</div>
-                {selectedAmount ? (
+                <div
+                  className={cn({
+                    visible: selectedAmount,
+                    invisible: !selectedAmount,
+                  })}
+                >
                   <Badge className='bg-mb-gray-600 text-mb-gray-200'>
                     {selectedAmount}
                   </Badge>
-                ) : null}
+                </div>
               </div>
             </AccordionTrigger>
             <AccordionContent className='flex flex-col gap-2'>
