@@ -73,7 +73,12 @@ export const AgentSelector = ({
               key={agent.id}
               ref={isSelected ? selectedAgentRef : null}
               onClick={() => {
-                const selectedAgent = agent || BITTE_AGENTID;
+                const selectedAgent =
+                  selectedAgentId === agent.id
+                    ? agentData.find((agent) => agent.id === BITTE_AGENTID) ||
+                      agent
+                    : agent;
+
                 onSelectAgent(selectedAgent);
                 sessionStorage.setItem(
                   'selectedselectedAgent',
