@@ -1,7 +1,7 @@
 'use client';
-import { Filters as AgentFilters } from '@/lib/types/agent.types';
+import { AgentData, Filters as AgentFilters } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, SearchIcon } from 'lucide-react';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { useState } from 'react';
 import { Button } from '../button';
@@ -14,13 +14,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../dialog';
+import { Input } from '../input';
 import AgentCard from './AgentCard';
 import Filters from './Filters';
 import PlaygroundSwitch from './PlaygroundSwitch';
-import { AgentData } from '@/lib/types/agent.types';
 
 const AllAgents = (props: AgentData) => {
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   const searchParams = useSearchParams();
   const isPlayground = searchParams.get('isPlayground') === 'true';
@@ -37,20 +38,26 @@ const AllAgents = (props: AgentData) => {
     setSelectedFilters([]);
   };
 
-  const filteredAgents = selectedFilters?.length
-    ? (isPlayground ? unverifiedAgents : agents).filter((agent) => {
-        if (!agent) return false;
+  const filteredAgents = (isPlayground ? unverifiedAgents : agents).filter(
+    (agent) => {
+      if (!agent) return false;
 
-        return selectedFilters.every((filter) => {
-          if (filter.label === 'Category' && agent.category) {
-            return filter.values.includes(agent.category);
-          }
-          return true;
-        });
-      })
-    : isPlayground
-      ? unverifiedAgents
-      : agents;
+      // Check if agent matches all selected filters
+      const matchesFilters = selectedFilters.every((filter) => {
+        if (filter.label === 'Category' && agent.category) {
+          return filter.values.includes(agent.category);
+        }
+        return true;
+      });
+
+      // Check if agent name includes the search keyword
+      const matchesSearch = searchKeyword.length
+        ? agent.name.toLowerCase().includes(searchKeyword.toLowerCase())
+        : true;
+
+      return matchesFilters && matchesSearch;
+    }
+  );
 
   if (!props) {
     return <></>;
@@ -130,7 +137,22 @@ const AllAgents = (props: AgentData) => {
             />
           </div>
         </div>
+
         <div className='lg:col-span-4 grid-cols-1 lg-card:grid-cols-2 grid gap-8 w-full h-fit'>
+          <div className='relative mt-2 h-fit'>
+            <SearchIcon
+              className='pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground'
+              size={18}
+            />
+            <Input
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              placeholder='Search'
+              className='pl-8'
+            />
+          </div>
+          <div className='hidden lg:block'></div>
+
           {filteredAgents?.length ? (
             filteredAgents.map((agent) => (
               <AgentCard key={agent.id} agent={agent} />
