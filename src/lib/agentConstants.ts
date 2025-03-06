@@ -6,7 +6,7 @@ export const AGENT_IDS = [
 ];
 
 export const ACTION_TEXTS: Record<string, string> = {
-  'near-cow-agent.vercel.app': 'Swap 50 USDC for Weth on Arbitrum',
+  'near-cow-agent.vercel.app': 'Swap 5 USDC for VIRTUAL on base',
   'coingecko-ai.vercel.app': 'Graph comparing SUI VS NEAR',
   'near-safe-agent.vercel.app': 'Deploy a safe on Ethereum',
   'near-uniswap-agent.vercel.app': 'Swap 1 AVAX for USDC',
