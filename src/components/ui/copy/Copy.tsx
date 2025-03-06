@@ -7,8 +7,6 @@ export const CopyStandard = ({
   text,
   textColor,
   textSize,
-  charSize,
-  isUrl,
   nopadding,
   noformatting,
   isNearAddress,
@@ -19,8 +17,6 @@ export const CopyStandard = ({
   text: string;
   textColor?: string;
   textSize?: string;
-  charSize?: number;
-  isUrl?: boolean;
   nopadding?: boolean;
   noformatting?: boolean;
   isNearAddress?: boolean;
