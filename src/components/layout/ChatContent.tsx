@@ -54,6 +54,8 @@ const ChatContent = ({
     ? agentData?.unverifiedAgents
     : agentData?.agents;
 
+  console.log({ agentsList });
+
   const handleSelectAgent = (agent: RegistryData) => {
     setSelectedAgent(agent);
     setIsAgentsDrawerOpen(false);
@@ -86,6 +88,8 @@ const ChatContent = ({
       // Only set initial agent if none is selected
       if (!selectedAgent) {
         const storedAgent = sessionStorage.getItem('selectedAgent');
+
+        console.log({ storedAgent, list: agentsList[0] });
         if (storedAgent) {
           try {
             const parsed = JSON.parse(storedAgent);

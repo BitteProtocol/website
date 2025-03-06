@@ -11,3 +11,5 @@ export const ACTION_TEXTS: Record<string, string> = {
   'near-safe-agent.vercel.app': 'Deploy a safe on Ethereum mainnet',
   'near-uniswap-agent.vercel.app': 'Send 0.5ETH',
 };
+
+export const BITTE_AGENTID = 'bitte-defi-assistant';

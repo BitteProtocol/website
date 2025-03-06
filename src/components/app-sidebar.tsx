@@ -17,11 +17,12 @@ import { useBitteWallet } from '@bitte-ai/react';
 import { generateId } from 'ai';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
-import { usePathname } from 'next/navigation';
+import { BITTE_AGENTID } from '@/lib/agentConstants';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -32,7 +33,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navMain: [
       {
         title: 'Chat',
-        url: `/chat/${generateId()}`,
+        url: `/chat/${generateId()}?agentid=${BITTE_AGENTID}`,
         icon: TerminalSquare,
         isActive: pathname.startsWith('/chat/'),
       },
