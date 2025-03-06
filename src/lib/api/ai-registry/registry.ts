@@ -188,7 +188,7 @@ const mapAssistantToRegistryData = (
   description: assistant.description || '',
   previewUrl: assistant.id ? `https://${assistant.id}` : '',
   vercelLink: assistant.id ? `https://${assistant.id}` : '',
-  author: assistant.accountId || '',
+  accountId: assistant.accountId || '',
   category: assistant.category || 'Other',
   verified: assistant.verified || false,
   repo: assistant.repo,
