@@ -1,3 +1,4 @@
+import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { RegistryData } from '@/lib/types/agent.types';
 import { cn } from '@/lib/utils';
 import { ArrowUpRight, HelpCircle, Info, SearchIcon } from 'lucide-react';
@@ -72,8 +73,12 @@ export const AgentSelector = ({
               key={agent.id}
               ref={isSelected ? selectedAgentRef : null}
               onClick={() => {
-                onSelectAgent(agent);
-                sessionStorage.setItem('selectedAgent', JSON.stringify(agent)); // Save to sessionStorage when an agent is selected
+                const selectedAgent = agent || BITTE_AGENTID;
+                onSelectAgent(selectedAgent);
+                sessionStorage.setItem(
+                  'selectedselectedAgent',
+                  JSON.stringify(agent)
+                ); // Save to sessionStorage when an agent is selected
               }}
               className={cn(
                 'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent',
