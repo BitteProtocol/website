@@ -9,7 +9,7 @@ export interface RegistryData {
   description?: string;
   previewUrl?: string;
   vercelLink?: string;
-  author: string;
+  accountId: string;
   category?: string;
   verified: boolean;
   publisher?: string;
