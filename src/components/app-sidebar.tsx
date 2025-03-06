@@ -22,6 +22,7 @@ import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
 import { usePathname } from 'next/navigation';
+import { CopyStandard } from './ui/copy/Copy';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -57,7 +58,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ],
   };
 
-  const { isConnected: isNearConnected, connect } = useBitteWallet();
+  const {
+    isConnected: isNearConnected,
+    connect,
+    activeAccountId,
+  } = useBitteWallet();
 
   const handleSignIn = async () => {
     try {
@@ -67,7 +72,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
   };
 
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
 
   const { open } = useSidebar();
 
@@ -106,6 +111,51 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavLinks links={data.links} />
       </SidebarContent>
       <SidebarFooter className='p-4 w-full'>
+        <div className='flex flex-col gap-6 mb-9'>
+          <span className='text-[10px] text-[#B2B2B3] font-semibold'>
+            Accounts & Network
+          </span>
+
+          {activeAccountId ? (
+            <div>
+              <div className='bg-[#27272A] rounded-full py-1 px-3 flex items-center w-[100px] gap-2 mb-3'>
+                <div className='bg-black p-1 rounded-md'>
+                  <Image
+                    src='/chains/near_wallet_connector_v2.svg'
+                    width={16}
+                    height={16}
+                    alt='connect-wallet-modal-logo-near'
+                  />
+                </div>
+                <span className='text-xs text-[#FAFAFA] font-semibold'>
+                  NEAR
+                </span>
+              </div>
+
+              <span className='text-xs texrt-[#CBD5E1] flex items-center gap-3'>
+                <CopyStandard
+                  text={activeAccountId}
+                  textColor='#CBD5E1'
+                  textSize='xs'
+                  copySize={14}
+                  nopadding
+                />
+              </span>
+            </div>
+          ) : null}
+          {isConnected && (
+            <div className='flex flex-col items-start gap-3'>
+              <appkit-network-button />
+              <CopyStandard
+                text={address as string}
+                textColor='#CBD5E1'
+                textSize='xs'
+                copySize={14}
+                nopadding
+              />
+            </div>
+          )}
+        </div>
         {!isConnected && !isNearConnected && (
           <ConnectDialog
             isOpen={isConnectModalOpen}
