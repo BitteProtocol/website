@@ -26,6 +26,17 @@ const nextConfig = {
       },
     ];
   },
+  headers: () => [
+    {
+      source: '/',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=86400, s-maxage=86400', // Cache for 1 day
+        },
+      ],
+    },
+  ],
   experimental: {
     serverComponentsExternalPackages: ['pino', 'pino-pretty'],
   },
