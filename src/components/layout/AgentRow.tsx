@@ -7,13 +7,8 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from '../ui/tooltip';
 import { ACTION_TEXTS } from '@/lib/agentConstants';
+import InfoTooltip from '../ui/InfoTooltip';
 
 export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   const router = useRouter();
@@ -24,7 +19,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   }, [router]);
 
   return (
-    <section className='relative mt-7'>
+    <section className='relative'>
       <div className='flex hero-xl:items-center hero-xl:justify-center overflow-x-auto space-x-6 disable-scrollbars -mx-8 hero-xl:-mx-0 pl-6 hero-xl:pl-0'>
         {agentData?.map((agent) => (
           <Card
@@ -56,26 +51,21 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
                   <div className='flex gap-1'>
                     {mapChainIdsToNetworks(agent.chainIds).map(
                       (network, index) => (
-                        <TooltipProvider
+                        <InfoTooltip
                           key={`${agent.name}-${network.name}-${index}`}
-                        >
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <div
-                                key={`${agent.name}-${network.name}-${index}`}
-                                className='relative w-5 h-5'
-                              >
-                                <Image
-                                  src={network.icon}
-                                  alt={`${network.name} icon`}
-                                  fill
-                                  className='object-contain rounded-md'
-                                />
-                              </div>
-                            </TooltipTrigger>
-                            <TooltipContent>{network.name}</TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
+                          text={network.name}
+                          delay={130}
+                          trigger={
+                            <div className='relative w-5 h-5'>
+                              <Image
+                                src={network.icon}
+                                alt={`${network.name} icon`}
+                                fill
+                                className='object-contain rounded-md'
+                              />
+                            </div>
+                          }
+                        />
                       )
                     )}
                   </div>
