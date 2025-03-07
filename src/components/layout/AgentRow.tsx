@@ -7,12 +7,6 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from '../ui/tooltip';
 import { ACTION_TEXTS } from '@/lib/agentConstants';
 import InfoTooltip from '../ui/InfoTooltip';
 
