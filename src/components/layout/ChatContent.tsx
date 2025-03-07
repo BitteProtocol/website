@@ -86,6 +86,7 @@ const ChatContent = ({
       // Only set initial agent if none is selected
       if (!selectedAgent) {
         const storedAgent = sessionStorage.getItem('selectedAgent');
+
         if (storedAgent) {
           try {
             const parsed = JSON.parse(storedAgent);

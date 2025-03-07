@@ -9,11 +9,12 @@ import {
 interface InfoTooltipProps {
   text: string;
   trigger: JSX.Element;
+  delay?: number;
 }
 
-const InfoTooltip: React.FC<InfoTooltipProps> = ({ text, trigger }) => {
+const InfoTooltip: React.FC<InfoTooltipProps> = ({ text, trigger, delay }) => {
   return (
-    <TooltipProvider delayDuration={200}>
+    <TooltipProvider delayDuration={delay ?? 200}>
       <Tooltip>
         <TooltipTrigger>{trigger}</TooltipTrigger>
         <TooltipContent>
