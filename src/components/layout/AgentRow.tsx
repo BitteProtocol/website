@@ -14,6 +14,7 @@ import {
   TooltipProvider,
 } from '../ui/tooltip';
 import { ACTION_TEXTS } from '@/lib/agentConstants';
+import InfoTooltip from '../ui/InfoTooltip';
 
 export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   const router = useRouter();
@@ -56,26 +57,20 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
                   <div className='flex gap-1'>
                     {mapChainIdsToNetworks(agent.chainIds).map(
                       (network, index) => (
-                        <TooltipProvider
+                        <InfoTooltip
                           key={`${agent.name}-${network.name}-${index}`}
-                        >
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <div
-                                key={`${agent.name}-${network.name}-${index}`}
-                                className='relative w-5 h-5'
-                              >
-                                <Image
-                                  src={network.icon}
-                                  alt={`${network.name} icon`}
-                                  fill
-                                  className='object-contain rounded-md'
-                                />
-                              </div>
-                            </TooltipTrigger>
-                            <TooltipContent>{network.name}</TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
+                          text={network.name}
+                          trigger={
+                            <div className='relative w-5 h-5'>
+                              <Image
+                                src={network.icon}
+                                alt={`${network.name} icon`}
+                                fill
+                                className='object-contain rounded-md'
+                              />
+                            </div>
+                          }
+                        />
                       )
                     )}
                   </div>
