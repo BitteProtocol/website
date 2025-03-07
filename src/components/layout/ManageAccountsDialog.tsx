@@ -19,6 +19,8 @@ import { formatEther } from 'viem';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
+import { useAppKitNetwork } from '@reown/appkit/react';
+import { networks } from '@/config';
 
 const getChainSvgPath = (chainId?: number): string => {
   const defaultSVG = '/chains/evm_wallet_connector.svg';
@@ -67,6 +69,8 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   const { disconnect } = useDisconnect();
   const { data: balance } = useBalance({ address });
 
+  const { switchNetwork } = useAppKitNetwork();
+
   const content = (
     <>
       <div className='border-b border-[#334155] my-6'></div>
@@ -96,6 +100,8 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             </div>
             <div className='flex gap-4'>
               <appkit-network-button />
+              <button onClick={() => switchNetwork(networks[1])}>Switch</button>
+
               <Button onClick={() => disconnect()}>Disconnect</Button>
             </div>
           </div>
