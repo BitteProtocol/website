@@ -65,20 +65,26 @@ const Hero = () => {
               <div className='flex-grow w-full lg:w-1/2 4k:w-[1300px] mx-auto'>
                 <HeroPromptInput />
               </div>
-              <div className='flex-grow'>
+              <div className='flex-grow mt-6'>
                 {filteredAgents && filteredAgents?.length > 0 ? (
                   <AgentRow agentData={filteredAgents} />
                 ) : loading ? (
-                  <div className='flex gap-6 items-center justify-center my-10'>
-                    {Array.from({ length: 4 }).map((_, i) => (
-                      <Skeleton key={i} className='w-[300px] h-[135px]' />
-                    ))}
-                  </div>
+                  <>
+                    <div className='hidden gap-6 items-center justify-center lg:flex'>
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} className='w-[300px] h-[128px]' />
+                      ))}
+                    </div>
+                    <div className='flex gap-6 lg:hidden'>
+                      <Skeleton className='w-full h-[128px]' />
+                      <Skeleton className='w-full h-[128px]' />
+                    </div>
+                  </>
                 ) : null}
               </div>
             </div>
           </div>
-          <div className='mt-7 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
+          <div className='mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
             <Link href='/agents'>
               <Button variant='secondary' className='w-fit md:w-[200px]'>
                 Browse Agents
