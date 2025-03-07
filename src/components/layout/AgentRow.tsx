@@ -54,6 +54,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
                         <InfoTooltip
                           key={`${agent.name}-${network.name}-${index}`}
                           text={network.name}
+                          delay={130}
                           trigger={
                             <div className='relative w-5 h-5'>
                               <Image
