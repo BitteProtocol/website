@@ -24,7 +24,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   }, [router]);
 
   return (
-    <section className='relative mt-7'>
+    <section className='relative'>
       <div className='flex hero-xl:items-center hero-xl:justify-center overflow-x-auto space-x-6 disable-scrollbars -mx-8 hero-xl:-mx-0 pl-6 hero-xl:pl-0'>
         {agentData?.map((agent) => (
           <Card
