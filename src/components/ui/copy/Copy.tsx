@@ -45,7 +45,9 @@ export const CopyStandard = ({
   ) => {
     if (showCopied) {
       return (
-        <span className={`whitespace-nowrap font-medium ${textColor}`}>
+        <span
+          className={`whitespace-nowrap font-medium ${textColor ? textColor : 'text-text-secondary'}`}
+        >
           Copied
         </span>
       );
@@ -55,7 +57,9 @@ export const CopyStandard = ({
 
     if (isMobile) {
       return (
-        <span className={`whitespace-nowrap font-medium ${textColor}`}>
+        <span
+          className={`whitespace-nowrap font-medium ${textColor ? textColor : 'text-text-secondary'}`}
+        >
           {shortenAddress(text)}
         </span>
       );
@@ -63,10 +67,14 @@ export const CopyStandard = ({
 
     return (
       <>
-        <span className={`whitespace-nowrap font-medium ${textColor}`}>
-          {shortenString(main, 12)}
+        <span
+          className={`whitespace-nowrap font-medium ${textColor ? textColor : 'text-text-secondary'}`}
+        >
+          {shortenString(main, 25)}
         </span>
-        <span className='text-text-secondary'>.{rest.join('.')}</span>
+        <span className={`${textColor ? textColor : 'text-text-secondary'}`}>
+          .{rest.join('.')}
+        </span>
       </>
     );
   };
