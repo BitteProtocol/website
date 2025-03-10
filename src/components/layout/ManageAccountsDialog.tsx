@@ -19,6 +19,7 @@ import { formatEther } from 'viem';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
+import { shortenAddress } from '@/lib/utils/strings';
 
 const getChainSvgPath = (chainId?: number): string => {
   const defaultSVG = '/chains/evm_wallet_connector.svg';
@@ -34,11 +35,6 @@ const getChainSvgPath = (chainId?: number): string => {
   };
 
   return chainSvgMap[chainId] || defaultSVG;
-};
-
-const shortenAddress = (address?: string) => {
-  if (!address) return '';
-  return `${address.slice(0, 6)}...${address.slice(-4)}`;
 };
 
 interface ManageAccountsDialogProps {

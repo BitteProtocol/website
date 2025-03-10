@@ -1,4 +1,10 @@
-import { ArrowUpRight, Bot, TerminalSquare } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Bot,
+  TerminalSquare,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import * as React from 'react';
 
 import { NavLinks } from '@/components/nav-links';
@@ -12,6 +18,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
   useSidebar,
+  SidebarSeparator,
 } from '@/components/ui/sidebar';
 import { useBitteWallet } from '@bitte-ai/react';
 import { generateId } from 'ai';
@@ -22,7 +29,14 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
+import { CopyStandard } from './ui/copy/Copy';
 import { BITTE_AGENTID } from '@/lib/agentConstants';
+import {
+  useAppKitNetwork,
+  useAppKit,
+  useAppKitState,
+} from '@reown/appkit/react';
+import { networkMapping } from '@/lib/utils/chainIds';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -58,7 +72,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ],
   };
 
-  const { isConnected: isNearConnected, connect } = useBitteWallet();
+  const {
+    isConnected: isNearConnected,
+    connect,
+    activeAccountId,
+  } = useBitteWallet();
+
+  const { caipNetwork, chainId } = useAppKitNetwork();
+
+  const { open: openNetworkModal } = useAppKit();
+
+  const { open: isModalOpen } = useAppKitState();
 
   const handleSignIn = async () => {
     try {
@@ -68,9 +92,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
   };
 
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
 
   const { open } = useSidebar();
+
+  const imageUrl = networkMapping[Number(chainId)]?.icon;
 
   return (
     <Sidebar collapsible='icon' {...props}>
@@ -107,6 +133,81 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavLinks links={data.links} />
       </SidebarContent>
       <SidebarFooter className='p-4 w-full'>
+        {activeAccountId || isConnected ? (
+          <div className='flex flex-col gap-4 mb-4'>
+            <span className='text-[10px] text-[#B2B2B3] font-semibold'>
+              Accounts & Network
+            </span>
+            <SidebarSeparator className='bg-[#09090B] -mx-4' />
+
+            {activeAccountId ? (
+              <>
+                <div>
+                  <div className='bg-[#27272A] rounded-full py-1 px-3 flex items-center w-[100px] gap-2 mb-3'>
+                    <div className='bg-black p-0.5 rounded'>
+                      <Image
+                        src='/chains/near_wallet_connector_v2.svg'
+                        width={14}
+                        height={14}
+                        alt='connect-wallet-modal-logo-near'
+                      />
+                    </div>
+                    <span className='text-xs text-[#FAFAFA] font-normal'>
+                      NEAR
+                    </span>
+                  </div>
+
+                  <span className='text-xs texrt-[#CBD5E1] flex items-center gap-3'>
+                    <CopyStandard
+                      text={activeAccountId}
+                      textColor='#CBD5E1'
+                      textSize='xs'
+                      copySize={14}
+                      nopadding
+                      isNearAddress
+                    />
+                  </span>
+                </div>
+                <SidebarSeparator className='bg-[#09090B] -mx-4' />
+              </>
+            ) : null}
+            {isConnected && (
+              <>
+                <div className='flex flex-col items-start gap-3'>
+                  <div
+                    className='bg-[#27272A] rounded-full py-1 px-3 flex items-center min-w-[100px] gap-2 cursor-pointer'
+                    onClick={() => openNetworkModal({ view: 'Networks' })}
+                  >
+                    <div className='bg-black p-0.5 rounded'>
+                      <Image
+                        src={imageUrl}
+                        width={14}
+                        height={14}
+                        alt='connect-wallet-modal-logo-near'
+                      />
+                    </div>
+                    <span className='text-xs text-[#FAFAFA] font-normal'>
+                      {caipNetwork?.name}
+                    </span>
+                    {isModalOpen ? (
+                      <ChevronUp size={14} color='#60A5FA' />
+                    ) : (
+                      <ChevronDown size={14} color='#60A5FA' />
+                    )}
+                  </div>
+                  <CopyStandard
+                    text={address as string}
+                    textColor='#CBD5E1'
+                    textSize='xs'
+                    copySize={14}
+                    nopadding
+                  />
+                </div>
+                <SidebarSeparator className='bg-[#09090B] -mx-4' />
+              </>
+            )}
+          </div>
+        ) : null}
         {!isConnected && !isNearConnected && (
           <ConnectDialog
             isOpen={isConnectModalOpen}
