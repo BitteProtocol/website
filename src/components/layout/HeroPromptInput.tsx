@@ -38,7 +38,6 @@ const HeroPromptInput = () => {
   useEffect(() => {
     setId(generateId());
     router.prefetch('/chat');
-    router.prefetch('/agents');
   }, [router]);
 
   const handleSubmit = async () => {
