@@ -135,7 +135,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter className='p-4 w-full'>
         {activeAccountId || isConnected ? (
           <div className='flex flex-col gap-4 mb-4'>
-            {!open ? (
+            {open ? (
               <>
                 <span className='text-[10px] text-[#B2B2B3] font-semibold'>
                   Accounts & Network
