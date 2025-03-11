@@ -7,6 +7,9 @@ import { Button } from '../ui/button';
 import { getBalance } from '@mintbase-js/rpc';
 import { useState } from 'react';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
+import { Roboto_Mono } from 'next/font/google';
+
+const roboto_mono = Roboto_Mono({ subsets: ['latin'] });
 
 export const NearWalletConnector = ({
   setConnectModalOpen,
@@ -45,28 +48,29 @@ export const NearWalletConnector = ({
 
   if (!isConnected) {
     return (
-      <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
-        <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
+      <div
+        className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
+        onClick={() => {
+          handleSignIn();
+          setConnectModalOpen(false);
+        }}
+      >
+        <div className='flex items-center gap-2'>
           <Image
-            src='/chains/near_wallet_connector_v2.svg'
-            width={60}
-            height={60}
-            alt='connect-wallet-modal-logo-near'
+            src='/near_connect_icon.svg'
+            width={40}
+            height={40}
+            alt='connect-wallet-connect-logo'
           />
+
+          <p className='text-sm font-semibold text-[#F8FAFC]'>NEAR Account</p>
         </div>
-        <div>
-          <div
-            className='connect-chain-button'
-            onClick={() => {
-              handleSignIn();
-              setConnectModalOpen(false);
-            }}
-          >
-            NEAR Account
-          </div>
+        <div className='flex ml-auto items-center'>
           <p className='text-[#BABDC2] text-xs italic'>
             e.g.
-            <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
+            <span
+              className={`ml-2 bg-[#010101] p-1.5 rounded-md text-xs text-[#60A5FA] not-italic ${roboto_mono.className}`}
+            >
               blackdragon.near
             </span>
           </p>
