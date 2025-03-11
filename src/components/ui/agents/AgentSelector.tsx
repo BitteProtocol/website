@@ -1,4 +1,3 @@
-import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { RegistryData } from '@/lib/types/agent.types';
 import { cn } from '@/lib/utils';
 import { ArrowUpRight, HelpCircle, Info, SearchIcon } from 'lucide-react';
@@ -75,8 +74,7 @@ export const AgentSelector = ({
               onClick={() => {
                 const selectedAgent =
                   selectedAgentId === agent.id
-                    ? agentData.find((agent) => agent.id === BITTE_AGENTID) ||
-                      agent
+                    ? agentData?.[0] || agent
                     : agent;
 
                 onSelectAgent(selectedAgent);
