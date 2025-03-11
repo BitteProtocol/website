@@ -85,11 +85,6 @@ const Hero = () => {
             </div>
           </div>
           <div className='mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
-            <Link href='/agents'>
-              <Button variant='secondary' className='w-fit md:w-[200px]'>
-                Browse Agents
-              </Button>
-            </Link>
             <Button asChild variant='secondary' className='w-fit md:w-[200px]'>
               <Link href={MB_URL.DEV_DOCS} target='_blank'>
                 Build Agent
