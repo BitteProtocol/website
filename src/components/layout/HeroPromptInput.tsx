@@ -110,11 +110,12 @@ const HeroPromptInput = () => {
         </div>
 
         <div className='flex gap-2 items-center absolute bottom-2 right-0'>
-          <Link href='/agents'>
-            <Button className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA]'>
-              All Agents
-            </Button>
-          </Link>
+          <Button
+            asChild
+            className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA]'
+          >
+            <Link href='/agents'>All Agents</Link>
+          </Button>
 
           <Button
             onClick={handleSubmit}
