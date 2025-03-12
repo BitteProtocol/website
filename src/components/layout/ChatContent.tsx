@@ -48,12 +48,12 @@ const ChatContent = ({
 
     if (value) {
       params.set('mode', AssistantsMode.DEBUG);
-      if (agentData?.agents[0]) {
+      if (agentData?.unverifiedAgents[0] && !isAgentsDrawerOpen) {
         handleSelectAgent(agentData.unverifiedAgents[0]);
       }
     } else {
       params.delete('mode');
-      if (agentData?.unverifiedAgents[0]) {
+      if (agentData?.agents[0] && !isAgentsDrawerOpen) {
         handleSelectAgent(agentData.agents[0]);
       }
     }
