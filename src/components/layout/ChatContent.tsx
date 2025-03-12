@@ -48,8 +48,14 @@ const ChatContent = ({
 
     if (value) {
       params.set('mode', AssistantsMode.DEBUG);
+      if (agentData?.unverifiedAgents[0] && !isAgentsDrawerOpen) {
+        handleSelectAgent(agentData.unverifiedAgents[0]);
+      }
     } else {
       params.delete('mode');
+      if (agentData?.agents[0] && !isAgentsDrawerOpen) {
+        handleSelectAgent(agentData.agents[0]);
+      }
     }
 
     history.replaceState({}, '', `?${params.toString()}`);
@@ -104,15 +110,6 @@ const ChatContent = ({
       }
     }
   }, [agentsList, selectedAgent, agentIdParam]);
-
-  useEffect(() => {
-    if (!agentData) return;
-    if (!isPlayground) {
-      handleSelectAgent(agentData.agents[0]);
-    } else {
-      handleSelectAgent(agentData.unverifiedAgents[0]);
-    }
-  }, [isPlayground, agentData]);
 
   // Debounce saving to sessionStorage to prevent excessive writes
   useEffect(() => {

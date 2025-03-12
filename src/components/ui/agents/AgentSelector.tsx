@@ -63,7 +63,7 @@ export const AgentSelector = ({
           />
         </div>
       </div>
-      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 lg:px-4 h-[360px] lg:h-auto'>
+      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 px-4 h-[360px] lg:h-auto'>
         {filteredAgents?.map((agent) => {
           const isSelected = selectedAgentId === agent.id;
 
@@ -78,10 +78,7 @@ export const AgentSelector = ({
                     : agent;
 
                 onSelectAgent(selectedAgent);
-                sessionStorage.setItem(
-                  'selectedselectedAgent',
-                  JSON.stringify(agent)
-                ); // Save to sessionStorage when an agent is selected
+                sessionStorage.setItem('selectedAgent', JSON.stringify(agent)); // Save to sessionStorage when an agent is selected
               }}
               className={cn(
                 'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent',
@@ -93,8 +90,8 @@ export const AgentSelector = ({
               <div className='mb-2 flex items-center justify-between gap-2'>
                 <div className='flex items-center gap-2'>
                   <Image
-                    src={agent?.image || '/bitte-symbol-black.svg'}
-                    className={`object-contain ${!agent?.image ? 'bg-white' : ''}`}
+                    src={agent?.image || '/logo.svg'}
+                    className='object-contain'
                     width={24}
                     height={24}
                     alt={`${agent?.id}-logo`}
