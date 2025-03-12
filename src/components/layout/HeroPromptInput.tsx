@@ -113,7 +113,9 @@ const HeroPromptInput = () => {
             asChild
             className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA]'
           >
-            <Link href='/agents'>All Agents</Link>
+            <Link href={`/chat/${id}?agentid=${BITTE_AGENTID}`}>
+              All Agents
+            </Link>
           </Button>
 
           <Button
