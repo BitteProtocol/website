@@ -12,13 +12,14 @@ import {
 } from '@/components/ui/drawer';
 import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { PlusCircle, Link2 } from 'lucide-react';
+import { Link2 } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
 import { Roboto_Mono } from 'next/font/google';
 import { useAppKit } from '@reown/appkit/react';
+import ConnectAccountCard from './ConnectAccountCard';
 
 interface ConnectDialogProps {
   isOpen: boolean;
@@ -45,36 +46,13 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   const content = (
     <div>
       <div className='flex flex-col gap-4 mb-0'>
-        <div
-          className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
-          onClick={() => open()}
-        >
-          <div className='flex items-center gap-2'>
-            <Image
-              src='/chains/evm_wallet_connector.svg'
-              width={40}
-              height={40}
-              alt='connect-wallet-connect-logo'
-            />
-            <Image
-              src='/metamask_icon_connect.svg'
-              width={40}
-              height={40}
-              alt='metamask-connect-logo'
-            />
-            <p className='text-sm font-semibold text-[#F8FAFC]'>EVM Account</p>
-          </div>
-          <div className='flex ml-auto items-center'>
-            <p className='text-[#BABDC2] text-xs italic'>
-              e.g.
-              <span
-                className={`ml-2 bg-[#010101] p-1.5 rounded-md text-xs text-[#60A5FA] not-italic ${roboto_mono.className}`}
-              >
-                0xd8da6...aa96045
-              </span>
-            </p>
-          </div>
-        </div>
+        <ConnectAccountCard
+          action={open}
+          icon1='/chains/evm_wallet_connector.svg'
+          icon2='/metamask_icon_connect.svg'
+          text='EVM Account'
+          account='0xd8da6...aa96045'
+        />
         <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
       </div>
       <div

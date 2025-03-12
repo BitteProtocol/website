@@ -3,13 +3,12 @@
 import { useBitteWallet } from '@bitte-ai/react';
 import Image from 'next/image';
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { Button } from '../ui/button';
 import { getBalance } from '@mintbase-js/rpc';
 import { useState } from 'react';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
 import { Roboto_Mono } from 'next/font/google';
-import { CopyStandard } from '../ui/copy/Copy';
-import { Unlink } from 'lucide-react';
+import CurrentlyConnected from './CurrentlyConnected';
+import ConnectAccountCard from './ConnectAccountCard';
 
 const roboto_mono = Roboto_Mono({ subsets: ['latin'] });
 
@@ -50,76 +49,35 @@ export const NearWalletConnector = ({
 
   if (!isConnected) {
     return (
-      <div
-        className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer'
-        onClick={() => {
-          handleSignIn();
-          setConnectModalOpen(false);
-        }}
-      >
-        <div className='flex items-center gap-2'>
-          <Image
-            src='/near_connect_icon.svg'
-            width={40}
-            height={40}
-            alt='connect-wallet-connect-logo'
-          />
-
-          <p className='text-sm font-semibold text-[#F8FAFC]'>NEAR Account</p>
-        </div>
-        <div className='flex ml-auto items-center'>
-          <p className='text-[#BABDC2] text-xs italic'>
-            e.g.
-            <span
-              className={`ml-2 bg-[#010101] p-1.5 rounded-md text-xs text-[#60A5FA] not-italic ${roboto_mono.className}`}
-            >
-              blackdragon.near
-            </span>
-          </p>
-        </div>
-      </div>
+      <ConnectAccountCard
+        action={[handleSignIn, () => setConnectModalOpen(false)]}
+        icon1='/near_connect_icon.svg'
+        text='NEAR Account'
+        account='blackdragon.near'
+      />
     );
   }
 
   return (
-    <div className='flex gap-2 items-center justify-between'>
-      <div className='flex items-center gap-3'>
-        <Image
-          src='/near_connect_icon.svg'
-          width={40}
-          height={40}
-          alt='connect-wallet-modal-logo-near'
-        />
-        <div className='flex flex-col items-start gap-1'>
-          <CopyStandard
-            text={activeAccountId || ''}
-            textColor='#CBD5E1'
-            textSize='sm'
-            copySize={14}
-            nopadding
-            isNearAddress
-          />
-          <div className='flex items-center gap-7'>
-            <div className='bg-[#27272A] rounded-full py-1 px-3 flex items-center w-[100px] gap-2'>
-              <div className='bg-black p-0.5 rounded'>
-                <Image
-                  src='/chains/near_wallet_connector_v2.svg'
-                  width={14}
-                  height={14}
-                  alt='connect-wallet-modal-logo-near'
-                />
-              </div>
-              <span className='text-xs text-[#FAFAFA] font-normal'>NEAR</span>
-            </div>
-            <small className='text-xs text-[#CBD5E1] font-normal'>
-              {formatNearAmount(balance, 2)} NEAR
-            </small>
+    <CurrentlyConnected
+      chainIcon='/near_connect_icon.svg'
+      accountId={activeAccountId || ''}
+      networkBadge={
+        <div className='bg-[#27272A] rounded-full py-0.5 px-3 flex items-center gap-2'>
+          <div className='bg-black p-0.5 rounded'>
+            <Image
+              src='/chains/near_wallet_connector_v2.svg'
+              width={14}
+              height={14}
+              alt='connect-wallet-modal-logo-near'
+            />
           </div>
+          <span className='text-xs text-[#FAFAFA] font-normal'>NEAR</span>
         </div>
-      </div>
-      <Button variant='outline' onClick={handleSignout}>
-        <Unlink size={16} color='#EF4444' />
-      </Button>
-    </div>
+      }
+      network='NEAR'
+      balance={formatNearAmount(balance, 2)}
+      action={handleSignout}
+    />
   );
 };

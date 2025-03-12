@@ -20,8 +20,12 @@ import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
 import { shortenAddress } from '@/lib/utils/strings';
+import CurrentlyConnected from './CurrentlyConnected';
+import EvmNetworkSelector from './EvmNetworkSelector';
+import ConnectAccountCard from './ConnectAccountCard';
+import { useAppKit } from '@reown/appkit/react';
 
-const getChainSvgPath = (chainId?: number): string => {
+/* const getChainSvgPath = (chainId?: number): string => {
   const defaultSVG = '/chains/evm_wallet_connector.svg';
   if (!chainId) return defaultSVG;
   const chainSvgMap: { [key: number]: string } = {
@@ -35,7 +39,7 @@ const getChainSvgPath = (chainId?: number): string => {
   };
 
   return chainSvgMap[chainId] || defaultSVG;
-};
+}; */
 
 interface ManageAccountsDialogProps {
   isOpen: boolean;
@@ -59,120 +63,83 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
-  const { address, chainId } = useAccount();
+  const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { data: balance } = useBalance({ address });
 
+  const { open } = useAppKit();
+
   const content = (
     <>
-      <div className='border-b border-[#334155] my-6'></div>
+      <div className='border-b border-[#334155] -mx-8 my-6'></div>
       <div className={`flex items-center gap-2 ${isMobile ? 'mb-4' : ''}`}>
         <UserCheck size={16} color='#BABDC2' />
         <p className='text-[#BABDC2] font-medium text-xs'>
           Currently Connected
         </p>
       </div>
-      <div className='flex flex-col gap-4'>
-        {isConnected && (
-          <div className='flex gap-2 items-center justify-between flex-wrap'>
-            <div className='flex items-center gap-2'>
-              <Image
-                src={getChainSvgPath(chainId)}
-                width={46}
-                height={46}
-                alt='connected-evm-chain'
-              />
-              <div>
-                <p> {shortenAddress(address)}</p>
-                <small>
-                  {balance?.value
-                    ? Number(formatEther(balance?.value)).toFixed(4)
-                    : 0.0}{' '}
-                  {balance?.symbol}
-                </small>
-              </div>
-            </div>
-            <div className='flex gap-4'>
-              <appkit-network-button />
-              <Button onClick={() => disconnect()}>Disconnect</Button>
-            </div>
-          </div>
-        )}
+      <div className='flex flex-col gap-6'>
         {isNearConnected && (
           <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
         )}
+        {isConnected && (
+          <CurrentlyConnected
+            chainIcon='/chains/evm_wallet_connector.svg'
+            accountId={shortenAddress(address)}
+            networkBadge={<EvmNetworkSelector />}
+            network={balance?.symbol || ''}
+            balance={
+              balance?.value
+                ? Number(formatEther(balance?.value)).toFixed(4)
+                : 0.0
+            }
+            action={disconnect}
+          />
+        )}
       </div>
-      <div className='border-b border-[#334155] my-9 -mx-6'></div>
+      <div className='border-b border-[#334155] my-9 -mx-8'></div>
       <div>
         <div className='flex items-center gap-2 mb-7'>
-          <UserPlus size={20} />
-          <p className='text-white font-semibold'>Add Accounts</p>
+          <UserPlus size={16} />
+          <p className='text-[#BABDC2] font-medium text-xs'>Connect Accounts</p>
         </div>
         <div className='flex flex-col gap-4'>
           {!isConnected && (
-            <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
-              <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
-                <Image
-                  src='/chains/evm_wallet_connector.svg'
-                  width={60}
-                  height={60}
-                  alt='connect-wallet-connect-logo'
-                />
-              </div>
-              <div>
-                <div className='mb-2'>
-                  <appkit-connect-button label='EVM Account' />
-                </div>
-                <p className='text-[#BABDC2] text-xs italic'>
-                  e.g.
-                  <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
-                    0xd8da6...aa96045
-                  </span>
-                </p>
-              </div>
-            </div>
+            <ConnectAccountCard
+              action={open}
+              icon1='/chains/evm_wallet_connector.svg'
+              icon2='/metamask_icon_connect.svg'
+              text='EVM Account'
+              account='0xd8da6...aa96045'
+            />
           )}
           {!isNearConnected && (
-            <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
-              <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
-                <Image
-                  src='/chains/near_wallet_connector_v2.svg'
-                  width={46}
-                  height={46}
-                  alt='connect-wallet-modal-logo-near'
-                />
-              </div>
-              <div>
-                <div
-                  className='connect-chain-button'
-                  onClick={() => {
-                    handleSignIn();
-                    setConnectModalOpen(false);
-                  }}
-                >
-                  NEAR Account
-                </div>
-
-                <p className='text-[#BABDC2] text-xs italic'>
-                  e.g.
-                  <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
-                    blackdragon.near
-                  </span>
-                </p>
-              </div>
-            </div>
+            <ConnectAccountCard
+              action={[handleSignIn, () => setConnectModalOpen(false)]}
+              icon1='/near_connect_icon.svg'
+              text='NEAR Account'
+              account='blackdragon.near'
+            />
           )}
+          {!isNearConnected || !isConnected ? (
+            <div className='border-b border-[#334155] my-2'></div>
+          ) : null}
           <a
-            className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
+            className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
             href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
             target='_blank'
             rel='noreferrer'
           >
-            <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
-              <PlusCircle size={32} color='black' />
+            <div className='flex items-center justify-center rounded-md h-[40px] w-[40px] bg-white'>
+              <Image
+                src='/bitte-symbol-black.svg'
+                width={26}
+                height={19}
+                alt='bitte-connect-logo'
+              />
             </div>
             <div>
-              <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+              <p className='text-sm text-[#F8FAFC] font-semibold mb-2'>
                 Create New Account
               </p>
               <p className='text-[#BABDC2] text-xs'>for EVM and NEAR chains</p>
@@ -219,7 +186,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
+      <DialogContent className='max-w-[510px] p-8 border border-[#334155] bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>
           Manage Accounts
         </DialogTitle>
