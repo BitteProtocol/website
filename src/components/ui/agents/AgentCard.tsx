@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { RegistryData } from '@/lib/types/agent.types';
 import { shortenString } from '@/lib/utils/strings';
+import { generateId } from 'ai';
 import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,7 +23,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 
-  const runAgentUrl = `/chat?agentid=${agent.id}${agent.verified ? '' : '&mode=debug'}`;
+  const runAgentUrl = `/chat/${generateId()}?agentid=${agent.id}${agent.verified ? '' : '&mode=debug'}`;
 
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
