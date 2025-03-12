@@ -8,6 +8,8 @@ import { getBalance } from '@mintbase-js/rpc';
 import { useState } from 'react';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
 import { Roboto_Mono } from 'next/font/google';
+import { CopyStandard } from '../ui/copy/Copy';
+import { Unlink } from 'lucide-react';
 
 const roboto_mono = Roboto_Mono({ subsets: ['latin'] });
 
@@ -81,19 +83,43 @@ export const NearWalletConnector = ({
 
   return (
     <div className='flex gap-2 items-center justify-between'>
-      <div className='flex items-center gap-2'>
+      <div className='flex items-center gap-3'>
         <Image
-          src='/chains/near_wallet_connector_v2.svg'
-          width={46}
-          height={46}
+          src='/near_connect_icon.svg'
+          width={40}
+          height={40}
           alt='connect-wallet-modal-logo-near'
         />
-        <div>
-          <p>{activeAccountId}</p>
-          <small>{formatNearAmount(balance, 2)} NEAR</small>
+        <div className='flex flex-col items-start gap-1'>
+          <CopyStandard
+            text={activeAccountId || ''}
+            textColor='#CBD5E1'
+            textSize='sm'
+            copySize={14}
+            nopadding
+            isNearAddress
+          />
+          <div className='flex items-center gap-7'>
+            <div className='bg-[#27272A] rounded-full py-1 px-3 flex items-center w-[100px] gap-2'>
+              <div className='bg-black p-0.5 rounded'>
+                <Image
+                  src='/chains/near_wallet_connector_v2.svg'
+                  width={14}
+                  height={14}
+                  alt='connect-wallet-modal-logo-near'
+                />
+              </div>
+              <span className='text-xs text-[#FAFAFA] font-normal'>NEAR</span>
+            </div>
+            <small className='text-xs text-[#CBD5E1] font-normal'>
+              {formatNearAmount(balance, 2)} NEAR
+            </small>
+          </div>
         </div>
       </div>
-      <Button onClick={handleSignout}>Disconnect</Button>
+      <Button variant='outline' onClick={handleSignout}>
+        <Unlink size={16} color='#EF4444' />
+      </Button>
     </div>
   );
 };

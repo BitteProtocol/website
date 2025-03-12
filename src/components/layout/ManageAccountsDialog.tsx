@@ -67,8 +67,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     <>
       <div className='border-b border-[#334155] my-6'></div>
       <div className={`flex items-center gap-2 ${isMobile ? 'mb-4' : ''}`}>
-        <UserCheck size={20} />
-        <p className='text-white font-semibold'>Currently Connected</p>
+        <UserCheck size={16} color='#BABDC2' />
+        <p className='text-[#BABDC2] font-medium text-xs'>
+          Currently Connected
+        </p>
       </div>
       <div className='flex flex-col gap-4'>
         {isConnected && (
@@ -100,7 +102,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
         )}
       </div>
-      <div className='border-b border-[#334155] my-9'></div>
+      <div className='border-b border-[#334155] my-9 -mx-6'></div>
       <div>
         <div className='flex items-center gap-2 mb-7'>
           <UserPlus size={20} />
