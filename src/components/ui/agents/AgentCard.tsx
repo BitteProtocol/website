@@ -30,8 +30,9 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                   <AgentImage
                     alt={agent.name}
                     src={coverImage}
-                    fill={true}
+                    fill
                     className='rounded-sm'
+                    unoptimized
                   />
                 </div>
                 <div className='flex-1'>
