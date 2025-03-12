@@ -1,9 +1,9 @@
+import AgentImage from '@/components/layout/AgentImage';
 import { Badge } from '@/components/ui/badge';
 import { RegistryData } from '@/lib/types/agent.types';
+import { getCoverImageUrl, getRunAgentUrl } from '@/lib/utils/agent';
 import { shortenString } from '@/lib/utils/strings';
-import { generateId } from 'ai';
 import { CheckCircle2 } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarImage } from '../avatar';
 import { Button } from '../button';
@@ -16,15 +16,8 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
 
   if (!agent) return null;
 
-  const coverImage = agent.image
-    ? agent.image.startsWith('http')
-      ? agent.image.includes('localhost')
-        ? '/logo.svg'
-        : agent.image
-      : `/${agent.image.replace(/^\//, '')}`
-    : '/logo.svg';
-
-  const runAgentUrl = `/chat/${generateId()}?agentid=${agent.id}${agent.verified ? '' : '&mode=debug'}`;
+  const coverImage = getCoverImageUrl(agent.image);
+  const runAgentUrl = getRunAgentUrl(agent.id, agent.verified);
 
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
@@ -34,10 +27,10 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
             <div className='flex justify-between items-center text-white'>
               <div className='flex items-center gap-4 flex-1'>
                 <div className='h-[64px] w-[64px] relative'>
-                  <Image
+                  <AgentImage
+                    alt={agent.name}
                     src={coverImage}
-                    alt={agent?.id || 'agent'}
-                    fill={true}
+                    fill
                     className='rounded-sm'
                     unoptimized
                   />

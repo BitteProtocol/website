@@ -1,28 +1,22 @@
 import { Button } from '@/components/ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
-import Image from 'next/image';
+import { getCoverImageUrl, getRunAgentUrl } from '@/lib/utils/agent';
 import Link from 'next/link';
 import { ActionLink } from './ActionLink';
+import AgentImage from './AgentImage';
 
 export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
   if (!agent) return null;
 
-  const coverImage = agent.image
-    ? agent.image.startsWith('http')
-      ? agent.image.includes('localhost')
-        ? '/logo.svg'
-        : agent.image
-      : `/${agent.image.replace(/^\//, '')}`
-    : '/logo.svg';
-
-  const runAgentUrl = `/chat?agentid=${agent.id}${agent.verified ? '' : '&mode=debug'}`;
+  const coverImage = getCoverImageUrl(agent.image);
+  const runAgentUrl = getRunAgentUrl(agent.id, agent.verified);
 
   return (
     <aside className='sticky top-20'>
       <div className='flex w-full items-center gap-7'>
         <div className='w-[75px] h-[75px] relative aspect-square shrink-0'>
-          <Image
+          <AgentImage
             alt={agent.name}
             src={coverImage}
             fill={true}

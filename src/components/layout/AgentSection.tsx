@@ -1,13 +1,13 @@
+import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
-import Image from 'next/image';
+import { useBitteWallet } from '@bitte-ai/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import { useAccount } from 'wagmi';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { VerifiedAgentData } from '@/lib/types/agent.types';
-import { useRouter } from 'next/navigation';
-import { useBitteWallet } from '@bitte-ai/react';
-import { useAccount } from 'wagmi';
+import AgentImage from './AgentImage';
 
 export const AgentSection = ({
   agentData,
@@ -93,9 +93,9 @@ export const AgentSection = ({
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
-                <Image
-                  src={data?.image || '/bitte-symbol-black.svg'}
-                  className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
+                <AgentImage
+                  src={data?.image}
+                  className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
                   width={56}
                   height={56}
                   alt={`${data?.id}-logo`}
@@ -123,9 +123,9 @@ export const AgentSection = ({
             >
               <CardContent className='text-center p-3 flex items-center gap-3'>
                 <div>
-                  <Image
-                    src={data?.image || '/bitte-symbol-black.svg'}
-                    className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
+                  <AgentImage
+                    src={data?.image}
+                    className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
                     width={56}
                     height={56}
                     alt={`${data?.id}-logo`}
