@@ -15,11 +15,11 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
   };
 
   if (!agent) return null;
-  const coverImage = agent?.image
+
+  console.log({ image: agent.image });
+  const coverImage = agent.image
     ? agent.image.startsWith('http')
-      ? agent.image === 'http://localhost:3000/aave-agent-logo.png'
-        ? '/aave-agent-logo.png'
-        : agent.image
+      ? agent.image
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 
