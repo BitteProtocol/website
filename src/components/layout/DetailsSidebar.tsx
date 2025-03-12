@@ -1,17 +1,20 @@
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { RegistryData } from '@/lib/types/agent.types';
+import { MB_URL } from '@/lib/url';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ActionLink } from './ActionLink';
-import { MB_URL } from '@/lib/url';
 
 export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
   if (!agent) return null;
+
   const coverImage = agent?.image
     ? agent.image.startsWith('http')
       ? agent.image
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
+
+  const runAgentUrl = `/chat?agentid=${agent.id}${agent.verified ? '' : '&mode=debug'}`;
 
   return (
     <aside className='sticky top-20'>
@@ -41,7 +44,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             </Button>
           </Link>
         ) : null}
-        <Link className='w-full' href={`/chat?agentid=${agent.id}`}>
+        <Link className='w-full' href={runAgentUrl}>
           <Button variant='default' className='w-full'>
             Run Agent
           </Button>
@@ -73,7 +76,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             </Button>
           </Link>
         ) : null}
-        <Link className='w-full' href={`/chat?agentid=${agent.id}`}>
+        <Link className='w-full' href={runAgentUrl}>
           <Button variant='default' className='w-full'>
             Run Agent
           </Button>

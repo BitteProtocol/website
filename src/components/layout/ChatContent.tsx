@@ -36,8 +36,16 @@ const ChatContent = ({
   const agentIdParam = searchParams.get('agentid');
   const promptParam = searchParams.get('prompt');
 
+  const mode = modeParam || AssistantsMode.DEFAULT;
+  const isPlayground = mode === AssistantsMode.DEBUG;
+
+  const agentsList = isPlayground
+    ? agentData?.unverifiedAgents
+    : agentData?.agents;
+
   const togglePlayground = (value: boolean) => {
     const params = new URLSearchParams(searchParams.toString());
+
     if (value) {
       params.set('mode', AssistantsMode.DEBUG);
     } else {
@@ -46,13 +54,6 @@ const ChatContent = ({
 
     history.replaceState({}, '', `?${params.toString()}`);
   };
-
-  const mode = modeParam || AssistantsMode.DEFAULT;
-  const isPlayground = mode === AssistantsMode.DEBUG;
-
-  const agentsList = isPlayground
-    ? agentData?.unverifiedAgents
-    : agentData?.agents;
 
   const handleSelectAgent = (agent: RegistryData) => {
     setSelectedAgent(agent);
@@ -103,6 +104,15 @@ const ChatContent = ({
       }
     }
   }, [agentsList, selectedAgent, agentIdParam]);
+
+  useEffect(() => {
+    if (!agentData) return;
+    if (!isPlayground) {
+      handleSelectAgent(agentData.agents[0]);
+    } else {
+      handleSelectAgent(agentData.unverifiedAgents[0]);
+    }
+  }, [isPlayground, agentData]);
 
   // Debounce saving to sessionStorage to prevent excessive writes
   useEffect(() => {

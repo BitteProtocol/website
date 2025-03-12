@@ -1,9 +1,9 @@
 import {
   ArrowUpRight,
   Bot,
-  TerminalSquare,
   ChevronDown,
   ChevronUp,
+  TerminalSquare,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -17,10 +17,17 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarRail,
-  useSidebar,
   SidebarSeparator,
+  useSidebar,
 } from '@/components/ui/sidebar';
+import { BITTE_AGENTID } from '@/lib/agentConstants';
+import { networkMapping } from '@/lib/utils/chainIds';
 import { useBitteWallet } from '@bitte-ai/react';
+import {
+  useAppKit,
+  useAppKitNetwork,
+  useAppKitState,
+} from '@reown/appkit/react';
 import { generateId } from 'ai';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -30,13 +37,6 @@ import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
 import { CopyStandard } from './ui/copy/Copy';
-import { BITTE_AGENTID } from '@/lib/agentConstants';
-import {
-  useAppKitNetwork,
-  useAppKit,
-  useAppKitState,
-} from '@reown/appkit/react';
-import { networkMapping } from '@/lib/utils/chainIds';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -135,40 +135,44 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter className='p-4 w-full'>
         {activeAccountId || isConnected ? (
           <div className='flex flex-col gap-4 mb-4'>
-            <span className='text-[10px] text-[#B2B2B3] font-semibold'>
-              Accounts & Network
-            </span>
-            <SidebarSeparator className='bg-[#09090B] -mx-4' />
-
-            {activeAccountId ? (
+            {open ? (
               <>
-                <div>
-                  <div className='bg-[#27272A] rounded-full py-1 px-3 flex items-center w-[100px] gap-2 mb-3'>
-                    <div className='bg-black p-0.5 rounded'>
-                      <Image
-                        src='/chains/near_wallet_connector_v2.svg'
-                        width={14}
-                        height={14}
-                        alt='connect-wallet-modal-logo-near'
-                      />
-                    </div>
-                    <span className='text-xs text-[#FAFAFA] font-normal'>
-                      NEAR
-                    </span>
-                  </div>
-
-                  <span className='text-xs texrt-[#CBD5E1] flex items-center gap-3'>
-                    <CopyStandard
-                      text={activeAccountId}
-                      textColor='#CBD5E1'
-                      textSize='xs'
-                      copySize={14}
-                      nopadding
-                      isNearAddress
-                    />
-                  </span>
-                </div>
+                <span className='text-[10px] text-[#B2B2B3] font-semibold'>
+                  Accounts & Network
+                </span>
                 <SidebarSeparator className='bg-[#09090B] -mx-4' />
+
+                {activeAccountId ? (
+                  <>
+                    <div>
+                      <div className='bg-[#27272A] rounded-full py-1 px-3 flex items-center w-[100px] gap-2 mb-3'>
+                        <div className='bg-black p-0.5 rounded'>
+                          <Image
+                            src='/chains/near_wallet_connector_v2.svg'
+                            width={14}
+                            height={14}
+                            alt='connect-wallet-modal-logo-near'
+                          />
+                        </div>
+                        <span className='text-xs text-[#FAFAFA] font-normal'>
+                          NEAR
+                        </span>
+                      </div>
+
+                      <span className='text-xs texrt-[#CBD5E1] flex items-center gap-3'>
+                        <CopyStandard
+                          text={activeAccountId}
+                          textColor='#CBD5E1'
+                          textSize='xs'
+                          copySize={14}
+                          nopadding
+                          isNearAddress
+                        />
+                      </span>
+                    </div>
+                    <SidebarSeparator className='bg-[#09090B] -mx-4' />
+                  </>
+                ) : null}
               </>
             ) : null}
             {isConnected && (
