@@ -78,10 +78,7 @@ export const AgentSelector = ({
                     : agent;
 
                 onSelectAgent(selectedAgent);
-                sessionStorage.setItem(
-                  'selectedselectedAgent',
-                  JSON.stringify(agent)
-                ); // Save to sessionStorage when an agent is selected
+                sessionStorage.setItem('selectedAgent', JSON.stringify(agent)); // Save to sessionStorage when an agent is selected
               }}
               className={cn(
                 'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent',
