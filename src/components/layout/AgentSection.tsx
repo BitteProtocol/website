@@ -76,7 +76,6 @@ export const AgentSection = ({
     return <></>;
   }
 
-  console.log('force commit in vercel');
 
   return (
     <section className='relative mb-12'>
