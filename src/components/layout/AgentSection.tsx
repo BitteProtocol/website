@@ -76,6 +76,8 @@ export const AgentSection = ({
     return <></>;
   }
 
+  console.log('force commit in vercel');
+
   return (
     <section className='relative mb-12'>
       <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
