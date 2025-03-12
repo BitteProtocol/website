@@ -22,6 +22,8 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 
+  const runAgentUrl = `/chat?agentid=${agent.id}${agent.verified ? '' : '&mode=debug'}`;
+
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
       <Link href={goToAgentDetail('Hey, what can you do for me?')}>
@@ -48,10 +50,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                 </div>
               </div>
               <div className='hidden lg:flex items-center gap-4'>
-                <Link
-                  href={goToAgentDetail('Hey, what can you do for me?')}
-                  className='w-full'
-                >
+                <Link href={runAgentUrl} className='w-full'>
                   <Button variant='secondary'>Run Agent</Button>
                 </Link>
               </div>
@@ -81,7 +80,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                     className={
                       agent?.id === 'simple-token-drop' ? 'hidden' : ''
                     }
-                    href={goToAgentDetail('Hey, what can you do for me?')}
+                    href={runAgentUrl}
                   >
                     <Button variant='secondary'>Run Agent</Button>
                   </Link>
