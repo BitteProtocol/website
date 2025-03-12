@@ -15,7 +15,8 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
   };
 
   if (!agent) return null;
-  const coverImage = agent?.image
+
+  const coverImage = agent.image
     ? agent.image.startsWith('http')
       ? '/logo.svg'
       : `/${agent.image.replace(/^\//, '')}`
