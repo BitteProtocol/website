@@ -11,15 +11,13 @@ import { Button } from '../button';
 const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
   const goToAgentDetail = (message: string) => {
     const encodedPrompt = encodeURIComponent(message);
-    return `agents/${agent.id}?prompt=${encodedPrompt}`;
+    return `/agents/${agent.id}?prompt=${encodedPrompt}`;
   };
 
   if (!agent) return null;
   const coverImage = agent?.image
     ? agent.image.startsWith('http')
-      ? agent.image === 'http://localhost:3000/aave-agent-logo.png'
-        ? '/aave-agent-logo.png'
-        : agent.image
+      ? '/logo.svg'
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 

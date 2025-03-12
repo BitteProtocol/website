@@ -10,7 +10,7 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
 
   const coverImage = agent?.image
     ? agent.image.startsWith('http')
-      ? agent.image
+      ? '/logo.svg'
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 
