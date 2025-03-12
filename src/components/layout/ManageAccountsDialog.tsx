@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/drawer';
 import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { PlusCircle, User, UserCheck, UserPlus } from 'lucide-react';
+import { User, UserCheck, UserPlus } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { formatEther } from 'viem';

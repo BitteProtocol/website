@@ -6,11 +6,8 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import { getBalance } from '@mintbase-js/rpc';
 import { useState } from 'react';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
-import { Roboto_Mono } from 'next/font/google';
 import CurrentlyConnected from './CurrentlyConnected';
 import ConnectAccountCard from './ConnectAccountCard';
-
-const roboto_mono = Roboto_Mono({ subsets: ['latin'] });
 
 export const NearWalletConnector = ({
   setConnectModalOpen,
