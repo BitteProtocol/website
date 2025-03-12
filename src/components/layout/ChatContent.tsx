@@ -49,7 +49,7 @@ const ChatContent = ({
     if (value) {
       params.set('mode', AssistantsMode.DEBUG);
       if (agentData?.agents[0]) {
-        handleSelectAgent(agentData.unverifiedAgents[0]); // Ensure agent is defined before calling
+        handleSelectAgent(agentData.unverifiedAgents[0]);
       }
     } else {
       params.delete('mode');
