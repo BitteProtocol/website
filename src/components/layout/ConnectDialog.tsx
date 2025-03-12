@@ -17,7 +17,6 @@ import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
-import { Roboto_Mono } from 'next/font/google';
 import { useAppKit } from '@reown/appkit/react';
 import ConnectAccountCard from './ConnectAccountCard';
 
@@ -28,8 +27,6 @@ interface ConnectDialogProps {
   isSidebar?: boolean;
   sidebarOpen?: boolean;
 }
-
-const roboto_mono = Roboto_Mono({ subsets: ['latin'] });
 
 const ConnectDialog: React.FC<ConnectDialogProps> = ({
   isOpen,
