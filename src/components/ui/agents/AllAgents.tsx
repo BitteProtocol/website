@@ -52,7 +52,8 @@ const AllAgents = (props: AgentData) => {
 
       // Check if agent name includes the search keyword
       const matchesSearch = searchKeyword.length
-        ? agent.name.toLowerCase().includes(searchKeyword.toLowerCase())
+        ? agent.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+          agent.id.toLowerCase().includes(searchKeyword.toLowerCase())
         : true;
 
       return matchesFilters && matchesSearch;
