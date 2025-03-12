@@ -8,9 +8,11 @@ import { ActionLink } from './ActionLink';
 export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
   if (!agent) return null;
 
-  const coverImage = agent?.image
+  const coverImage = agent.image
     ? agent.image.startsWith('http')
-      ? '/logo.svg'
+      ? agent.image.includes('localhost')
+        ? '/logo.svg'
+        : agent.image
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
 
