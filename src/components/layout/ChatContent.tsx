@@ -54,7 +54,7 @@ const ChatContent = ({
     } else {
       params.delete('mode');
       if (agentData?.unverifiedAgents[0]) {
-        handleSelectAgent(agentData.agents[0]); // Ensure agent is defined before calling
+        handleSelectAgent(agentData.agents[0]);
       }
     }
 
