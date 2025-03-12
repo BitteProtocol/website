@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { RegistryData } from '@/lib/types/agent.types';
 import { shortenString } from '@/lib/utils/strings';
+import { generateId } from 'ai';
 import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,6 +22,8 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
         : agent.image
       : `/${agent.image.replace(/^\//, '')}`
     : '/logo.svg';
+
+  const runAgentUrl = `/chat/${generateId()}?agentid=${agent.id}${agent.verified ? '' : '&mode=debug'}`;
 
   return (
     <div className='rounded-md cursor-pointer bg-gradient-to-b from-mb-gray-750 to-mb-gray-650 p-[1px] h-fit w-full hover:bg-mb-gray-450 transition-all duration-500'>
@@ -48,10 +51,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                 </div>
               </div>
               <div className='hidden lg:flex items-center gap-4'>
-                <Link
-                  href={goToAgentDetail('Hey, what can you do for me?')}
-                  className='w-full'
-                >
+                <Link href={runAgentUrl} className='w-full'>
                   <Button variant='secondary'>Run Agent</Button>
                 </Link>
               </div>
@@ -81,7 +81,7 @@ const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
                     className={
                       agent?.id === 'simple-token-drop' ? 'hidden' : ''
                     }
-                    href={goToAgentDetail('Hey, what can you do for me?')}
+                    href={runAgentUrl}
                   >
                     <Button variant='secondary'>Run Agent</Button>
                   </Link>
