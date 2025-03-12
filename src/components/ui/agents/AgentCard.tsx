@@ -11,7 +11,7 @@ import { Button } from '../button';
 const AgentCard = ({ agent }: { agent: RegistryData }): JSX.Element | null => {
   const goToAgentDetail = (message: string) => {
     const encodedPrompt = encodeURIComponent(message);
-    return `agents/${agent.id}?prompt=${encodedPrompt}`;
+    return `/agents/${agent.id}?prompt=${encodedPrompt}`;
   };
 
   if (!agent) return null;
