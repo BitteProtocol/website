@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/sidebar';
 import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { networkMapping } from '@/lib/utils/chainIds';
-import { useBitteWallet } from '@bitte-ai/react';
+import { useBitteWallet } from '@/pkg/react';
 import {
   useAppKit,
   useAppKitNetwork,

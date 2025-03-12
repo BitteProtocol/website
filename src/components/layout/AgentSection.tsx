@@ -1,6 +1,6 @@
 import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
-import { useBitteWallet } from '@bitte-ai/react';
+import { useBitteWallet } from '@/pkg/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';

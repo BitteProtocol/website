@@ -2,12 +2,12 @@
 
 import { RegistryData } from '@/lib/types/agent.types';
 import { BitteAiChat } from '@bitte-ai/chat';
-import { useBitteWallet, Wallet } from '@bitte-ai/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
 import ConnectDialog from './ConnectDialog';
 import CustomChatSendButton from './CustomChatSendBtn';
+import { useBitteWallet, Wallet } from '@/pkg/react';
 
 const chatColors = {
   generalBackground: '#18181A',

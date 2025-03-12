@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useBitteWallet } from '@bitte-ai/react';
+import { useBitteWallet } from '@/pkg/react';
 import { useAccount } from 'wagmi';
 import { usePathname } from 'next/navigation';
 

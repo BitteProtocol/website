@@ -4,7 +4,7 @@ import ContextProvider from '@/context';
 import {
   BitteWalletContextProvider,
   WalletModuleFactory,
-} from '@bitte-ai/react';
+} from '@/pkg/react';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 
 const BitteWalletSetup = {

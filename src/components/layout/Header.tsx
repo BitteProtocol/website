@@ -16,7 +16,7 @@ import { MB_URL } from '@/lib/url';
 import { cn } from '@/lib/utils';
 import { shouldShowHeader } from '@/lib/utils/useShowHeader';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { useBitteWallet } from '@bitte-ai/react';
+import { useBitteWallet } from '@/pkg/react';
 import { ArrowUpRight, Menu, Settings, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
