@@ -52,11 +52,9 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
         />
         <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
       </div>
-      <div
-        className={`border-b border-[#334155] ${isMobile ? 'my-9' : 'my-6'}`}
-      ></div>
+      <div className='border-b border-[#334155] my-6'></div>
       <a
-        className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
+        className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
         href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
         target='_blank'
         rel='noreferrer'
@@ -91,9 +89,14 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
           </Button>
         </DrawerTrigger>
         <DrawerContent className='p-6 border-none'>
-          <DrawerTitle className='font-semibold text-xl mb-7 mt-5'>
-            Connect Wallet
-          </DrawerTitle>
+          <div className='mb-7 mt-5'>
+            <DrawerTitle className='font-semibold text-xl mb-1'>
+              Connect Wallet
+            </DrawerTitle>
+            <p className='text-[#BABDC2] text-xs'>
+              Import an existing account or create a new one.
+            </p>
+          </div>
           {content}
         </DrawerContent>
       </Drawer>

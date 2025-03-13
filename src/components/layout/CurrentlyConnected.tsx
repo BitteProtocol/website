@@ -27,7 +27,7 @@ const CurrentlyConnected = ({
           height={40}
           alt='connect-wallet-modal-logo-near'
         />
-        <div className='flex flex-col items-start gap-1'>
+        <div className='flex flex-col items-start gap-1.5'>
           <CopyStandard
             text={accountId}
             textColor='#CBD5E1'
@@ -36,7 +36,7 @@ const CurrentlyConnected = ({
             nopadding
             isNearAddress
           />
-          <div className='flex items-center gap-5'>
+          <div className='flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-5'>
             {networkBadge}
             <small className='text-xs text-[#CBD5E1] font-normal'>
               {balance} {network}

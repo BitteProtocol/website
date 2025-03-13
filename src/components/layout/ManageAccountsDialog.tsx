@@ -71,7 +71,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
 
   const content = (
     <>
-      <div className='border-b border-[#334155] -mx-8 my-6'></div>
+      <div className='border-b border-[#334155] -mx-8 my-5'></div>
       <div className={`flex items-center gap-2 ${isMobile ? 'mb-4' : ''}`}>
         <UserCheck size={16} color='#BABDC2' />
         <p className='text-[#BABDC2] font-medium text-xs'>
@@ -97,10 +97,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           />
         )}
       </div>
-      <div className='border-b border-[#334155] my-9 -mx-8'></div>
+      <div className='border-b border-[#334155] my-5 -mx-8'></div>
       <div>
-        <div className='flex items-center gap-2 mb-7'>
-          <UserPlus size={16} />
+        <div className='flex items-center gap-2 mb-4'>
+          <UserPlus size={16} color='#BABDC2' />
           <p className='text-[#BABDC2] font-medium text-xs'>Connect Accounts</p>
         </div>
         <div className='flex flex-col gap-4'>
@@ -121,11 +121,8 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
               account='blackdragon.near'
             />
           )}
-          {!isNearConnected || !isConnected ? (
-            <div className='border-b border-[#334155] my-2'></div>
-          ) : null}
           <a
-            className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
+            className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
             href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
             target='_blank'
             rel='noreferrer'
