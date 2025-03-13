@@ -34,7 +34,7 @@ const CurrentlyConnected = ({
             textSize='sm'
             copySize={14}
             nopadding
-            isNearAddress
+            isNearAddress={network === 'NEAR' ? true : false}
           />
           <div className='flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-5'>
             {networkBadge}

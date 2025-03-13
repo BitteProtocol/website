@@ -19,7 +19,6 @@ import { formatEther } from 'viem';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
-import { shortenAddress } from '@/lib/utils/strings';
 import CurrentlyConnected from './CurrentlyConnected';
 import EvmNetworkSelector from './EvmNetworkSelector';
 import ConnectAccountCard from './ConnectAccountCard';
@@ -85,7 +84,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
         {isConnected && (
           <CurrentlyConnected
             chainIcon='/chains/evm_wallet_connector.svg'
-            accountId={shortenAddress(address)}
+            accountId={address as string}
             networkBadge={<EvmNetworkSelector />}
             network={balance?.symbol || ''}
             balance={
