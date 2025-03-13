@@ -26,6 +26,8 @@ export default function AgentCard({
   const coverImage = getCoverImageUrl(agent.image);
   const runAgentUrl = getRunAgentUrl(agent.id, agent.verified);
 
+  const mappedChainIds = mapChainIdsToNetworks(agent?.chainIds || [0]); // default to NEAR
+
   return (
     <div className='bg-gradient-to-b from-[#313E52] to-[#18181a] p-[1px] rounded-xl md:rounded-lg cursor-pointer h-[336px] md:h-[254px]'>
       <div className='bg-[#18181a] rounded-xl md:rounded-lg p-4 hover:bg-[#1a1a24] transition-all duration-500 h-full flex flex-col'>
@@ -101,52 +103,48 @@ export default function AgentCard({
               </span>
 
               <div className='flex items-center gap-2 flex-wrap'>
-                {mapChainIdsToNetworks(agent.chainIds || [0]) // defaults to NEAR
-                  .slice(0, 4)
-                  .map((network, index) => (
-                    <div
-                      key={index}
-                      className='flex items-center gap-1 bg-[#27272a] px-2 py-1 rounded-full'
-                    >
-                      <div className='relative w-5 h-5'>
-                        <Image
-                          src={network.icon}
-                          alt={`${network.name} icon`}
-                          fill
-                          className='object-contain rounded-md'
-                        />
-                      </div>
-
-                      <span className='text-xs'>{network.name}</span>
+                {mappedChainIds.slice(0, 4).map((network, index) => (
+                  <div
+                    key={index}
+                    className='flex items-center gap-1 bg-[#27272a] px-2 py-1 rounded-full'
+                  >
+                    <div className='relative w-5 h-5'>
+                      <Image
+                        src={network.icon}
+                        alt={`${network.name} icon`}
+                        fill
+                        className='object-contain rounded-md'
+                      />
                     </div>
-                  ))}
 
-                {agent.chainIds && agent.chainIds.length > 4 && (
+                    <span className='text-xs'>{network.name}</span>
+                  </div>
+                ))}
+
+                {mappedChainIds?.length > 4 && (
                   <div className='relative group'>
                     <span className='text-xs bg-[#27272a] text-white py-1 px-3 rounded-full cursor-help'>
-                      +{agent.chainIds.length - 4}
+                      +{mappedChainIds.length - 4}
                     </span>
                     <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white text-xs rounded py-1 px-2 w-fit shadow-lg z-10'>
                       <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2'></div>
                       <div className='flex flex-col gap-1.5'>
-                        {mapChainIdsToNetworks(agent.chainIds)
-                          .slice(4)
-                          .map((network, index) => (
-                            <div
-                              key={index}
-                              className='flex items-center gap-1.5'
-                            >
-                              <div className='relative w-4 h-4'>
-                                <Image
-                                  src={network.icon}
-                                  alt={`${network.name} icon`}
-                                  fill
-                                  className='object-contain rounded-md'
-                                />
-                              </div>
-                              <span>{network.name}</span>
+                        {mappedChainIds.slice(4).map((network, index) => (
+                          <div
+                            key={index}
+                            className='flex items-center gap-1.5'
+                          >
+                            <div className='relative w-4 h-4'>
+                              <Image
+                                src={network.icon}
+                                alt={`${network.name} icon`}
+                                fill
+                                className='object-contain rounded-md'
+                              />
                             </div>
-                          ))}
+                            <span>{network.name}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
