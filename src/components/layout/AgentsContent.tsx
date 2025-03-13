@@ -16,8 +16,6 @@ const AgentContent = () => {
     return <PageLoaderSkeleton />;
   }
 
-  console.log({ data });
-
   return (
     <div className='relative z-30'>
       <AllAgentsWithNoSSR

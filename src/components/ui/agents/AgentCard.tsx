@@ -68,7 +68,7 @@ export default function AgentCard({
       </p>
 
       <div className='space-y-4 md:space-y-3'>
-        <div className='flex flex-wrap gap-2'>
+        <div className='flex flex-wrap gap-2 items-center'>
           <span className='hidden md:inline-flex text-xs text-[#7c7c7c]'>
             By {agent.accountId}
           </span>
@@ -91,64 +91,61 @@ export default function AgentCard({
 
         <div>
           <div className='flex flex-wrap items-center gap-2'>
-            <span className='text-sm md:text-xs text-[#7c7c7c] w-full md:w-auto mb-2 md:mb-0'>
+            <span className='text-xs text-[#7c7c7c] w-auto hidden md:block md:mb-0'>
               Chains
             </span>
-            {agent.chainIds && agent.chainIds.length > 0 && (
-              <div className='flex items-center gap-2'>
-                {mapChainIdsToNetworks(agent.chainIds)
-                  .slice(0, 2)
-                  .map((network, index) => (
-                    <div
-                      key={index}
-                      className='flex items-center gap-1 bg-[#27272a] md:bg-transparent px-2 py-1 md:p-0 rounded-full md:rounded-none'
-                    >
-                      <div
-                        className='w-5 h-5 rounded-full flex items-center justify-center text-[10px]'
-                        style={{
-                          backgroundColor: getNetworkColor(network.name),
-                        }}
-                      >
-                        {getNetworkSymbol(network.name)}
-                      </div>
-                      <span className='text-sm md:text-xs'>{network.name}</span>
-                    </div>
-                  ))}
 
-                {agent.chainIds.length > 2 && (
-                  <div className='relative group'>
-                    <span className='text-sm md:text-xs text-[#7c7c7c] bg-[#27272a] md:bg-transparent px-2 py-1 md:p-0 rounded-full md:rounded-none cursor-help'>
-                      +{agent.chainIds.length - 2}
-                    </span>
-                    <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white text-xs rounded p-2 w-48 shadow-lg z-10'>
-                      <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-[#27272a]'></div>
-                      <div className='flex flex-col gap-1.5'>
-                        {mapChainIdsToNetworks(agent.chainIds)
-                          .slice(2)
-                          .map((network, index) => (
+            <div className='flex items-center gap-2'>
+              {mapChainIdsToNetworks(agent.chainIds || [0]) // defaults to NEAR
+                .slice(0, 2)
+                .map((network, index) => (
+                  <div
+                    key={index}
+                    className='flex items-center gap-1 bg-[#27272a] md:bg-transparent px-2 py-1 md:p-0 rounded-full md:rounded-none'
+                  >
+                    <div
+                      className='w-5 h-5 rounded-full flex items-center justify-center text-[10px]'
+                      style={{
+                        backgroundColor: getNetworkColor(network.name),
+                      }}
+                    >
+                      {getNetworkSymbol(network.name)}
+                    </div>
+                    <span className='text-sm md:text-xs'>{network.name}</span>
+                  </div>
+                ))}
+
+              {agent.chainIds && agent.chainIds.length > 2 && (
+                <div className='relative group'>
+                  <span className='text-sm md:text-xs text-[#7c7c7c] bg-[#27272a] md:bg-transparent px-2 py-1 md:p-0 rounded-full md:rounded-none cursor-help'>
+                    +{agent.chainIds.length - 2}
+                  </span>
+                  <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white text-xs rounded p-2 w-48 shadow-lg z-10'>
+                    <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-[#27272a]'></div>
+                    <div className='flex flex-col gap-1.5'>
+                      {mapChainIdsToNetworks(agent.chainIds)
+                        .slice(2)
+                        .map((network, index) => (
+                          <div
+                            key={index}
+                            className='flex items-center gap-1.5'
+                          >
                             <div
-                              key={index}
-                              className='flex items-center gap-1.5'
+                              className='w-4 h-4 rounded-full flex items-center justify-center text-[10px]'
+                              style={{
+                                backgroundColor: getNetworkColor(network.name),
+                              }}
                             >
-                              <div
-                                className='w-4 h-4 rounded-full flex items-center justify-center text-[10px]'
-                                style={{
-                                  backgroundColor: getNetworkColor(
-                                    network.name
-                                  ),
-                                }}
-                              >
-                                {getNetworkSymbol(network.name)}
-                              </div>
-                              <span>{network.name}</span>
+                              {getNetworkSymbol(network.name)}
                             </div>
-                          ))}
-                      </div>
+                            <span>{network.name}</span>
+                          </div>
+                        ))}
                     </div>
                   </div>
-                )}
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
