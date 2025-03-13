@@ -28,8 +28,10 @@ export const AgentSelector = ({
   const selectedAgentRef = useRef<HTMLDivElement | null>(null);
 
   const filteredAgents = searchKeyword.length
-    ? agentData?.filter((agent) =>
-        agent.name.toLowerCase().includes(searchKeyword.toLowerCase())
+    ? agentData?.filter(
+        (agent) =>
+          agent.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+          agent.id.toLowerCase().includes(searchKeyword.toLowerCase())
       )
     : agentData;
 

@@ -1,14 +1,15 @@
-import Image from 'next/image';
 import { Card } from '@/components/ui/card';
+import { ACTION_TEXTS } from '@/lib/agentConstants';
 import { RegistryData } from '@/lib/types/agent.types';
 import { mapChainIdsToNetworks } from '@/lib/utils/chainIds';
-import { Button } from '../ui/button';
-import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ACTION_TEXTS } from '@/lib/agentConstants';
+import { useEffect } from 'react';
+import { Button } from '../ui/button';
 import InfoTooltip from '../ui/InfoTooltip';
+import AgentImage from './AgentImage';
 
 export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
   const router = useRouter();
@@ -33,8 +34,8 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
           >
             <div className='flex items-start gap-3 mb-4'>
               <div className='relative w-12 h-12 rounded-md overflow-hidden'>
-                <Image
-                  src={agent.image || '/placeholder.svg'}
+                <AgentImage
+                  src={agent.image}
                   alt={`${agent.name} logo`}
                   width={48}
                   height={48}

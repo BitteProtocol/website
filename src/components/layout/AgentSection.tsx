@@ -1,13 +1,13 @@
+import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
-import Image from 'next/image';
+import { useBitteWallet } from '@bitte-ai/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import { useAccount } from 'wagmi';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
-import { VerifiedAgentData } from '@/lib/types/agent.types';
-import { useRouter } from 'next/navigation';
-import { useBitteWallet } from '@bitte-ai/react';
-import { useAccount } from 'wagmi';
+import AgentImage from './AgentImage';
 
 export const AgentSection = ({
   agentData,
@@ -81,7 +81,7 @@ export const AgentSection = ({
       <div className='absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-r from-black to-transparent z-10'></div>
       <div className='absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-l from-black to-transparent z-10'></div>
       <div
-        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars mb-3'
+        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto overflow-y-hidden disable-scrollbars mb-3'
         ref={scrollContainerRef1}
         style={{ scrollBehavior: 'auto' }}
       >
@@ -93,9 +93,9 @@ export const AgentSection = ({
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
-                <Image
-                  src={data?.image || '/bitte-symbol-black.svg'}
-                  className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
+                <AgentImage
+                  src={data?.image}
+                  className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
                   width={56}
                   height={56}
                   alt={`${data?.id}-logo`}
@@ -108,7 +108,7 @@ export const AgentSection = ({
         ))}
       </div>
       <div
-        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto disable-scrollbars'
+        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto overflow-y-hidden disable-scrollbars'
         ref={scrollContainerRef2}
         style={{ scrollBehavior: 'auto', paddingLeft: '50px' }}
       >
@@ -123,9 +123,9 @@ export const AgentSection = ({
             >
               <CardContent className='text-center p-3 flex items-center gap-3'>
                 <div>
-                  <Image
-                    src={data?.image || '/bitte-symbol-black.svg'}
-                    className={`object-contain max-h-[56px] max-w-[160px] min-h-[40px] ${!data?.image ? 'bg-white' : ''}`}
+                  <AgentImage
+                    src={data?.image}
+                    className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
                     width={56}
                     height={56}
                     alt={`${data?.id}-logo`}
