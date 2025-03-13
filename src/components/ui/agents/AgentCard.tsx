@@ -68,14 +68,14 @@ export default function AgentCard({
           </div>
 
           <div className='flex-grow overflow-hidden'>
-            <p className='text-xs md:text-sm text-[#a1a1a9] mb-6 md:mb-4'>
+            <p className='text-xs md:text-sm text-[#B4B4B4] mb-6 md:mb-4'>
               {shortenString(agent?.description || '', 150)}
             </p>
           </div>
 
           <div className='mt-auto'>
             <div className='flex flex-wrap gap-2 items-center'>
-              <span className='hidden md:inline-flex text-sm text-[#7c7c7c]'>
+              <span className='hidden md:inline-flex text-sm text-[#B4B4B4]'>
                 By {agent.accountId}
               </span>
               {agent.category && (
@@ -96,7 +96,7 @@ export default function AgentCard({
             </div>
 
             <div className='flex flex-wrap items-center gap-2 mt-4'>
-              <span className='text-xs md:text-sm text-[#7c7c7c] w-auto hidden md:block md:mb-0'>
+              <span className='text-xs md:text-sm text-[#B4B4B4] w-auto hidden md:block md:mb-0'>
                 Chains
               </span>
 
@@ -123,12 +123,12 @@ export default function AgentCard({
 
                 {agent.chainIds && agent.chainIds.length > 4 && (
                   <div className='relative group'>
-                    <span className='text-sm md:text-xs text-[#7c7c7c] bg-[#27272a] md:bg-transparent px-2 py-1 md:p-0 rounded-full md:rounded-none cursor-help'>
+                    <span className='text-xs bg-[#27272a] text-white py-1 px-3 rounded-full cursor-help'>
                       +{agent.chainIds.length - 4}
                     </span>
-                    <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white text-xs rounded p-2 w-48 shadow-lg z-10'>
+                    <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white text-xs rounded py-1 px-2 w-fit shadow-lg z-10'>
                       <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2'></div>
-                      <div className='flex flex-col gap-1.5 w-fit'>
+                      <div className='flex flex-col gap-1.5'>
                         {mapChainIdsToNetworks(agent.chainIds)
                           .slice(4)
                           .map((network, index) => (
