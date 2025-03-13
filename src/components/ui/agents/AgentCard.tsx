@@ -28,7 +28,7 @@ export default function AgentCard({
 
   return (
     <div className='bg-gradient-to-b from-[#313E52] to-[#18181a] p-[1px] rounded-xl md:rounded-lg cursor-pointer'>
-      <div className='bg-[#18181a] rounded-xl md:rounded-lg p-4 hover:bg-[#222225] transition-all duration-500 h-full'>
+      <div className='bg-[#18181a] rounded-xl md:rounded-lg p-4 hover:bg-[#1a1a24] transition-all duration-500 h-full'>
         <Link href={goToAgentDetail('Hey, what can you do for me?')}>
           <div className='flex flex-col md:flex-row md:justify-between md:items-start gap-4 md:gap-0 mb-4'>
             <div className='flex items-center gap-3'>
