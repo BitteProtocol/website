@@ -126,7 +126,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {activeAccountId ? (
                   <>
                     <div>
-                      <div className='bg-[#27272A] rounded-full py-0.5 px-3 flex items-center gap-2 mb-3'>
+                      <div className='bg-[#27272A] rounded-full py-0.5 px-3 flex items-center gap-2 mb-3 w-fit'>
                         <div className='bg-black p-0.5 rounded'>
                           <Image
                             src='/chains/near_wallet_connector_v2.svg'
@@ -154,23 +154,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarSeparator className='bg-[#09090B] -mx-4' />
                   </>
                 ) : null}
+
+                {isConnected && (
+                  <>
+                    <div className='flex flex-col items-start gap-3'>
+                      <EvmNetworkSelector />
+                      <CopyStandard
+                        text={address as string}
+                        textColor='#CBD5E1'
+                        textSize='xs'
+                        copySize={14}
+                        nopadding
+                      />
+                    </div>
+                    <SidebarSeparator className='bg-[#09090B] -mx-4' />
+                  </>
+                )}
               </>
             ) : null}
-            {isConnected && (
-              <>
-                <div className='flex flex-col items-start gap-3'>
-                  <EvmNetworkSelector />
-                  <CopyStandard
-                    text={address as string}
-                    textColor='#CBD5E1'
-                    textSize='xs'
-                    copySize={14}
-                    nopadding
-                  />
-                </div>
-                <SidebarSeparator className='bg-[#09090B] -mx-4' />
-              </>
-            )}
           </div>
         ) : null}
         {!isConnected && !isNearConnected && (
