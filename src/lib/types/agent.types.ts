@@ -20,7 +20,7 @@ export interface RegistryData {
 }
 
 export interface Filters {
-  values: string[];
+  values: { id: string; name: string; image?: string }[];
   label: string;
 }
 
