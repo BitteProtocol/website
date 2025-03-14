@@ -1,6 +1,7 @@
 import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { AgentData, Filters, RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
+import { networkMapping } from '@/lib/utils/chainIds';
 import { useEffect, useState } from 'react';
 
 // Helper function to filter out local and tunnel URLs
@@ -86,8 +87,19 @@ export const useVerifiedAssistants = () => {
           agents: filteredAssistants,
           filters: [
             {
-              label: 'Category',
-              values: categories as string[],
+              label: 'Categories',
+              values: (categories as string[]).map((value) => {
+                return {
+                  id: value,
+                  name: value,
+                };
+              }),
+            },
+            {
+              label: 'Networks',
+              values: Object.entries(networkMapping).map(([key, value]) => {
+                return { id: key, name: value.name, image: value.icon };
+              }),
             },
           ],
         });
@@ -145,8 +157,19 @@ export const useAllAssistants = () => {
           unverifiedAgents: unverifiedAgents,
           filters: [
             {
-              label: 'Category',
-              values: categories as string[],
+              label: 'Categories',
+              values: (categories as string[]).map((value) => {
+                return {
+                  id: value,
+                  name: value,
+                };
+              }),
+            },
+            {
+              label: 'Networks',
+              values: Object.entries(networkMapping).map(([key, value]) => {
+                return { id: key, name: value.name, image: value.icon };
+              }),
             },
           ],
         });

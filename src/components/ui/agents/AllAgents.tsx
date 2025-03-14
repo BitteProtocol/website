@@ -44,8 +44,12 @@ const AllAgents = (props: AgentData) => {
 
       // Check if agent matches all selected filters
       const matchesFilters = selectedFilters.every((filter) => {
-        if (filter.label === 'Category' && agent.category) {
-          return filter.values.includes(agent.category);
+        if (filter.label === 'Categories' && agent.category) {
+          return filter.values.some((value) => value.name === agent.category);
+        } else if (filter.label === 'Networks' && agent.chainIds) {
+          return agent.chainIds.some((chainId) =>
+            filter.values.some((value) => value.id === chainId.toString())
+          );
         }
         return true;
       });
