@@ -11,7 +11,7 @@ const BitteWalletSetup = {
   network: 'mainnet',
   callbackUrl: typeof window !== 'undefined' ? window.location.origin : '',
   contractAddress: '',
-  walletUrl: 'https://mintbase-wallet-hzimsr3cc-bitteprotocol.vercel.app/',
+  walletUrl: 'https://mintbase-wallet-mfigmohxl-bitteprotocol.vercel.app/',
 };
 
 type ProvidersProps = {
