@@ -27,28 +27,15 @@ const headerTextSection = {
   noSpacing: true,
 };
 
-const paymasterSection = {
-  thumb: '/video/paymaster-thumb.jpg',
-  src: '/video/paymaster.mp4',
-  title: 'Paymaster',
-  subHeader:
-    'Fund gasless transactions for your community on any NEAR smart contract and enable or disable specific functions.',
-  factTitle: 'Sponsored Relays',
-  fact: '+250k',
-  btnTitle: 'Sponsor Now',
-  btnUrl: MB_URL.PAYMASTER,
-  isDisabled: false,
-};
-
 const crossSection = {
-  thumb: '/video/cross-thumb.jpg',
-  src: '/video/cross-chain.mp4',
-  title: 'Universal Accounts with Chain Abstraction',
-  subHeader: "One account to rule them all, with ERC-4337 Safe's on EVMs.",
+  thumb: '/examples/agents.jpg',
+  src: '/video/bitte-sub-natural-language.mp4',
+  title: 'Natural Language will Create Most Transactions',
+  subHeader: "It's actaully incredibly easy with smart contracts.",
   factTitle: '',
   fact: '',
   btnTitle: 'Try Now',
-  btnUrl: MB_URL.BITTE_WALLET,
+  btnUrl: MB_URL.CHAT,
   isDisabled: false,
 };
 
@@ -83,7 +70,6 @@ export const HomeComponent = () => {
       <VideoSection {...crossSection} />
 
       <NumbersSection />
-      <VideoSection {...paymasterSection} />
       <PartnersSection />
     </>
   );
