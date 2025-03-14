@@ -7,11 +7,14 @@ import {
 } from '@/pkg/react';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 
+const vercelENV = 'https://mintbase-wallet-hzimsr3cc-bitteprotocol.vercel.app/'
+const localENV = 'http://mainnet.localhost:3000'
+
 const BitteWalletSetup = {
   network: 'mainnet',
   callbackUrl: typeof window !== 'undefined' ? window.location.origin : '',
   contractAddress: '',
-  walletUrl: 'https://mintbase-wallet-hzimsr3cc-bitteprotocol.vercel.app/',
+  walletUrl: localENV,
 };
 
 type ProvidersProps = {

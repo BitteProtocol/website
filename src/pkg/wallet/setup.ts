@@ -148,8 +148,6 @@ const BitteWallet: WalletBehaviourFactory<
         throw new Error("Wallet not signed in");
       }
 
-      console.log(transactions, 'transactions')
-
       return state.wallet.signAndSendTransactions(
         transactions as Array<Transaction>
       );
