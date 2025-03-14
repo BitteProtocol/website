@@ -18,8 +18,8 @@ importers:
         specifier: 0.1.9
         version: 0.1.9(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
       '@bitte-ai/react':
-        specifier: 0.6.6-popup-wallet
-        version: 0.6.6-popup-wallet(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)
+        specifier: 0.6.6-popup-wallet.1
+        version: 0.6.6-popup-wallet.1(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)
       '@google-cloud/firestore':
         specifier: ^7.10.0
         version: 7.10.0
@@ -519,11 +519,11 @@ packages:
       react: ^18.2.0
       react-dom: ^18.2.0
 
-  '@bitte-ai/react@0.6.6-popup-wallet':
-    resolution: {integrity: sha512-2TRSxA4n4WlA0mkg+oeXRUli8ECn8GNMKQIX1OwN6L/YqxfHddFgXcdfeG86cHEJMhtkKPR1gD4hNygFkfJL8w==}
+  '@bitte-ai/react@0.6.6-popup-wallet.1':
+    resolution: {integrity: sha512-lhKRAlEyrKpd6ZjjAvhufjl99sYk5O/wmlhDmx9/aIndiFJOTEj14FVZP31B5HyQDZACKyEj0Pr8SS8BctvvsA==}
 
-  '@bitte-ai/wallet@0.1.0-add-branch-release-and-injected-wallet-4e5c763':
-    resolution: {integrity: sha512-Ca98Cps0XMpyDi5w8OvenFWkgrXc3Opq9IIHa3e/Wya5r2NYGdRjo2vG9vXk7Thd2xiO33bkz5rNUNMpnJuSXA==}
+  '@bitte-ai/wallet@0.1.0-add-branch-release-and-injected-wallet-d4d511e':
+    resolution: {integrity: sha512-f3bQTDyOZxYHxiFUcoXVkfHrJgjzi5NVg9wIgusPrwjRyvIHKPiJpNJxIPzUti8e7xXMrf3wVhJ7dp9v33gy6w==}
 
   '@coinbase/wallet-sdk@3.9.3':
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
@@ -7049,9 +7049,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@bitte-ai/react@0.6.6-popup-wallet(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)':
+  '@bitte-ai/react@0.6.6-popup-wallet.1(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)':
     dependencies:
-      '@bitte-ai/wallet': 0.1.0-add-branch-release-and-injected-wallet-4e5c763
+      '@bitte-ai/wallet': 0.1.0-add-branch-release-and-injected-wallet-d4d511e
       '@mintbase-js/data': 0.6.5(graphql@16.9.0)
       '@mintbase-js/sdk': 0.6.5
       '@near-wallet-selector/core': 8.10.1(near-api-js@5.0.1)
@@ -7071,7 +7071,7 @@ snapshots:
       - graphql
       - near-api-js
 
-  '@bitte-ai/wallet@0.1.0-add-branch-release-and-injected-wallet-4e5c763':
+  '@bitte-ai/wallet@0.1.0-add-branch-release-and-injected-wallet-d4d511e':
     dependencies:
       '@near-wallet-selector/core': 8.10.1(near-api-js@5.1.0)
       '@near-wallet-selector/wallet-utils': 8.10.1(near-api-js@5.1.0)
