@@ -1,4 +1,5 @@
 export const MB_URL = {
+  CHAT: '/chat',
   APP_URL: 'https://bitte.ai',
   EVENTS: '/events',
   BITTE_TWITTER: 'https://x.com/BitteProtocol',
