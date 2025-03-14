@@ -8,6 +8,7 @@ export const networkMapping: Record<number, { name: string; icon: string }> = {
   42161: { name: 'Arbitrum', icon: '/chains/new_arbi.svg' },
   10: { name: 'Optimism', icon: '/chains/new_op.svg' },
   8453: { name: 'Base', icon: '/chains/new_base.svg' },
+  11155111: { name: 'Sepolia', icon: '/chains/new_eth.svg' },
   // Add more mappings as needed
 };
 
@@ -20,7 +21,7 @@ export function mapChainIdsToNetworks(chainIds: number[]) {
     (chainId) =>
       networkMapping[chainId] || {
         name: 'Unknown',
-        icon: '/chains/unknown.svg',
+        icon: '/chains/new_eth.svg',
       }
   );
 }
