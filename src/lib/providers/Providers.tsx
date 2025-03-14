@@ -8,10 +8,11 @@ import {
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
 
 const BitteWalletSetup = {
-  network: 'mainnet',
+  network: 'testnet',
   callbackUrl: typeof window !== 'undefined' ? window.location.origin : '',
   contractAddress: '',
-  walletUrl: 'https://mintbase-wallet-mfigmohxl-bitteprotocol.vercel.app/',
+  walletUrl:
+    'https://mintbase-wallet-testnet-7ghkautqz-bitteprotocol.vercel.app/',
 };
 
 type ProvidersProps = {
