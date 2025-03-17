@@ -106,7 +106,7 @@ export default function AgentCard({
                 {mappedChainIds.slice(0, 3).map((network, index) => (
                   <div
                     key={index}
-                    className='flex items-center gap-1 bg-[#27272a] px-2 py-1.5 rounded-full'
+                    className='flex items-center gap-1 bg-[#27272a] px-2 py-1.5 rounded-lg'
                   >
                     <div className='relative w-5 h-5'>
                       <Image
@@ -123,10 +123,10 @@ export default function AgentCard({
 
                 {mappedChainIds?.length > 3 && (
                   <div className='relative group'>
-                    <span className='text-xs bg-[#27272a] text-white py-1 px-3 rounded-full cursor-help'>
+                    <span className='text-xs bg-[#27272a] text-white py-1 px-2 rounded-lg cursor-help'>
                       +{mappedChainIds.length - 3}
                     </span>
-                    <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white text-xs rounded py-1 px-2 w-fit shadow-lg z-10'>
+                    <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white rounded-lg py-1 px-2 w-fit shadow-lg z-10'>
                       <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2'></div>
                       <div className='flex flex-col gap-1.5'>
                         {mappedChainIds.slice(3).map((network, index) => (
@@ -134,7 +134,7 @@ export default function AgentCard({
                             key={index}
                             className='flex items-center gap-1.5'
                           >
-                            <div className='relative w-4 h-4'>
+                            <div className='relative w-5 h-5'>
                               <Image
                                 src={network.icon}
                                 alt={`${network.name} icon`}
@@ -142,7 +142,7 @@ export default function AgentCard({
                                 className='object-contain rounded-md'
                               />
                             </div>
-                            <span>{network.name}</span>
+                            <span className='text-xs'>{network.name}</span>
                           </div>
                         ))}
                       </div>
