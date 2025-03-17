@@ -26,7 +26,7 @@ export default function AgentCard({
   const coverImage = getCoverImageUrl(agent.image);
   const runAgentUrl = getRunAgentUrl(agent.id, agent.verified);
 
-  const mappedChainIds = mapChainIdsToNetworks(agent?.chainIds || [0]); // default to NEAR
+  const mappedChainIds = mapChainIdsToNetworks(agent?.chainIds || [0], true); // default to NEAR
 
   return (
     <div className='bg-gradient-to-b from-[#313E52] to-[#18181a] p-[1px] rounded-xl md:rounded-lg cursor-pointer h-[336px] md:h-[254px]'>
@@ -106,7 +106,7 @@ export default function AgentCard({
                 {mappedChainIds.slice(0, 3).map((network, index) => (
                   <div
                     key={index}
-                    className='flex items-center gap-1 bg-[#27272a] px-2 py-1 rounded-full'
+                    className='flex items-center gap-1 bg-[#27272a] px-2 py-1.5 rounded-full'
                   >
                     <div className='relative w-5 h-5'>
                       <Image

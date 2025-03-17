@@ -21,7 +21,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { BITTE_AGENTID } from '@/lib/agentConstants';
-import { networkMapping } from '@/lib/utils/chainIds';
+import { getNetworkMapping } from '@/lib/utils/chainIds';
 import { useBitteWallet } from '@bitte-ai/react';
 import {
   useAppKit,
@@ -96,7 +96,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const { open } = useSidebar();
 
-  const imageUrl = networkMapping[Number(chainId)]?.icon;
+  const imageUrl = getNetworkMapping()[Number(chainId)]?.icon;
 
   return (
     <Sidebar collapsible='icon' {...props}>
