@@ -97,13 +97,13 @@ export default function AgentCard({
               )}
             </div>
 
-            <div className='flex flex-wrap items-center gap-2 mt-4'>
+            <div className='flex items-center gap-2 mt-4'>
               <span className='text-xs md:text-sm text-[#B4B4B4] w-auto hidden md:block md:mb-0'>
                 Chains
               </span>
 
               <div className='flex items-center gap-2 flex-wrap'>
-                {mappedChainIds.slice(0, 4).map((network, index) => (
+                {mappedChainIds.slice(0, 3).map((network, index) => (
                   <div
                     key={index}
                     className='flex items-center gap-1 bg-[#27272a] px-2 py-1 rounded-full'
@@ -121,15 +121,15 @@ export default function AgentCard({
                   </div>
                 ))}
 
-                {mappedChainIds?.length > 4 && (
+                {mappedChainIds?.length > 3 && (
                   <div className='relative group'>
                     <span className='text-xs bg-[#27272a] text-white py-1 px-3 rounded-full cursor-help'>
-                      +{mappedChainIds.length - 4}
+                      +{mappedChainIds.length - 3}
                     </span>
                     <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white text-xs rounded py-1 px-2 w-fit shadow-lg z-10'>
                       <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2'></div>
                       <div className='flex flex-col gap-1.5'>
-                        {mappedChainIds.slice(4).map((network, index) => (
+                        {mappedChainIds.slice(3).map((network, index) => (
                           <div
                             key={index}
                             className='flex items-center gap-1.5'
