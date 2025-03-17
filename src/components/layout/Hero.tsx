@@ -50,9 +50,9 @@ const Hero = () => {
           loop
           playsInline
           muted
-          className='absolute md:-top-20 w-screen h-full object-cover border-b border-[#313E52] opacity-20 z-0'
+          className='absolute md:-top-20 w-screen h-full object-cover border-b border-[#313E52] opacity-30 z-0'
         >
-          <source src='/video/human_1.mp4' type='video/mp4' />
+          <source src='/video/map_black.mp4' type='video/mp4' />
         </video>
         <div className='flex justify-center flex-col text-center items-center px-8 pt-20 md:pt-12 lg:pt-20 xl:pt-24 2xl:pt-60 pb-56  2xl:pb-80'>
           <div className='z-10 md:pointer-events-none'>
