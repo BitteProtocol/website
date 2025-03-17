@@ -81,17 +81,17 @@ export default function AgentCard({
                 By {agent.accountId}
               </span>
               {agent.category && (
-                <span className='text-xs px-3 md:px-2 py-1 md:py-0.5 bg-[#27272a] rounded-full'>
+                <span className='text-xs font-medium px-2.5 py-1 bg-[#27272a] rounded-full'>
                   {agent.category}
                 </span>
               )}
               {agent.verified ? (
-                <span className='text-xs px-3 md:px-2 py-1 md:py-0.5 bg-[#22C55E33] text-[#22C55E] rounded-full flex items-center gap-1'>
+                <span className='text-xs font-medium px-2.5 py-1 bg-[#22C55E33] text-[#22C55E] rounded-full flex items-center gap-1'>
                   <CheckCircle2 className='w-3 h-3' />
                   Verified
                 </span>
               ) : (
-                <span className='text-xs px-3 md:px-2 py-1 md:py-0.5 bg-[#C084FC33] text-[#C084FC] rounded-full'>
+                <span className='text-xs font-medium px-2.5 py-1 bg-[#C084FC33] text-[#C084FC] rounded-full'>
                   Playground
                 </span>
               )}
@@ -106,43 +106,42 @@ export default function AgentCard({
                 {mappedChainIds.slice(0, 3).map((network, index) => (
                   <div
                     key={index}
-                    className='flex items-center gap-1 bg-[#27272a] px-2 py-1.5 rounded-lg'
+                    className='flex items-center gap-1.5 bg-[#27272a] px-2.5 py-1 rounded-full'
                   >
-                    <div className='relative w-5 h-5'>
+                    <div className='relative w-4 h-4'>
                       <Image
                         src={network.icon}
                         alt={`${network.name} icon`}
                         fill
-                        className='object-contain rounded-md'
+                        className='object-contain rounded'
                       />
                     </div>
 
-                    <span className='text-xs'>{network.name}</span>
+                    <span className='text-xs font-medium'>{network.name}</span>
                   </div>
                 ))}
 
                 {mappedChainIds?.length > 3 && (
                   <div className='relative group'>
-                    <span className='text-xs bg-[#27272a] text-white py-1 px-2 rounded-lg cursor-help'>
+                    <span className='text-xs font-medium bg-[#27272a] text-white py-1 px-2.5 rounded-full cursor-help'>
                       +{mappedChainIds.length - 3}
                     </span>
                     <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white rounded-lg py-1 px-2 w-fit shadow-lg z-10'>
                       <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2'></div>
                       <div className='flex flex-col gap-1.5'>
                         {mappedChainIds.slice(3).map((network, index) => (
-                          <div
-                            key={index}
-                            className='flex items-center gap-1.5'
-                          >
-                            <div className='relative w-5 h-5'>
+                          <div key={index} className='flex items-center gap-2'>
+                            <div className='relative w-4 h-4'>
                               <Image
                                 src={network.icon}
                                 alt={`${network.name} icon`}
                                 fill
-                                className='object-contain rounded-md'
+                                className='object-contain rounded'
                               />
                             </div>
-                            <span className='text-xs'>{network.name}</span>
+                            <span className='text-xs font-medium'>
+                              {network.name}
+                            </span>
                           </div>
                         ))}
                       </div>
