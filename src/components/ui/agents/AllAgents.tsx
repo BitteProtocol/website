@@ -1,4 +1,5 @@
 'use client';
+import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { AgentData, Filters as AgentFilters } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { ListFilter, SearchIcon } from 'lucide-react';
@@ -42,13 +43,21 @@ const AllAgents = (props: AgentData) => {
     (agent) => {
       if (!agent) return false;
 
+      if (agent.id === BITTE_AGENTID) {
+        console.log(agent.chainIds, agent.id);
+      }
       // Check if agent matches all selected filters
       const matchesFilters = selectedFilters.every((filter) => {
         if (filter.label === 'Categories' && agent.category) {
           return filter.values.some((value) => value.name === agent.category);
-        } else if (filter.label === 'Networks' && agent.chainIds) {
-          return agent.chainIds.some((chainId) =>
-            filter.values.some((value) => value.id === chainId.toString())
+        } else if (filter.label === 'Networks') {
+          // If agent.chainIds is undefined or empty, check if the selected filter has id '0' - NEAR
+          if (!agent.chainIds || agent.chainIds.length === 0) {
+            return filter.values.some((value) => value.id === '0');
+          }
+          // If agent.chainIds is not empty, proceed with the existing check
+          return filter.values.some((value) =>
+            agent.chainIds?.some((chainId) => value.id === chainId.toString())
           );
         }
         return true;
