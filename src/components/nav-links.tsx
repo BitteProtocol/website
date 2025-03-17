@@ -27,7 +27,9 @@ export function NavLinks({
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <a href={item.url} target='_blank' rel='noopener noreferrer'>
-                <span>{item.name}</span>
+                <span className='text-xs uppercase font-semibold'>
+                  {item.name}
+                </span>
                 <item.icon />
               </a>
             </SidebarMenuButton>

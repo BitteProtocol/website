@@ -44,7 +44,9 @@ export function NavMain({
                 isActive={item.isActive ?? pathname === item.url}
               >
                 {item.icon && <item.icon />}
-                <span>{item.title}</span>
+                <span className='uppercase font-semibold text-xs'>
+                  {item.title}
+                </span>
               </SidebarMenuButton>
             </Link>
             <SidebarMenuSub>

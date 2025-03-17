@@ -7,11 +7,11 @@ export const dropCardData = {
   cards: [
     {
       id: 1,
-      badge: 'Drop',
-      action: 'Claim NFT',
-      sub: '214 claims',
-      bg: '/examples/drop_claim.jpg',
-      link: `${MB_URL.BITTE_WALLET}/claim/day15`,
+      badge: 'Embed',
+      action: 'Embeded Agent Example',
+      sub: '10 Min Install',
+      bg: '/examples/embed_bitte_growthmate_2.jpg',
+      link: `https://chat.growthmate.xyz/`,
       isSA: false,
       gradientLayer: true,
     },
@@ -38,7 +38,7 @@ export const dropCardData = {
     {
       id: 4,
       badge: 'AI DEFI SWAP',
-      action: 'Swap 10 NEAR for DAI',
+      action: 'Swap 5 USDC for VIRTUAL on base',
       sub: '',
       bg: '/examples/defi_swap.svg',
       link: MB_URL.SMART_ACTIONS_PROMPT,
