@@ -1,8 +1,10 @@
 import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { AgentData, Filters, RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
-import { networkMapping } from '@/lib/utils/chainIds';
+import { getNetworkMapping } from '@/lib/utils/chainIds';
 import { useEffect, useState } from 'react';
+
+const networkMapping = getNetworkMapping(true);
 
 // Helper function to filter out local and tunnel URLs
 const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
