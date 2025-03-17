@@ -1,5 +1,4 @@
 'use client';
-import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { AgentData, Filters as AgentFilters } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { ListFilter, SearchIcon } from 'lucide-react';
@@ -43,9 +42,6 @@ const AllAgents = (props: AgentData) => {
     (agent) => {
       if (!agent) return false;
 
-      if (agent.id === BITTE_AGENTID) {
-        console.log(agent.chainIds, agent.id);
-      }
       // Check if agent matches all selected filters
       const matchesFilters = selectedFilters.every((filter) => {
         if (filter.label === 'Categories' && agent.category) {

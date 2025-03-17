@@ -22,8 +22,6 @@ const Filters = ({
 }) => {
   if (!filters?.length) return null;
 
-  console.log({ filters, selectedFilters });
-
   return (
     <Accordion
       type='multiple'
