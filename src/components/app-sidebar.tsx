@@ -23,9 +23,9 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
+import EvmNetworkSelector from './layout/EvmNetworkSelector';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
 import { CopyStandard } from './ui/copy/Copy';
-import EvmNetworkSelector from './layout/EvmNetworkSelector';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);

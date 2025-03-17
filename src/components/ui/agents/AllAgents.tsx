@@ -139,7 +139,7 @@ const AllAgents = (props: AgentData) => {
           </div>
         </div>
 
-        <div className='lg:col-span-4 grid-cols-1 lg-card:grid-cols-2 grid gap-8 w-full h-fit'>
+        <div className='lg:col-span-4 grid-cols-1 lg-card:grid-cols-2 grid gap-6 w-full h-fit'>
           <div className='relative mt-2 h-fit'>
             <SearchIcon
               className='pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground'
