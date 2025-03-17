@@ -1,7 +1,7 @@
 'use client';
 import { AgentData, Filters as AgentFilters } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
-import { ChevronRight, SearchIcon } from 'lucide-react';
+import { ListFilter, SearchIcon } from 'lucide-react';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { useState } from 'react';
 import { Button } from '../button';
@@ -76,7 +76,7 @@ const AllAgents = (props: AgentData) => {
           <Dialog>
             <DialogTrigger className='w-full'>
               <div className='flex flex-1 items-center gap-2 border-b border-mb-gray-500 w-full pb-4'>
-                <ChevronRight className='h-6 w-6' />
+                <ListFilter className='h-5 w-5' />
                 Filters
               </div>
             </DialogTrigger>
@@ -85,11 +85,11 @@ const AllAgents = (props: AgentData) => {
                 <div className='border-b border-mb-gray-500 p-6 bg-mb-gray-550 w-auto'>
                   <DialogTitle>Filters</DialogTitle>
                 </div>
-                <div className='p-4'>
+                <div className='px-4 pt-4'>
                   <PlaygroundSwitch />
                 </div>
 
-                <div className='p-4 h-[70vh] overflow-scroll'>
+                <div className='pt-0 lg:pt-4 p-4 h-[70vh] overflow-scroll'>
                   <Filters
                     filters={filters}
                     selectedFilters={selectedFilters}

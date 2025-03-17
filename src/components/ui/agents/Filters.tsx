@@ -22,12 +22,12 @@ const Filters = ({
 }) => {
   if (!filters?.length) return null;
 
+  console.log({ filters, selectedFilters });
+
   return (
     <Accordion
-      type='single'
-      className='text-mb-gray-200'
-      collapsible
-      defaultValue={filters[0].label}
+      type='multiple'
+      defaultValue={[filters[0].label, filters[1].label]}
     >
       {filters.map((filter) => {
         const selectedAmount = selectedFilters
@@ -38,25 +38,25 @@ const Filters = ({
           <AccordionItem key={filter.label} value={filter.label}>
             <AccordionTrigger>
               <div className='flex items-center justify-between w-full'>
-                <div className='text-xs'>{filter.label}</div>
+                <div className='text-xs text-mb-gray-200'>{filter.label}</div>
                 <div
                   className={cn({
                     visible: selectedAmount > 0,
                     invisible: selectedAmount === 0,
                   })}
                 >
-                  <Badge className='bg-mb-gray-600 text-mb-gray-200'>
+                  <Badge className='bg-mb-gray-600 text-white text-xs'>
                     {selectedAmount}
                   </Badge>
                 </div>
               </div>
             </AccordionTrigger>
-            <AccordionContent className='flex flex-col gap-2 overflow-y-auto lg:max-h-64'>
+            <AccordionContent className='flex flex-col gap-2 overflow-y-auto lg:max-h-56'>
               {filter.values.map(({ id, name, image }) => (
                 <div
                   key={id}
-                  className='flex items-center space-x-2 bg-mb-gray-950 rounded-md py-3.5 px-6 hover:bg-mb-gray-250 transition-all duration-500 cursor-pointer'
-                  onClick={() => onFilterChange(name, filter.label)}
+                  className='flex items-center space-x-2 bg-mb-gray-950 rounded-md py-2 px-4 hover:bg-mb-gray-250 transition-all duration-500 cursor-pointer'
+                  onClick={() => onFilterChange(id, filter.label)}
                 >
                   <Checkbox
                     id={id}
@@ -68,16 +68,16 @@ const Filters = ({
                     className='border-white'
                   />
                   {image && (
-                    <div className='relative w-5 h-5'>
+                    <div className='relative w-4 h-4'>
                       <Image
                         src={image}
                         alt={`${name} icon`}
                         fill
-                        className='object-contain rounded-md'
+                        className='object-contain rounded'
                       />
                     </div>
                   )}
-                  <div className='text-sm font-medium leading-none'>{name}</div>
+                  <div className='text-sm text-white font-medium'>{name}</div>
                 </div>
               ))}
             </AccordionContent>
