@@ -49,7 +49,7 @@ const Filters = ({
                 </div>
               </div>
             </AccordionTrigger>
-            <AccordionContent className='flex flex-col gap-2 overflow-y-auto lg:max-h-56'>
+            <AccordionContent className='flex flex-col gap-2 overflow-y-auto'>
               {filter.values.map(({ id, name, image }) => (
                 <div
                   key={id}
