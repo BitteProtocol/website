@@ -6,7 +6,7 @@ type NetworkEntry = {
 export function getNetworkMapping(
   colorIcon?: boolean
 ): Record<number, NetworkEntry> {
-  const baseIconPath = `/chains/${colorIcon ? 'colors/' : 'new_'}`;
+  const baseIconPath = `/chains/${colorIcon ? 'colors/' : 'gray/new_'}`;
   return {
     0: { name: 'NEAR', icon: `${baseIconPath}near.svg` },
     1: { name: 'Ethereum', icon: `${baseIconPath}eth.svg` },
@@ -14,6 +14,7 @@ export function getNetworkMapping(
     100: { name: 'Gnosis', icon: `${baseIconPath}gnosis.svg` },
     137: { name: 'Polygon', icon: `${baseIconPath}polygon.svg` },
     250: { name: 'Avalanche', icon: `${baseIconPath}avax.svg` },
+    43114: { name: 'Avalanche', icon: `${baseIconPath}avax.svg` },
     42161: { name: 'Arbitrum', icon: `${baseIconPath}arbi.svg` },
     10: { name: 'Optimism', icon: `${baseIconPath}op.svg` },
     8453: { name: 'Base', icon: `${baseIconPath}base.svg` },
@@ -30,7 +31,7 @@ export function mapChainIdsToNetworks(chainIds: number[], colorIcon?: boolean) {
     (chainId) =>
       networkMapping[chainId] || {
         name: 'Unknown',
-        icon: '/chains/new_eth.svg',
+        icon: '/chains/gray/new_eth.svg',
       }
   );
 }
