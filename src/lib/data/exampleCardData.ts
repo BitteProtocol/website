@@ -29,7 +29,7 @@ export const dropCardData = {
       id: 3,
       badge: 'MEMECOIN',
       action:
-        'create a meme token called NEATO and make an image of a person holding a sign that reads NEAT',
+        'Create a meme token called NEATO and make an image of a person holding a sign that reads NEAT',
       sub: '',
       bg: '/examples/2.png',
       link: 'https://www.bitte.ai/agents/meme-cooking-bitte-agent.vercel.app?prompt=create+a+meme+token+called+NEATO+and+make+an+image+of+a+person+holding+a+sign+that+reads+NEAT',
@@ -80,7 +80,7 @@ export const dropCardData = {
     {
       id: 8,
       badge: 'INVESTING',
-      action: 'swap 1 AVAX for USDC on AVALANCHE',
+      action: 'Swap 1 AVAX for USDC on AVALANCHE',
       sub: '',
       bg: '/examples/7.png',
       link: 'https://www.bitte.ai/agents/near-uniswap-agent.vercel.app?prompt=swap+1+AVAX+for+USDC+on_AVALANCHE',
