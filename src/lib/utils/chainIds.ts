@@ -14,6 +14,7 @@ export function getNetworkMapping(
     100: { name: 'Gnosis', icon: `${baseIconPath}gnosis.svg` },
     137: { name: 'Polygon', icon: `${baseIconPath}polygon.svg` },
     250: { name: 'Avalanche', icon: `${baseIconPath}avax.svg` },
+    43114: { name: 'Avalanche', icon: `${baseIconPath}avax.svg` },
     42161: { name: 'Arbitrum', icon: `${baseIconPath}arbi.svg` },
     10: { name: 'Optimism', icon: `${baseIconPath}op.svg` },
     8453: { name: 'Base', icon: `${baseIconPath}base.svg` },
