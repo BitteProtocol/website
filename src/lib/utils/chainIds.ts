@@ -6,7 +6,7 @@ type NetworkEntry = {
 export function getNetworkMapping(
   colorIcon?: boolean
 ): Record<number, NetworkEntry> {
-  const baseIconPath = `/chains/${colorIcon ? 'colors/' : 'new_'}`;
+  const baseIconPath = `/chains/${colorIcon ? 'colors/' : 'gray/new_'}`;
   return {
     0: { name: 'NEAR', icon: `${baseIconPath}near.svg` },
     1: { name: 'Ethereum', icon: `${baseIconPath}eth.svg` },
