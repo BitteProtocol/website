@@ -139,7 +139,7 @@ const AllAgents = (props: AgentData) => {
             <PlaygroundSwitch />
           </div>
 
-          <div className='sticky top-48'>
+          <div className='sticky top-48 bg-background'>
             <Filters
               filters={filters}
               selectedFilters={selectedFilters}
