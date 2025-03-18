@@ -30,7 +30,7 @@ export function mapChainIdsToNetworks(chainIds: number[], colorIcon?: boolean) {
     (chainId) =>
       networkMapping[chainId] || {
         name: 'Unknown',
-        icon: '/chains/new_eth.svg',
+        icon: '/chains/gray/new_eth.svg',
       }
   );
 }
