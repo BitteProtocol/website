@@ -15,7 +15,7 @@ export const RelatedTemplates = ({
       <h1 className='text-xl md:text-2xl font-semibold text-[#CBD5E1]'>
         Related
       </h1>
-      <div className='flex flex-wrap md:flex-nowrap w-full gap-8 mt-10'>
+      <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-8 mt-10'>
         {relatedAgents?.map((agent) => (
           <TemplateCard key={agent.id} agent={agent} />
         ))}

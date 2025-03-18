@@ -1,18 +1,18 @@
-import Image from 'next/image';
+import { getNetworkMapping } from '@/lib/utils/chainIds';
 import {
   useAppKit,
-  useAppKitState,
   useAppKitNetwork,
+  useAppKitState,
 } from '@reown/appkit/react';
-import { networkMapping } from '@/lib/utils/chainIds';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import Image from 'next/image';
 
 const EvmNetworkSelector = () => {
   const { caipNetwork, chainId } = useAppKitNetwork();
   const { open: openNetworkModal } = useAppKit();
   const { open: isModalOpen } = useAppKitState();
 
-  const imageUrl = networkMapping[Number(chainId)]?.icon;
+  const imageUrl = getNetworkMapping()[Number(chainId)]?.icon;
 
   return (
     <div
