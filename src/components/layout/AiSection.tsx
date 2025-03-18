@@ -26,7 +26,7 @@ const AiSection = () => {
       <div className='flex items-center md:justify-center gap-4 max-w-[100vw] overflow-x-auto disable-scrollbars right-edge-extension'>
         {aiCardsData?.map((data) => (
           <Card
-            className='bg-[#414D7D40] border border-[#313E52] hover:border-[#E087FFB2] hover:shadow-custom backdrop-blur supports-[backdrop-filter]:bg-[#414D7D40]/55 min-w-[300px] cursor-pointer transition-all duration-300'
+            className='bg-mb-indigo-30 border border-mb-gray-750 hover:border-mb-purple-70 hover:shadow-custom backdrop-blur supports-[backdrop-filter]:bg-mb-indigo-30/55 min-w-[300px] cursor-pointer transition-all duration-300'
             key={data?.title}
             onClick={() =>
               goToSmartActions(`${data.title} ${data.sub}`, data.agentId)
@@ -42,7 +42,7 @@ const AiSection = () => {
       <div className='flex flex-col gap-3 md:flex-row w-full items-center justify-center mt-5'>
         <Input
           placeholder='AI-Driven Wallet Action'
-          className={`w-full md:w-[860px] h-[60px] border hover:border-[#E087FFB2] ${input ? 'border-[#E087FFB2]' : 'border-[#E087FF80]'} bg-[#444b3340] backdrop-blur supports-[backdrop-filter]:bg-[#414D7D40]/55 shadow-custom transition-all duration-300 `}
+          className={`w-full md:w-[860px] h-[60px] border hover:border-mb-purple-70 ${input ? 'border-mb-purple-70' : 'border-[#E087FF80]'} bg-mb-olive-20 backdrop-blur supports-[backdrop-filter]:bg-mb-indigo-30/55 shadow-custom transition-all duration-300 `}
           value={input}
           onChange={(e) => handleInputChange(e.target.value)}
           onKeyDown={(event) => {
@@ -54,7 +54,7 @@ const AiSection = () => {
         <Button
           disabled={!input}
           variant='secondary'
-          className={`z-10 w-full md:w-[60px] h-[42px] md:h-[60px] rounded-md p-0 cursor-pointer text-white hover:text-black disabled:opacity-1 disabled:border disabled:border-[#313E52] ${input ? 'text-black bg-white' : 'text-white bg-[#414d7d8d]'}`}
+          className={`z-10 w-full md:w-[60px] h-[42px] md:h-[60px] rounded-md p-0 cursor-pointer text-white hover:text-black disabled:opacity-1 disabled:border disabled:border-mb-gray-750 ${input ? 'text-black bg-white' : 'text-white bg-mb-indigo-50'}`}
           onClick={() => goToSmartActions()}
         >
           <ArrowUp className='w-[18px] h-[18px] md:w-[24px] md:h-[24px]' />

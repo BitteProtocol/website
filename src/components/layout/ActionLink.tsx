@@ -26,7 +26,7 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
           {agent.verified ? (
             <Badge
               variant='secondary'
-              className='bg-[#22C55E33] text-[#22C55E] flex items-center gap-1 rounded-full'
+              className='bg-mb-green-20 text-mb-green-100 flex items-center gap-1 rounded-full'
             >
               <CheckCircle2 className='w-3 h-3' />
               Verified
@@ -34,7 +34,7 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
           ) : (
             <Badge
               variant='secondary'
-              className='bg-[#C084FC33] text-[#C084FC] rounded-full'
+              className='bg-mb-purple-20 text-mb-purple rounded-full'
             >
               Playground
             </Badge>
@@ -72,7 +72,7 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
           ) : (
             <Badge
               variant='secondary'
-              className='bg-[#EF444433] text-[#EF4444] rounded-full'
+              className='bg-mb-red-20 text-mb-red-100 rounded-full'
             >
               Closed Source
             </Badge>

@@ -24,7 +24,7 @@ export const NumbersSection = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 z-20 lg:px-12 xl:px-64'>
           {numbersData?.map((data) => (
             <Card
-              className='bg-black bg-opacity-70	 border border-[#313E52] md:min-w-[252px]'
+              className='bg-black bg-opacity-70	 border border-mb-gray-750 md:min-w-[252px]'
               key={data?.id}
             >
               <CardContent className='p-4'>

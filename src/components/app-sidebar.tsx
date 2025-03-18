@@ -118,15 +118,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <div className='flex flex-col gap-4 mb-4'>
             {open ? (
               <>
-                <span className='text-[10px] text-[#B2B2B3] font-semibold'>
+                <span className='text-[10px] text-mb-silver font-semibold'>
                   Accounts & Network
                 </span>
-                <SidebarSeparator className='bg-[#09090B] -mx-4' />
+                <SidebarSeparator className='bg-mb-black -mx-4' />
 
                 {activeAccountId ? (
                   <>
                     <div>
-                      <div className='bg-[#27272A] rounded-full py-0.5 px-3 flex items-center gap-2 mb-3 w-fit'>
+                      <div className='bg-mb-gray-600 rounded-full py-0.5 px-3 flex items-center gap-2 mb-3 w-fit'>
                         <div className='bg-black p-0.5 rounded'>
                           <Image
                             src='/chains/near_wallet_connector_v2.svg'
@@ -135,12 +135,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             alt='connect-wallet-modal-logo-near'
                           />
                         </div>
-                        <span className='text-xs text-[#FAFAFA] font-normal'>
+                        <span className='text-xs text-mb-white-100 font-normal'>
                           NEAR
                         </span>
                       </div>
 
-                      <span className='text-xs texrt-[#CBD5E1] flex items-center gap-3'>
+                      <span className='text-xs texrt-mb-gray-300 flex items-center gap-3'>
                         <CopyStandard
                           text={activeAccountId}
                           textColor='#CBD5E1'
@@ -151,7 +151,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         />
                       </span>
                     </div>
-                    <SidebarSeparator className='bg-[#09090B] -mx-4' />
+                    <SidebarSeparator className='bg-mb-black -mx-4' />
                   </>
                 ) : null}
 
@@ -167,7 +167,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         nopadding
                       />
                     </div>
-                    <SidebarSeparator className='bg-[#09090B] -mx-4' />
+                    <SidebarSeparator className='bg-mb-black -mx-4' />
                   </>
                 )}
               </>

@@ -29,8 +29,8 @@ export default function AgentCard({
   const mappedChainIds = mapChainIdsToNetworks(agent?.chainIds || [0], true); // default to NEAR
 
   return (
-    <div className='bg-gradient-to-b from-[#313E52] to-[#18181a] p-[1px] rounded-xl md:rounded-lg cursor-pointer h-[336px] md:h-[254px]'>
-      <div className='bg-[#18181a] rounded-xl md:rounded-lg p-4 hover:bg-[#1a1a24] transition-all duration-500 h-full flex flex-col'>
+    <div className='bg-gradient-to-b from-mb-gray-750 to-[#18181a] p-[1px] rounded-xl md:rounded-lg cursor-pointer h-[336px] md:h-[254px]'>
+      <div className='bg-[#18181a] rounded-xl md:rounded-lg p-4 hover:bg-mb-dark-blue-2 transition-all duration-500 h-full flex flex-col'>
         <Link
           href={goToAgentDetail('Hey, what can you do for me?')}
           className='flex flex-col h-full'
@@ -55,7 +55,7 @@ export default function AgentCard({
               </div>
               <div className='flex flex-col'>
                 <span className='font-medium'>{agent.name}</span>
-                <span className='text-sm text-[#7c7c7c] md:hidden'>
+                <span className='text-sm text-mb-gray-150 md:hidden'>
                   By {agent.accountId}
                 </span>
               </div>
@@ -70,35 +70,35 @@ export default function AgentCard({
           </div>
 
           <div className='flex-grow overflow-hidden'>
-            <p className='text-xs md:text-sm text-[#B4B4B4] mb-6 md:mb-4'>
+            <p className='text-xs md:text-sm text-mb-gray-200 mb-6 md:mb-4'>
               {shortenString(agent?.description || '', 150)}
             </p>
           </div>
 
           <div className='mt-auto'>
             <div className='flex flex-wrap gap-2 items-center'>
-              <span className='hidden md:inline-flex text-sm text-[#B4B4B4]'>
+              <span className='hidden md:inline-flex text-sm text-mb-gray-200'>
                 By {agent.accountId}
               </span>
               {agent.category && (
-                <span className='text-xs font-medium px-2.5 py-1 bg-[#27272a] rounded-full'>
+                <span className='text-xs font-medium px-2.5 py-1 bg-mb-gray-600 rounded-full'>
                   {agent.category}
                 </span>
               )}
               {agent.verified ? (
-                <span className='text-xs font-medium px-2.5 py-1 bg-[#22C55E33] text-[#22C55E] rounded-full flex items-center gap-1'>
+                <span className='text-xs font-medium px-2.5 py-1 bg-mb-green-20 text-mb-green-100 rounded-full flex items-center gap-1'>
                   <CheckCircle2 className='w-3 h-3' />
                   Verified
                 </span>
               ) : (
-                <span className='text-xs font-medium px-2.5 py-1 bg-[#C084FC33] text-[#C084FC] rounded-full'>
+                <span className='text-xs font-medium px-2.5 py-1 bg-mb-purple-20 text-mb-purple rounded-full'>
                   Playground
                 </span>
               )}
             </div>
 
             <div className='flex items-center gap-2 mt-4'>
-              <span className='text-xs md:text-sm text-[#B4B4B4] w-auto hidden md:block md:mb-0'>
+              <span className='text-xs md:text-sm text-mb-gray-200 w-auto hidden md:block md:mb-0'>
                 Chains
               </span>
 
@@ -106,7 +106,7 @@ export default function AgentCard({
                 {mappedChainIds.slice(0, 3).map((network, index) => (
                   <div
                     key={index}
-                    className='flex items-center gap-1.5 bg-[#27272a] px-2.5 py-1 rounded-full'
+                    className='flex items-center gap-1.5 bg-mb-gray-600 px-2.5 py-1 rounded-full'
                   >
                     <div className='relative w-4 h-4'>
                       <Image
@@ -123,10 +123,10 @@ export default function AgentCard({
 
                 {mappedChainIds?.length > 3 && (
                   <div className='relative group'>
-                    <span className='text-xs font-medium bg-[#27272a] text-white py-1 px-2.5 rounded-full cursor-help'>
+                    <span className='text-xs font-medium bg-mb-gray-600 text-white py-1 px-2.5 rounded-full cursor-help'>
                       +{mappedChainIds.length - 3}
                     </span>
-                    <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-[#27272a] text-white rounded-lg py-1 px-2 w-fit shadow-lg z-10'>
+                    <div className='absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 invisible group-hover:visible bg-mb-gray-600 text-white rounded-lg py-1 px-2 w-fit shadow-lg z-10'>
                       <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2'></div>
                       <div className='flex flex-col gap-1.5'>
                         {mappedChainIds.slice(3).map((network, index) => (

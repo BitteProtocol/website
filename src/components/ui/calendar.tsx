@@ -58,9 +58,9 @@ export function Calendar({ record }: CalendarProps) {
   }, [calendarRef]);
 
   return (
-    <Card className='w-full border border-[#313E52]'>
+    <Card className='w-full border border-mb-gray-750'>
       <CardHeader className='pb-2'>
-        <CardTitle className='text-lg font-normal pb-3 text-[#CBD5E1]'>
+        <CardTitle className='text-lg font-normal pb-3 text-mb-gray-300'>
           Agent Pings
         </CardTitle>
       </CardHeader>

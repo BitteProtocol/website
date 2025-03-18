@@ -70,10 +70,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
 
   const content = (
     <>
-      <div className='border-b border-[#334155] -mx-8 my-5'></div>
+      <div className='border-b border-mb-gray-800 -mx-8 my-5'></div>
       <div className={`flex items-center gap-2 ${isMobile ? 'mb-4' : ''}`}>
         <UserCheck size={16} color='#BABDC2' />
-        <p className='text-[#BABDC2] font-medium text-xs'>
+        <p className='text-mb-gray-50 font-medium text-xs'>
           Currently Connected
         </p>
       </div>
@@ -96,11 +96,13 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           />
         )}
       </div>
-      <div className='border-b border-[#334155] my-5 -mx-8'></div>
+      <div className='border-b border-mb-gray-800 my-5 -mx-8'></div>
       <div>
         <div className='flex items-center gap-2 mb-4'>
           <UserPlus size={16} color='#BABDC2' />
-          <p className='text-[#BABDC2] font-medium text-xs'>Connect Accounts</p>
+          <p className='text-mb-gray-50 font-medium text-xs'>
+            Connect Accounts
+          </p>
         </div>
         <div className='flex flex-col gap-4'>
           {!isConnected && (
@@ -121,7 +123,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             />
           )}
           <a
-            className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
+            className='w-full bg-mb-gray-650 hover:bg-mb-blue-30 h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
             href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
             target='_blank'
             rel='noreferrer'
@@ -135,10 +137,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
               />
             </div>
             <div>
-              <p className='text-sm text-[#F8FAFC] font-semibold mb-2'>
+              <p className='text-sm text-mb-white-50 font-semibold mb-2'>
                 Create New Account
               </p>
-              <p className='text-[#BABDC2] text-xs'>for EVM and NEAR chains</p>
+              <p className='text-mb-gray-50 text-xs'>for EVM and NEAR chains</p>
             </div>
           </a>
         </div>
@@ -150,7 +152,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     return (
       <Drawer open={isOpen} onOpenChange={setConnectModalOpen}>
         <DrawerTrigger asChild>
-          <Button className='w-full flex items-center gap-2 border border-[#60A5FA] bg-[#60A5FA4D] text-[#60A5FA]'>
+          <Button className='w-full flex items-center gap-2 border border-mb-blue-100 bg-mb-blue-30 text-mb-blue-100'>
             <User size={16} color='#60A5FA' />
             Accounts
           </Button>
@@ -169,20 +171,20 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
         {sidebarOpen ? (
-          <Button className='border border-[#60A5FA] bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 w-full text-[#60A5FA] flex items-center gap-1'>
+          <Button className='border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 w-full text-mb-blue-100 flex items-center gap-1'>
             <User size={16} color='#60A5FA' /> Connected
           </Button>
         ) : (
           <Button
             variant='outline'
             size='icon'
-            className={`border border-[#60A5FA] bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
+            className={`border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
           >
             <User size={16} color='#60A5FA' />
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className='max-w-[510px] p-8 border border-[#334155] bg-black rounded-md'>
+      <DialogContent className='max-w-[510px] p-8 border border-mb-gray-800 bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>
           Manage Accounts
         </DialogTitle>

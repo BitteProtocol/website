@@ -16,7 +16,7 @@ const EvmNetworkSelector = () => {
 
   return (
     <div
-      className='bg-[#27272A] rounded-full py-0.5 px-3 flex items-center min-w-[100px] gap-2 cursor-pointer'
+      className='bg-mb-gray-600 rounded-full py-0.5 px-3 flex items-center min-w-[100px] gap-2 cursor-pointer'
       onClick={() => openNetworkModal({ view: 'Networks' })}
     >
       <div className='bg-black p-0.5 rounded'>
@@ -27,7 +27,7 @@ const EvmNetworkSelector = () => {
           alt='connect-wallet-modal-logo-near'
         />
       </div>
-      <span className='text-xs text-[#FAFAFA] font-normal'>
+      <span className='text-xs text-mb-white-100 font-normal'>
         {caipNetwork?.name}
       </span>
       {isModalOpen ? (

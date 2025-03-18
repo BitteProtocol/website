@@ -26,7 +26,7 @@ const ConnectAccountCard = ({
 
   return (
     <div
-      className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer transition-all duration-500 ease-in-out'
+      className='w-full bg-mb-gray-650 hover:bg-mb-blue-30 h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer transition-all duration-500 ease-in-out'
       onClick={handleClick}
     >
       <div className='flex items-center gap-2 justify-between w-full'>
@@ -45,13 +45,13 @@ const ConnectAccountCard = ({
           />
         ) : null}
         <div className='flex flex-col sm:flex-row gap-1.5 w-full'>
-          <p className='text-sm font-semibold text-[#F8FAFC]'>{text}</p>
+          <p className='text-sm font-semibold text-mb-white-50'>{text}</p>
 
           <div className='flex sm:ml-auto items-center'>
-            <p className='text-[#BABDC2] text-xs italic'>
+            <p className='text-mb-gray-50 text-xs italic'>
               e.g.
               <span
-                className={`ml-2 bg-[#010101] p-1 sm:p-1.5 rounded-md text-xs text-[#60A5FA] not-italic ${roboto_mono.className}`}
+                className={`ml-2 bg-mb-black-deep p-1 sm:p-1.5 rounded-md text-xs text-mb-blue-100 not-italic ${roboto_mono.className}`}
               >
                 {account}
               </span>
