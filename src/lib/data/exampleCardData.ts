@@ -88,7 +88,7 @@ export const dropCardData = {
       gradientLayer: false,
     },
     {
-      id: 8,
+      id: 9,
       badge: 'DAOs',
       action: 'Do I have any open proposals I need to vote on',
       sub: '',

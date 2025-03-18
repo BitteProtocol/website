@@ -243,7 +243,7 @@ export const ExamplesSection = ({
             />
           ) : (
             <Link
-              href={card.isSA ? `${card.link}/${card.action}` : `${card.link}`}
+              href={card.link}
               target='_blank'
               key={card?.id}
               className={`relative bg-black border border-[#313E52] w-9/12 md:w-1/2 lg:w-[28%] h-[272px] sm:h-[420px] flex-shrink-0 snap-center hover:border-[#E087FFB2] hover:shadow-custom transition-all duration-300 cursor-pointer ml-4 first:ml-6 last:mr-12 md:first:ml-28 md:last:mr-36 overflow-hidden`}
