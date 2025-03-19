@@ -22,7 +22,7 @@ export function NavLinks({
   return (
     <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
       <SidebarMenu>
-        <SidebarSeparator className='bg-[#09090B] mb-2' />
+        <SidebarSeparator className='bg-mb-black mb-2' />
         {links.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>

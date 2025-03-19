@@ -371,7 +371,7 @@ const ListItem = React.forwardRef<
           target={newTab ? '_blank' : undefined}
           rel={newTab ? 'noopener noreferrer' : undefined}
           className={cn(
-            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-[#414D7D40] hover:text-accent-foreground focus:bg-[#414D7D40] focus:text-accent-foreground py-4',
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-mb-indigo-30 hover:text-accent-foreground focus:bg-mb-indigo-30 focus:text-accent-foreground py-4',
             className
           )}
           {...props}

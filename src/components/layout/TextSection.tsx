@@ -40,7 +40,7 @@ const TextSection = ({
             <Button
               variant='secondary'
               disabled={isDisabled}
-              className='w-full md:w-[200px] text-white hover:text-black bg-[#414D7D40] border border-[#313E52]'
+              className='w-full md:w-[200px] text-white hover:text-black bg-mb-indigo-30 border border-mb-gray-750'
               onClick={() =>
                 window.open(btnUrl, '_blank', 'noopener,noreferrer')
               }

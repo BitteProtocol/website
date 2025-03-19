@@ -16,11 +16,11 @@ const buttonVariants = cva(
           'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-white hover:text-mb-gray-550',
-        card: 'bg-[#414D7D40] text-mb-white-100 hover:text-mb-gray-550 hover:bg-white',
+        card: 'bg-mb-indigo-30 text-mb-white-100 hover:text-mb-gray-550 hover:bg-white',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         arrow:
-          'bg-[#414D7D40] border border-mb-gray-750 hover:border-[#E087FFB2]',
+          'bg-mb-indigo-30 border border-mb-gray-750 hover:border-mb-purple-70',
       },
       size: {
         default: 'h-10 px-4 py-2',

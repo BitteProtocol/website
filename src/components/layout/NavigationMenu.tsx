@@ -50,10 +50,10 @@ const NavigationMenuItem = React.forwardRef<
 NavigationMenuItem.displayName = 'NavigationMenuItem';
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-[#414D7D40]  hover:text-accent-foreground focus:bg-[#414D7D40] focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-[#414D7D40]/50 data-[state=open]:bg-[#414D7D40]/50'
+  'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-mb-indigo-30  hover:text-accent-foreground focus:bg-mb-indigo-30 focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-mb-indigo-30/50 data-[state=open]:bg-mb-indigo-30/50'
 );
 
-/* hover:border hover:border-[#313E52] focus:border focus:border-[#313E52] data-[active]:border data-[active]:border-[#414D7D40]/50 data-[state=open]:border data-[state=open]:border-[#414D7D40] */
+/* hover:border hover:border-mb-gray-750 focus:border focus:border-mb-gray-750 data-[active]:border data-[active]:border-mb-indigo-30/50 data-[state=open]:border data-[state=open]:border-mb-indigo-30 */
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,

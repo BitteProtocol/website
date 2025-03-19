@@ -45,7 +45,7 @@ export const PartnersSection = () => {
       >
         {[...partnerData, ...partnerData]?.map((data, i) => (
           <Card
-            className='bg-black border border-[#313E52] min-w-[195px] h-[95px]  flex flex-col items-center justify-center'
+            className='bg-black border border-mb-gray-750 min-w-[195px] h-[95px]  flex flex-col items-center justify-center'
             key={`partners-${i}`}
           >
             <CardContent className='text-center p-4'>

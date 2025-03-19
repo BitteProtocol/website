@@ -50,7 +50,7 @@ const Hero = () => {
           loop
           playsInline
           muted
-          className='absolute md:-top-20 w-screen h-full object-cover border-b border-[#313E52] opacity-30 z-0'
+          className='absolute md:-top-20 w-screen h-full object-cover border-b border-mb-gray-750 opacity-30 z-0'
         >
           <source src='/video/map_black.mp4' type='video/mp4' />
         </video>
