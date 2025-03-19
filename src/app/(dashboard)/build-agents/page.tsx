@@ -8,11 +8,13 @@ import {
   type CommandMenuGroup,
 } from '@/components/ui/command-menu';
 import { ToolGrid } from '@/components/ToolGrid';
-import { PromptInput } from '@/components/PromptInput';
 import { AgentSetupDialog } from '@/components/AgentSetupDialog';
 import { LoadingOverlay } from '@/components/LoadingOverlay';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function BuildAgents() {
+  const router = useRouter();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -75,6 +77,22 @@ export default function BuildAgents() {
     });
   };
 
+  const handleNextStep = () => {
+    if (selectedItems.size === 0) {
+      alert('Please select at least one tool');
+      return;
+    }
+
+    // Store selected tools in localStorage
+    const selectedToolsData = Array.from(selectedItems).map(
+      (index) => tools[index]
+    );
+    localStorage.setItem('selectedTools', JSON.stringify(selectedToolsData));
+
+    // Navigate to configuration page
+    router.push('/build-agents/config');
+  };
+
   const handleCreateAgent = () => {
     if (selectedItems.size === 0) {
       alert('Please select at least one tool');
@@ -108,9 +126,9 @@ export default function BuildAgents() {
   console.log('TOOLS', tools);
 
   return (
-    <div className='h-screen bg-background text-white flex flex-col'>
+    <div className='bg-background text-white flex flex-col'>
       <CommandMenu groups={groups} />
-      <div className='flex-1 overflow-hidden flex flex-col border border-[#334155] rounded-md'>
+      <div className='overflow-hidden flex flex-col border border-[#334155] rounded-md h-[84vh]'>
         {/* Header - Spans the full width */}
         <div className='border-b border-[#334155] px-6 py-4'>
           <div className='flex items-center justify-between'>
@@ -134,7 +152,7 @@ export default function BuildAgents() {
         </div>
 
         {/* Content Area with Filters and Grid */}
-        <div className='flex-1 flex overflow-hidden m-5 rounded-md'>
+        <div className='flex overflow-hidden m-5 rounded-md'>
           {/* Filter Sidebar */}
           <div className='w-64 border-r border-[#334155] p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             <div className='py-2'>
@@ -234,13 +252,11 @@ export default function BuildAgents() {
         </div>
       </div>
 
-      {/* <PromptInput
-        instructions={instructions}
-        setInstructions={setInstructions}
-        handleCreateAgent={handleCreateAgent}
-        isCreating={isDialogOpen}
-        selectedTools={Array.from(selectedItems).map((index) => tools[index])}
-      /> */}
+      <div className='bg-zinc-900 p-6 mt-3 rounded-md -mb-6 h-[9vh] flex justify-end items-center'>
+        <Button onClick={handleNextStep} className='md:w-[200px]'>
+          Next
+        </Button>
+      </div>
 
       <AgentSetupDialog
         isOpen={isDialogOpen}
