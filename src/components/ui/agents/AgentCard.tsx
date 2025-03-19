@@ -1,5 +1,6 @@
 'use client';
 
+import AgentImage from '@/components/layout/AgentImage';
 import { Button } from '@/components/ui/button';
 import type { RegistryData } from '@/lib/types/agent.types';
 import { getCoverImageUrl, getRunAgentUrl } from '@/lib/utils/agent';
@@ -45,8 +46,8 @@ export default function AgentCard({
                     : 'transparent',
                 }}
               >
-                <Image
-                  src={coverImage || '/placeholder.svg'}
+                <AgentImage
+                  src={coverImage}
                   alt={agent.name}
                   width={40}
                   height={40}
