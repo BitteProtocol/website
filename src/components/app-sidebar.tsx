@@ -101,7 +101,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     alt='sidebar-logo-closed'
                     width={27}
                     height={20}
-                    src='/bitte_stars_white_sidebar.png'
+                    src='/logo.svg'
                   />
                 </Link>
               </div>
