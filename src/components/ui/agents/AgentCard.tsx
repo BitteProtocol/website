@@ -1,5 +1,6 @@
 'use client';
 
+import AgentImage from '@/components/layout/AgentImage';
 import { Button } from '@/components/ui/button';
 import type { RegistryData } from '@/lib/types/agent.types';
 import { getCoverImageUrl, getRunAgentUrl } from '@/lib/utils/agent';
@@ -45,7 +46,7 @@ export default function AgentCard({
                     : 'transparent',
                 }}
               >
-                <Image
+                <AgentImage
                   src={coverImage || '/placeholder.svg'}
                   alt={agent.name}
                   width={40}
@@ -132,7 +133,7 @@ export default function AgentCard({
                         {mappedChainIds.slice(3).map((network, index) => (
                           <div key={index} className='flex items-center gap-2'>
                             <div className='relative w-4 h-4'>
-                              <Image
+                              <AgentImage
                                 src={network.icon}
                                 alt={`${network.name} icon`}
                                 fill
