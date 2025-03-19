@@ -504,7 +504,7 @@ const SidebarMenuItem = React.forwardRef<
   <li
     ref={ref}
     data-sidebar='menu-item'
-    className={cn('group/menu-item relative text-[#7C7C7C]', className)}
+    className={cn('group/menu-item relative text-mb-gray-150', className)}
     {...props}
   />
 ));

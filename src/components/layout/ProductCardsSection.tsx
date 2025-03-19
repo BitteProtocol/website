@@ -27,7 +27,7 @@ export const ProductCardsSection = ({
       <div className='flex lg:flex-row flex-col items-center justify-center gap-6'>
         {data.cards.map((data) => (
           <Card
-            className='bg-black border border-[#313E52] w-full lg:w-2/3 h-full md:h-[350px] relative overflow-hidden hover:border-[#E087FFB2] hover:shadow-custom transition-all duration-300 cursor-pointer'
+            className='bg-black border border-mb-gray-750 w-full lg:w-2/3 h-full md:h-[350px] relative overflow-hidden hover:border-mb-purple-70 hover:shadow-custom transition-all duration-300 cursor-pointer'
             key={data?.id}
             onMouseEnter={() => setIsHovered(data.id)}
             onMouseLeave={() => setIsHovered(null)}
@@ -56,7 +56,7 @@ export const ProductCardsSection = ({
             <CardContent className='p-6 flex flex-col items-center md:items-start justify-between gap-6 xl:gap-12 relative overflow-hidden w-full h-full'>
               <div>
                 <span
-                  className={`${fira.className} bg-[#C084FC33] backdrop-blur-md rounded-full text-[#C084FC] uppercase text-xs py-1.5 px-5`}
+                  className={`${fira.className} bg-mb-purple-20 backdrop-blur-md rounded-full text-mb-purple uppercase text-xs py-1.5 px-5`}
                 >
                   {data?.badge}
                 </span>

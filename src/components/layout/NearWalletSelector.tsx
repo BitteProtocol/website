@@ -3,10 +3,11 @@
 import { useBitteWallet } from '@bitte-ai/react';
 import Image from 'next/image';
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { Button } from '../ui/button';
 import { getBalance } from '@mintbase-js/rpc';
 import { useState } from 'react';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
+import CurrentlyConnected from './CurrentlyConnected';
+import ConnectAccountCard from './ConnectAccountCard';
 
 export const NearWalletConnector = ({
   setConnectModalOpen,
@@ -45,51 +46,35 @@ export const NearWalletConnector = ({
 
   if (!isConnected) {
     return (
-      <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
-        <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
-          <Image
-            src='/chains/near_wallet_connector_v2.svg'
-            width={60}
-            height={60}
-            alt='connect-wallet-modal-logo-near'
-          />
-        </div>
-        <div>
-          <div
-            className='connect-chain-button'
-            onClick={() => {
-              handleSignIn();
-              setConnectModalOpen(false);
-            }}
-          >
-            NEAR Account
-          </div>
-          <p className='text-[#BABDC2] text-xs italic'>
-            e.g.
-            <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
-              blackdragon.near
-            </span>
-          </p>
-        </div>
-      </div>
+      <ConnectAccountCard
+        action={[handleSignIn, () => setConnectModalOpen(false)]}
+        icon1='/near_connect_icon.svg'
+        text='NEAR Account'
+        account='blackdragon.near'
+      />
     );
   }
 
   return (
-    <div className='flex gap-2 items-center justify-between'>
-      <div className='flex items-center gap-2'>
-        <Image
-          src='/chains/near_wallet_connector_v2.svg'
-          width={46}
-          height={46}
-          alt='connect-wallet-modal-logo-near'
-        />
-        <div>
-          <p>{activeAccountId}</p>
-          <small>{formatNearAmount(balance, 2)} NEAR</small>
+    <CurrentlyConnected
+      chainIcon='/near_connect_icon.svg'
+      accountId={activeAccountId || ''}
+      networkBadge={
+        <div className='bg-mb-gray-600 rounded-full py-0.5 px-3 flex items-center gap-2'>
+          <div className='bg-black p-0.5 rounded'>
+            <Image
+              src='/chains/near_wallet_connector_v2.svg'
+              width={14}
+              height={14}
+              alt='connect-wallet-modal-logo-near'
+            />
+          </div>
+          <span className='text-xs text-mb-white-100 font-normal'>NEAR</span>
         </div>
-      </div>
-      <Button onClick={handleSignout}>Disconnect</Button>
-    </div>
+      }
+      network='NEAR'
+      balance={formatNearAmount(balance, 2)}
+      action={handleSignout}
+    />
   );
 };

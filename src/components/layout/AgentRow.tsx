@@ -80,7 +80,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
             >
               <Button
                 size='sm'
-                className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA] h-8'
+                className='bg-mb-blue-30 hover:bg-mb-blue-100/40 text-mb-blue-100 h-8'
               >
                 <span className='flex items-center gap-1 text-[13px]'>
                   {ACTION_TEXTS[agent.id]}

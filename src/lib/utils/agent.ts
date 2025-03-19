@@ -23,5 +23,5 @@ export const getRunAgentUrl = (
   agentId: string,
   isVerified: boolean
 ): string => {
-  return `/chat${generateId()}?agentid=${agentId}${isVerified ? '' : '&mode=debug'}`;
+  return `/chat/${generateId()}?agentid=${agentId}${isVerified ? '' : '&mode=debug'}`;
 };

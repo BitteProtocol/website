@@ -12,11 +12,13 @@ import {
 } from '@/components/ui/drawer';
 import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
-import { PlusCircle, Link2 } from 'lucide-react';
+import { Link2 } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
 import { NearWalletConnector } from './NearWalletSelector';
+import { useAppKit } from '@reown/appkit/react';
+import ConnectAccountCard from './ConnectAccountCard';
 
 interface ConnectDialogProps {
   isOpen: boolean;
@@ -36,52 +38,43 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
 
+  const { open } = useAppKit();
+
   const content = (
-    <>
-      <div className='flex flex-col gap-4'>
-        <div className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3'>
-          <div className='flex items-center justify-center h-[60px] w-[60px] bg-black rounded-md'>
-            <Image
-              src='/chains/evm_wallet_connector.svg'
-              width={60}
-              height={60}
-              alt='connect-wallet-connect-logo'
-            />
-          </div>
-          <div>
-            <div className='mb-2'>
-              <appkit-connect-button label='EVM Account' />
-            </div>
-            <p className='text-[#BABDC2] text-xs italic'>
-              e.g.
-              <span className='ml-2 bg-[#1F1F1F] p-1 rounded-md text-xs text-[#BABDC2] not-italic'>
-                0xd8da6...aa96045
-              </span>
-            </p>
-          </div>
-        </div>
+    <div>
+      <div className='flex flex-col gap-4 mb-0'>
+        <ConnectAccountCard
+          action={open}
+          icon1='/chains/evm_wallet_connector.svg'
+          icon2='/metamask_icon_connect.svg'
+          text='EVM Account'
+          account='0xd8da6...aa96045'
+        />
         <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
       </div>
-      <div
-        className={`border-b border-[#334155] ${isMobile ? 'my-9' : ''}`}
-      ></div>
+      <div className='border-b border-mb-gray-800 my-6'></div>
       <a
-        className='w-full bg-[#141414] h-[80px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto'
+        className='w-full bg-mb-gray-650 hover:bg-mb-blue-30 h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
         href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
         target='_blank'
         rel='noreferrer'
       >
-        <div className='flex items-center justify-center h-[60px] w-[60px] bg-white rounded-md'>
-          <PlusCircle size={32} color='black' />
+        <div className='flex items-center justify-center rounded-md h-[40px] w-[40px] bg-white'>
+          <Image
+            src='/bitte-symbol-black.svg'
+            width={26}
+            height={19}
+            alt='bitte-connect-logo'
+          />
         </div>
         <div>
-          <p className='text-lg text-[#F8FAFC] font-semibold mb-2'>
+          <p className='text-sm text-mb-white-50 font-semibold mb-2'>
             Create New Account
           </p>
-          <p className='text-[#BABDC2] text-xs'>for EVM and NEAR chains</p>
+          <p className='text-mb-gray-50 text-xs'>for EVM and NEAR chains</p>
         </div>
       </a>
-    </>
+    </div>
   );
 
   if (isMobile) {
@@ -96,9 +89,14 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
           </Button>
         </DrawerTrigger>
         <DrawerContent className='p-6 border-none'>
-          <DrawerTitle className='font-semibold text-xl mb-7 mt-5'>
-            Connect Wallet
-          </DrawerTitle>
+          <div className='mb-7 mt-5'>
+            <DrawerTitle className='font-semibold text-xl mb-1'>
+              Connect Wallet
+            </DrawerTitle>
+            <p className='text-mb-gray-50 text-xs'>
+              Import an existing account or create a new one.
+            </p>
+          </div>
           {content}
         </DrawerContent>
       </Drawer>
@@ -109,7 +107,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
         {sidebarOpen ? (
-          <Button className='w-full'>{'Connect Wallet'}</Button>
+          <Button className='w-full'>Connect Wallet</Button>
         ) : isSidebar ? (
           <Button size='icon'>
             <Link2 size={16} />
@@ -118,10 +116,15 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
           <Button className='w-[137px]'>Connect</Button>
         )}
       </DialogTrigger>
-      <DialogContent className='max-w-[510px] min-h-[465px] border border-[#334155] bg-black rounded-md'>
-        <DialogTitle className='font-semibold text-xl'>
-          Connect Wallet
-        </DialogTitle>
+      <DialogContent className='max-w-[510px] min-h-[415px] border border-mb-gray-800 bg-black rounded-md p-8'>
+        <div className='mb-7'>
+          <DialogTitle className='font-semibold text-xl mb-1'>
+            Connect Wallet
+          </DialogTitle>
+          <p className='text-mb-gray-50 text-xs w-2/5'>
+            Import an existing account or create a new one.
+          </p>
+        </div>
         {content}
       </DialogContent>
     </Dialog>

@@ -80,8 +80,8 @@ export default function RootSidebar({ children }: { children: ReactNode }) {
                           className={cn(
                             'uppercase text-xs font-semibold',
                             path === pathname
-                              ? 'text-[#FAFAFA]'
-                              : 'text-[#7C7C7C]',
+                              ? 'text-mb-white-100'
+                              : 'text-mb-gray-150',
                             isPending ? 'cursor-wait' : 'cursor-pointer'
                           )}
                         >

@@ -16,7 +16,7 @@ const AgentBadge = ({ className }: { className?: string }) => {
     <Badge
       variant='outline'
       className={cn(
-        'w-fit rounded-full border-[#475569] border-dashed text-[#C084FC] bg-zinc-900/90 py-1 text-[12px] uppercase',
+        'w-fit rounded-full border-mb-gray-500 border-dashed text-mb-purple bg-zinc-900/90 py-1 text-[12px] uppercase',
         className
       )}
     >
@@ -111,7 +111,7 @@ const HeroPromptInput = () => {
         <div className='flex gap-2 items-center absolute bottom-2 right-0'>
           <Button
             asChild
-            className='bg-[#60A5FA4D] hover:bg-[#60A5FA]/40 text-[#60A5FA]'
+            className='bg-mb-blue-30 hover:bg-mb-blue-100/40 text-mb-blue-100'
           >
             <Link href={`/chat/${id}?agentid=${BITTE_AGENTID}`}>
               All Agents

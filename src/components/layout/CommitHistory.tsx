@@ -94,7 +94,7 @@ export default function GitCommitHistory({ repoUrl }: GitCommitHistoryProps) {
   }
 
   return (
-    <Card className='border border-[#313E52] w-full'>
+    <Card className='border border-mb-gray-750 w-full'>
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <GitCommit className='h-6 w-6' />

@@ -28,8 +28,10 @@ export const AgentSelector = ({
   const selectedAgentRef = useRef<HTMLDivElement | null>(null);
 
   const filteredAgents = searchKeyword.length
-    ? agentData?.filter((agent) =>
-        agent.name.toLowerCase().includes(searchKeyword.toLowerCase())
+    ? agentData?.filter(
+        (agent) =>
+          agent.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+          agent.id.toLowerCase().includes(searchKeyword.toLowerCase())
       )
     : agentData;
 
@@ -44,10 +46,10 @@ export const AgentSelector = ({
   }, [selectedAgentId, agentData]);
 
   return (
-    <div className='border border-[#334155] bg-[#09090B] rounded-md h-full flex flex-col'>
-      <div className='border-b p-4 border-[#334155]'>
+    <div className='border border-mb-gray-800 bg-mb-black rounded-md h-full flex flex-col'>
+      <div className='border-b p-4 border-mb-gray-800'>
         <p className='font-semibold text-white'>Agents</p>
-        <p className='text-[#CBD5E1] text-sm'>
+        <p className='text-mb-gray-300 text-sm'>
           Choose agents to perform specific tasks.
         </p>
         <div className='relative mt-2'>
@@ -83,8 +85,8 @@ export const AgentSelector = ({
               className={cn(
                 'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent',
                 isSelected
-                  ? 'bg-[#C084FC33] border-[#C084FC]'
-                  : 'bg-[#18181A] hover:border-[#C084FC]'
+                  ? 'bg-mb-purple-20 border-mb-purple'
+                  : 'bg-[#18181A] hover:border-mb-purple'
               )}
             >
               <div className='mb-2 flex items-center justify-between gap-2'>
@@ -97,7 +99,7 @@ export const AgentSelector = ({
                     alt={`${agent?.id}-logo`}
                     loading='lazy'
                   />
-                  <p className='font-medium transition-all duration-500 text-[#F8FAFC] text-sm'>
+                  <p className='font-medium transition-all duration-500 text-mb-white-50 text-sm'>
                     {agent.name}
                   </p>
                 </div>
@@ -112,14 +114,14 @@ export const AgentSelector = ({
                   </a>
                 ) : null}
               </div>
-              <p className='line-clamp-2 text-sm transition-all duration-500 text-[#CBD5E1]'>
+              <p className='line-clamp-2 text-sm transition-all duration-500 text-mb-gray-300'>
                 {agent.description}
               </p>
             </div>
           );
         })}
       </div>
-      <div className='flex items-center justify-between border-t border-[#334155] p-4'>
+      <div className='flex items-center justify-between border-t border-mb-gray-800 p-4'>
         <div className='flex items-center gap-2'>
           <Switch checked={isPlayground} onCheckedChange={togglePlayground} />
           <span className='flex items-center gap-1.5 text-sm font-medium'>

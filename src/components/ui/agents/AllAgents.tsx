@@ -1,7 +1,7 @@
 'use client';
 import { AgentData, Filters as AgentFilters } from '@/lib/types/agent.types';
 import { filterHandler } from '@/lib/utils/filters';
-import { ChevronRight, SearchIcon } from 'lucide-react';
+import { ListFilter, SearchIcon } from 'lucide-react';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { useState } from 'react';
 import { Button } from '../button';
@@ -44,15 +44,25 @@ const AllAgents = (props: AgentData) => {
 
       // Check if agent matches all selected filters
       const matchesFilters = selectedFilters.every((filter) => {
-        if (filter.label === 'Category' && agent.category) {
-          return filter.values.includes(agent.category);
+        if (filter.label === 'Categories' && agent.category) {
+          return filter.values.some((value) => value.name === agent.category);
+        } else if (filter.label === 'Networks') {
+          // If agent.chainIds is undefined or empty, check if the selected filter has id '0' - NEAR
+          if (!agent.chainIds || agent.chainIds.length === 0) {
+            return filter.values.some((value) => value.id === '0');
+          }
+          // If agent.chainIds is not empty, proceed with the existing check
+          return filter.values.some((value) =>
+            agent.chainIds?.some((chainId) => value.id === chainId.toString())
+          );
         }
         return true;
       });
 
       // Check if agent name includes the search keyword
       const matchesSearch = searchKeyword.length
-        ? agent.name.toLowerCase().includes(searchKeyword.toLowerCase())
+        ? agent.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+          agent.id.toLowerCase().includes(searchKeyword.toLowerCase())
         : true;
 
       return matchesFilters && matchesSearch;
@@ -71,7 +81,7 @@ const AllAgents = (props: AgentData) => {
           <Dialog>
             <DialogTrigger className='w-full'>
               <div className='flex flex-1 items-center gap-2 border-b border-mb-gray-500 w-full pb-4'>
-                <ChevronRight className='h-6 w-6' />
+                <ListFilter className='h-5 w-5' />
                 Filters
               </div>
             </DialogTrigger>
@@ -80,11 +90,11 @@ const AllAgents = (props: AgentData) => {
                 <div className='border-b border-mb-gray-500 p-6 bg-mb-gray-550 w-auto'>
                   <DialogTitle>Filters</DialogTitle>
                 </div>
-                <div className='p-4'>
+                <div className='px-4 pt-4'>
                   <PlaygroundSwitch />
                 </div>
 
-                <div className='p-4 h-[70vh] overflow-scroll'>
+                <div className='pt-0 lg:pt-4 p-4 h-[70vh] overflow-scroll'>
                   <Filters
                     filters={filters}
                     selectedFilters={selectedFilters}
@@ -129,7 +139,7 @@ const AllAgents = (props: AgentData) => {
             <PlaygroundSwitch />
           </div>
 
-          <div className='sticky top-48'>
+          <div className='sticky top-48 bg-background'>
             <Filters
               filters={filters}
               selectedFilters={selectedFilters}
@@ -138,7 +148,7 @@ const AllAgents = (props: AgentData) => {
           </div>
         </div>
 
-        <div className='lg:col-span-4 grid-cols-1 lg-card:grid-cols-2 grid gap-8 w-full h-fit'>
+        <div className='lg:col-span-4 grid-cols-1 lg-card:grid-cols-2 grid gap-6 w-full h-fit'>
           <div className='relative mt-2 h-fit'>
             <SearchIcon
               className='pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground'
