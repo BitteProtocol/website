@@ -47,7 +47,7 @@ export default function AgentCard({
                 }}
               >
                 <AgentImage
-                  src={coverImage || '/placeholder.svg'}
+                  src={coverImage}
                   alt={agent.name}
                   width={40}
                   height={40}
