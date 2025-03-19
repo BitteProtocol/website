@@ -133,7 +133,7 @@ export default function AgentCard({
                         {mappedChainIds.slice(3).map((network, index) => (
                           <div key={index} className='flex items-center gap-2'>
                             <div className='relative w-4 h-4'>
-                              <AgentImage
+                              <Image
                                 src={network.icon}
                                 alt={`${network.name} icon`}
                                 fill
