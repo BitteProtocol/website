@@ -38,7 +38,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: 'Chat',
         url: `/chat/${generateId()}?agentid=${BITTE_AGENTID}`,
         icon: TerminalSquare,
-        isActive: pathname.startsWith('/chat/'),
+        isActive: pathname.startsWith('/chat'),
       },
       {
         title: 'Browse Agents',
