@@ -52,9 +52,9 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
         />
         <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
       </div>
-      <div className='border-b border-[#334155] my-6'></div>
+      <div className='border-b border-mb-gray-800 my-6'></div>
       <a
-        className='w-full bg-[#232323] hover:bg-[#60A5FA4D] h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
+        className='w-full bg-mb-gray-650 hover:bg-mb-blue-30 h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
         href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
         target='_blank'
         rel='noreferrer'
@@ -68,10 +68,10 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
           />
         </div>
         <div>
-          <p className='text-sm text-[#F8FAFC] font-semibold mb-2'>
+          <p className='text-sm text-mb-white-50 font-semibold mb-2'>
             Create New Account
           </p>
-          <p className='text-[#BABDC2] text-xs'>for EVM and NEAR chains</p>
+          <p className='text-mb-gray-50 text-xs'>for EVM and NEAR chains</p>
         </div>
       </a>
     </div>
@@ -93,7 +93,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
             <DrawerTitle className='font-semibold text-xl mb-1'>
               Connect Wallet
             </DrawerTitle>
-            <p className='text-[#BABDC2] text-xs'>
+            <p className='text-mb-gray-50 text-xs'>
               Import an existing account or create a new one.
             </p>
           </div>
@@ -116,12 +116,12 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
           <Button className='w-[137px]'>Connect</Button>
         )}
       </DialogTrigger>
-      <DialogContent className='max-w-[510px] min-h-[415px] border border-[#334155] bg-black rounded-md p-8'>
+      <DialogContent className='max-w-[510px] min-h-[415px] border border-mb-gray-800 bg-black rounded-md p-8'>
         <div className='mb-7'>
           <DialogTitle className='font-semibold text-xl mb-1'>
             Connect Wallet
           </DialogTitle>
-          <p className='text-[#BABDC2] text-xs w-2/5'>
+          <p className='text-mb-gray-50 text-xs w-2/5'>
             Import an existing account or create a new one.
           </p>
         </div>

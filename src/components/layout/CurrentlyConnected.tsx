@@ -38,7 +38,7 @@ const CurrentlyConnected = ({
           />
           <div className='flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-5'>
             {networkBadge}
-            <small className='text-xs text-[#CBD5E1] font-normal'>
+            <small className='text-xs text-mb-gray-300 font-normal'>
               {balance} {network}
             </small>
           </div>
@@ -46,7 +46,7 @@ const CurrentlyConnected = ({
       </div>
       <Button
         variant='outline'
-        className='px-2.5 border border-[#EF44444D] bg-transparent'
+        className='px-2.5 border border-mb-red-30 bg-transparent'
         size='sm'
         onClick={action}
       >

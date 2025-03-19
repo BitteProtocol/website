@@ -8,13 +8,13 @@ export const AgentStarterCard = (): JSX.Element => {
   return (
     <div className='w-full md:w-[402px]'>
       <Link href='/agents/agent-starter'>
-        <Card className='border border-[#CAFFF280] hover:bg-[#17171F] transition-all duration-500'>
+        <Card className='border border-mb-teal-50 hover:bg-mb-dark-blue transition-all duration-500'>
           <CardContent className='p-4 flex items-center justify-between'>
             <div>
-              <p className='text-[#CAFFF2] text-lg font-bold mb-1.5'>
+              <p className='text-mb-teal text-lg font-bold mb-1.5'>
                 Agent Starter
               </p>
-              <p className='text-[#CBD5E1]'>
+              <p className='text-mb-gray-300'>
                 Create your own AI Agents in minutes.
               </p>
             </div>

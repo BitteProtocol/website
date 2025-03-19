@@ -67,7 +67,7 @@ export const AgentDetailComponent = ({
           {pings && (
             <>
               <div className='grid gap-4 lg:grid-cols-3 my-8'>
-                <Card className='border border-[#313E52]'>
+                <Card className='border border-mb-gray-750'>
                   <CardContent className='p-6'>
                     <div className='text-sm text-gray-400 mb-2'>
                       Total Pings
@@ -80,7 +80,7 @@ export const AgentDetailComponent = ({
                     </div>
                   </CardContent>
                 </Card>
-                <Card className='border border-[#313E52]'>
+                <Card className='border border-mb-gray-750'>
                   <CardContent className='p-6'>
                     <div className='text-sm text-gray-400 mb-2'>
                       Daily Average
@@ -95,7 +95,7 @@ export const AgentDetailComponent = ({
                     </div>
                   </CardContent>
                 </Card>
-                <Card className='border border-[#313E52]'>
+                <Card className='border border-mb-gray-750'>
                   <CardContent className='p-6'>
                     <div className='text-sm text-gray-400 mb-2'>
                       Last 7 Days

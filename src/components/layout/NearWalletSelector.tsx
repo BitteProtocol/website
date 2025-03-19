@@ -60,7 +60,7 @@ export const NearWalletConnector = ({
       chainIcon='/near_connect_icon.svg'
       accountId={activeAccountId || ''}
       networkBadge={
-        <div className='bg-[#27272A] rounded-full py-0.5 px-3 flex items-center gap-2'>
+        <div className='bg-mb-gray-600 rounded-full py-0.5 px-3 flex items-center gap-2'>
           <div className='bg-black p-0.5 rounded'>
             <Image
               src='/chains/near_wallet_connector_v2.svg'
@@ -69,7 +69,7 @@ export const NearWalletConnector = ({
               alt='connect-wallet-modal-logo-near'
             />
           </div>
-          <span className='text-xs text-[#FAFAFA] font-normal'>NEAR</span>
+          <span className='text-xs text-mb-white-100 font-normal'>NEAR</span>
         </div>
       }
       network='NEAR'

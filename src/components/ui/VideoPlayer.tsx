@@ -23,7 +23,7 @@ const VideoPlayer = ({
         height='100%'
         light={thumbnail}
         playIcon={
-          <Button className='rounded-full bg-[#414D7D33] backdrop-blur-md w-16 h-16 flex items-center justify-center z-[99]'>
+          <Button className='rounded-full bg-mb-indigo-20 backdrop-blur-md w-16 h-16 flex items-center justify-center z-[99]'>
             <Play size={24} color='white' />
           </Button>
         }

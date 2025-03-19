@@ -55,7 +55,7 @@ const CardComponent = ({ ...props }) => {
       onMouseLeave={() => setIsHovered(null)}
       className={
         !hasLink
-          ? 'relative bg-black border border-[#313E52] w-9/12 md:w-1/2 lg:w-[28%] h-[272px] sm:h-[420px] flex-shrink-0 snap-center hover:border-[#E087FFB2] hover:shadow-custom transition-all duration-300 cursor-pointer ml-4 first:ml-6 last:mr-12 md:first:ml-28 md:last:mr-36 overflow-hidden'
+          ? 'relative bg-black border border-mb-gray-750 w-9/12 md:w-1/2 lg:w-[28%] h-[272px] sm:h-[420px] flex-shrink-0 snap-center hover:border-mb-purple-70 hover:shadow-custom transition-all duration-300 cursor-pointer ml-4 first:ml-6 last:mr-12 md:first:ml-28 md:last:mr-36 overflow-hidden'
           : 'flex flex-shrink-0  h-full snap-center'
       }
     >
@@ -88,7 +88,7 @@ const CardComponent = ({ ...props }) => {
         <div className='z-50'>
           <div className='flex justify-between items-center z-50'>
             <span
-              className={`${fira.className} bg-[#414D7D33] backdrop-blur-md rounded-full text-white uppercase text-xs py-1.5 px-5 self-start`}
+              className={`${fira.className} bg-mb-indigo-20 backdrop-blur-md rounded-full text-white uppercase text-xs py-1.5 px-5 self-start`}
             >
               {card?.badge}
             </span>
@@ -107,7 +107,7 @@ const CardComponent = ({ ...props }) => {
         {!isVideo && (
           <div className='flex justify-center sm:justify-between sm:h-full'>
             <div
-              className={`sm:self-end min-w-full sm:min-w-[135px] sm:max-w-[300px] px-3 py-2.5 border border-[#313E52] hover:border-none rounded-[10px] flex items-center justify-center ease-out ${isHovered === card.id ? 'bg-white text-mb-gray-550 border-none' : 'bg-[#414D7D40] backdrop-blur-md text-mb-white-100'} transition-all duration-500 ease-in-out`}
+              className={`sm:self-end min-w-full sm:min-w-[135px] sm:max-w-[300px] px-3 py-2.5 border border-mb-gray-750 hover:border-none rounded-[10px] flex items-center justify-center ease-out ${isHovered === card.id ? 'bg-white text-mb-gray-550 border-none' : 'bg-mb-indigo-30 backdrop-blur-md text-mb-white-100'} transition-all duration-500 ease-in-out`}
             >
               <p className='text-sm font-normal'>{card?.action}</p>
             </div>
@@ -246,7 +246,7 @@ export const ExamplesSection = ({
               href={card.link}
               target='_blank'
               key={card?.id}
-              className={`relative bg-black border border-[#313E52] w-9/12 md:w-1/2 lg:w-[28%] h-[272px] sm:h-[420px] flex-shrink-0 snap-center hover:border-[#E087FFB2] hover:shadow-custom transition-all duration-300 cursor-pointer ml-4 first:ml-6 last:mr-12 md:first:ml-28 md:last:mr-36 overflow-hidden`}
+              className={`relative bg-black border border-mb-gray-750 w-9/12 md:w-1/2 lg:w-[28%] h-[272px] sm:h-[420px] flex-shrink-0 snap-center hover:border-mb-purple-70 hover:shadow-custom transition-all duration-300 cursor-pointer ml-4 first:ml-6 last:mr-12 md:first:ml-28 md:last:mr-36 overflow-hidden`}
             >
               <CardComponent card={card} {...cardProps} hasLink />
             </Link>
@@ -256,7 +256,7 @@ export const ExamplesSection = ({
       <div className='mt-8 flex justify-center px-6'>
         <Button
           variant='secondary'
-          className='w-full md:w-[200px] text-white hover:text-black bg-[#414D7D40] border border-[#313E52]'
+          className='w-full md:w-[200px] text-white hover:text-black bg-mb-indigo-30 border border-mb-gray-750'
           onClick={() => handleCardClick(data.btnUrl)}
         >
           {data.btnTitle}
