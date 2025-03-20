@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ImagePlus, ArrowLeft } from 'lucide-react';
+import { Plus, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState, useRef, useEffect, useMemo } from 'react';
@@ -102,7 +102,15 @@ export default function ConfigurationPage() {
       );
       if (!response.ok) throw new Error('Failed to generate image');
       const data = await response.json();
+
+      // Update the image state - this ensures the image appears in the upload box
       setImage(data.url);
+
+      toast({
+        title: 'Success',
+        description: 'Image generated successfully and added to your agent',
+        variant: 'default',
+      });
     } catch (error) {
       console.error('Failed to generate image:', error);
       toast({
@@ -222,10 +230,10 @@ ${toolsList}
           </div>
         </div>
 
-        {/* Content Area */}
-        <div className='flex overflow-hidden m-5 rounded-md'>
+        {/* Content Area - Remove m-5 margin that's causing gaps */}
+        <div className='flex flex-1 overflow-hidden'>
           {/* Left Side - Tools and Editor */}
-          <div className='w-1/2 border-r border-[#334155] p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
+          <div className='w-1/2 border-r border-[#334155] pl-6 pr-9 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             {/* Selected Tools */}
             <div className='mb-6'>
               <h2 className='text-sm font-medium mb-2'>Tools</h2>
@@ -244,19 +252,21 @@ ${toolsList}
             {/* Prompt Editor */}
             <div>
               <h2 className='text-sm font-medium mb-2'>Prompt</h2>
-              <div className='border border-mb-gray-600 rounded-md overflow-hidden bg-zinc-900 h-[calc(100%-5rem)]'>
+              <div className='border border-mb-gray-600 rounded-md overflow-hidden bg-transparent h-[calc(100%-5rem)]'>
                 <NotionLikeEditor
                   content={instructions}
                   onChange={setInstructions}
                   placeholder='Describe how your agent should behave...'
                 />
               </div>
-              <p className='text-xs text-zinc-500 mt-2'>Markdown accepted.</p>
+              <small className='text-sm text-[#A1A1AA] mt-4'>
+                Markdown accepted.
+              </small>
             </div>
           </div>
 
           {/* Right Side - Name, Image Generator, Cover Image */}
-          <div className='w-1/2 p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
+          <div className='w-1/2 pl-9 pr-6 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             <div className='space-y-8'>
               {/* Agent Name */}
               <div className='space-y-2'>
@@ -311,19 +321,17 @@ ${toolsList}
                       onDragLeave={handleDragLeave}
                       onDrop={handleDrop}
                       className={cn(
-                        'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-zinc-700 bg-zinc-800/50 transition-colors hover:bg-zinc-800',
-                        isDragging && 'border-purple-500/50 bg-purple-500/5'
+                        'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-[#60A5FA] bg-zinc-900/20 transition-colors hover:bg-zinc-900/40',
+                        isDragging && 'border-[#60A5FA] bg-[#60A5FA]/10',
+                        'border-dashed [border-spacing:4px] [border-dash-pattern:1_6]'
                       )}
                     >
-                      <div className='rounded-full bg-zinc-900 p-3 shadow-sm'>
-                        <ImagePlus className='h-5 w-5 sm:h-6 sm:w-6 text-zinc-400' />
+                      <div className='rounded-full border border-[#60A5FA] p-3 shadow-sm'>
+                        <Plus className='h-4 w-4 text-[#60A5FA]' />
                       </div>
                       <div className='text-center'>
-                        <p className='text-sm font-medium text-white'>
+                        <p className='text-sm font-medium text-[#60A5FA]'>
                           Drag image or click to upload
-                        </p>
-                        <p className='text-xs text-zinc-400'>
-                          A square 1:1 aspect ratio works best.
                         </p>
                       </div>
                       <input
@@ -364,6 +372,9 @@ ${toolsList}
                     </div>
                   )}
                 </div>
+                <small className='text-sm text-[#A1A1AA] mt-4'>
+                  A square 1:1 aspect ratio works best.
+                </small>
               </div>
             </div>
           </div>
@@ -371,7 +382,7 @@ ${toolsList}
       </div>
 
       {/* Bottom Action Bar */}
-      <div className='bg-zinc-900 p-6 mt-3 rounded-md -mb-6 h-[9vh] flex justify-between items-center'>
+      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 h-[8vh] flex justify-between items-center'>
         <Button
           variant='secondary'
           onClick={handleGoBack}
