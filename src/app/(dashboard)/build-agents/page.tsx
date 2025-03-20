@@ -154,9 +154,9 @@ export default function BuildAgents() {
         </div>
 
         {/* Content Area with Filters and Grid */}
-        <div className='flex overflow-hidden m-5 rounded-md'>
+        <div className='flex overflow-hidden rounded-md'>
           {/* Filter Sidebar */}
-          <div className='w-64 border-r border-[#334155] p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
+          <div className='w-64 border-r border-[#334155] px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             <div className='py-2'>
               <h2 className='text-lg font-medium mb-4'>Filters</h2>
             </div>
@@ -243,7 +243,7 @@ export default function BuildAgents() {
           </div>
 
           {/* Main Content */}
-          <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent p-4'>
+          <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent px-6 py-5'>
             <ToolGrid
               tools={tools}
               selectedItems={selectedItems}

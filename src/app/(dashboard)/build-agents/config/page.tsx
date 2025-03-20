@@ -133,6 +133,7 @@ export default function ConfigurationPage() {
       });
       return;
     }
+    router.prefetch('/agents/');
 
     setIsCreatingAgent(true);
     try {
@@ -159,7 +160,7 @@ export default function ConfigurationPage() {
       }
 
       const createdAgent = await response.json();
-      router.push(`https://www.bitte.ai/agents/${createdAgent.id}`);
+      router.push(`/agents/${createdAgent.id}`);
     } catch (error) {
       setIsCreatingAgent(false);
       console.error('Failed to create agent:', error);
