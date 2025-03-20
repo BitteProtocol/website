@@ -321,10 +321,16 @@ ${toolsList}
                       onDragLeave={handleDragLeave}
                       onDrop={handleDrop}
                       className={cn(
-                        'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-[#60A5FA] bg-zinc-900/20 transition-colors hover:bg-zinc-900/40',
+                        'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-[#60A5FA] bg-zinc-900/20 transition-colors hover:bg-zinc-900/40',
                         isDragging && 'border-[#60A5FA] bg-[#60A5FA]/10',
-                        'border-dashed [border-spacing:4px] [border-dash-pattern:1_6]'
+                        'upload-box'
                       )}
+                      style={{
+                        backgroundImage:
+                          "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%2360A5FA' stroke-width='2' stroke-dasharray='8, 8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e\")",
+                        borderRadius: '8px',
+                        border: 'none',
+                      }}
                     >
                       <div className='rounded-full border border-[#60A5FA] p-3 shadow-sm'>
                         <Plus className='h-4 w-4 text-[#60A5FA]' />
