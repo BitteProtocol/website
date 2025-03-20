@@ -15,7 +15,7 @@
   "dependencies": {
     "@ai-sdk/openai": "^1.0.5",
     "@bitte-ai/chat": "0.1.9",
-    "@bitte-ai/react": "latest",
+    "@bitte-ai/react": "0.7.0",
     "@google-cloud/firestore": "^7.10.0",
     "@mintbase-js/rpc": "0.6.3",
     "@near-wallet-selector/core": "^8.9.16",
