@@ -274,7 +274,7 @@ ${toolsList}
                   Agent Name
                 </label>
                 <Input
-                  className='bg-zinc-900 border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
+                  className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
                   placeholder='My Agent'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -291,7 +291,7 @@ ${toolsList}
 
                 <div className='flex items-center gap-3'>
                   <Input
-                    className='bg-zinc-900 border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
+                    className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
                     placeholder='Details of your image'
                     value={imagePrompt}
                     onChange={(e) => setImagePrompt(e.target.value)}
