@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ImagePlus, Wand2, ArrowLeft } from 'lucide-react';
+import { ImagePlus, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState, useRef, useEffect, useMemo } from 'react';
@@ -228,20 +228,13 @@ ${toolsList}
           <div className='w-1/2 border-r border-[#334155] p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             {/* Selected Tools */}
             <div className='mb-6'>
-              <h2 className='text-lg font-medium mb-4'>Tools</h2>
+              <h2 className='text-sm font-medium mb-2'>Tools</h2>
               <div className='flex flex-wrap gap-2'>
                 {selectedTools.map((tool, index) => (
                   <div
                     key={index}
-                    className='bg-zinc-800 text-white px-3 py-1 rounded-full text-sm flex items-center gap-2'
+                    className='bg-zinc-800 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-2'
                   >
-                    <Image
-                      src={tool?.image || '/bitte-symbol-black.svg'}
-                      alt={tool?.function?.name}
-                      width={16}
-                      height={16}
-                      className='object-contain'
-                    />
                     {tool.function.name}
                   </div>
                 ))}
@@ -250,8 +243,8 @@ ${toolsList}
 
             {/* Prompt Editor */}
             <div>
-              <h2 className='text-lg font-medium mb-4'>Prompt</h2>
-              <div className='border border-[#334155] rounded-md overflow-hidden bg-zinc-900 h-[calc(100%-5rem)]'>
+              <h2 className='text-sm font-medium mb-2'>Prompt</h2>
+              <div className='border border-mb-gray-600 rounded-md overflow-hidden bg-zinc-900 h-[calc(100%-5rem)]'>
                 <NotionLikeEditor
                   content={instructions}
                   onChange={setInstructions}
@@ -267,12 +260,12 @@ ${toolsList}
             <div className='space-y-8'>
               {/* Agent Name */}
               <div className='space-y-2'>
-                <label className='text-sm font-medium text-zinc-400'>
+                <label className='text-sm font-medium text-mb-white-100'>
                   Agent Name
                 </label>
                 <Input
                   className='bg-zinc-900 border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
-                  placeholder='Enter agent name...'
+                  placeholder='My Agent'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -281,15 +274,15 @@ ${toolsList}
               {/* Generate Image */}
               <div className='space-y-3'>
                 <div className='space-y-2'>
-                  <label className='text-sm font-medium text-zinc-400'>
+                  <label className='text-sm font-medium text-mb-white-100'>
                     Generate Image
                   </label>
                 </div>
 
-                <div className='flex flex-col gap-2'>
+                <div className='flex items-center gap-3'>
                   <Input
                     className='bg-zinc-900 border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
-                    placeholder="Describe the agent's appearance..."
+                    placeholder='Details of your image'
                     value={imagePrompt}
                     onChange={(e) => setImagePrompt(e.target.value)}
                   />
@@ -299,7 +292,6 @@ ${toolsList}
                     disabled={isGeneratingImage}
                     className='w-full sm:w-auto whitespace-nowrap'
                   >
-                    <Wand2 className='h-4 w-4 mr-2' />
                     {isGeneratingImage ? 'Generating...' : 'Generate'}
                   </Button>
                 </div>
@@ -307,7 +299,7 @@ ${toolsList}
 
               {/* Cover Image */}
               <div className='space-y-3'>
-                <label className='text-sm font-medium text-zinc-400'>
+                <label className='text-sm font-medium text-mb-white-100'>
                   Cover Image
                 </label>
                 <div className='h-[200px] w-full'>
