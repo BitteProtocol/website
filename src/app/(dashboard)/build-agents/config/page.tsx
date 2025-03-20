@@ -16,7 +16,7 @@ import { LoadingOverlay } from '@/components/agent-builder/LoadingOverlay';
 export default function ConfigurationPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [name, setName] = useState('');
+  const [name, setName] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
   const [selectedTools, setSelectedTools] = useState<Tool[]>([]);
   const [instructions, setInstructions] = useState<string>('');

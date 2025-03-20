@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Plus, ArrowLeft } from 'lucide-react';
+import { Plus, ArrowLeft, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState, useRef } from 'react';
@@ -127,9 +127,16 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
             variant='secondary'
             onClick={handleGenerateImage}
             disabled={isGeneratingImage}
-            className='w-full sm:w-auto whitespace-nowrap'
+            className='w-full sm:w-auto whitespace-nowrap min-w-[100px]'
           >
-            {isGeneratingImage ? 'Generating...' : 'Generate'}
+            {isGeneratingImage ? (
+              <div className='flex items-center gap-2'>
+                <Loader2 className='h-4 w-4 animate-spin' />
+                <span>Generating</span>
+              </div>
+            ) : (
+              'Generate'
+            )}
           </Button>
         </div>
       </div>
