@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-const ARWEAVE_URL = 'https://arweave.net';
+/* const ARWEAVE_URL = 'https://arweave.net';
 // Using direct upload endpoint
-const MINTBASE_ARWEAVE_URL = 'https://upload.mintbase.xyz/arweave';
+const MINTBASE_ARWEAVE_URL = 'https://upload.mintbase.xyz/arweave'; */
 
 // Log API key status (masked for security)
 const apiKey = process.env.OPENAI_API_KEY || '';
@@ -123,13 +123,12 @@ export async function GET(request: Request) {
       hash: arweaveHash,
     });
     */
-  } catch (error: any) {
-    console.error('Error in image generation:', error.message);
-    if (error.response) {
-      console.error('API response:', error.response.data);
-    }
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error in image generation:', errorMessage);
     return NextResponse.json(
-      { error: `Failed to generate image: ${error.message}` },
+      { error: `Failed to generate image: ${errorMessage}` },
       { status: 500 }
     );
   }
