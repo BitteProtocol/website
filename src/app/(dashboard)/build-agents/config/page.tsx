@@ -18,13 +18,13 @@ export default function ConfigurationPage() {
   const { toast } = useToast();
   const [name, setName] = useState('');
   const [image, setImage] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
-  const [imagePrompt, setImagePrompt] = useState('');
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isGeneratingImage, setIsGeneratingImage] = useState<boolean>(false);
+  const [imagePrompt, setImagePrompt] = useState<string>('');
   const [selectedTools, setSelectedTools] = useState<Tool[]>([]);
   const [instructions, setInstructions] = useState<string>('');
-  const [isCreatingAgent, setIsCreatingAgent] = useState(false);
-  const [editorLoading, setEditorLoading] = useState(true);
+  const [isCreatingAgent, setIsCreatingAgent] = useState<boolean>(false);
+  const [editorLoading, setEditorLoading] = useState<boolean>(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load selected tools from localStorage on component mount

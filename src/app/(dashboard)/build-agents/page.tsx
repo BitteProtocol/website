@@ -8,7 +8,6 @@ import {
   type CommandMenuGroup,
 } from '@/components/ui/command-menu';
 import { ToolGrid } from '@/components/ToolGrid';
-import { LoadingOverlay } from '@/components/LoadingOverlay';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
@@ -17,7 +16,6 @@ export default function BuildAgents() {
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isCreatingAgent, setIsCreatingAgent] = useState<boolean>(false);
 
   const groups: CommandMenuGroup[] = [
     {
@@ -240,20 +238,6 @@ export default function BuildAgents() {
           Next
         </Button>
       </div>
-
-      {isCreatingAgent && (
-        <div className='fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center'>
-          <LoadingOverlay />
-          <div className='text-center mt-4'>
-            <h3 className='text-xl font-medium text-white'>
-              Creating your agent
-            </h3>
-            <p className='text-zinc-400'>
-              Assembling tools and configuring capabilities...
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
