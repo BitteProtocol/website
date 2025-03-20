@@ -11,6 +11,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { NotionLikeEditor } from '@/components/NotionLikeEditor';
 import Link from 'next/link';
+import { Skeleton } from '@/components/ui/skeleton';
+
 export default function ConfigurationPage() {
   const router = useRouter();
   const { toast } = useToast();
@@ -22,6 +24,7 @@ export default function ConfigurationPage() {
   const [selectedTools, setSelectedTools] = useState<Tool[]>([]);
   const [instructions, setInstructions] = useState<string>('');
   const [isCreatingAgent, setIsCreatingAgent] = useState(false);
+  const [editorLoading, setEditorLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load selected tools from localStorage on component mount
@@ -34,6 +37,14 @@ export default function ConfigurationPage() {
         console.error('Failed to parse stored tools:', error);
       }
     }
+  }, []);
+
+  // Simulate editor loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setEditorLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -250,15 +261,31 @@ ${toolsList}
             <div>
               <h2 className='text-sm font-medium mb-2'>Prompt</h2>
               <div className='border border-mb-gray-600 rounded-md overflow-hidden bg-transparent h-[calc(100%-5rem)]'>
-                <NotionLikeEditor
-                  content={instructions}
-                  onChange={setInstructions}
-                  placeholder='Describe how your agent should behave...'
-                />
+                {editorLoading ? (
+                  <div className='p-4 bg-zinc-900/20 h-full space-y-4'>
+                    <Skeleton className='h-7 w-1/2' />
+                    <Skeleton className='h-6 w-3/4' />
+                    <Skeleton className='h-5 w-full' />
+                    <Skeleton className='h-5 w-2/3' />
+                    <Skeleton className='h-5 w-5/6' />
+                    <Skeleton className='h-6 w-1/2' />
+                    <Skeleton className='h-5 w-3/4' />
+                    <Skeleton className='h-5 w-full' />
+                    <Skeleton className='h-5 w-3/5' />
+                  </div>
+                ) : (
+                  <NotionLikeEditor
+                    content={instructions}
+                    onChange={setInstructions}
+                    placeholder='Describe how your agent should behave...'
+                  />
+                )}
               </div>
-              <small className='text-sm text-[#A1A1AA] mt-4'>
-                Markdown accepted.
-              </small>
+              <div className='h-12 flex items-center'>
+                <small className='text-sm text-[#A1A1AA]'>
+                  Markdown accepted.
+                </small>
+              </div>
             </div>
           </div>
 
@@ -375,9 +402,11 @@ ${toolsList}
                     </div>
                   )}
                 </div>
-                <small className='text-sm text-[#A1A1AA] mt-4'>
-                  A square 1:1 aspect ratio works best.
-                </small>
+                <div className='h-12 flex items-center'>
+                  <small className='text-sm text-[#A1A1AA]'>
+                    A square 1:1 aspect ratio works best.
+                  </small>
+                </div>
               </div>
             </div>
           </div>

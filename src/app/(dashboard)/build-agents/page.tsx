@@ -8,7 +8,6 @@ import {
   type CommandMenuGroup,
 } from '@/components/ui/command-menu';
 import { ToolGrid } from '@/components/ToolGrid';
-import { AgentSetupDialog } from '@/components/AgentSetupDialog';
 import { LoadingOverlay } from '@/components/LoadingOverlay';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -18,8 +17,6 @@ export default function BuildAgents() {
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [instructions, setInstructions] = useState<string>('');
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [isCreatingAgent, setIsCreatingAgent] = useState<boolean>(false);
 
   const groups: CommandMenuGroup[] = [
@@ -108,22 +105,6 @@ export default function BuildAgents() {
 
     setIsDialogOpen(true);
   }; */
-
-  const handleAgentCreated = (agentId: string) => {
-    window.location.href = `https://www.bitte.ai/agents/${agentId}`;
-  };
-
-  const handleAgentError = (error: Error) => {
-    setIsCreatingAgent(false);
-    console.error('Error creating agent:', error);
-    alert('Failed to create agent. Please try again.');
-  };
-
-  const handleDialogClose = (open: boolean) => {
-    if (!open && !isCreatingAgent) {
-      setIsDialogOpen(false);
-    }
-  };
 
   console.log('TOOLS', tools);
 
@@ -259,16 +240,6 @@ export default function BuildAgents() {
           Next
         </Button>
       </div>
-
-      <AgentSetupDialog
-        isOpen={isDialogOpen}
-        onOpenChange={handleDialogClose}
-        selectedTools={Array.from(selectedItems).map((index) => tools[index])}
-        instructions={instructions}
-        onSuccess={handleAgentCreated}
-        onError={handleAgentError}
-        setIsCreatingAgent={setIsCreatingAgent}
-      />
 
       {isCreatingAgent && (
         <div className='fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center'>
