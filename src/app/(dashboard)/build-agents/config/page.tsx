@@ -8,10 +8,10 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import { ImageUploader } from '@/components/agent-config/ImageUploader';
-import { PromptEditor } from '@/components/agent-config/PromptEditor';
-import { SelectedTools } from '@/components/agent-config/SelectedTools';
-import { LoadingOverlay } from '@/components/agent-config/LoadingOverlay';
+import { ImageUploader } from '@/components/agent-builder/ImageUploader';
+import { PromptEditor } from '@/components/agent-builder/PromptEditor';
+import { SelectedTools } from '@/components/agent-builder/SelectedTools';
+import { LoadingOverlay } from '@/components/agent-builder/LoadingOverlay';
 
 export default function ConfigurationPage() {
   const router = useRouter();
