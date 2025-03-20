@@ -126,6 +126,55 @@ export const catchDocumentNotFound = (err: Error): null => {
   throw err;
 };
 
+export const queryAgents = async <T>(
+  options: {
+    verified?: boolean;
+    withTools?: boolean;
+    chainIds?: string[];
+    offset?: number;
+    limit?: number;
+    category?: string | null;
+  } = {}
+): Promise<T[]> => {
+  let query: FirebaseFirestore.Query = db.collection(COLLECTIONS.AGENTS);
+
+  if (options.verified) {
+    query = query.where('verified', '==', true);
+  }
+
+  if (options.chainIds?.length) {
+    query = query.where(
+      'chainIds',
+      'array-contains-any',
+      options.chainIds.map((id) => parseInt(id))
+    );
+  }
+
+  if (options.category) {
+    query = query.where('category', '==', options.category);
+  }
+
+  if (options.limit) {
+    query = query.limit(options.limit);
+  }
+
+  if (options.offset) {
+    query = query.offset(options.offset);
+  }
+
+  const snapshot = await query.get();
+  const agents = snapshot.docs.map((doc) => doc.data());
+
+  if (!options.withTools) {
+    return agents.map((agent) => {
+      const { ...rest } = agent;
+      return rest as T;
+    });
+  }
+
+  return agents as T[];
+};
+
 export const queryTools = async <T>(
   options: {
     verified?: boolean;
