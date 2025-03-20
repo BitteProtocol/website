@@ -1,5 +1,6 @@
 import { Tool } from '@/lib/types/tool.types';
 import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface ToolGridProps {
   tools: Tool[];
@@ -8,10 +9,30 @@ interface ToolGridProps {
   loading: boolean;
 }
 
-function Spinner() {
+function ToolSkeleton() {
   return (
-    <div className='flex justify-center py-8'>
-      <div className='h-6 w-6 animate-spin rounded-full border-2 border-zinc-800 border-t-zinc-400' />
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+      {Array(6)
+        .fill(0)
+        .map((_, index) => (
+          <div
+            key={index}
+            className='p-4 text-left rounded-md min-h-[125px] bg-[#18181A] flex flex-col'
+          >
+            <div className='flex items-start gap-3 mb-3'>
+              <Skeleton className='h-[24px] w-[24px] rounded' />
+              <Skeleton className='h-5 w-36' />
+            </div>
+
+            <Skeleton className='h-3 w-full mb-1' />
+            <Skeleton className='h-3 w-4/5 mb-1' />
+            <Skeleton className='h-3 w-3/5 mb-3' />
+
+            <div className='flex items-center mt-auto'>
+              <Skeleton className='h-5 w-20 rounded-full' />
+            </div>
+          </div>
+        ))}
     </div>
   );
 }
@@ -23,7 +44,7 @@ export function ToolGrid({
   loading,
 }: ToolGridProps) {
   if (loading) {
-    return <Spinner />;
+    return <ToolSkeleton />;
   }
 
   return (

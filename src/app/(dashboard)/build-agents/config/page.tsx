@@ -10,7 +10,7 @@ import { Tool } from '@/lib/types/tool.types';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { NotionLikeEditor } from '@/components/NotionLikeEditor';
-
+import Link from 'next/link';
 export default function ConfigurationPage() {
   const router = useRouter();
   const { toast } = useToast();
@@ -169,10 +169,6 @@ export default function ConfigurationPage() {
         variant: 'destructive',
       });
     }
-  };
-
-  const handleGoBack = () => {
-    router.push('/build-agents');
   };
 
   // Default content for the editor
@@ -389,12 +385,8 @@ ${toolsList}
 
       {/* Bottom Action Bar */}
       <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 h-[8vh] flex justify-between items-center'>
-        <Button
-          variant='secondary'
-          onClick={handleGoBack}
-          className='md:w-[200px]'
-        >
-          Back
+        <Button variant='secondary' asChild className='md:w-[200px]'>
+          <Link href='/build-agents'>Back</Link>
         </Button>
         <Button
           onClick={createAgent}

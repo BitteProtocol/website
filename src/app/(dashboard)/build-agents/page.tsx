@@ -78,6 +78,8 @@ export default function BuildAgents() {
   };
 
   const handleNextStep = () => {
+    router.prefetch('/build-agents/config');
+
     if (selectedItems.size === 0) {
       alert('Please select at least one tool');
       return;
@@ -93,7 +95,7 @@ export default function BuildAgents() {
     router.push('/build-agents/config');
   };
 
-  const handleCreateAgent = () => {
+  /* const handleCreateAgent = () => {
     if (selectedItems.size === 0) {
       alert('Please select at least one tool');
       return;
@@ -105,7 +107,7 @@ export default function BuildAgents() {
     }
 
     setIsDialogOpen(true);
-  };
+  }; */
 
   const handleAgentCreated = (agentId: string) => {
     window.location.href = `https://www.bitte.ai/agents/${agentId}`;
