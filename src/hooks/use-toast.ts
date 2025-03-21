@@ -1,5 +1,5 @@
-import { toast as sonnerToast } from 'sonner';
 import type { ReactNode } from 'react';
+import { toast as sonnerToast } from 'sonner';
 
 export interface ToastData {
   title?: string;
