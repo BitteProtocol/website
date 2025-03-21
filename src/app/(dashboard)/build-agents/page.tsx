@@ -1,21 +1,39 @@
 'use client';
 
-import { Tool } from '@/lib/types/tool.types';
-import { Plus } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { ToolGrid } from '@/components/ToolGrid';
+import Filters from '@/components/ui/agents/Filters';
+import { Button } from '@/components/ui/button';
 import {
   CommandMenu,
   type CommandMenuGroup,
 } from '@/components/ui/command-menu';
-import { ToolGrid } from '@/components/ToolGrid';
-import { Button } from '@/components/ui/button';
+import { useFilters } from '@/hooks/useFilters';
+import { Filters as AgentFilters } from '@/lib/types/agent.types';
+import { Tool } from '@/lib/types/tool.types';
+import { filterHandler } from '@/lib/utils/filters';
+import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function BuildAgents() {
   const router = useRouter();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+  const handleFilterClick = (value: string, label: string) => {
+    setSelectedFilters((prevFilters) =>
+      filterHandler(prevFilters, value, label)
+    );
+  };
+
+  const filters = useFilters([
+    'Open Source',
+    'DeFi',
+    'NFTs',
+    'Staking',
+    'Trading',
+  ]);
 
   const groups: CommandMenuGroup[] = [
     {
@@ -149,75 +167,11 @@ export default function BuildAgents() {
                 </div>
               </div>
 
-              {/* Categories */}
-              <div>
-                <div className='flex items-center justify-between mb-2'>
-                  <h3 className='text-sm text-zinc-400'>Categories</h3>
-                  <svg
-                    width='12'
-                    height='8'
-                    viewBox='0 0 12 8'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      d='M1 1.5L6 6.5L11 1.5'
-                      stroke='#71717A'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </div>
-                <div className='space-y-2 ml-2'>
-                  {['Open Source', 'DeFi', 'NFTs', 'Staking', 'Trading'].map(
-                    (category) => (
-                      <div key={category} className='flex items-center'>
-                        <div className='w-4 h-4 rounded border border-zinc-700 mr-2'></div>
-                        <span className='text-sm'>{category}</span>
-                      </div>
-                    )
-                  )}
-                </div>
-              </div>
-
-              {/* Networks */}
-              <div>
-                <div className='flex items-center justify-between mb-2'>
-                  <h3 className='text-sm text-zinc-400'>Networks</h3>
-                  <svg
-                    width='12'
-                    height='8'
-                    viewBox='0 0 12 8'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      d='M1 1.5L6 6.5L11 1.5'
-                      stroke='#71717A'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </div>
-                <div className='space-y-2 ml-2'>
-                  {[
-                    { name: 'Ethereum', icon: '📃' },
-                    { name: 'Near', icon: 'N' },
-                    { name: 'Bitcoin', icon: '₿' },
-                    { name: 'Base', icon: 'B' },
-                    { name: 'Polygon', icon: 'P' },
-                    { name: 'Optimism', icon: 'O' },
-                  ].map((network) => (
-                    <div key={network.name} className='flex items-center'>
-                      <div className='w-4 h-4 rounded border border-zinc-700 mr-2'></div>
-                      <span className='text-sm mr-2'>{network.icon}</span>
-                      <span className='text-sm'>{network.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <Filters
+                filters={filters}
+                selectedFilters={selectedFilters}
+                onFilterChange={handleFilterClick}
+              />
             </div>
           </div>
 
