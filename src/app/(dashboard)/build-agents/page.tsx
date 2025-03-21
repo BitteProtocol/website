@@ -122,6 +122,27 @@ export default function BuildAgents() {
     setIsDialogOpen(true);
   }; */
 
+  const filteredTools = tools.filter((tool) => {
+    if (!tool) return false;
+
+    // Check if agent matches all selected filters
+    const matchesFilters = selectedFilters.every((filter) => {
+      if (filter.label === 'Networks') {
+        // If agent.chainIds is undefined or empty, check if the selected filter has id '0' - NEAR
+        if (!tool.chainIds || tool.chainIds.length === 0) {
+          return filter.values.some((value) => value.id === '0');
+        }
+        // If tool.chainIds is not empty, proceed with the existing check
+        return filter.values.some((value) =>
+          tool.chainIds?.some((chainId) => value.id === chainId.toString())
+        );
+      }
+      return true;
+    });
+
+    return matchesFilters;
+  });
+
   console.log('TOOLS', tools);
 
   return (
@@ -178,7 +199,7 @@ export default function BuildAgents() {
           {/* Main Content */}
           <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent px-6 py-5'>
             <ToolGrid
-              tools={tools}
+              tools={filteredTools}
               selectedItems={selectedItems}
               toggleSelection={toggleSelection}
               loading={loading}
