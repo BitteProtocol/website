@@ -12,17 +12,17 @@ import {
 } from '@/components/ui/drawer';
 import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { useAppKit } from '@reown/appkit/react';
 import { User, UserCheck, UserPlus } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { formatEther } from 'viem';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
-import { NearWalletConnector } from './NearWalletSelector';
+import ConnectAccountCard from './ConnectAccountCard';
 import CurrentlyConnected from './CurrentlyConnected';
 import EvmNetworkSelector from './EvmNetworkSelector';
-import ConnectAccountCard from './ConnectAccountCard';
-import { useAppKit } from '@reown/appkit/react';
+import { NearWalletConnector } from './NearWalletSelector';
 
 /* const getChainSvgPath = (chainId?: number): string => {
   const defaultSVG = '/chains/evm_wallet_connector.svg';
@@ -108,8 +108,11 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           {!isConnected && (
             <ConnectAccountCard
               action={open}
-              icon1='/chains/evm_wallet_connector.svg'
-              icon2='/metamask_icon_connect.svg'
+              icon={{
+                src: '/chains/evm_metamask_connector.svg',
+                width: 80,
+                height: 80,
+              }}
               text='EVM Account'
               account='0xd8da6...aa96045'
             />
@@ -117,7 +120,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           {!isNearConnected && (
             <ConnectAccountCard
               action={[handleSignIn, () => setConnectModalOpen(false)]}
-              icon1='/near_connect_icon.svg'
+              icon={{ src: '/near_connect_icon.svg' }}
               text='NEAR Account'
               account='blackdragon.near'
             />
