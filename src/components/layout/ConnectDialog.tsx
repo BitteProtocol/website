@@ -12,13 +12,13 @@ import {
 } from '@/components/ui/drawer';
 import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
+import { useAppKit } from '@reown/appkit/react';
 import { Link2 } from 'lucide-react';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
-import { NearWalletConnector } from './NearWalletSelector';
-import { useAppKit } from '@reown/appkit/react';
 import ConnectAccountCard from './ConnectAccountCard';
+import { NearWalletConnector } from './NearWalletSelector';
 
 interface ConnectDialogProps {
   isOpen: boolean;
@@ -45,8 +45,11 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
       <div className='flex flex-col gap-4 mb-0'>
         <ConnectAccountCard
           action={open}
-          icon1='/chains/evm_wallet_connector.svg'
-          icon2='/metamask_icon_connect.svg'
+          icon={{
+            src: '/chains/evm_metamask_connector.svg',
+            width: 80,
+            height: 80,
+          }}
           text='EVM Account'
           account='0xd8da6...aa96045'
         />

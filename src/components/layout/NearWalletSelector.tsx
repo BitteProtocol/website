@@ -1,13 +1,12 @@
 'use client';
 
 import { useBitteWallet } from '@bitte-ai/react';
-import Image from 'next/image';
-import { Dispatch, SetStateAction, useEffect } from 'react';
 import { getBalance } from '@mintbase-js/rpc';
-import { useState } from 'react';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
-import CurrentlyConnected from './CurrentlyConnected';
+import Image from 'next/image';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import ConnectAccountCard from './ConnectAccountCard';
+import CurrentlyConnected from './CurrentlyConnected';
 
 export const NearWalletConnector = ({
   setConnectModalOpen,
@@ -48,7 +47,7 @@ export const NearWalletConnector = ({
     return (
       <ConnectAccountCard
         action={[handleSignIn, () => setConnectModalOpen(false)]}
-        icon1='/near_connect_icon.svg'
+        icon={{ src: '/near_connect_icon.svg' }}
         text='NEAR Account'
         account='blackdragon.near'
       />
