@@ -1,10 +1,8 @@
 import { BITTE_AGENTID } from '@/lib/agentConstants';
-import { AgentData, Filters, RegistryData } from '@/lib/types/agent.types';
+import { RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
-import { getNetworkMapping } from '@/lib/utils/chainIds';
 import { useEffect, useState } from 'react';
-
-const networkMapping = getNetworkMapping(true);
+import { useFilters } from './useFilters';
 
 // Helper function to filter out local and tunnel URLs
 const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
@@ -61,10 +59,7 @@ export const useAssistantsByCategory = (category?: string) => {
 };
 
 export const useVerifiedAssistants = () => {
-  const [data, setData] = useState<{
-    agents: RegistryData[];
-    filters: Filters[];
-  } | null>(null);
+  const [agents, setAgents] = useState<RegistryData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -76,35 +71,8 @@ export const useVerifiedAssistants = () => {
           throw new Error('Failed to fetch verified agents');
         }
         const result = await response.json();
-
         const filteredAssistants = result.filter(filterLocalAndTunnelUrls);
-
-        const categories = [
-          ...new Set(
-            filteredAssistants.map((agent: RegistryData) => agent.category)
-          ),
-        ].filter(Boolean);
-
-        setData({
-          agents: filteredAssistants,
-          filters: [
-            {
-              label: 'Categories',
-              values: (categories as string[]).map((value) => {
-                return {
-                  id: value,
-                  name: value,
-                };
-              }),
-            },
-            {
-              label: 'Networks',
-              values: Object.entries(networkMapping).map(([key, value]) => {
-                return { id: key, name: value.name, image: value.icon };
-              }),
-            },
-          ],
-        });
+        setAgents(filteredAssistants);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -115,11 +83,16 @@ export const useVerifiedAssistants = () => {
     fetchVerifiedAssistants();
   }, []);
 
-  return { verifiedAgents: data, loading, error };
+  const filters = useFilters(
+    agents.map((agent) => agent.category).filter(Boolean) as string[]
+  );
+
+  return { verifiedAgents: { agents, filters }, loading, error };
 };
 
 export const useAllAssistants = () => {
-  const [data, setData] = useState<AgentData | null>(null);
+  const [verifiedAgents, setVerifiedAgents] = useState<RegistryData[]>([]);
+  const [unverifiedAgents, setUnverifiedAgents] = useState<RegistryData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -136,45 +109,19 @@ export const useAllAssistants = () => {
 
         const filteredAssistants = result.filter(filterLocalAndTunnelUrls);
 
-        const verifiedAgents = filteredAssistants
-          .filter((agent: RegistryData) => agent.verified)
-          .sort((a: RegistryData, b: RegistryData) => {
-            if (a.id === BITTE_AGENTID) return -1;
-            if (b.id === BITTE_AGENTID) return 1;
-            return 0;
-          });
-
-        const unverifiedAgents = filteredAssistants.filter(
-          (agent: RegistryData) => !agent.verified
+        setVerifiedAgents(
+          filteredAssistants
+            .filter((agent: RegistryData) => agent.verified)
+            .sort((a: RegistryData, b: RegistryData) => {
+              if (a.id === BITTE_AGENTID) return -1;
+              if (b.id === BITTE_AGENTID) return 1;
+              return 0;
+            })
         );
 
-        const categories = [
-          ...new Set(
-            filteredAssistants.map((agent: RegistryData) => agent.category)
-          ),
-        ].filter(Boolean);
-
-        setData({
-          agents: verifiedAgents,
-          unverifiedAgents: unverifiedAgents,
-          filters: [
-            {
-              label: 'Categories',
-              values: (categories as string[]).map((value) => {
-                return {
-                  id: value,
-                  name: value,
-                };
-              }),
-            },
-            {
-              label: 'Networks',
-              values: Object.entries(networkMapping).map(([key, value]) => {
-                return { id: key, name: value.name, image: value.icon };
-              }),
-            },
-          ],
-        });
+        setUnverifiedAgents(
+          filteredAssistants.filter((agent: RegistryData) => !agent.verified)
+        );
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -185,7 +132,20 @@ export const useAllAssistants = () => {
     fetchUnverifiedAssistants();
   }, []);
 
-  return { allAgents: data, loading, error };
+  const allAgents = [...verifiedAgents, ...unverifiedAgents];
+  const filters = useFilters(
+    allAgents.map((agent) => agent.category).filter(Boolean) as string[]
+  );
+
+  return {
+    allAgents: {
+      agents: verifiedAgents,
+      unverifiedAgents,
+      filters,
+    },
+    loading,
+    error,
+  };
 };
 
 export const useAssistantById = (agentId: string) => {
