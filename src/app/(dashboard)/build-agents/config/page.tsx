@@ -143,7 +143,7 @@ export default function ConfigurationPage() {
         </Button>
         <Button
           onClick={createAgent}
-          disabled={isCreatingAgent}
+          disabled={isCreatingAgent || selectedTools.length === 0}
           className='md:w-[200px]'
         >
           {isCreatingAgent ? 'Creating...' : 'Create Agent'}

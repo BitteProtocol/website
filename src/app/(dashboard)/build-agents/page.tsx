@@ -204,7 +204,11 @@ export default function BuildAgents() {
       </div>
 
       <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 flex justify-end items-center'>
-        <Button onClick={handleNextStep} className='md:w-[200px]'>
+        <Button
+          onClick={handleNextStep}
+          className='md:w-[200px]'
+          disabled={selectedItems.size === 0}
+        >
           Next
         </Button>
       </div>
