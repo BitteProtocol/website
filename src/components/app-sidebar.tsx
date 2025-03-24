@@ -50,15 +50,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: 'Build Agents',
         url: '/build-agents',
         icon: Hammer,
-        isActive: pathname.startsWith('build-agent'),
+        isActive: pathname.startsWith('/build-agents'),
       },
     ],
     links: [
-      {
-        name: 'Build Agent',
-        url: 'https://docs.bitte.ai/agents/quick-start',
-        icon: ArrowUpRight,
-      },
       {
         name: 'Documentation',
         url: 'https://docs.bitte.ai/',
