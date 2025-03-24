@@ -27,13 +27,8 @@ export default function BuildAgents() {
     );
   };
 
-  const filters = useFilters([
-    'Open Source',
-    'DeFi',
-    'NFTs',
-    'Staking',
-    'Trading',
-  ]);
+  // Use empty array to get only Networks filter
+  const filters = useFilters([]);
 
   const groups: CommandMenuGroup[] = [
     {
@@ -181,12 +176,12 @@ export default function BuildAgents() {
 
             <div className='space-y-6'>
               {/* Playground Toggle */}
-              <div className='flex items-center justify-between mb-4'>
+              {/*  <div className='flex items-center justify-between mb-4'>
                 <span className='text-sm'>Playground</span>
                 <div className='w-10 h-5 bg-zinc-800 rounded-full relative'>
                   <div className='w-4 h-4 rounded-full bg-zinc-500 absolute left-0.5 top-0.5'></div>
                 </div>
-              </div>
+              </div> */}
 
               <Filters
                 filters={filters}
