@@ -118,7 +118,7 @@ export default function ConfigurationPage() {
               {/* Agent Name */}
               <div className='space-y-2'>
                 <label className='text-sm font-medium text-mb-white-100'>
-                  Agent Name
+                  Agent Name <span className='text-red-500'>*</span>
                 </label>
                 <Input
                   className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
