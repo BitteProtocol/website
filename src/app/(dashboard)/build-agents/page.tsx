@@ -138,8 +138,6 @@ export default function BuildAgents() {
     return matchesFilters;
   });
 
-  console.log('TOOLS', tools);
-
   return (
     <div className='bg-background text-white flex flex-col'>
       <CommandMenu groups={groups} />
