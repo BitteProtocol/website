@@ -139,9 +139,9 @@ export default function BuildAgents() {
   });
 
   return (
-    <div className='bg-background text-white flex flex-col'>
+    <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
       <CommandMenu groups={groups} />
-      <div className='overflow-hidden flex flex-col border border-[#334155] rounded-md h-[84vh]'>
+      <div className='overflow-hidden flex flex-col border border-[#334155] rounded-md h-[90%]'>
         {/* Header - Spans the full width */}
         <div className='border-b border-[#334155] px-6 py-4'>
           <div className='flex items-center justify-between'>
@@ -203,7 +203,7 @@ export default function BuildAgents() {
         </div>
       </div>
 
-      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 h-[8vh] flex justify-end items-center'>
+      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 flex justify-end items-center'>
         <Button onClick={handleNextStep} className='md:w-[200px]'>
           Next
         </Button>
