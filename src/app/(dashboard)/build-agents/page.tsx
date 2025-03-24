@@ -88,11 +88,6 @@ export default function BuildAgents() {
   const handleNextStep = () => {
     router.prefetch('/build-agents/config');
 
-    if (selectedItems.size === 0) {
-      alert('Please select at least one tool');
-      return;
-    }
-
     // Store selected tools in localStorage
     const selectedToolsData = Array.from(selectedItems).map(
       (index) => tools[index]
