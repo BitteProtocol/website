@@ -171,7 +171,9 @@ export default function BuildAgents() {
           {/* Filter Sidebar */}
           <div className='w-64 border-r border-[#334155] px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             <div className='py-2'>
-              <h2 className='text-lg font-medium mb-4'>Filters</h2>
+              <h2 className='text-xs font-semibold text-mb-silver mb-2'>
+                Filters
+              </h2>
             </div>
 
             <div className='space-y-6'>
