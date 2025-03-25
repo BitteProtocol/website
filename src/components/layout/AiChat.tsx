@@ -94,7 +94,7 @@ const AiChat = ({
           wallet: wallet as Wallet,
         },
         evm: {
-          sendTransaction: sendTransaction as unknow,
+          sendTransaction: sendTransaction as unknown,
           switchChain: switchChain as unknown,
           address,
           hash,
