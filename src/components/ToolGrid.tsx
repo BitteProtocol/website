@@ -1,6 +1,6 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { Tool } from '@/lib/types/tool.types';
 import Image from 'next/image';
-import { Skeleton } from '@/components/ui/skeleton';
 
 interface ToolGridProps {
   tools: Tool[];
@@ -53,10 +53,10 @@ export function ToolGrid({
         <div
           key={index}
           onClick={() => toggleSelection(index)}
-          className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col ${
+          className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col border border-[#18181A] ${
             selectedItems.has(index)
-              ? 'bg-[#C084FC33] border border-[#C084FC]'
-              : 'bg-[#18181A] hover:border hover:border-[#C084FC]'
+              ? 'bg-[#C084FC33] border-[#C084FC]'
+              : 'bg-[#18181A] hover:border-[#C084FC]'
           }`}
         >
           <div className='flex items-start gap-3 mb-3'>
