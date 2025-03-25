@@ -83,8 +83,8 @@ export default function ConfigurationPage() {
   };
 
   return (
-    <div className='bg-background text-white flex flex-col'>
-      <div className='overflow-hidden flex flex-col border border-[#334155] rounded-md h-[84vh]'>
+    <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
+      <div className='overflow-hidden flex flex-col border border-[#334155] rounded-md'>
         {/* Header */}
         <div className='border-b border-[#334155] px-6 py-4'>
           <div className='flex items-center justify-between'>
@@ -136,7 +136,8 @@ export default function ConfigurationPage() {
       </div>
 
       {/* Bottom Action Bar */}
-      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 h-[8vh] flex justify-between items-center'>
+
+      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-11 flex justify-between items-center mt-auto'>
         <Button variant='secondary' asChild className='md:w-[200px]'>
           <Link href='/build-agents'>Back</Link>
         </Button>
