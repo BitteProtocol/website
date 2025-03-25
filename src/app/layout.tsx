@@ -44,12 +44,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(MB_URL.APP_URL),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookies = headers().get('wagmi');
+  const header = await headers();
+  const cookies = header.get('wagmi');
+
   return (
     <html lang='en' className='overflow-x-hidden'>
       <head>

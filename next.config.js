@@ -37,9 +37,7 @@ const nextConfig = {
       ],
     },
   ],
-  experimental: {
-    serverComponentsExternalPackages: ['pino', 'pino-pretty'],
-  },
+  serverExternalPackages: ['pino', 'pino-pretty'],
   webpack: (config) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
     return config;

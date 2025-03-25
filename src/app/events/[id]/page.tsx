@@ -41,12 +41,13 @@ const events = {
 export default async function AgentDetail({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   // const id = params.id as string;
 
+  const { id } = await params;
   // @ts-ignore
-  const event = events[params.id];
+  const event = events[id];
 
   return (
     <div className='container'>
