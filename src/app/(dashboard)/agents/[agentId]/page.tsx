@@ -22,9 +22,9 @@ export async function generateStaticParams() {
 export default async function AgentDetail({
   params,
 }: {
-  params: { agentId: string };
+  params: Promise<{ agentId: string }>;
 }) {
-  const agentId = params.agentId as string;
+  const { agentId } = await params;
 
   // Then fetch related data in parallel
   const [pings] = await Promise.all([getAllDailyPingsByAgentId(agentId)]);
