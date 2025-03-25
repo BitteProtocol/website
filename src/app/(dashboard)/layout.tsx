@@ -7,8 +7,12 @@ interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
-  const cookies = headers().get('wagmi');
+export default async function DashboardLayout({
+  children,
+}: DashboardLayoutProps) {
+  const headersList = await headers();
+  const cookies = headersList.get('wagmi');
+
   return (
     <Providers cookies={cookies}>
       <RootSidebar>{children}</RootSidebar>
