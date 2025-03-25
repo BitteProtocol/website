@@ -12,7 +12,7 @@ interface ToolGridProps {
 
 function ToolSkeleton() {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {Array(12)
         .fill(0)
         .map((_, index) => (
@@ -29,9 +29,12 @@ function ToolSkeleton() {
             <Skeleton className='h-3 w-4/5 mb-1' />
             <Skeleton className='h-3 w-3/5 mb-3' />
 
-            <div className='flex items-center gap-2 mt-auto'>
+            <div className='flex flex-col gap-2 mt-auto'>
               <Skeleton className='h-5 w-20 rounded-full' />
-              <Skeleton className='h-5 w-20 rounded-full' />
+              <div className='flex flex-wrap gap-2'>
+                <Skeleton className='h-5 w-24 rounded-full' />
+                <Skeleton className='h-5 w-24 rounded-full' />
+              </div>
             </div>
           </div>
         ))}
@@ -50,7 +53,7 @@ export function ToolGrid({
   }
 
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:pb-0 pb-24'>
       {tools.map((tool, index) => {
         const networks = mapChainIdsToNetworks(tool.chainIds || [], true);
         const remainingChains = Math.max(0, (tool.chainIds?.length || 0) - 2);
@@ -88,7 +91,7 @@ export function ToolGrid({
               <span className='text-xs px-3 py-1 rounded-full bg-zinc-800 text-zinc-400 font-semibold w-fit'>
                 {tool.isPrimitive ? 'Primitive' : 'Tool'}
               </span>
-              <div className='flex items-center gap-2'>
+              <div className='flex flex-wrap gap-2'>
                 {networks.slice(0, 2).map((network, i) => (
                   <span
                     key={i}

@@ -11,9 +11,18 @@ import { useFilters } from '@/hooks/useFilters';
 import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import { Tool } from '@/lib/types/tool.types';
 import { filterHandler } from '@/lib/utils/filters';
-import { Plus } from 'lucide-react';
+import { ListFilter, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose,
+} from '@/components/ui/dialog';
 
 export default function BuildAgents() {
   const router = useRouter();
@@ -21,10 +30,15 @@ export default function BuildAgents() {
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+
   const handleFilterClick = (value: string, label: string) => {
     setSelectedFilters((prevFilters) =>
       filterHandler(prevFilters, value, label)
     );
+  };
+
+  const clearFilters = () => {
+    setSelectedFilters([]);
   };
 
   // Use empty array to get only Networks filter
@@ -87,42 +101,21 @@ export default function BuildAgents() {
 
   const handleNextStep = () => {
     router.prefetch('/build-agents/config');
-
-    // Store selected tools in localStorage
     const selectedToolsData = Array.from(selectedItems).map(
       (index) => tools[index]
     );
     localStorage.setItem('selectedTools', JSON.stringify(selectedToolsData));
-
-    // Navigate to configuration page
     router.push('/build-agents/config');
   };
-
-  /* const handleCreateAgent = () => {
-    if (selectedItems.size === 0) {
-      alert('Please select at least one tool');
-      return;
-    }
-
-    if (!instructions.trim()) {
-      alert('Please provide instructions for your agent');
-      return;
-    }
-
-    setIsDialogOpen(true);
-  }; */
 
   const filteredTools = tools.filter((tool) => {
     if (!tool) return false;
 
-    // Check if agent matches all selected filters
     const matchesFilters = selectedFilters.every((filter) => {
       if (filter.label === 'Networks') {
-        // If agent.chainIds is undefined or empty, check if the selected filter has id '0' - NEAR
         if (!tool.chainIds || tool.chainIds.length === 0) {
           return filter.values.some((value) => value.id === '0');
         }
-        // If tool.chainIds is not empty, proceed with the existing check
         return filter.values.some((value) =>
           tool.chainIds?.some((chainId) => value.id === chainId.toString())
         );
@@ -136,9 +129,11 @@ export default function BuildAgents() {
   return (
     <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
       <CommandMenu groups={groups} />
-      <div className='overflow-hidden flex flex-col border border-[#334155] rounded-md h-[90%]'>
-        {/* Header - Spans the full width */}
-        <div className='border-b border-[#334155] px-6 py-4'>
+
+      {/* Main Container - Only for Desktop */}
+      <div className='hidden md:flex md:flex-col md:border md:border-[#334155] md:rounded-md md:h-[90%] md:overflow-hidden'>
+        {/* Header */}
+        <div className='px-6 py-4 md:border-b md:border-[#334155]'>
           <div className='flex items-center justify-between'>
             <div className='space-y-1'>
               <h1 className='font-semibold text-[#F8FAFC]'>Available Tools</h1>
@@ -146,7 +141,7 @@ export default function BuildAgents() {
                 Combine tools to create agents
               </p>
             </div>
-            <p className='text-sm text-zinc-400'>
+            <p className='hidden md:block text-sm text-zinc-400'>
               <kbd className='rounded-md border border-zinc-800 bg-zinc-900 px-2 py-0.5'>
                 ⌘
               </kbd>{' '}
@@ -159,25 +154,26 @@ export default function BuildAgents() {
           </div>
         </div>
 
-        {/* Content Area with Filters and Grid */}
-        <div className='flex overflow-hidden rounded-md'>
-          {/* Filter Sidebar */}
+        {/* Desktop Content Area with Filters and Grid */}
+        <div className='hidden md:flex md:flex-1 md:overflow-hidden'>
+          {/* Desktop Filter Sidebar */}
           <div className='w-64 border-r border-[#334155] px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             <div className='py-2'>
-              <h2 className='text-xs font-semibold text-mb-silver mb-2'>
-                Filters
-              </h2>
+              <div className='flex items-center justify-between mb-4'>
+                <h2 className='text-xs font-semibold text-mb-silver'>
+                  Filters
+                </h2>
+                <Button
+                  variant='ghost'
+                  onClick={clearFilters}
+                  className={`${selectedFilters?.length ? 'visible' : 'invisible'} text-xs`}
+                >
+                  Clear
+                </Button>
+              </div>
             </div>
 
             <div className='space-y-6'>
-              {/* Playground Toggle */}
-              {/*  <div className='flex items-center justify-between mb-4'>
-                <span className='text-sm'>Playground</span>
-                <div className='w-10 h-5 bg-zinc-800 rounded-full relative'>
-                  <div className='w-4 h-4 rounded-full bg-zinc-500 absolute left-0.5 top-0.5'></div>
-                </div>
-              </div> */}
-
               <Filters
                 filters={filters}
                 selectedFilters={selectedFilters}
@@ -186,7 +182,7 @@ export default function BuildAgents() {
             </div>
           </div>
 
-          {/* Main Content */}
+          {/* Desktop Main Content */}
           <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent px-6 py-5'>
             <ToolGrid
               tools={filteredTools}
@@ -198,10 +194,87 @@ export default function BuildAgents() {
         </div>
       </div>
 
-      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-11 flex justify-end items-center mt-auto'>
+      {/* Mobile Header - Outside Container */}
+      <div className='md:hidden px-2 py-4'>
+        <div className='space-y-1'>
+          <h1 className='font-semibold text-[#F8FAFC]'>Available Tools</h1>
+          <p className='text-sm text-zinc-400'>
+            Combine tools to create agents
+          </p>
+        </div>
+      </div>
+
+      {/* Mobile Filters Dialog */}
+      <div className='md:hidden'>
+        <Dialog>
+          <DialogTrigger className='w-full'>
+            <div className='flex flex-1 items-center gap-2 border-y border-[#334155] w-full p-4'>
+              <ListFilter className='h-5 w-5' />
+              Filters
+            </div>
+          </DialogTrigger>
+          <DialogContent className='h-full bg-background p-0'>
+            <DialogHeader className='text-left w-full h-auto flex flex-col'>
+              <div className='border-b border-[#334155] p-6 bg-[#18181A] w-full'>
+                <DialogTitle>Filters</DialogTitle>
+              </div>
+              <div className='pt-0 lg:pt-4 p-4 h-[70vh] overflow-scroll'>
+                <Filters
+                  filters={filters}
+                  selectedFilters={selectedFilters}
+                  onFilterChange={handleFilterClick}
+                  isMobile
+                />
+              </div>
+            </DialogHeader>
+            <DialogFooter className='bg-background'>
+              <DialogClose className='py-4 px-6 border-t border-[#334155] w-full'>
+                <div className='flex gap-4 w-full items-center'>
+                  <Button
+                    type='button'
+                    variant='secondary'
+                    className='w-full'
+                    onClick={clearFilters}
+                  >
+                    Clear
+                  </Button>
+                  <Button type='button' variant='default' className='w-full'>
+                    Apply
+                  </Button>
+                </div>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Mobile Content */}
+      <div className='md:hidden px-2 py-5'>
+        <ToolGrid
+          tools={filteredTools}
+          selectedItems={selectedItems}
+          toggleSelection={toggleSelection}
+          loading={loading}
+        />
+      </div>
+
+      {/* Desktop Next Button */}
+      <div className='hidden md:flex bg-zinc-900 p-6 mt-6 rounded-md -mb-11 justify-end items-center mt-auto'>
         <Button
           onClick={handleNextStep}
           className='md:w-[200px]'
+          disabled={selectedItems.size === 0}
+        >
+          Next
+        </Button>
+      </div>
+
+      {/* Mobile Fixed Bottom Button */}
+      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 px-6 py-5 flex justify-end rounded-t-md'>
+        <Button
+          onClick={handleNextStep}
+          className='w-[177px]'
+          size='sm'
           disabled={selectedItems.size === 0}
         >
           Next
