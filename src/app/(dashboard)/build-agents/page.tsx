@@ -203,7 +203,7 @@ export default function BuildAgents() {
         </div>
       </div>
 
-      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 flex justify-end items-center'>
+      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-11 flex justify-end items-center mt-auto'>
         <Button onClick={handleNextStep} className='md:w-[200px]'>
           Next
         </Button>

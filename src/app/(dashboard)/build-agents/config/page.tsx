@@ -137,7 +137,7 @@ export default function ConfigurationPage() {
 
       {/* Bottom Action Bar */}
 
-      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-6 flex justify-between items-center'>
+      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-11 flex justify-between items-center mt-auto'>
         <Button variant='secondary' asChild className='md:w-[200px]'>
           <Link href='/build-agents'>Back</Link>
         </Button>
