@@ -2,7 +2,7 @@ export interface Tool {
   id: string;
   agentId: string;
   type: 'function';
-  chainIds: string[];
+  chainIds: number[];
   function: {
     name: string;
     description: string;
