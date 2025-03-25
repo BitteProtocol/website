@@ -84,7 +84,8 @@ export default function ConfigurationPage() {
 
   return (
     <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
-      <div className='overflow-hidden flex flex-col border border-[#334155] rounded-md'>
+      {/* Desktop Layout */}
+      <div className='hidden md:flex md:flex-col md:border md:border-[#334155] md:rounded-md md:h-[90%] md:overflow-hidden'>
         {/* Header */}
         <div className='border-b border-[#334155] px-6 py-4'>
           <div className='flex items-center justify-between'>
@@ -97,14 +98,11 @@ export default function ConfigurationPage() {
           </div>
         </div>
 
-        {/* Content Area */}
+        {/* Desktop Content Area */}
         <div className='flex flex-1 overflow-hidden'>
           {/* Left Side - Tools and Editor */}
           <div className='w-1/2 border-r border-[#334155] pl-6 pr-9 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
-            {/* Selected Tools Component */}
             <SelectedTools selectedTools={selectedTools} />
-
-            {/* Prompt Editor Component */}
             <PromptEditor
               instructions={instructions}
               setInstructions={setInstructions}
@@ -115,7 +113,6 @@ export default function ConfigurationPage() {
           {/* Right Side - Name, Image Generator, Cover Image */}
           <div className='w-1/2 pl-9 pr-6 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
             <div className='space-y-8'>
-              {/* Agent Name */}
               <div className='space-y-2'>
                 <label className='text-sm font-medium text-mb-white-100'>
                   Agent Name <span className='text-red-500'>*</span>
@@ -127,17 +124,62 @@ export default function ConfigurationPage() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-
-              {/* Image Uploader Component */}
               <ImageUploader image={image} setImage={setImage} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Action Bar */}
+      {/* Mobile Layout */}
+      <div className='md:hidden flex flex-col'>
+        {/* Mobile Header */}
+        <div className='px-4 py-4'>
+          <div className='space-y-1'>
+            <h1 className='font-semibold text-[#F8FAFC]'>Configuration</h1>
+            <p className='text-sm text-zinc-400'>
+              How should your agent use these tools?
+            </p>
+          </div>
+        </div>
 
-      <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-11 flex justify-between items-center mt-auto'>
+        {/* Mobile Content */}
+        <div className='px-4 py-5 space-y-8 pb-32'>
+          {/* Tools Section */}
+          <div className='space-y-6'>
+            <SelectedTools selectedTools={selectedTools} />
+          </div>
+
+          {/* Prompt Editor Section */}
+          <div className='space-y-6'>
+            <PromptEditor
+              instructions={instructions}
+              setInstructions={setInstructions}
+              selectedTools={selectedTools}
+            />
+          </div>
+
+          {/* Agent Name Section */}
+          <div className='space-y-2'>
+            <label className='text-sm font-medium text-mb-white-100'>
+              Agent Name <span className='text-red-500'>*</span>
+            </label>
+            <Input
+              className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700 text-base'
+              placeholder='My Agent'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+
+          {/* Image Generator Section */}
+          <div className='space-y-2'>
+            <ImageUploader image={image} setImage={setImage} />
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Bottom Action Bar */}
+      <div className='hidden md:flex bg-zinc-900 p-6 mt-6 rounded-md -mb-11 justify-between items-center mt-auto'>
         <Button variant='secondary' asChild className='md:w-[200px]'>
           <Link href='/build-agents'>Back</Link>
         </Button>
@@ -150,7 +192,27 @@ export default function ConfigurationPage() {
         </Button>
       </div>
 
-      {/* Conditionally render loading overlay */}
+      {/* Mobile Fixed Bottom Buttons */}
+      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 px-6 py-5 flex gap-3 justify-between items-center rounded-t-md'>
+        <Button
+          variant='secondary'
+          asChild
+          size='sm'
+          className='w-full md:w-[120px]'
+        >
+          <Link href='/build-agents'>Back</Link>
+        </Button>
+        <Button
+          onClick={createAgent}
+          disabled={isCreatingAgent || !name.trim()}
+          className='w-full md:w-[120px]'
+          size='sm'
+        >
+          {isCreatingAgent ? 'Creating...' : 'Create Agent'}
+        </Button>
+      </div>
+
+      {/* Loading Overlay */}
       {isCreatingAgent && <LoadingOverlay />}
     </div>
   );

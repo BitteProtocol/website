@@ -118,7 +118,7 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
 
         <div className='flex items-center gap-3'>
           <Input
-            className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
+            className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700 min-w-[250px] text-base'
             placeholder='Details of your image'
             value={imagePrompt}
             onChange={(e) => setImagePrompt(e.target.value)}
