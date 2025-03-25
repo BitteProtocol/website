@@ -88,11 +88,6 @@ export default function BuildAgents() {
   const handleNextStep = () => {
     router.prefetch('/build-agents/config');
 
-    if (selectedItems.size === 0) {
-      alert('Please select at least one tool');
-      return;
-    }
-
     // Store selected tools in localStorage
     const selectedToolsData = Array.from(selectedItems).map(
       (index) => tools[index]
@@ -204,7 +199,11 @@ export default function BuildAgents() {
       </div>
 
       <div className='bg-zinc-900 p-6 mt-6 rounded-md -mb-11 flex justify-end items-center mt-auto'>
-        <Button onClick={handleNextStep} className='md:w-[200px]'>
+        <Button
+          onClick={handleNextStep}
+          className='md:w-[200px]'
+          disabled={selectedItems.size === 0}
+        >
           Next
         </Button>
       </div>

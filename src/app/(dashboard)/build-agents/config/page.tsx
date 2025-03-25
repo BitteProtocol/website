@@ -2,16 +2,16 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useState, useEffect } from 'react';
-import { Tool } from '@/lib/types/tool.types';
 import { useToast } from '@/hooks/use-toast';
-import { useRouter } from 'next/navigation';
+import { Tool } from '@/lib/types/tool.types';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { ImageUploader } from '@/components/agent-builder/ImageUploader';
+import { LoadingOverlay } from '@/components/agent-builder/LoadingOverlay';
 import { PromptEditor } from '@/components/agent-builder/PromptEditor';
 import { SelectedTools } from '@/components/agent-builder/SelectedTools';
-import { LoadingOverlay } from '@/components/agent-builder/LoadingOverlay';
 
 export default function ConfigurationPage() {
   const router = useRouter();
@@ -118,7 +118,7 @@ export default function ConfigurationPage() {
               {/* Agent Name */}
               <div className='space-y-2'>
                 <label className='text-sm font-medium text-mb-white-100'>
-                  Agent Name
+                  Agent Name <span className='text-red-500'>*</span>
                 </label>
                 <Input
                   className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
@@ -143,7 +143,7 @@ export default function ConfigurationPage() {
         </Button>
         <Button
           onClick={createAgent}
-          disabled={isCreatingAgent}
+          disabled={isCreatingAgent || !name.trim()}
           className='md:w-[200px]'
         >
           {isCreatingAgent ? 'Creating...' : 'Create Agent'}
