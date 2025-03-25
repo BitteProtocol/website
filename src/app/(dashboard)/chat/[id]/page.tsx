@@ -5,12 +5,11 @@ const ChatPage = async ({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: URLSearchParams;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const { id } = await params;
 
-  const searchParamsObj = new URLSearchParams(searchParams);
-  const prompt = searchParamsObj.get('prompt') || undefined;
+  const prompt = (await searchParams).prompt;
 
   return <ChatContent chatId={id} prompt={prompt} />;
 };
