@@ -46,15 +46,6 @@ export default function BuildAgents() {
 
   const groups: CommandMenuGroup[] = [
     {
-      items: [
-        {
-          icon: <Plus className='h-4 w-4' />,
-          label: 'Add Tool',
-          action: () => console.log('Add Tool clicked'),
-        },
-      ],
-    },
-    {
       heading: 'Tools',
       items: tools.map((tool, index) => ({
         icon: (

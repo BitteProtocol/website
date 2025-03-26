@@ -68,6 +68,17 @@
   }
 }
 
+/* Command menu dialog styles */
+.command-dialog [data-radix-dialog-close] {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.command-dialog [cmdk-input] {
+  padding: 12px 8px !important;
+  min-height: 40px !important;
+}
+
 .aspect-ratio {
   aspect-ratio: 1.8/1;
 }
