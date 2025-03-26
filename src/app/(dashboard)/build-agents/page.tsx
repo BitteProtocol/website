@@ -158,8 +158,8 @@ export default function BuildAgents() {
         <div className='hidden md:flex md:flex-1 md:overflow-hidden'>
           {/* Desktop Filter Sidebar */}
           <div className='w-64 border-r border-[#334155] px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
-            <div className='py-2'>
-              <div className='flex items-center justify-between mb-4'>
+            <div className=''>
+              <div className='flex items-start justify-between'>
                 <h2 className='text-xs font-semibold text-mb-silver'>
                   Filters
                 </h2>
@@ -173,7 +173,7 @@ export default function BuildAgents() {
               </div>
             </div>
 
-            <div className='space-y-6'>
+            <div className=''>
               <Filters
                 filters={filters}
                 selectedFilters={selectedFilters}

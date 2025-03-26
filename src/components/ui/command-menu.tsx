@@ -61,10 +61,10 @@ export function CommandMenu({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className='overflow-hidden p-0 shadow-2xl dark'>
-        <DialogTitle className='sr-only'>Command Menu</DialogTitle>
-        <Command className='[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5 bg-zinc-900'>
-          <div className='flex items-center border-b border-zinc-800 px-3'>
+      <DialogContent className='overflow-hidden p-0 shadow-2xl bg-mb-black border border-mb-gray-600 max-w-[615px] max-h-[375px]'>
+        {/* <DialogTitle className='sr-only'>Command Menu</DialogTitle> */}
+        <Command className='[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5 bg-mb-black'>
+          <div className='flex items-center border-b border-zinc-800 px-3 bg-zinc-900'>
             <div className='flex-1'>
               <CommandInput
                 placeholder={placeholder}
@@ -76,7 +76,7 @@ export function CommandMenu({
               className='ml-auto flex h-full items-center pr-2 text-zinc-400 hover:text-zinc-50'
             ></button>
           </div>
-          <CommandList className='max-h-[400px] overflow-y-auto overflow-x-hidden'>
+          <CommandList className='max-h-[400px] overflow-y-auto overflow-x-hidden bg-mb-black'>
             <CommandEmpty>{emptyMessage}</CommandEmpty>
             {groups.map((group, index) => (
               <CommandGroup

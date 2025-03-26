@@ -2,6 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tool } from '@/lib/types/tool.types';
 import Image from 'next/image';
 import { mapChainIdsToNetworks } from '@/lib/utils/chainIds';
+import InfoTooltip from '@/components/ui/InfoTooltip';
 
 interface ToolGridProps {
   tools: Tool[];
@@ -83,7 +84,7 @@ export function ToolGrid({
               </h2>
             </div>
 
-            <p className='text-xs text-zinc-400 mb-3'>
+            <p className='text-sm text-zinc-400 mb-3'>
               {tool.function.description}
             </p>
 
@@ -93,19 +94,23 @@ export function ToolGrid({
               </span>
               <div className='flex flex-wrap gap-2'>
                 {networks.slice(0, 2).map((network, i) => (
-                  <span
-                    key={i}
-                    className='text-xs px-3 py-1 rounded-full bg-zinc-800 text-mb-white-100 font-semibold flex items-center gap-1'
-                  >
-                    <Image
-                      src={network.icon}
-                      alt={network.name}
-                      width={16}
-                      height={16}
-                      className='object-contain'
-                    />
-                    {network.name}
-                  </span>
+                  <InfoTooltip
+                    key={`${tool.function?.name}-${network.name}-${i}`}
+                    text={network.name}
+                    delay={130}
+                    trigger={
+                      <span className='text-xs px-3 py-1 rounded-full bg-zinc-800 text-mb-white-100 font-semibold flex items-center gap-1 cursor-pointer'>
+                        <Image
+                          src={network.icon}
+                          alt={network.name}
+                          width={16}
+                          height={16}
+                          className='object-contain'
+                        />
+                        {network.name}
+                      </span>
+                    }
+                  />
                 ))}
                 {remainingChains > 0 && (
                   <span className='text-xs px-3 py-1 rounded-full bg-zinc-800 text-mb-white-100 font-semibold'>
