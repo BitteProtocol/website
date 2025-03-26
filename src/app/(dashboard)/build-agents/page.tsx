@@ -11,7 +11,7 @@ import { useFilters } from '@/hooks/useFilters';
 import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import { Tool } from '@/lib/types/tool.types';
 import { filterHandler } from '@/lib/utils/filters';
-import { ListFilter, Plus } from 'lucide-react';
+import { ListFilter } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
