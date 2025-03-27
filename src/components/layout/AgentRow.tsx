@@ -25,7 +25,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
         {agentData?.map((agent) => (
           <Card
             key={agent.id}
-            className='flex-shrink-0 flex flex-col min-w-[306px] min-h-[125px] p-4 bg-[#18181A] border-none hover:bg-black/50 transition-colors cursor-pointer'
+            className='flex-shrink-0 flex flex-col min-w-[306px] min-h-[125px] p-4 bg-mb-black-50 border-none hover:bg-black/50 transition-colors cursor-pointer'
             onClick={() =>
               router.replace(
                 `/chat?agentid=${agent.id}&prompt=${ACTION_TEXTS[agent.id]}`

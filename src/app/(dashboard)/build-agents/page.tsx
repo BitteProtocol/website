@@ -122,12 +122,14 @@ export default function BuildAgents() {
       <CommandMenu groups={groups} />
 
       {/* Main Container - Only for Desktop */}
-      <div className='hidden md:flex md:flex-col md:border md:border-[#334155] md:rounded-md md:h-[90%] md:overflow-hidden'>
+      <div className='hidden md:flex md:flex-col md:border md:border-mb-gray-800 md:rounded-md md:h-[90%] md:overflow-hidden'>
         {/* Header */}
-        <div className='px-6 py-4 md:border-b md:border-[#334155]'>
+        <div className='px-6 py-4 md:border-b md:border-mb-gray-800'>
           <div className='flex items-center justify-between'>
             <div className='space-y-1'>
-              <h1 className='font-semibold text-[#F8FAFC]'>Available Tools</h1>
+              <h1 className='font-semibold text-mb-white-50'>
+                Available Tools
+              </h1>
               <p className='text-sm text-zinc-400'>
                 Combine tools to create agents
               </p>
@@ -148,7 +150,7 @@ export default function BuildAgents() {
         {/* Desktop Content Area with Filters and Grid */}
         <div className='hidden md:flex md:flex-1 md:overflow-hidden'>
           {/* Desktop Filter Sidebar */}
-          <div className='w-64 border-r border-[#334155] px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
+          <div className='w-64 border-r border-mb-gray-800 px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
             <div className=''>
               <div className='flex items-start justify-between'>
                 <h2 className='text-xs font-semibold text-mb-silver'>
@@ -188,7 +190,7 @@ export default function BuildAgents() {
       {/* Mobile Header - Outside Container */}
       <div className='md:hidden px-2 py-4'>
         <div className='space-y-1'>
-          <h1 className='font-semibold text-[#F8FAFC]'>Available Tools</h1>
+          <h1 className='font-semibold text-mb-white-50'>Available Tools</h1>
           <p className='text-sm text-zinc-400'>
             Combine tools to create agents
           </p>
@@ -199,14 +201,14 @@ export default function BuildAgents() {
       <div className='md:hidden'>
         <Dialog>
           <DialogTrigger className='w-full'>
-            <div className='flex flex-1 items-center gap-2 border-y border-[#334155] w-full p-4'>
+            <div className='flex flex-1 items-center gap-2 border-y border-mb-gray-800 w-full p-4'>
               <ListFilter className='h-5 w-5' />
               Filters
             </div>
           </DialogTrigger>
           <DialogContent className='h-full bg-background p-0'>
             <DialogHeader className='text-left w-full h-auto flex flex-col'>
-              <div className='border-b border-[#334155] p-6 bg-[#18181A] w-full'>
+              <div className='border-b border-mb-gray-800 p-6 bg-mb-black-50 w-full'>
                 <DialogTitle>Filters</DialogTitle>
               </div>
               <div className='pt-0 lg:pt-4 p-4 h-[70vh] overflow-scroll'>
@@ -219,7 +221,7 @@ export default function BuildAgents() {
               </div>
             </DialogHeader>
             <DialogFooter className='bg-background'>
-              <DialogClose className='py-4 px-6 border-t border-[#334155] w-full'>
+              <DialogClose className='py-4 px-6 border-t border-mb-gray-800 w-full'>
                 <div className='flex gap-4 w-full items-center'>
                   <Button
                     type='button'
@@ -250,7 +252,7 @@ export default function BuildAgents() {
       </div>
 
       {/* Desktop Next Button */}
-      <div className='hidden md:flex bg-zinc-900 p-6 mt-6 rounded-md -mb-11 justify-end items-center mt-auto'>
+      <div className='hidden md:flex bg-mb-gray-550 p-6 mt-6 rounded-md -mb-11 justify-end items-center mt-auto'>
         <Button
           onClick={handleNextStep}
           className='md:w-[200px]'
@@ -261,7 +263,7 @@ export default function BuildAgents() {
       </div>
 
       {/* Mobile Fixed Bottom Button */}
-      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 px-6 py-5 flex justify-end rounded-t-md'>
+      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-mb-gray-550 px-6 py-5 flex justify-end rounded-t-md'>
         <Button
           onClick={handleNextStep}
           className='w-[177px]'

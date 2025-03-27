@@ -85,12 +85,12 @@ export default function ConfigurationPage() {
   return (
     <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
       {/* Desktop Layout */}
-      <div className='hidden md:flex md:flex-col md:border md:border-[#334155] md:rounded-md md:h-[90%] md:overflow-hidden'>
+      <div className='hidden md:flex md:flex-col md:border md:border-mb-gray-800 md:rounded-md md:h-[90%] md:overflow-hidden'>
         {/* Header */}
-        <div className='border-b border-[#334155] px-6 py-4'>
+        <div className='border-b border-mb-gray-800 px-6 py-4'>
           <div className='flex items-center justify-between'>
             <div className='space-y-1'>
-              <h1 className='font-semibold text-[#F8FAFC]'>Configuration</h1>
+              <h1 className='font-semibold text-mb-white-50'>Configuration</h1>
               <p className='text-sm text-zinc-400'>
                 How should your agent use these tools?
               </p>
@@ -101,30 +101,34 @@ export default function ConfigurationPage() {
         {/* Desktop Content Area */}
         <div className='flex flex-1 overflow-hidden'>
           {/* Left Side - Tools and Editor */}
-          <div className='w-1/2 border-r border-[#334155] pl-6 pr-9 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
-            <SelectedTools selectedTools={selectedTools} />
-            <PromptEditor
-              instructions={instructions}
-              setInstructions={setInstructions}
-              selectedTools={selectedTools}
-            />
+          <div className='w-1/2 border-r border-mb-gray-800 pl-6 pr-9 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
+            <div className='hidden md:block'>
+              <SelectedTools selectedTools={selectedTools} />
+              <PromptEditor
+                instructions={instructions}
+                setInstructions={setInstructions}
+                selectedTools={selectedTools}
+              />
+            </div>
           </div>
 
           {/* Right Side - Name, Image Generator, Cover Image */}
-          <div className='w-1/2 pl-9 pr-6 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent'>
+          <div className='w-1/2 pl-9 pr-6 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
             <div className='space-y-8'>
               <div className='space-y-2'>
                 <label className='text-sm font-medium text-mb-white-100'>
-                  Agent Name <span className='text-red-500'>*</span>
+                  Agent Name <span className='text-mb-red'>*</span>
                 </label>
                 <Input
-                  className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700'
+                  className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500'
                   placeholder='My Agent'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <ImageUploader image={image} setImage={setImage} />
+              <div className='hidden md:block'>
+                <ImageUploader image={image} setImage={setImage} />
+              </div>
             </div>
           </div>
         </div>
@@ -135,7 +139,7 @@ export default function ConfigurationPage() {
         {/* Mobile Header */}
         <div className='px-4 py-4'>
           <div className='space-y-1'>
-            <h1 className='font-semibold text-[#F8FAFC]'>Configuration</h1>
+            <h1 className='font-semibold text-mb-white-50'>Configuration</h1>
             <p className='text-sm text-zinc-400'>
               How should your agent use these tools?
             </p>
@@ -146,11 +150,13 @@ export default function ConfigurationPage() {
         <div className='px-4 py-5 space-y-8 pb-32'>
           {/* Tools Section */}
           <div className='space-y-6'>
+            <h2 className='text-sm font-medium text-mb-white-100'>Tools</h2>
             <SelectedTools selectedTools={selectedTools} />
           </div>
 
           {/* Prompt Editor Section */}
           <div className='space-y-6'>
+            <h2 className='text-sm font-medium text-mb-white-100'>Prompt</h2>
             <PromptEditor
               instructions={instructions}
               setInstructions={setInstructions}
@@ -161,10 +167,10 @@ export default function ConfigurationPage() {
           {/* Agent Name Section */}
           <div className='space-y-2'>
             <label className='text-sm font-medium text-mb-white-100'>
-              Agent Name <span className='text-red-500'>*</span>
+              Agent Name <span className='text-mb-red'>*</span>
             </label>
             <Input
-              className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700 text-base'
+              className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base'
               placeholder='My Agent'
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -173,13 +179,16 @@ export default function ConfigurationPage() {
 
           {/* Image Generator Section */}
           <div className='space-y-2'>
+            <h2 className='text-sm font-medium text-mb-white-100'>
+              Cover Image
+            </h2>
             <ImageUploader image={image} setImage={setImage} />
           </div>
         </div>
       </div>
 
       {/* Desktop Bottom Action Bar */}
-      <div className='hidden md:flex bg-zinc-900 p-6 mt-6 rounded-md -mb-11 justify-between items-center mt-auto'>
+      <div className='hidden md:flex bg-mb-gray-550 p-6 mt-6 rounded-md -mb-11 justify-between items-center mt-auto'>
         <Button variant='secondary' asChild className='md:w-[200px]'>
           <Link href='/build-agents'>Back</Link>
         </Button>
@@ -193,7 +202,7 @@ export default function ConfigurationPage() {
       </div>
 
       {/* Mobile Fixed Bottom Buttons */}
-      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900 px-6 py-5 flex gap-3 justify-between items-center rounded-t-md'>
+      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-mb-gray-550 px-6 py-5 flex gap-3 justify-between items-center rounded-t-md'>
         <Button
           variant='secondary'
           asChild

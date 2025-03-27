@@ -88,7 +88,7 @@ export const AgentSection = ({
         {agentData.agents?.map((data, i) => (
           <Card
             key={`agents-${i}`}
-            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-mb-purple-70 hover:shadow-custom'
+            className='min-w-[307px] h-[76px] flex items-center bg-mb-black-50 cursor-pointer border-zinc-800 hover:border-mb-purple-70 hover:shadow-custom'
             onClick={() => goToAgent(data.id, 'Hey, what can you do for me?')}
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
@@ -118,7 +118,7 @@ export const AgentSection = ({
           .map((data, i) => (
             <Card
               key={`agents-${i}`}
-              className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-mb-purple-70 hover:shadow-custom'
+              className='min-w-[307px] h-[76px] flex items-center bg-mb-black-50 border-zinc-800 cursor-pointer hover:border-mb-purple-70 hover:shadow-custom'
               onClick={() => goToAgent(data.id, 'Hey, what can you do for me?')}
             >
               <CardContent className='text-center p-3 flex items-center gap-3'>

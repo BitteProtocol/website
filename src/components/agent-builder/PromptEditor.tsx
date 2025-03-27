@@ -89,7 +89,7 @@ ${toolsList}
         )}
       </div>
       <div className='h-12 flex items-center'>
-        <small className='text-sm text-[#A1A1AA]'>Markdown accepted.</small>
+        <small className='text-sm text-mb-gray-500'>Markdown accepted.</small>
       </div>
     </div>
   );

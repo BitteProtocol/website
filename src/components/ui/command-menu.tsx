@@ -88,7 +88,7 @@ export function CommandMenu({
                     className='flex items-center justify-between text-zinc-200 aria-selected:bg-zinc-800 cursor-pointer hover:cursor-pointer'
                   >
                     <div className='flex items-center gap-2'>
-                      <div className='flex-shrink-0 h-[24px] w-[24px] bg-[#2D2D2D] rounded flex items-center justify-center'>
+                      <div className='flex-shrink-0 h-[24px] w-[24px] bg-mb-gray-610 rounded flex items-center justify-center'>
                         <Image
                           src='/logo.svg'
                           alt={item?.label}

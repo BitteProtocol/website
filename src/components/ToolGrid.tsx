@@ -19,7 +19,7 @@ function ToolSkeleton() {
         .map((_, index) => (
           <div
             key={index}
-            className='p-4 text-left rounded-md min-h-[125px] bg-[#18181A] flex flex-col h-full'
+            className='p-4 text-left rounded-md min-h-[125px] bg-mb-black-50 flex flex-col h-full'
           >
             <div className='flex items-start gap-3 mb-3'>
               <Skeleton className='h-[24px] w-[24px] rounded' />
@@ -63,14 +63,14 @@ export function ToolGrid({
           <div
             key={index}
             onClick={() => toggleSelection(index)}
-            className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col border border-[#18181A] h-full ${
+            className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col border h-full ${
               selectedItems.has(index)
-                ? 'bg-[#C084FC33] border-[#C084FC]'
-                : 'bg-[#18181A] hover:border-[#C084FC]'
+                ? 'bg-mb-purple-20 border-mb-purple'
+                : 'bg-mb-black-50 border-mb-black-50 hover:border-mb-purple'
             }`}
           >
             <div className='flex items-start gap-3 mb-3'>
-              <div className='flex-shrink-0 h-[24px] w-[24px] bg-[#2D2D2D] rounded flex items-center justify-center'>
+              <div className='flex-shrink-0 h-[24px] w-[24px] bg-mb-gray-610 rounded flex items-center justify-center'>
                 <Image
                   src='/logo.svg'
                   alt={tool?.function?.name}
@@ -79,7 +79,7 @@ export function ToolGrid({
                   className='object-contain'
                 />
               </div>
-              <h2 className='font-medium text-base text-[#F8FAFC]'>
+              <h2 className='font-medium text-base text-mb-white-50'>
                 {tool.function.name}
               </h2>
             </div>

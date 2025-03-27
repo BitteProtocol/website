@@ -155,8 +155,8 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               className={cn(
-                'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-[#60A5FA] bg-zinc-900/20 transition-colors hover:bg-zinc-900/40',
-                isDragging && 'border-[#60A5FA] bg-[#60A5FA]/10',
+                'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-mb-blue-100 bg-zinc-900/20 transition-colors hover:bg-zinc-900/40',
+                isDragging && 'border-mb-blue-100 bg-mb-blue-100/10',
                 'upload-box'
               )}
               style={{
@@ -166,11 +166,11 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
                 border: 'none',
               }}
             >
-              <div className='rounded-full border border-[#60A5FA] p-3 shadow-sm'>
-                <Plus className='h-4 w-4 text-[#60A5FA]' />
+              <div className='rounded-full border border-mb-blue-100 p-3 shadow-sm'>
+                <Plus className='h-4 w-4 text-mb-blue-100' />
               </div>
               <div className='text-center'>
-                <p className='text-sm font-medium text-[#60A5FA]'>
+                <p className='text-sm font-medium text-mb-blue-100'>
                   Drag image or click to upload
                 </p>
               </div>
@@ -213,7 +213,7 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
           )}
         </div>
         <div className='h-12 flex items-center'>
-          <small className='text-sm text-[#A1A1AA]'>
+          <small className='text-sm text-mb-gray-350'>
             A square 1:1 aspect ratio works best.
           </small>
         </div>
