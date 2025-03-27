@@ -13,13 +13,13 @@ interface ToolGridProps {
 
 function ToolSkeleton() {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr'>
       {Array(12)
         .fill(0)
         .map((_, index) => (
           <div
             key={index}
-            className='p-4 text-left rounded-md min-h-[125px] bg-[#18181A] flex flex-col'
+            className='p-4 text-left rounded-md min-h-[125px] bg-[#18181A] flex flex-col h-full'
           >
             <div className='flex items-start gap-3 mb-3'>
               <Skeleton className='h-[24px] w-[24px] rounded' />
@@ -54,7 +54,7 @@ export function ToolGrid({
   }
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:pb-0 pb-24'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:pb-0 pb-24 auto-rows-fr'>
       {tools.map((tool, index) => {
         const networks = mapChainIdsToNetworks(tool.chainIds || [], true);
         const remainingChains = Math.max(0, (tool.chainIds?.length || 0) - 2);
@@ -63,7 +63,7 @@ export function ToolGrid({
           <div
             key={index}
             onClick={() => toggleSelection(index)}
-            className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col border border-[#18181A] ${
+            className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col border border-[#18181A] h-full ${
               selectedItems.has(index)
                 ? 'bg-[#C084FC33] border-[#C084FC]'
                 : 'bg-[#18181A] hover:border-[#C084FC]'
@@ -84,7 +84,7 @@ export function ToolGrid({
               </h2>
             </div>
 
-            <p className='text-sm text-zinc-400 mb-3'>
+            <p className='text-sm text-zinc-400 mb-3 line-clamp-3 overflow-hidden'>
               {tool.function.description}
             </p>
 
