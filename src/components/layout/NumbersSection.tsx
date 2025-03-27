@@ -1,3 +1,5 @@
+'use client';
+
 import { fira } from '@/app/fonts';
 import { numbersData } from '@/lib/data/numbersData';
 import { Card, CardContent } from '../ui/card';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Card } from '@/components/ui/card';
 import { ACTION_TEXTS } from '@/lib/agentConstants';
 import { RegistryData } from '@/lib/types/agent.types';

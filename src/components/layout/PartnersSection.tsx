@@ -1,3 +1,5 @@
+'use client';
+
 import { partnerData } from '@/lib/data/partnerData';
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';

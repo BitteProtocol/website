@@ -1,35 +1,22 @@
 'use client';
 
-import { useVerifiedAssistants } from '@/hooks/useAssistants';
 import { AGENT_IDS } from '@/lib/agentConstants';
-import { RegistryData } from '@/lib/types/agent.types';
-import { MB_URL } from '@/lib/url';
-import '@bitte-ai/chat/style.css';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Button } from '../ui/button';
-import { Skeleton } from '../ui/skeleton';
-import AgentRow from './AgentRow';
+import { RegistryData, VerifiedAgentData } from '@/lib/types/agent.types';
+import { useEffect } from 'react';
 import HeroPromptInput from './HeroPromptInput';
+import AgentRow from './AgentRow';
+import { Skeleton } from '../ui/skeleton';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import { MB_URL } from '@/lib/url';
 
-const Hero = () => {
-  const { verifiedAgents: agentData, loading } = useVerifiedAssistants();
-  const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
-
-  useEffect(() => {
-    if (agentData?.agents?.length) {
-      setSelectedAgent(agentData.agents[0]);
-    }
-  }, [agentData]);
-
-  useEffect(() => {
-    // Retrieve the selected agent from sessionStorage when the component mounts
-    const storedAgent = sessionStorage.getItem('selectedAgent');
-    if (storedAgent) {
-      setSelectedAgent(JSON.parse(storedAgent));
-    }
-  }, []);
-
+export const Hero = ({
+  selectedAgent,
+  agentData,
+}: {
+  selectedAgent: RegistryData;
+  agentData: VerifiedAgentData;
+}) => {
   useEffect(() => {
     // Save the selected agent to sessionStorage whenever it changes
     if (selectedAgent) {
@@ -38,7 +25,7 @@ const Hero = () => {
   }, [selectedAgent]);
 
   // Filter agents to include only the specified IDs
-  const filteredAgents = agentData?.agents.filter((agent) =>
+  const filteredAgents = agentData?.agents.filter((agent: RegistryData) =>
     AGENT_IDS.includes(agent.id)
   );
 
@@ -56,7 +43,7 @@ const Hero = () => {
         </video>
         <div className='flex justify-center flex-col text-center items-center px-8 pt-20 md:pt-12 lg:pt-20 xl:pt-24 2xl:pt-60 pb-56  2xl:pb-80'>
           <div className='z-10 md:pointer-events-none'>
-            <p className='font-semibold text-white text-opacity-30 text-[32px] md:text-[50px] leading-tight mx-auto '>
+            <p className='font-semibold text-white text-[32px] md:text-[50px] leading-tight mx-auto '>
               Chat with Dapps
             </p>
           </div>
@@ -68,7 +55,7 @@ const Hero = () => {
               <div className='flex-grow mt-6'>
                 {filteredAgents && filteredAgents?.length > 0 ? (
                   <AgentRow agentData={filteredAgents} />
-                ) : loading ? (
+                ) : (
                   <>
                     <div className='hidden gap-6 items-center justify-center lg:flex'>
                       {Array.from({ length: 4 }).map((_, i) => (
@@ -80,7 +67,7 @@ const Hero = () => {
                       <Skeleton className='w-full h-[128px]' />
                     </div>
                   </>
-                ) : null}
+                )}
               </div>
             </div>
           </div>
@@ -101,5 +88,3 @@ const Hero = () => {
     </section>
   );
 };
-
-export default Hero;

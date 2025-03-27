@@ -1,3 +1,5 @@
+'use client';
+
 import { fira } from '@/app/fonts';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { ArrowLeft, ArrowRight } from 'lucide-react';

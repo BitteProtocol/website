@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '../ui/button';
 import { productCardsData } from '@/lib/data/productCardsData';
 import { Card, CardContent } from '../ui/card';

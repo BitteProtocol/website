@@ -34,6 +34,10 @@ const nextConfig = {
           key: 'Cache-Control',
           value: 'public, max-age=86400, s-maxage=86400', // Cache for 1 day
         },
+        {
+          key: 'Strict-Transport-Security',
+          value: 'max-age=63072000; includeSubDomains; preload',
+        },
       ],
     },
   ],
