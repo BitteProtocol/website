@@ -17,7 +17,7 @@ export const productCardsData = {
       badge: 'Agent Registry',
       title: 'Agent Registry',
       sub: 'Fork other agents to make them better or bootstrap your own.',
-      bg: '/examples/image_39.svg',
+      bg: '/examples/registry.webp',
       btn_text: 'Agents',
       link: '/agents',
     },

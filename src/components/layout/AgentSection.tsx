@@ -93,14 +93,16 @@ export const AgentSection = ({
           >
             <CardContent className='text-center p-3 flex items-center gap-3'>
               <div>
-                <AgentImage
-                  src={data?.image}
-                  className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
-                  width={56}
-                  height={56}
-                  alt={`${data?.id}-logo`}
-                  loading='lazy'
-                />
+                {data?.image && (
+                  <AgentImage
+                    src={data?.image}
+                    className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
+                    width={56}
+                    height={56}
+                    alt={`${data?.id}-logo`}
+                    loading='lazy'
+                  />
+                )}
               </div>
               <div className='font-medium text-mb-white-50'>{data?.name}</div>
             </CardContent>
@@ -123,14 +125,16 @@ export const AgentSection = ({
             >
               <CardContent className='text-center p-3 flex items-center gap-3'>
                 <div>
-                  <AgentImage
-                    src={data?.image}
-                    className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
-                    width={56}
-                    height={56}
-                    alt={`${data?.id}-logo`}
-                    loading='lazy'
-                  />
+                  {data?.image && (
+                    <AgentImage
+                      src={data?.image}
+                      className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
+                      width={56}
+                      height={56}
+                      alt={`${data?.id}-logo`}
+                      loading='lazy'
+                    />
+                  )}
                 </div>
                 <div className='font-medium text-mb-white-50'>{data?.name}</div>
               </CardContent>

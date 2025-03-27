@@ -37,6 +37,7 @@ export const EventsUI = () => {
         className='block md:hidden w-full max-h-[500px] md:max-h-[300px] -mt-20 -ml-6 md:ml-0 scale-105 md:scale-125'
         alt='mobile-banner-logo'
         loading='lazy'
+        quality={60}
         width={100}
         height={80}
       />

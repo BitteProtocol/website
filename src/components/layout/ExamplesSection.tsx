@@ -76,6 +76,8 @@ const CardComponent = ({ ...props }) => {
               objectFit: card.bg.includes('.svg') ? 'contain' : 'cover',
             }}
             className='z-10'
+            loading='lazy'
+            quality={60}
           />
         )}
         {card.gradientLayer && (
@@ -123,7 +125,7 @@ const CardComponent = ({ ...props }) => {
   );
 };
 
-export const ExamplesSection = ({
+const ExamplesSection = ({
   data,
   isVideo,
 }: {
@@ -265,3 +267,5 @@ export const ExamplesSection = ({
     </section>
   );
 };
+
+export default ExamplesSection;

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Dialog,
   DialogContent,
@@ -19,6 +21,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
 import ConnectAccountCard from './ConnectAccountCard';
 import { NearWalletConnector } from './NearWalletSelector';
+import { useIsClient } from '@/hooks/useIsClient';
 
 interface ConnectDialogProps {
   isOpen: boolean;
@@ -39,6 +42,8 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   const isMobile = !!width && width < 1024;
 
   const { open } = useAppKit();
+
+  const isClient = useIsClient();
 
   const content = (
     <div>
@@ -80,7 +85,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
     </div>
   );
 
-  if (isMobile) {
+  if (isMobile && isClient) {
     return (
       <Drawer open={isOpen} onOpenChange={setConnectModalOpen}>
         <DrawerTrigger asChild>
@@ -108,7 +113,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         {sidebarOpen ? (
           <Button className='w-full'>Connect Wallet</Button>
         ) : isSidebar ? (

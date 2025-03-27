@@ -42,6 +42,7 @@ export const ProductCardsSection = ({
                   height={232}
                   width={415}
                   className={`w-full md:w-1/2 md:absolute md:right-0 md:top-0 h-1/2 md:h-full object-cover md:object-contain transform scale-110 md:scale-150 ${dim}`}
+                  quality={60}
                 />
               ) : (
                 <video

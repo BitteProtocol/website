@@ -1,9 +1,6 @@
 'use client';
 
 import { productCardsData } from '@/lib/data/productCardsData';
-import { ExamplesSection } from './ExamplesSection';
-import { NumbersSection } from './NumbersSection';
-import { PartnersSection } from './PartnersSection';
 import TextSection from './TextSection';
 import { ProductCardsSection } from './ProductCardsSection';
 import { SupportedChainsSection } from './SupportedChainsSection';
@@ -14,10 +11,24 @@ import {
   videosCardData,
 } from '@/lib/data/exampleCardData';
 import { AgentSection } from './AgentSection';
-import VideoSection from './VideoSection';
 import { useVerifiedAssistants } from '@/hooks/useAssistants';
 import { Skeleton } from '../ui/skeleton';
+import dynamic from 'next/dynamic';
 
+const ExamplesSection = dynamic(() => import('./ExamplesSection'), {
+  ssr: false,
+});
+
+const VideoSection = dynamic(() => import('./VideoSection'), {
+  ssr: false,
+});
+
+const PartnersSection = dynamic(() => import('./PartnersSection'), {
+  ssr: false,
+});
+const NumbersSection = dynamic(() => import('./NumbersSection'), {
+  ssr: false,
+});
 const headerTextSection = {
   title: 'Chain Agents Live',
   subHeader: 'Explore existing agents or fork one to create your own.',
@@ -28,7 +39,7 @@ const headerTextSection = {
 };
 
 const crossSection = {
-  thumb: '/examples/agents.jpg',
+  thumb: '/examples/agents.webp',
   src: '/video/bitte-sub-natural-language.mp4',
   title: 'Natural Language will Create Most Transactions',
   subHeader: "It's actaully incredibly easy with smart contracts.",

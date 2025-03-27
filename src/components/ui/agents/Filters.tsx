@@ -72,6 +72,8 @@ const Filters = ({
                         alt={`${name} icon`}
                         fill
                         className='object-contain rounded'
+                        loading='lazy'
+                        quality={60}
                       />
                     </div>
                   )}

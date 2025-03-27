@@ -2,7 +2,7 @@ import { fira } from '@/app/fonts';
 import { numbersData } from '@/lib/data/numbersData';
 import { Card, CardContent } from '../ui/card';
 
-export const NumbersSection = () => {
+const NumbersSection = () => {
   return (
     <section className='w-full'>
       <div className='my-12 md:my-32 px-6 relative p-72 w-screen'>
@@ -40,3 +40,5 @@ export const NumbersSection = () => {
     </section>
   );
 };
+
+export default NumbersSection;
