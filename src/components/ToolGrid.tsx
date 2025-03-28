@@ -128,11 +128,13 @@ export function ToolGrid({
             <div className='flex items-start gap-3 mb-2'>
               <div className='flex-shrink-0 h-[24px] w-[24px] bg-mb-gray-610 rounded flex items-center justify-center'>
                 <Image
-                  src='/logo.svg'
+                  src={
+                    tool.isPrimitive ? '/logo.svg' : tool?.image || '/logo.svg'
+                  }
                   alt={tool?.function?.name}
-                  width={16}
-                  height={12}
-                  className='object-contain'
+                  width={tool.isPrimitive ? 16 : 24}
+                  height={tool.isPrimitive ? 12 : 24}
+                  className={`object-contain ${!tool.isPrimitive ? 'rounded' : ''}`}
                 />
               </div>
               <h2 className='font-medium text-sm text-mb-white-50'>
