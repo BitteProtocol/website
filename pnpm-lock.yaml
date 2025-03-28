@@ -6,7 +6,6 @@ settings:
 
 overrides:
   '@types/react': 18.2.60
-  near-api-js: 4.0.3
 
 importers:
 
@@ -133,7 +132,7 @@ importers:
         specifier: ^0.307.0
         version: 0.307.0(react@18.2.0)
       near-api-js:
-        specifier: 5.0.1
+        specifier: ^5.0.1
         version: 5.0.1
       next:
         specifier: 14.1.0
@@ -893,7 +892,7 @@ packages:
   '@meteorwallet/sdk@1.0.9':
     resolution: {integrity: sha512-frJM+rwmx18MCVsfHn0O8oaJfB41BqaXW6cyhZ3EtMw3b87DUJyfSuJi9K0HQl7oGG0+wvMZOKRBVVcMiZzoDg==}
     peerDependencies:
-      near-api-js: 4.0.3
+      near-api-js: ^2.0.0
 
   '@mintbase-js/data@0.6.5':
     resolution: {integrity: sha512-AfZlCQDPI+7Y78tWSwBVj7mxetlU9rKFgNwlmvdQt6lhCuFU3aG8lGLx28Hzp1DQALUCuYUfQMoWR0IkzOlypg==}
@@ -1025,7 +1024,7 @@ packages:
   '@near-wallet-selector/core@8.10.1':
     resolution: {integrity: sha512-FHZNLIPF3Qvj2M8cwyeHFH0Gwq58q7ibw02r+TkekyzZgXESvd/kU/OcF11T4r3WG1OrHPiZay7XXeAwDc9Txw==}
     peerDependencies:
-      near-api-js: 4.0.3
+      near-api-js: ^4.0.0 || ^5.0.0
 
   '@near-wallet-selector/core@8.9.14':
     resolution: {integrity: sha512-fC+igD832P0wUZ9MSfFWgYVIvZcOn1Fka7SJ3VN7w8Xufw+MgZ06zoGDj29QB0qy+Aui1fZGJgwJGTBOe5KIMg==}
@@ -1036,7 +1035,7 @@ packages:
   '@near-wallet-selector/core@8.9.16':
     resolution: {integrity: sha512-Bq+bZvwpsYgs8g4mtDMEMUpHwD/+VlHY3hj5pLv6o6C/3Ym0/540/8ydd9VUhMsdpY0Dhv2SLamKiL6PJK6THA==}
     peerDependencies:
-      near-api-js: 4.0.3
+      near-api-js: ^4.0.0 || ^5.0.0
 
   '@near-wallet-selector/here-wallet@8.10.1':
     resolution: {integrity: sha512-iEgF50daRcumog/OGTiSrOxOmrlATnIqz4oRMBRyZDI3XQVvY+aFQAsmTQgatMygvNGmloCc8D+ZVyQ4WRb0Dg==}
@@ -1059,7 +1058,7 @@ packages:
   '@near-wallet-selector/wallet-utils@8.10.1':
     resolution: {integrity: sha512-1NxFCGo7bo+CiKOOS4yjSAwAfnjhYYXo3i1UCuu4MhHrQS+EvwMCxCadUKSNGXn1IC1TpKmWMVaENkv7gWKlZQ==}
     peerDependencies:
-      near-api-js: 4.0.3
+      near-api-js: ^4.0.0 || ^5.0.0
 
   '@next/env@14.1.0':
     resolution: {integrity: sha512-Py8zIo+02ht82brwwhTg36iogzFqGLPXlRGKQw5s+qP/kMNc4MAyDeEwBKDijk6zTIbegEgu8Qy7C1LboslQAw==}
@@ -7334,9 +7333,9 @@ snapshots:
 
   '@bitte-ai/wallet@0.7.2':
     dependencies:
-      '@near-wallet-selector/core': 8.10.1(near-api-js@4.0.3)
-      '@near-wallet-selector/wallet-utils': 8.10.1(near-api-js@4.0.3)
-      near-api-js: 4.0.3
+      '@near-wallet-selector/core': 8.10.1(near-api-js@5.0.1)
+      '@near-wallet-selector/wallet-utils': 8.10.1(near-api-js@5.0.1)
+      near-api-js: 5.0.1
     transitivePeerDependencies:
       - encoding
 
@@ -8421,6 +8420,11 @@ snapshots:
     dependencies:
       '@near-wallet-selector/core': 8.10.1(near-api-js@4.0.3)
       near-api-js: 4.0.3
+
+  '@near-wallet-selector/wallet-utils@8.10.1(near-api-js@5.0.1)':
+    dependencies:
+      '@near-wallet-selector/core': 8.10.1(near-api-js@5.0.1)
+      near-api-js: 5.0.1
 
   '@next/env@14.1.0': {}
 
@@ -14165,7 +14169,7 @@ snapshots:
     dependencies:
       '@walletconnect/web3wallet': 1.16.1(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       elliptic: 6.6.1
-      near-api-js: 4.0.3
+      near-api-js: 5.0.1
       viem: 2.22.21(bufferutil@4.0.9)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.24.1)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -14190,7 +14194,7 @@ snapshots:
   near-safe@0.9.8(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.24.1):
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.22.9
-      near-api-js: 4.0.3
+      near-api-js: 5.0.1
       near-ca: 0.8.4(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       semver: 7.6.3
       viem: 2.22.21(bufferutil@4.0.9)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.24.1)
