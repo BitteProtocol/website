@@ -140,7 +140,7 @@ export function ToolGrid({
               </h2>
             </div>
 
-            <p className='text-sm text-mb-gray-400 mb-2 line-clamp-2 overflow-hidden'>
+            <p className='text-sm text-mb-gray-200 mb-2 line-clamp-2 overflow-hidden'>
               {tool.function.description}
             </p>
 

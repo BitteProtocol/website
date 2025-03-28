@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import {
   Command,
   CommandEmpty,
@@ -37,9 +38,9 @@ export function CommandMenu({
   placeholder = 'Type a command or search...',
   emptyMessage = 'No results found.',
 }: CommandMenuProps) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
-  const processedGroups = React.useMemo(() => {
+  const processedGroups = useMemo(() => {
     return groups.map((group, groupIndex) => ({
       ...group,
       items: group.items.map((item, itemIndex) => ({
@@ -56,7 +57,7 @@ export function CommandMenu({
     setOpen((open) => !open);
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -67,7 +68,7 @@ export function CommandMenu({
     return () => document.removeEventListener('keydown', down);
   }, []);
 
-  const runCommand = React.useCallback((command: () => unknown) => {
+  const runCommand = useCallback((command: () => unknown) => {
     setOpen(false);
     command();
   }, []);

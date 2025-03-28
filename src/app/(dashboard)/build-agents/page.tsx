@@ -133,11 +133,11 @@ export default function BuildAgents() {
               <h1 className='font-semibold text-mb-white-50'>
                 Available Tools
               </h1>
-              <p className='text-sm text-mb-gray-400'>
+              <p className='text-sm text-mb-gray-200'>
                 Combine tools to create agents
               </p>
             </div>
-            <p className='hidden md:block text-sm text-mb-gray-400'>
+            <p className='hidden md:block text-sm text-mb-gray-200'>
               <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
                 ⌘
               </kbd>{' '}
@@ -194,7 +194,7 @@ export default function BuildAgents() {
       <div className='md:hidden px-2 py-4'>
         <div className='space-y-1'>
           <h1 className='font-semibold text-mb-white-50'>Available Tools</h1>
-          <p className='text-sm text-mb-gray-400'>
+          <p className='text-sm text-mb-gray-200'>
             Combine tools to create agents
           </p>
         </div>
