@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Tool } from '@/lib/types/tool.types';
 import { NotionLikeEditor } from '@/components/NotionLikeEditor';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -15,7 +15,6 @@ export function PromptEditor({
   selectedTools,
 }: PromptEditorProps) {
   const [editorLoading, setEditorLoading] = useState<boolean>(true);
-  const previousToolsRef = useRef<Tool[]>([]);
 
   // Simulate editor loading
   useEffect(() => {
@@ -25,25 +24,21 @@ export function PromptEditor({
     return () => clearTimeout(timer);
   }, []);
 
-  // Generate tools section content
-  const generateToolsList = (tools: Tool[]) => {
-    return tools.length > 0
-      ? tools
-          .map(
-            (tool) => `
-<h3>${tool.function.name}</h3>
-<p>[When and how to use this tool]</p>`
-          )
-          .join('\n')
-      : `
-<h3>No tools selected</h3>
-<p>Return to the previous step to select tools.</p>`;
-  };
-
   // Default content for the editor
   const defaultInstructions = useMemo(() => {
     // Format tool list based on selected tools
-    const toolsList = generateToolsList(selectedTools);
+    const toolsList =
+      selectedTools.length > 0
+        ? selectedTools
+            .map(
+              (tool) => `
+<h3>${tool.function.name}</h3>
+<p>[When and how to use this tool]</p>`
+            )
+            .join('\n')
+        : `
+<h3>No tools selected</h3>
+<p>Return to the previous step to select tools.</p>`;
 
     return `<h1>Agent Instructions</h1>
 
@@ -69,51 +64,17 @@ ${toolsList}
 </ul>`;
   }, [selectedTools]);
 
-  // Update instructions when tools change
+  // Update instructions when tools change if instructions are empty or match previous default
   useEffect(() => {
-    // Initialize with default if empty
-    if (!instructions) {
+    if (!instructions || instructions === defaultInstructions) {
       setInstructions(defaultInstructions);
-      previousToolsRef.current = [...selectedTools];
-      return;
     }
-
-    // Check if tools have changed
-    const toolsChanged =
-      selectedTools.length !== previousToolsRef.current.length ||
-      selectedTools.some(
-        (tool, index) =>
-          index >= previousToolsRef.current.length ||
-          tool.function.name !== previousToolsRef.current[index]?.function.name
-      );
-
-    // Update only if tools have changed
-    if (toolsChanged && instructions) {
-      // Try to update only the tools section
-      const toolsSectionRegex = /<h2>🛠️ Tools<\/h2>\s+([\s\S]*?)(?=<h2>|$)/;
-      const match = instructions.match(toolsSectionRegex);
-
-      if (match) {
-        // Replace just the tools section
-        const updatedInstructions = instructions.replace(
-          toolsSectionRegex,
-          `<h2>🛠️ Tools</h2>\n${generateToolsList(selectedTools)}\n\n`
-        );
-        setInstructions(updatedInstructions);
-      } else {
-        // If can't find tools section, don't modify user's content
-        console.log("Couldn't find tools section to update");
-      }
-    }
-
-    // Update reference for next comparison
-    previousToolsRef.current = [...selectedTools];
-  }, [selectedTools, instructions, setInstructions, defaultInstructions]);
+  }, [defaultInstructions, instructions, setInstructions]);
 
   return (
-    <div>
+    <div className='h-full flex flex-col'>
       <h2 className='text-sm font-medium mb-2'>Prompt</h2>
-      <div className='border border-mb-gray-600 rounded-md overflow-hidden bg-transparent h-[calc(100%-5rem)]'>
+      <div className='border border-mb-gray-600 rounded-md overflow-hidden bg-transparent flex-1 h-[calc(100%-3rem)]'>
         {editorLoading ? (
           <div className='p-4 bg-zinc-900/20 h-full space-y-4'>
             <Skeleton className='h-7 w-1/2' />
@@ -127,11 +88,13 @@ ${toolsList}
             <Skeleton className='h-5 w-3/5' />
           </div>
         ) : (
-          <NotionLikeEditor
-            content={instructions}
-            onChange={setInstructions}
-            placeholder='Describe how your agent should behave...'
-          />
+          <div className='h-full'>
+            <NotionLikeEditor
+              content={instructions}
+              onChange={setInstructions}
+              placeholder='Describe how your agent should behave...'
+            />
+          </div>
         )}
       </div>
       <div className='h-12 flex items-center'>

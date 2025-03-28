@@ -102,13 +102,15 @@ export default function ConfigurationPage() {
         <div className='flex flex-1 overflow-hidden'>
           {/* Left Side - Tools and Editor */}
           <div className='w-1/2 border-r border-mb-gray-800 pl-6 pr-9 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
-            <div className='hidden md:block'>
+            <div className='hidden md:block h-full flex flex-col'>
               <SelectedTools selectedTools={selectedTools} />
-              <PromptEditor
-                instructions={instructions}
-                setInstructions={setInstructions}
-                selectedTools={selectedTools}
-              />
+              <div className='flex-grow h-[calc(100%-120px)] mt-6'>
+                <PromptEditor
+                  instructions={instructions}
+                  setInstructions={setInstructions}
+                  selectedTools={selectedTools}
+                />
+              </div>
             </div>
           </div>
 
@@ -157,11 +159,13 @@ export default function ConfigurationPage() {
           {/* Prompt Editor Section */}
           <div className='space-y-6'>
             <h2 className='text-sm font-medium text-mb-white-100'>Prompt</h2>
-            <PromptEditor
-              instructions={instructions}
-              setInstructions={setInstructions}
-              selectedTools={selectedTools}
-            />
+            <div className='h-[400px]'>
+              <PromptEditor
+                instructions={instructions}
+                setInstructions={setInstructions}
+                selectedTools={selectedTools}
+              />
+            </div>
           </div>
 
           {/* Agent Name Section */}

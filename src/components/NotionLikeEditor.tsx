@@ -31,7 +31,7 @@ export function NotionLikeEditor({
     content,
     editorProps: {
       attributes: {
-        class: 'prose prose-invert min-h-full w-full focus:outline-none',
+        class: 'prose prose-invert w-full focus:outline-none',
       },
     },
     onUpdate: ({ editor }) => {
@@ -50,15 +50,30 @@ export function NotionLikeEditor({
   }, [content, editor]);
 
   return (
-    <div className='min-h-full text-white bg-transparent'>
+    <div className='h-full text-white bg-transparent overflow-hidden'>
       <style jsx global>{`
         .ProseMirror {
-          min-height: 100%;
+          height: 100%;
+          max-height: 100%;
+          overflow-y: auto;
           padding: 0.75rem;
-          font-size: 11px;
-          line-height: 1.4;
+          font-size: 16px;
+          line-height: 1.5;
           color: #fff;
           background: transparent !important;
+        }
+
+        .ProseMirror::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        .ProseMirror::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        .ProseMirror::-webkit-scrollbar-thumb {
+          background-color: var(--mb-gray-600, #4b5563);
+          border-radius: 20px;
         }
 
         .ProseMirror p.is-editor-empty:first-child::before {
@@ -70,8 +85,8 @@ export function NotionLikeEditor({
         }
 
         .ProseMirror h1 {
-          font-size: 1rem; /* 16px */
-          line-height: 1.5rem;
+          font-size: 1.5rem;
+          line-height: 2rem;
           font-weight: 600;
           margin-top: 1rem;
           margin-bottom: 0.5rem;
@@ -79,8 +94,8 @@ export function NotionLikeEditor({
         }
 
         .ProseMirror h2 {
-          font-size: 0.9rem;
-          line-height: 1.4rem;
+          font-size: 1.25rem;
+          line-height: 1.75rem;
           font-weight: 600;
           margin-top: 0.8rem;
           margin-bottom: 0.3rem;
@@ -91,8 +106,8 @@ export function NotionLikeEditor({
         }
 
         .ProseMirror h3 {
-          font-size: 0.8rem;
-          line-height: 1.2rem;
+          font-size: 1.125rem;
+          line-height: 1.5rem;
           font-weight: 600;
           margin-top: 0.7rem;
           margin-bottom: 0.3rem;
@@ -100,38 +115,38 @@ export function NotionLikeEditor({
         }
 
         .ProseMirror p {
-          margin-bottom: 0.3rem;
+          margin-bottom: 0.5rem;
           color: #d4d4d8;
-          font-size: 0.75rem;
+          font-size: 1rem;
         }
 
         .ProseMirror ul {
           list-style-type: disc;
-          padding-left: 1rem;
-          margin-bottom: 0.5rem;
+          padding-left: 1.5rem;
+          margin-bottom: 0.75rem;
           color: #d4d4d8;
         }
 
         .ProseMirror ol {
           list-style-type: decimal;
-          padding-left: 1rem;
-          margin-bottom: 0.5rem;
+          padding-left: 1.5rem;
+          margin-bottom: 0.75rem;
           color: #d4d4d8;
         }
 
         .ProseMirror li {
-          margin-bottom: 0.15rem;
-          font-size: 0.75rem;
+          margin-bottom: 0.25rem;
+          font-size: 1rem;
         }
 
         .ProseMirror blockquote {
-          border-left: 2px solid #3f3f46;
-          padding-left: 0.5rem;
+          border-left: 3px solid #3f3f46;
+          padding-left: 0.75rem;
           margin-left: 0;
           margin-right: 0;
           font-style: italic;
           color: #a1a1aa;
-          font-size: 0.75rem;
+          font-size: 1rem;
         }
 
         .ProseMirror code {
@@ -140,16 +155,16 @@ export function NotionLikeEditor({
           border-radius: 0.2rem;
           font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
             monospace;
-          font-size: 0.65rem;
+          font-size: 0.875rem;
           color: #e4e4e7;
         }
 
         .ProseMirror pre {
           background-color: rgba(24, 24, 27, 0.6);
-          padding: 0.5rem;
+          padding: 0.75rem;
           border-radius: 0.3rem;
           overflow-x: auto;
-          margin: 0.5rem 0;
+          margin: 0.75rem 0;
         }
 
         .ProseMirror pre code {
@@ -157,7 +172,7 @@ export function NotionLikeEditor({
           padding: 0;
           border-radius: 0;
           color: #e4e4e7;
-          font-size: 0.65rem;
+          font-size: 0.875rem;
         }
 
         .ProseMirror hr {
@@ -182,7 +197,7 @@ export function NotionLikeEditor({
           background-color: transparent !important;
         }
       `}</style>
-      <EditorContent editor={editor} className='bg-transparent' />
+      <EditorContent editor={editor} className='bg-transparent h-full' />
     </div>
   );
 }
