@@ -37,6 +37,7 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@reown/appkit": "^1.6.3",
     "@reown/appkit-adapter-wagmi": "^1.6.3",
+    "@suiet/wallet-kit": "^0.3.4",
     "@tanstack/react-query": "^5.62.16",
     "@types/prismjs": "^1.26.3",
     "@vercel/analytics": "^1.2.2",

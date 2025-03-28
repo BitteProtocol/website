@@ -10,12 +10,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { MB_URL } from '@/lib/url';
 import { useWindowSize } from '@/lib/utils/useWindowSize';
 import { useAppKit } from '@reown/appkit/react';
 import { User, UserCheck, UserPlus } from 'lucide-react';
-import Image from 'next/image';
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { formatEther } from 'viem';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { Button } from '../ui/button';
@@ -23,37 +21,19 @@ import ConnectAccountCard from './ConnectAccountCard';
 import CurrentlyConnected from './CurrentlyConnected';
 import EvmNetworkSelector from './EvmNetworkSelector';
 import { NearWalletConnector } from './NearWalletSelector';
-
-/* const getChainSvgPath = (chainId?: number): string => {
-  const defaultSVG = '/chains/evm_wallet_connector.svg';
-  if (!chainId) return defaultSVG;
-  const chainSvgMap: { [key: number]: string } = {
-    1: '/chains/new_eth.svg',
-    10: '/chains/new_op.svg',
-    42161: '/chains/new_arbi.svg',
-    8453: '/chains/new_base.svg',
-    137: '/chains/new_polygon.svg',
-    100: '/chains/new_gnosis.svg',
-    43114: '/chains/avax.svg',
-  };
-
-  return chainSvgMap[chainId] || defaultSVG;
-}; */
-
-interface ManageAccountsDialogProps {
-  isOpen: boolean;
-  isConnected: boolean;
-  isNearConnected: boolean;
-  handleSignIn: () => void;
-  setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
-  sidebarOpen?: boolean;
-  isSidebar?: boolean;
-}
+import { SuiWalletConnector } from './SuiWalletConnector';
+import { useWallet } from '@suiet/wallet-kit';
+import { ManageAccountsDialogProps } from '@/lib/wallet/types';
+import SectionHeader from '../ui/wallet/SectionHeader';
+import DialogSection from '../ui/wallet/DialogSection';
+import CreateAccountCard from '../ui/wallet/CreateAccountCard';
+import ManageAccountsButton from '../ui/wallet/ManageAccountsButton';
 
 const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   isOpen,
   isConnected,
   isNearConnected,
+  isSuiConnected,
   handleSignIn,
   setConnectModalOpen,
   sidebarOpen,
@@ -67,20 +47,23 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   const { data: balance } = useBalance({ address });
 
   const { open } = useAppKit();
+  const { connected: localSuiConnected } = useWallet();
+  
+  const isSuiWalletConnected = isSuiConnected !== undefined ? isSuiConnected : localSuiConnected;
 
-  const content = (
-    <>
-      <div className='border-b border-mb-gray-800 -mx-8 my-5'></div>
-      <div className={`flex items-center gap-2 ${isMobile ? 'mb-4' : ''}`}>
-        <UserCheck size={16} color='#BABDC2' />
-        <p className='text-mb-gray-50 font-medium text-xs'>
-          Currently Connected
-        </p>
-      </div>
+  const renderConnectedWallets = () => (
+    <DialogSection>
+      <SectionHeader 
+        icon={UserCheck} 
+        title="Currently Connected" 
+        className={isMobile ? 'mb-4' : ''} 
+      />
+      
       <div className='flex flex-col gap-6'>
         {isNearConnected && (
           <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
         )}
+        
         {isConnected && (
           <CurrentlyConnected
             chainIcon='/chains/evm_wallet_connector.svg'
@@ -95,59 +78,61 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             action={disconnect}
           />
         )}
+        
+        {isSuiWalletConnected && (
+          <SuiWalletConnector 
+            setConnectModalOpen={setConnectModalOpen} 
+            isManageDialog
+          />
+        )}
       </div>
-      <div className='border-b border-mb-gray-800 my-5 -mx-8'></div>
-      <div>
-        <div className='flex items-center gap-2 mb-4'>
-          <UserPlus size={16} color='#BABDC2' />
-          <p className='text-mb-gray-50 font-medium text-xs'>
-            Connect Accounts
-          </p>
-        </div>
-        <div className='flex flex-col gap-4'>
-          {!isConnected && (
-            <ConnectAccountCard
-              action={open}
-              icon={{
-                src: '/chains/evm_metamask_connector.svg',
-                width: 80,
-                height: 80,
-              }}
-              text='EVM Account'
-              account='0xd8da6...aa96045'
-            />
-          )}
-          {!isNearConnected && (
-            <ConnectAccountCard
-              action={[handleSignIn, () => setConnectModalOpen(false)]}
-              icon={{ src: '/near_connect_icon.svg' }}
-              text='NEAR Account'
-              account='blackdragon.near'
-            />
-          )}
-          <a
-            className='w-full bg-mb-gray-650 hover:bg-mb-blue-30 h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer mt-auto transition-all duration-500 ease-in-out'
-            href={MB_URL.BITTE_WALLET_NEW_ACCOUNT}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <div className='flex items-center justify-center rounded-md h-[40px] w-[40px] bg-white'>
-              <Image
-                src='/bitte-symbol-black.svg'
-                width={26}
-                height={19}
-                alt='bitte-connect-logo'
-              />
-            </div>
-            <div>
-              <p className='text-sm text-mb-white-50 font-semibold mb-2'>
-                Create New Account
-              </p>
-              <p className='text-mb-gray-50 text-xs'>for EVM and NEAR chains</p>
-            </div>
-          </a>
-        </div>
+    </DialogSection>
+  );
+
+  const renderConnectAccounts = () => (
+    <DialogSection hasBorder={false}>
+      <SectionHeader 
+        icon={UserPlus} 
+        title="Connect Accounts" 
+        className="mb-4" 
+      />
+      
+      <div className='flex flex-col gap-4'>
+        {!isConnected && (
+          <ConnectAccountCard
+            action={open}
+            icon={{
+              src: '/chains/evm_metamask_connector.svg',
+              width: 80,
+              height: 80,
+            }}
+            text='EVM Account'
+            account='0xd8da6...aa96045'
+          />
+        )}
+        
+        {!isNearConnected && (
+          <ConnectAccountCard
+            action={[handleSignIn, () => setConnectModalOpen(false)]}
+            icon={{ src: '/near_connect_icon.svg' }}
+            text='NEAR Account'
+            account='blackdragon.near'
+          />
+        )}
+        
+        {!isSuiWalletConnected && (
+          <SuiWalletConnector setConnectModalOpen={setConnectModalOpen} />
+        )}
+        
+        <CreateAccountCard className="mt-auto" />
       </div>
+    </DialogSection>
+  );
+
+  const dialogContent = (
+    <>
+      {renderConnectedWallets()}
+      {renderConnectAccounts()}
     </>
   );
 
@@ -164,7 +149,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <DrawerTitle className='font-semibold text-xl mt-5'>
             Manage Accounts
           </DrawerTitle>
-          {content}
+          {dialogContent}
         </DrawerContent>
       </Drawer>
     );
@@ -173,25 +158,16 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
-        {sidebarOpen ? (
-          <Button className='border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 w-full text-mb-blue-100 flex items-center gap-1'>
-            <User size={16} color='#60A5FA' /> Connected
-          </Button>
-        ) : (
-          <Button
-            variant='outline'
-            size='icon'
-            className={`border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
-          >
-            <User size={16} color='#60A5FA' />
-          </Button>
-        )}
+        <ManageAccountsButton 
+          isSidebarOpen={sidebarOpen} 
+          isSidebar={isSidebar} 
+        />
       </DialogTrigger>
       <DialogContent className='max-w-[510px] p-8 border border-mb-gray-800 bg-black rounded-md'>
         <DialogTitle className='font-semibold text-xl'>
           Manage Accounts
         </DialogTitle>
-        {content}
+        {dialogContent}
       </DialogContent>
     </Dialog>
   );

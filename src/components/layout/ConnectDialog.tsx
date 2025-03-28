@@ -19,6 +19,8 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
 import ConnectAccountCard from './ConnectAccountCard';
 import { NearWalletConnector } from './NearWalletSelector';
+import { SuiWalletConnector } from './SuiWalletConnector';
+import { useWallet } from '@suiet/wallet-kit';
 
 interface ConnectDialogProps {
   isOpen: boolean;
@@ -39,6 +41,7 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
   const isMobile = !!width && width < 1024;
 
   const { open } = useAppKit();
+  const { connected: isSuiConnected } = useWallet();
 
   const content = (
     <div>
@@ -54,6 +57,9 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
           account='0xd8da6...aa96045'
         />
         <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
+        {!isSuiConnected && (
+          <SuiWalletConnector setConnectModalOpen={setConnectModalOpen} />
+        )}
       </div>
       <div className='border-b border-mb-gray-800 my-6'></div>
       <a

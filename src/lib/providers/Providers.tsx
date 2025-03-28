@@ -6,6 +6,8 @@ import {
   WalletModuleFactory,
 } from '@bitte-ai/react';
 import { setupMeteorWallet } from '@near-wallet-selector/meteor-wallet';
+import { WalletProvider as SuietWalletProvider } from '@suiet/wallet-kit';
+import '@suiet/wallet-kit/style.css';
 
 const BitteWalletSetup = {
   callbackUrl: typeof window !== 'undefined' ? window.location.origin : '',
@@ -18,12 +20,14 @@ type ProvidersProps = {
 
 const Providers: React.FC<ProvidersProps> = ({ children, cookies }) => {
   return (
-    <BitteWalletContextProvider
-      {...BitteWalletSetup}
-      additionalWallets={[setupMeteorWallet() as WalletModuleFactory]}
-    >
-      <ContextProvider cookies={cookies}>{children}</ContextProvider>
-    </BitteWalletContextProvider>
+    <SuietWalletProvider autoConnect={false}>
+      <BitteWalletContextProvider
+        {...BitteWalletSetup}
+        additionalWallets={[setupMeteorWallet() as WalletModuleFactory]}
+      >
+        <ContextProvider cookies={cookies}>{children}</ContextProvider>
+      </BitteWalletContextProvider>
+    </SuietWalletProvider>
   );
 };
 
