@@ -6,7 +6,7 @@ export const partnerData = [
   },
   {
     id: 2,
-    logo: '/partner_backers/animoca.svg',
+    logo: '/partner_backers/animoca.avif',
     scale: 0.9,
   },
   {

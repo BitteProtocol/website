@@ -49,6 +49,7 @@ const CurrentlyConnected = ({
         className='px-2.5 border border-mb-red-30 bg-transparent'
         size='sm'
         onClick={action}
+        aria-label='Disconnect'
       >
         <Unlink size={16} color='#EF4444' />
       </Button>

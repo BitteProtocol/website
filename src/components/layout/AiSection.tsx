@@ -56,6 +56,7 @@ const AiSection = () => {
           variant='secondary'
           className={`z-10 w-full md:w-[60px] h-[42px] md:h-[60px] rounded-md p-0 cursor-pointer text-white hover:text-black disabled:opacity-1 disabled:border disabled:border-mb-gray-750 ${input ? 'text-black bg-white' : 'text-white bg-mb-indigo-50'}`}
           onClick={() => goToSmartActions()}
+          aria-label='Submit prompt'
         >
           <ArrowUp className='w-[18px] h-[18px] md:w-[24px] md:h-[24px]' />
         </Button>
