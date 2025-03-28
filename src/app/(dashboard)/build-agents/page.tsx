@@ -130,16 +130,16 @@ export default function BuildAgents() {
               <h1 className='font-semibold text-mb-white-50'>
                 Available Tools
               </h1>
-              <p className='text-sm text-zinc-400'>
+              <p className='text-sm text-mb-gray-400'>
                 Combine tools to create agents
               </p>
             </div>
-            <p className='hidden md:block text-sm text-zinc-400'>
-              <kbd className='rounded-md border border-zinc-800 bg-zinc-900 px-2 py-0.5'>
+            <p className='hidden md:block text-sm text-mb-gray-400'>
+              <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
                 ⌘
               </kbd>{' '}
               +{' '}
-              <kbd className='rounded-md border border-zinc-800 bg-zinc-900 px-2 py-0.5'>
+              <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
                 K
               </kbd>{' '}
               to open command menu
@@ -176,7 +176,7 @@ export default function BuildAgents() {
           </div>
 
           {/* Desktop Main Content */}
-          <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent px-6 py-5'>
+          <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent px-6 py-5'>
             <ToolGrid
               tools={filteredTools}
               selectedItems={selectedItems}
@@ -191,7 +191,7 @@ export default function BuildAgents() {
       <div className='md:hidden px-2 py-4'>
         <div className='space-y-1'>
           <h1 className='font-semibold text-mb-white-50'>Available Tools</h1>
-          <p className='text-sm text-zinc-400'>
+          <p className='text-sm text-mb-gray-400'>
             Combine tools to create agents
           </p>
         </div>

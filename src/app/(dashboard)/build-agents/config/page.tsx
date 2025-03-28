@@ -91,7 +91,7 @@ export default function ConfigurationPage() {
           <div className='flex items-center justify-between'>
             <div className='space-y-1'>
               <h1 className='font-semibold text-mb-white-50'>Configuration</h1>
-              <p className='text-sm text-zinc-400'>
+              <p className='text-sm text-mb-gray-400'>
                 How should your agent use these tools?
               </p>
             </div>
@@ -140,7 +140,7 @@ export default function ConfigurationPage() {
         <div className='px-4 py-4'>
           <div className='space-y-1'>
             <h1 className='font-semibold text-mb-white-50'>Configuration</h1>
-            <p className='text-sm text-zinc-400'>
+            <p className='text-sm text-mb-gray-400'>
               How should your agent use these tools?
             </p>
           </div>
