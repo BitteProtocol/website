@@ -6,6 +6,7 @@ import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
 import { useState } from 'react';
 import { fira } from '@/app/fonts';
+import { useLazyMedia } from '@/hooks/useLazyMedia';
 
 export const ProductCardsSection = ({
   data = productCardsData,
@@ -18,6 +19,13 @@ export const ProductCardsSection = ({
     // Use `window.open` for opening a new tab
     window.open(url, '_blank', 'noopener,noreferrer');
   };
+
+  const { mediaRef, shouldLoad } = useLazyMedia({
+    id: 'product-video',
+    type: 'video',
+    threshold: 0.1,
+    rootMargin: '100px',
+  });
 
   return (
     <section className='my-12 md:my-20 px-6 xl:px-20 w-full'>
@@ -48,12 +56,13 @@ export const ProductCardsSection = ({
                 />
               ) : (
                 <video
+                  ref={mediaRef as React.RefObject<HTMLVideoElement>}
                   autoPlay
                   loop
                   muted
                   className='absolute inset-0 w-full h-full object-cover'
                 >
-                  <source src={data.bg} type='video/mp4' />
+                  {shouldLoad && <source src={data.bg} type='video/mp4' />}
                 </video>
               ))}
             <CardContent className='p-6 flex flex-col items-center md:items-start justify-between gap-6 xl:gap-12 relative overflow-hidden w-full h-full'>
@@ -81,6 +90,7 @@ export const ProductCardsSection = ({
                 <Button
                   variant='default'
                   className={`w-full md:w-[200px] z-[52] ${isHovered === data.id ? 'scale-105' : ''}`}
+                  aria-label={data?.btn_text}
                 >
                   {data?.btn_text}
                 </Button>

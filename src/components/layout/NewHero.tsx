@@ -24,7 +24,11 @@ const filterLocalAndTunnelUrls = (assistant: RegistryData) => {
 
 async function fetchVerifiedAssistants() {
   try {
-    const response = await fetch(`${MB_URL.REGISTRY_API_BASE}/agents`);
+    const response = await fetch(`${MB_URL.REGISTRY_API_BASE}/agents`, {
+      next: {
+        revalidate: 36000, // Revalidate every hour (3600 seconds)
+      },
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch verified agents');
     }

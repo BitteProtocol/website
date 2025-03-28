@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useLazyMedia } from '@/hooks/useLazyMedia';
 
 const VideoSection = ({
   thumb,
@@ -23,17 +24,26 @@ const VideoSection = ({
   btnUrl: string;
   isDisabled: boolean;
 }) => {
+  const { mediaRef, shouldLoad } = useLazyMedia({
+    id: src,
+    type: 'video',
+    threshold: 0.1,
+    rootMargin: '100px',
+  });
+
   return (
     <div className='p-5 sm:w-full md:w-5/6 lg:w-4/6 my-5 md:my-40'>
       <div className='video-responsive flex justify-center '>
         <video
+          ref={mediaRef as React.RefObject<HTMLVideoElement>}
           poster={thumb}
           controls
           playsInline
           muted={false}
+          preload='none'
           className='w-screen h-full object-cover rounded-lg border border-mb-gray-750'
         >
-          <source src={src} type='video/mp4' />
+          {shouldLoad && <source src={src} type='video/mp4' />}
         </video>
       </div>
 

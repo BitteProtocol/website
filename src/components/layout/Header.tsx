@@ -188,7 +188,11 @@ const Header = () => {
                   className='w-full'
                   target='_blank'
                 >
-                  <Button variant='outline' className='block w-full md:hidden'>
+                  <Button
+                    variant='outline'
+                    className='block w-full md:hidden'
+                    aria-label='Settings'
+                  >
                     Settings
                   </Button>
                 </Link>
@@ -350,7 +354,11 @@ const Header = () => {
                       className='w-full ml-2'
                       target='_blank'
                     >
-                      <Button variant='outline' size='icon'>
+                      <Button
+                        variant='outline'
+                        size='icon'
+                        aria-label='Settings'
+                      >
                         <Settings className='text-text-primary' size={16} />
                       </Button>
                     </Link>

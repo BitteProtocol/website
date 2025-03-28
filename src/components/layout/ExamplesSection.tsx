@@ -73,13 +73,14 @@ const CardComponent = ({ ...props }) => {
             src={card.bg}
             alt={`background image for ${card.action}`}
             fill
-            sizes='(max-width: 768px) 75vw, (max-width: 1024px) 50vw, 28vw'
+            sizes='(max-width: 640px) 75vw, (max-width: 768px) 50vw, 28vw'
             style={{
               objectFit: card.bg.includes('.svg') ? 'contain' : 'cover',
             }}
             className='z-10'
             loading='lazy'
             quality={60}
+            priority={false}
           />
         )}
         {card.gradientLayer && (
@@ -220,6 +221,7 @@ const ExamplesSection = ({
             size='icon'
             onClick={scrollToLeft}
             disabled={isAtStart}
+            aria-label='Scroll left'
           >
             <ArrowLeft width={18} height={18} />
           </Button>
@@ -228,6 +230,7 @@ const ExamplesSection = ({
             size='icon'
             onClick={scrollToRight}
             disabled={isAtEnd}
+            aria-label='Scroll right'
           >
             <ArrowRight width={18} height={18} />
           </Button>
@@ -262,6 +265,7 @@ const ExamplesSection = ({
           variant='secondary'
           className='w-full md:w-[200px] text-white hover:text-black bg-mb-indigo-30 border border-mb-gray-750'
           onClick={() => handleCardClick(data.btnUrl)}
+          aria-label={data.btnTitle}
         >
           {data.btnTitle}
         </Button>

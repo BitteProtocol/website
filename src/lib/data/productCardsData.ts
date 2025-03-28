@@ -8,7 +8,7 @@ export const productCardsData = {
       badge: 'AI Wallet',
       title: 'Manage Crypto Assets and Build Transactions with AI',
       sub: 'No app install, non custodial, passkey powered and sponsored transactions. ',
-      bg: '/examples/brain.jpg',
+      bg: '/examples/brain.webp',
       btn_text: 'Wallet',
       link: MB_URL.BITTE_WALLET,
     },

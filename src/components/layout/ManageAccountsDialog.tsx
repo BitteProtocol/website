@@ -155,7 +155,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     return (
       <Drawer open={isOpen} onOpenChange={setConnectModalOpen}>
         <DrawerTrigger asChild>
-          <Button className='w-full flex items-center gap-2 border border-mb-blue-100 bg-mb-blue-30 text-mb-blue-100'>
+          <Button
+            className='w-full flex items-center gap-2 border border-mb-blue-100 bg-mb-blue-30 text-mb-blue-100'
+            aria-label='Manage accounts'
+          >
             <User size={16} color='#60A5FA' />
             Accounts
           </Button>
@@ -174,7 +177,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
       <DialogTrigger>
         {sidebarOpen ? (
-          <Button className='border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 w-full text-mb-blue-100 flex items-center gap-1'>
+          <Button
+            className='border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 w-full text-mb-blue-100 flex items-center gap-1'
+            aria-label='Manage accounts'
+          >
             <User size={16} color='#60A5FA' /> Connected
           </Button>
         ) : (
@@ -182,6 +188,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             variant='outline'
             size='icon'
             className={`border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
+            aria-label='Manage accounts'
           >
             <User size={16} color='#60A5FA' />
           </Button>

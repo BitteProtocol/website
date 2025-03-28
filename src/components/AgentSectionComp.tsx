@@ -87,49 +87,20 @@ export const AgentSectionComponent = ({
         ref={scrollContainerRef1}
         style={{ scrollBehavior: 'auto' }}
       >
-        {agentData.agents?.map((data, i) => (
-          <Card
-            key={`agents-${i}`}
-            className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-mb-purple-70 hover:shadow-custom'
-            onClick={() => goToAgent(data.id, 'Hey, what can you do for me?')}
-          >
-            <CardContent className='text-center p-3 flex items-center gap-3'>
-              <div>
-                {data?.image && (
-                  <AgentImage
-                    src={data?.image}
-                    className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
-                    width={56}
-                    height={56}
-                    alt={`${data?.id}-logo`}
-                    loading='lazy'
-                  />
-                )}
-              </div>
-              <div className='font-medium text-mb-white-50'>{data?.name}</div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-      <div
-        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto overflow-y-hidden disable-scrollbars'
-        ref={scrollContainerRef2}
-        style={{ scrollBehavior: 'auto', paddingLeft: '50px' }}
-      >
-        {agentData?.agents
-          ?.slice()
-          .reverse()
-          .map((data, i) => (
+        {agentData.agents?.map((data, i) => {
+          const agentImage = data?.image || '/logo.svg';
+          return (
             <Card
               key={`agents-${i}`}
-              className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-mb-purple-70 hover:shadow-custom'
+              className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] cursor-pointer border-zinc-800 hover:border-mb-purple-70 hover:shadow-custom'
               onClick={() => goToAgent(data.id, 'Hey, what can you do for me?')}
+              aria-label={`Open chat with ${data?.name} agent`}
             >
               <CardContent className='text-center p-3 flex items-center gap-3'>
                 <div>
-                  {data?.image && (
+                  {agentImage && (
                     <AgentImage
-                      src={data?.image}
+                      src={agentImage}
                       className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
                       width={56}
                       height={56}
@@ -141,15 +112,64 @@ export const AgentSectionComponent = ({
                 <div className='font-medium text-mb-white-50'>{data?.name}</div>
               </CardContent>
             </Card>
-          ))}
+          );
+        })}
+      </div>
+      <div
+        className='flex items-center gap-3 max-w-[100vw] overflow-x-auto overflow-y-hidden disable-scrollbars'
+        ref={scrollContainerRef2}
+        style={{ scrollBehavior: 'auto', paddingLeft: '50px' }}
+      >
+        {agentData?.agents
+          ?.slice()
+          .reverse()
+          .map((data, i) => {
+            const agentImage = data?.image || '/logo.svg';
+            return (
+              <Card
+                key={`agents-${i}`}
+                className='min-w-[307px] h-[76px] flex items-center bg-[#18181A] border-zinc-800 cursor-pointer hover:border-mb-purple-70 hover:shadow-custom'
+                onClick={() =>
+                  goToAgent(data.id, 'Hey, what can you do for me?')
+                }
+              >
+                <CardContent className='text-center p-3 flex items-center gap-3'>
+                  <div>
+                    {agentImage && (
+                      <AgentImage
+                        src={agentImage}
+                        className='object-contain max-h-[56px] max-w-[160px] min-h-[40px]'
+                        width={56}
+                        height={56}
+                        alt={`${data?.id}-logo`}
+                        loading='lazy'
+                      />
+                    )}
+                  </div>
+                  <div className='font-medium text-mb-white-50'>
+                    {data?.name}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
       </div>
       <div className='mt-16 md:mt-10 flex items-center justify-center gap-3 md:gap-6'>
         <Link href='/agents'>
-          <Button variant='default' className='w-[136px] md:w-[200px]'>
+          <Button
+            variant='default'
+            className='w-[136px] md:w-[200px]'
+            aria-label='Browse all available agents'
+          >
             Browse Agents
           </Button>
         </Link>
-        <Button asChild variant='secondary' className='w-[136px] md:w-[200px]'>
+        <Button
+          asChild
+          variant='secondary'
+          className='w-[136px] md:w-[200px]'
+          aria-label='Learn how to build a chain agent'
+        >
           <Link href={MB_URL.DEV_DOCS} target='_blank'>
             Build Chain Agent
           </Link>

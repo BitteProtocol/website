@@ -161,6 +161,7 @@ const ChatContent = ({
               <Button
                 className='w-full bg-mb-gray-600 hover:bg-mb-gray-600 hover:bg-opacity-60 text-white'
                 onClick={() => setIsAgentsDrawerOpen(true)}
+                aria-label='Open agents drawer'
               >
                 Agents
               </Button>

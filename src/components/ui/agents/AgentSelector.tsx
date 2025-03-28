@@ -98,6 +98,7 @@ export const AgentSelector = ({
                     height={24}
                     alt={`${agent?.id}-logo`}
                     loading='lazy'
+                    priority={false}
                   />
                   <p className='font-medium transition-all duration-500 text-mb-white-50 text-sm'>
                     {agent.name}

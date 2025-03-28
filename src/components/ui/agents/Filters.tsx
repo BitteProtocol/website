@@ -74,6 +74,7 @@ const Filters = ({
                         className='object-contain rounded'
                         loading='lazy'
                         quality={60}
+                        priority={false}
                       />
                     </div>
                   )}

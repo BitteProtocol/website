@@ -3,8 +3,16 @@
 import { fira } from '@/app/fonts';
 import { numbersData } from '@/lib/data/numbersData';
 import { Card, CardContent } from '../ui/card';
+import { useLazyMedia } from '@/hooks/useLazyMedia';
 
 const NumbersSection = () => {
+  const { mediaRef, shouldLoad } = useLazyMedia({
+    id: 'product-video',
+    type: 'video',
+    threshold: 0.1,
+    rootMargin: '100px',
+  });
+
   return (
     <section className='w-full'>
       <div className='my-12 md:my-32 px-6 relative p-72 w-screen'>
@@ -14,13 +22,14 @@ const NumbersSection = () => {
           The Numbers
         </p>
         <video
+          ref={mediaRef as React.RefObject<HTMLVideoElement>}
           autoPlay
           playsInline
           loop
           muted
           className='absolute object-cover w-screen h-full top-0 right-0 left-0 -z-20'
         >
-          <source src='/video/lights.mp4' type='video/mp4' />
+          {shouldLoad && <source src='/video/lights.mp4' type='video/mp4' />}
         </video>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 z-20 lg:px-12 xl:px-64'>

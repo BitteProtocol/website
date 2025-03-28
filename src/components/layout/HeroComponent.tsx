@@ -37,6 +37,7 @@ export const Hero = ({
           loop
           playsInline
           muted
+          poster='./black-bg.webp'
           className='absolute md:-top-20 w-screen h-full object-cover border-b border-mb-gray-750 opacity-30 z-0'
         >
           <source src='/video/map_black.mp4' type='video/mp4' />
