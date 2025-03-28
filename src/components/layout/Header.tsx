@@ -73,8 +73,8 @@ const Header = () => {
           <Link href='/' className='flex items-center h-full'>
             <Image
               src='/bitte.svg'
-              width={0}
-              height={0}
+              width={90}
+              height={32}
               alt='bitte-mobile-logo'
             />
           </Link>
@@ -227,9 +227,8 @@ const Header = () => {
             <Image
               src='/bitte.svg'
               alt='bitte-desktop-logo'
-              width={0}
-              height={0}
-              className='w-[120px] h-auto'
+              width={120}
+              height={24}
             />
           </Link>
           <div className='flex justify-end'>
