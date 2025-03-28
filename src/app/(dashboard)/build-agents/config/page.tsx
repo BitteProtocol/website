@@ -152,13 +152,11 @@ export default function ConfigurationPage() {
         <div className='px-4 py-5 space-y-8 pb-32'>
           {/* Tools Section */}
           <div className='space-y-6'>
-            <h2 className='text-sm font-medium text-mb-white-100'>Tools</h2>
             <SelectedTools selectedTools={selectedTools} />
           </div>
 
           {/* Prompt Editor Section */}
           <div className='space-y-6'>
-            <h2 className='text-sm font-medium text-mb-white-100'>Prompt</h2>
             <div className='h-[400px]'>
               <PromptEditor
                 instructions={instructions}
@@ -183,9 +181,6 @@ export default function ConfigurationPage() {
 
           {/* Image Generator Section */}
           <div className='space-y-2'>
-            <h2 className='text-sm font-medium text-mb-white-100'>
-              Cover Image
-            </h2>
             <ImageUploader image={image} setImage={setImage} />
           </div>
         </div>
