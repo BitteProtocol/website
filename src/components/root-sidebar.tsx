@@ -18,7 +18,14 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState, useTransition, Suspense, ReactNode } from 'react';
+import {
+  useEffect,
+  useState,
+  useTransition,
+  Suspense,
+  ReactNode,
+  Fragment,
+} from 'react';
 
 export default function RootSidebar({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -73,24 +80,26 @@ export default function RootSidebar({ children }: { children: ReactNode }) {
                 : breadcrumbs.map((crumb, index) => {
                     const path = `/${breadcrumbs.slice(0, index + 1).join('/')}`;
                     return (
-                      <BreadcrumbItem key={index}>
-                        <Link
-                          href={path}
-                          prefetch={true}
-                          className={cn(
-                            'uppercase text-xs font-semibold',
-                            path === pathname
-                              ? 'text-mb-white-100'
-                              : 'text-mb-gray-150',
-                            isPending ? 'cursor-wait' : 'cursor-pointer'
-                          )}
-                        >
-                          {formatBreadcrumb(crumb)}
-                        </Link>
+                      <Fragment key={index}>
+                        <BreadcrumbItem>
+                          <Link
+                            href={path}
+                            prefetch={true}
+                            className={cn(
+                              'uppercase text-xs font-semibold',
+                              path === pathname
+                                ? 'text-mb-white-100'
+                                : 'text-mb-gray-150',
+                              isPending ? 'cursor-wait' : 'cursor-pointer'
+                            )}
+                          >
+                            {formatBreadcrumb(crumb)}
+                          </Link>
+                        </BreadcrumbItem>
                         {index < breadcrumbs.length - 1 && (
                           <BreadcrumbSeparator />
                         )}
-                      </BreadcrumbItem>
+                      </Fragment>
                     );
                   })}
             </BreadcrumbList>
