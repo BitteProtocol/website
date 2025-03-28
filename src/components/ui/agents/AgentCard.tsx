@@ -115,6 +115,9 @@ export default function AgentCard({
                         alt={`${network.name} icon`}
                         fill
                         className='object-contain rounded'
+                        loading='lazy'
+                        quality={60}
+                        priority={false}
                       />
                     </div>
 
@@ -138,6 +141,9 @@ export default function AgentCard({
                                 alt={`${network.name} icon`}
                                 fill
                                 className='object-contain rounded'
+                                loading='lazy'
+                                quality={60}
+                                priority={false}
                               />
                             </div>
                             <span className='text-xs font-medium'>

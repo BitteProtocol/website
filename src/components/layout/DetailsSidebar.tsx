@@ -35,13 +35,17 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             target='_blank'
             rel='noreferrer'
           >
-            <Button variant='secondary' className='w-full'>
+            <Button
+              variant='secondary'
+              className='w-full'
+              aria-label='Fork agent'
+            >
               Fork Agent
             </Button>
           </Link>
         ) : null}
         <Link className='w-full' href={runAgentUrl}>
-          <Button variant='default' className='w-full'>
+          <Button variant='default' className='w-full' aria-label='Run agent'>
             Run Agent
           </Button>
         </Link>
@@ -56,7 +60,11 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
           target='_blank'
           rel='noreferrer'
         >
-          <Button variant='secondary' className='w-full'>
+          <Button
+            variant='secondary'
+            className='w-full'
+            aria-label='Embed agent'
+          >
             Embed
           </Button>
         </Link>
@@ -67,13 +75,17 @@ export const DetailsSideBar = ({ agent }: { agent: RegistryData }) => {
             target='_blank'
             rel='noreferrer'
           >
-            <Button variant='secondary' className='w-full'>
+            <Button
+              variant='secondary'
+              className='w-full'
+              aria-label='Fork agent'
+            >
               Fork Agent
             </Button>
           </Link>
         ) : null}
         <Link className='w-full' href={runAgentUrl}>
-          <Button variant='default' className='w-full'>
+          <Button variant='default' className='w-full' aria-label='Run agent'>
             Run Agent
           </Button>
         </Link>

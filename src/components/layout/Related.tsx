@@ -22,7 +22,9 @@ export const RelatedTemplates = ({
       </div>
       <div className='w-full flex justify-center p-20'>
         <Link href='/agents'>
-          <Button variant='secondary'>View All Agents</Button>
+          <Button variant='secondary' aria-label='View all agents'>
+            View All Agents
+          </Button>
         </Link>
       </div>
     </div>

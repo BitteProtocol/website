@@ -88,7 +88,12 @@ export default async function AgentDetail({
           </a>
         </span>
         <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
-          <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+          <Button
+            asChild
+            variant='secondary'
+            className='w-full md:w-[200px]'
+            aria-label='Cow swap agent'
+          >
             <Link
               href='https://www.bitte.ai/agents/near-cow-agent.vercel.app'
               target='_blank'
@@ -96,7 +101,12 @@ export default async function AgentDetail({
               Cow Swap Agent
             </Link>
           </Button>
-          <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+          <Button
+            asChild
+            variant='secondary'
+            className='w-full md:w-[200px]'
+            aria-label='Uniswap agent'
+          >
             <Link
               href='https://www.bitte.ai/agents/near-uniswap-agent.vercel.app'
               target='_blank'
@@ -104,7 +114,12 @@ export default async function AgentDetail({
               Uniswap Agent
             </Link>
           </Button>
-          <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+          <Button
+            asChild
+            variant='secondary'
+            className='w-full md:w-[200px]'
+            aria-label='Safe agent'
+          >
             <Link
               href='https://www.bitte.ai/agents/near-safe-agent.vercel.app'
               target='_blank'
@@ -116,11 +131,20 @@ export default async function AgentDetail({
 
         <div className='mt-11 flex items-center justify-center gap-3 md:gap-6'>
           <Link href='https://safe.global/ai' target='_blank'>
-            <Button variant='default' className='w-full md:w-[200px]'>
+            <Button
+              variant='default'
+              className='w-full md:w-[200px]'
+              aria-label='Register now'
+            >
               Register Now
             </Button>
           </Link>
-          <Button asChild variant='secondary' className='w-full md:w-[200px]'>
+          <Button
+            asChild
+            variant='secondary'
+            className='w-full md:w-[200px]'
+            aria-label='Docs'
+          >
             <Link href={MB_URL.DEV_DOCS} target='_blank'>
               Docs
             </Link>

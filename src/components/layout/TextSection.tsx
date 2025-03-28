@@ -44,6 +44,7 @@ const TextSection = ({
               onClick={() =>
                 window.open(btnUrl, '_blank', 'noopener,noreferrer')
               }
+              aria-label={btnTitle}
             >
               {btnTitle}
             </Button>
