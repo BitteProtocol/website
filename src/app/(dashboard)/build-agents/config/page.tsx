@@ -122,7 +122,7 @@ export default function ConfigurationPage() {
                   Agent Name <span className='text-mb-red'>*</span>
                 </label>
                 <Input
-                  className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500'
+                  className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base'
                   placeholder='My Agent'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
