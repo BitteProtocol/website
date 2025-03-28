@@ -11,6 +11,7 @@ import { useFilters } from '@/hooks/useFilters';
 import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import { Tool } from '@/lib/types/tool.types';
 import { filterHandler } from '@/lib/utils/filters';
+import { getCommandKey } from '@/lib/utils/os';
 import { ListFilter } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
@@ -30,6 +31,12 @@ export default function BuildAgents() {
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
+  const [commandKey, setCommandKey] = useState<string>('⌘');
+
+  useEffect(() => {
+    // Set the correct command key based on OS
+    setCommandKey(getCommandKey());
+  }, []);
 
   const handleFilterClick = (value: string, label: string) => {
     setSelectedFilters((prevFilters) =>
@@ -139,7 +146,7 @@ export default function BuildAgents() {
             </div>
             <p className='hidden md:block text-sm text-mb-gray-200'>
               <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
-                ⌘
+                {commandKey}
               </kbd>{' '}
               +{' '}
               <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
