@@ -7,22 +7,35 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 export const POST = async (req: NextRequest): Promise<Response> => {
-  const requestInit: RequestInit & { duplex: 'half' } = {
-    method: 'POST',
-    body: req.body,
-    headers: {
-      Authorization: `Bearer ${BITTE_API_KEY}`,
-    },
-    duplex: 'half',
-  };
+  try {
+    const data = await req.json();
 
-  const upstreamResponse = await fetch(`${BITTE_API_URL}/chat`, requestInit);
+    const requestInit: RequestInit & { duplex: 'half' } = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${BITTE_API_KEY}`,
+      },
+      duplex: 'half',
+    };
 
-  const headers = new Headers(upstreamResponse.headers);
-  headers.delete('Content-Encoding');
+    const upstreamResponse = await fetch(`${BITTE_API_URL}/chat`, requestInit);
 
-  return new Response(upstreamResponse.body, {
-    status: upstreamResponse.status,
-    headers,
-  });
+    const headers = new Headers(upstreamResponse.headers);
+    headers.delete('Content-Encoding');
+
+    return new Response(upstreamResponse.body, {
+      status: upstreamResponse.status,
+      headers,
+    });
+  } catch (error) {
+    console.error('Error in chat API route:', error);
+    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 };
