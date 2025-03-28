@@ -85,8 +85,8 @@ export function NotionLikeEditor({
         }
 
         .ProseMirror h1 {
-          font-size: 1.5rem;
-          line-height: 2rem;
+          font-size: 1.125rem;
+          line-height: 1.75rem;
           font-weight: 600;
           margin-top: 1rem;
           margin-bottom: 0.5rem;
@@ -94,8 +94,8 @@ export function NotionLikeEditor({
         }
 
         .ProseMirror h2 {
-          font-size: 1.25rem;
-          line-height: 1.75rem;
+          font-size: 1rem;
+          line-height: 1.5rem;
           font-weight: 600;
           margin-top: 0.8rem;
           margin-bottom: 0.3rem;
@@ -106,8 +106,8 @@ export function NotionLikeEditor({
         }
 
         .ProseMirror h3 {
-          font-size: 1.125rem;
-          line-height: 1.5rem;
+          font-size: 0.9375rem;
+          line-height: 1.4rem;
           font-weight: 600;
           margin-top: 0.7rem;
           margin-bottom: 0.3rem;
