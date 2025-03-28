@@ -14,6 +14,7 @@ import {
 import Image from 'next/image';
 
 export interface CommandMenuItem {
+  id?: string;
   icon?: React.ReactNode;
   label: string;
   action: () => void;
@@ -38,7 +39,18 @@ export function CommandMenu({
 }: CommandMenuProps) {
   const [open, setOpen] = React.useState(false);
 
-  // Handle CMD+K keyboard shortcut
+  const processedGroups = React.useMemo(() => {
+    return groups.map((group, groupIndex) => ({
+      ...group,
+      items: group.items.map((item, itemIndex) => ({
+        ...item,
+        id:
+          item.id ||
+          `${groupIndex}-${group.heading || ''}-${itemIndex}-${item.label}`,
+      })),
+    }));
+  }, [groups]);
+
   useHotkeys('cmd+k', (e) => {
     e.preventDefault();
     setOpen((open) => !open);
@@ -75,15 +87,17 @@ export function CommandMenu({
           </div>
           <CommandList className='max-h-[350px] overflow-y-auto overflow-x-hidden bg-mb-black'>
             <CommandEmpty>{emptyMessage}</CommandEmpty>
-            {groups.map((group, index) => (
+            {processedGroups.map((group, groupIndex) => (
               <CommandGroup
-                key={index}
+                key={`group-${groupIndex}-${group.heading || ''}`}
                 heading={group.heading}
                 className='text-zinc-400'
               >
-                {group.items.map((item, itemIndex) => (
+                {group.items.map((item) => (
                   <CommandItem
-                    key={itemIndex}
+                    key={item.id}
+                    id={item.id}
+                    value={item.id}
                     onSelect={() => runCommand(item.action)}
                     className='flex items-center justify-between text-zinc-200 aria-selected:bg-zinc-800 cursor-pointer hover:cursor-pointer'
                   >
