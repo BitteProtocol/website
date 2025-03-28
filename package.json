@@ -95,7 +95,8 @@
     "typescript": "^5.3.3"
   },
   "resolutions": {
-    "@types/react": "18.2.60"
+    "@types/react": "18.2.60",
+    "near-api-js": "4.0.3"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
