@@ -137,7 +137,7 @@ export default function ConfigurationPage() {
       </div>
 
       {/* Mobile Layout */}
-      <div className='md:hidden flex flex-col'>
+      <div className='md:hidden flex flex-col overflow-x-hidden'>
         {/* Mobile Header */}
         <div className='px-4 py-4'>
           <div className='space-y-1'>
@@ -149,7 +149,7 @@ export default function ConfigurationPage() {
         </div>
 
         {/* Mobile Content */}
-        <div className='px-4 py-5 space-y-8 pb-32'>
+        <div className='px-4 py-5 space-y-8 pb-32 w-full max-w-full'>
           {/* Tools Section */}
           <div className='space-y-6'>
             <SelectedTools selectedTools={selectedTools} />
@@ -157,7 +157,7 @@ export default function ConfigurationPage() {
 
           {/* Prompt Editor Section */}
           <div className='space-y-6'>
-            <div className='h-[400px]'>
+            <div className='h-[400px] w-full'>
               <PromptEditor
                 instructions={instructions}
                 setInstructions={setInstructions}
@@ -172,7 +172,7 @@ export default function ConfigurationPage() {
               Agent Name <span className='text-mb-red'>*</span>
             </label>
             <Input
-              className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base'
+              className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base max-w-full'
               placeholder='My Agent'
               value={name}
               onChange={(e) => setName(e.target.value)}

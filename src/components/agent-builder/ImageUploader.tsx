@@ -107,7 +107,7 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
   };
 
   return (
-    <div className='space-y-8'>
+    <div className='space-y-8 max-w-full'>
       {/* Generate Image */}
       <div className='space-y-3'>
         <div className='space-y-2'>
@@ -116,9 +116,9 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
           </label>
         </div>
 
-        <div className='flex items-center gap-3'>
+        <div className='flex flex-wrap items-center gap-3'>
           <Input
-            className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700 min-w-[250px] text-base'
+            className='border-zinc-800 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-700 flex-1 min-w-0 text-base'
             placeholder='Details of your image'
             value={imagePrompt}
             onChange={(e) => setImagePrompt(e.target.value)}
@@ -127,7 +127,7 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
             variant='secondary'
             onClick={handleGenerateImage}
             disabled={isGeneratingImage}
-            className='w-full sm:w-auto whitespace-nowrap min-w-[100px] bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80'
+            className='whitespace-nowrap bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80'
           >
             {isGeneratingImage ? (
               <div className='flex items-center gap-2'>
