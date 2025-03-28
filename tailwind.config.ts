@@ -25,6 +25,7 @@ const config: Config = {
         // Blacks & Very Dark Grays
         'mb-black-deep': '#010101',
         'mb-black': '#09090B',
+        'mb-black-50': '#18181A',
         'mb-gray-900': '#0D0D0F',
         'mb-gray-850': '#0F172A',
         'mb-gray-700': '#1A1A1E',
@@ -32,6 +33,8 @@ const config: Config = {
         'mb-gray-650': '#232323',
         'mb-gray-250': '#24242B',
         'mb-gray-600': '#27272A',
+        'mb-gray-610': '#2D2D2D',
+        'mb-gray-620': '#27272F',
 
         // Dark Blues & Indigos
         'mb-dark-blue': '#17171F',

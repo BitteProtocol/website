@@ -1,4 +1,4 @@
-import { ArrowUpRight, Bot, TerminalSquare } from 'lucide-react';
+import { ArrowUpRight, Bot, TerminalSquare, Hammer } from 'lucide-react';
 import * as React from 'react';
 
 import { NavLinks } from '@/components/nav-links';
@@ -46,13 +46,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Bot,
         isActive: pathname.startsWith('/agents'),
       },
+      {
+        title: 'Build Agents',
+        url: '/build-agents',
+        icon: Hammer,
+        isActive: pathname.startsWith('/build-agents'),
+      },
     ],
     links: [
-      {
-        name: 'Build Agent',
-        url: 'https://docs.bitte.ai/agents/quick-start',
-        icon: ArrowUpRight,
-      },
       {
         name: 'Documentation',
         url: 'https://docs.bitte.ai/',

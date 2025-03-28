@@ -25,7 +25,7 @@ const Filters = ({
   return (
     <Accordion
       type='multiple'
-      defaultValue={[filters[0].label, filters[1].label]}
+      defaultValue={filters.map((filter) => filter.label)}
     >
       {filters.map((filter) => {
         const selectedAmount = selectedFilters
