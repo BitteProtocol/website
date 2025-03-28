@@ -127,7 +127,7 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
             variant='secondary'
             onClick={handleGenerateImage}
             disabled={isGeneratingImage}
-            className='w-full sm:w-auto whitespace-nowrap min-w-[100px]'
+            className='w-full sm:w-auto whitespace-nowrap min-w-[100px] bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80'
           >
             {isGeneratingImage ? (
               <div className='flex items-center gap-2'>

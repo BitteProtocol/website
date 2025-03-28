@@ -193,7 +193,11 @@ export default function ConfigurationPage() {
 
       {/* Desktop Bottom Action Bar */}
       <div className='hidden md:flex bg-mb-gray-550 px-6 py-4 mt-6 rounded-md -mb-11 justify-between items-center mt-auto'>
-        <Button variant='secondary' asChild className='md:w-[200px]'>
+        <Button
+          variant='secondary'
+          asChild
+          className='md:w-[200px] bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80'
+        >
           <Link href='/build-agents'>Back</Link>
         </Button>
         <Button
@@ -211,7 +215,7 @@ export default function ConfigurationPage() {
           variant='secondary'
           asChild
           size='sm'
-          className='w-full md:w-[120px]'
+          className='w-full md:w-[120px] bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80'
         >
           <Link href='/build-agents'>Back</Link>
         </Button>
