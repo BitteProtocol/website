@@ -188,7 +188,7 @@ export default function ConfigurationPage() {
       </div>
 
       {/* Desktop Bottom Action Bar */}
-      <div className='hidden md:flex bg-mb-gray-550 p-6 mt-6 rounded-md -mb-11 justify-between items-center mt-auto'>
+      <div className='hidden md:flex bg-mb-gray-550 px-6 py-4 mt-6 rounded-md -mb-11 justify-between items-center mt-auto'>
         <Button variant='secondary' asChild className='md:w-[200px]'>
           <Link href='/build-agents'>Back</Link>
         </Button>

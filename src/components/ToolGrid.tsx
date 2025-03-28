@@ -151,7 +151,7 @@ export function ToolGrid({
 
               <div
                 ref={(el) => (containerRefs.current[index] = el)}
-                className='flex gap-2 whitespace-nowrap overflow-hidden'
+                className='flex gap-2 whitespace-nowrap overflow-hidden items-center'
               >
                 {visibleNetworks.map((network, i) => (
                   <InfoTooltip

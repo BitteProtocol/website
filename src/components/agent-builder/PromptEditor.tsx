@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Tool } from '@/lib/types/tool.types';
 import { NotionLikeEditor } from '@/components/NotionLikeEditor';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -15,6 +15,7 @@ export function PromptEditor({
   selectedTools,
 }: PromptEditorProps) {
   const [editorLoading, setEditorLoading] = useState<boolean>(true);
+  const previousToolsRef = useRef<Tool[]>([]);
 
   // Simulate editor loading
   useEffect(() => {
@@ -24,15 +25,25 @@ export function PromptEditor({
     return () => clearTimeout(timer);
   }, []);
 
-  // Default content for the editor
-  const defaultInstructions = useMemo(() => {
-    const toolsList = selectedTools
-      .map(
-        (tool) => `
+  // Generate tools section content
+  const generateToolsList = (tools: Tool[]) => {
+    return tools.length > 0
+      ? tools
+          .map(
+            (tool) => `
 <h3>${tool.function.name}</h3>
 <p>[When and how to use this tool]</p>`
-      )
-      .join('\n');
+          )
+          .join('\n')
+      : `
+<h3>No tools selected</h3>
+<p>Return to the previous step to select tools.</p>`;
+  };
+
+  // Default content for the editor
+  const defaultInstructions = useMemo(() => {
+    // Format tool list based on selected tools
+    const toolsList = generateToolsList(selectedTools);
 
     return `<h1>Agent Instructions</h1>
 
@@ -58,11 +69,46 @@ ${toolsList}
 </ul>`;
   }, [selectedTools]);
 
+  // Update instructions when tools change
   useEffect(() => {
+    // Initialize with default if empty
     if (!instructions) {
       setInstructions(defaultInstructions);
+      previousToolsRef.current = [...selectedTools];
+      return;
     }
-  }, [defaultInstructions, instructions, setInstructions]);
+
+    // Check if tools have changed
+    const toolsChanged =
+      selectedTools.length !== previousToolsRef.current.length ||
+      selectedTools.some(
+        (tool, index) =>
+          index >= previousToolsRef.current.length ||
+          tool.function.name !== previousToolsRef.current[index]?.function.name
+      );
+
+    // Update only if tools have changed
+    if (toolsChanged && instructions) {
+      // Try to update only the tools section
+      const toolsSectionRegex = /<h2>🛠️ Tools<\/h2>\s+([\s\S]*?)(?=<h2>|$)/;
+      const match = instructions.match(toolsSectionRegex);
+
+      if (match) {
+        // Replace just the tools section
+        const updatedInstructions = instructions.replace(
+          toolsSectionRegex,
+          `<h2>🛠️ Tools</h2>\n${generateToolsList(selectedTools)}\n\n`
+        );
+        setInstructions(updatedInstructions);
+      } else {
+        // If can't find tools section, don't modify user's content
+        console.log("Couldn't find tools section to update");
+      }
+    }
+
+    // Update reference for next comparison
+    previousToolsRef.current = [...selectedTools];
+  }, [selectedTools, instructions, setInstructions, defaultInstructions]);
 
   return (
     <div>

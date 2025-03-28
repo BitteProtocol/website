@@ -252,7 +252,7 @@ export default function BuildAgents() {
       </div>
 
       {/* Desktop Next Button */}
-      <div className='hidden md:flex bg-mb-gray-550 p-6 mt-6 rounded-md -mb-11 justify-end items-center mt-auto'>
+      <div className='hidden md:flex bg-mb-gray-550 px-6 py-4 mt-6 rounded-md -mb-11 justify-end items-center mt-auto'>
         <Button
           onClick={handleNextStep}
           className='md:w-[200px]'
