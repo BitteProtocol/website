@@ -13,7 +13,7 @@ import { Tool } from '@/lib/types/tool.types';
 import { filterHandler } from '@/lib/utils/filters';
 import { ListFilter } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -99,23 +99,26 @@ export default function BuildAgents() {
     router.push('/build-agents/config');
   };
 
-  const filteredTools = tools.filter((tool) => {
-    if (!tool) return false;
+  // Use useMemo to calculate filtered tools
+  const filteredTools = useMemo(() => {
+    return tools.filter((tool) => {
+      if (!tool) return false;
 
-    const matchesFilters = selectedFilters.every((filter) => {
-      if (filter.label === 'Networks') {
-        if (!tool.chainIds || tool.chainIds.length === 0) {
-          return filter.values.some((value) => value.id === '0');
+      const matchesFilters = selectedFilters.every((filter) => {
+        if (filter.label === 'Networks') {
+          if (!tool.chainIds || tool.chainIds.length === 0) {
+            return filter.values.some((value) => value.id === '0');
+          }
+          return filter.values.some((value) =>
+            tool.chainIds?.some((chainId) => value.id === chainId.toString())
+          );
         }
-        return filter.values.some((value) =>
-          tool.chainIds?.some((chainId) => value.id === chainId.toString())
-        );
-      }
-      return true;
-    });
+        return true;
+      });
 
-    return matchesFilters;
-  });
+      return matchesFilters;
+    });
+  }, [tools, selectedFilters]);
 
   return (
     <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
