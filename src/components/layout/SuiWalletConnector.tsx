@@ -56,7 +56,6 @@ export const SuiWalletConnector: React.FC<WalletConnectorProps> = ({
     }
   };
 
-  // If not connected and not in manage dialog, show connect button
   if (!connected && !isManageDialog) {
     return (
       <>
@@ -65,7 +64,7 @@ export const SuiWalletConnector: React.FC<WalletConnectorProps> = ({
           className='w-full bg-mb-gray-650 hover:bg-mb-blue-30 h-[69px] sm:h-[61px] flex items-center gap-3 rounded-md p-3 cursor-pointer transition-all duration-500 ease-in-out'
         >
           <div className='flex items-center gap-2 justify-between w-full'>
-            <div className='flex items-center justify-center rounded-md h-[40px] w-[40px] bg-white'>
+            <div className='flex items-center justify-center rounded-md h-[40px] w-[45px] bg-white'>
               <Image
                 src='/sui-logo.png'
                 width={24}
