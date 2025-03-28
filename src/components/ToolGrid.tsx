@@ -48,7 +48,6 @@ function ToolSkeleton() {
 // Configuration for pill rendering
 const PILL_WIDTH = 120; // Approximate width of a single pill in pixels
 const PILL_GAP = 8; // Gap between pills
-const PLUS_PILL_WIDTH = 60; // Approximate width of the +X pill
 
 export function ToolGrid({
   tools,
