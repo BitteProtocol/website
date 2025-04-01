@@ -137,7 +137,7 @@ export function ToolGrid({
                   className={`object-contain ${!tool.isPrimitive ? 'rounded' : ''}`}
                 />
               </div>
-              <h2 className='font-medium text-sm text-mb-white-50'>
+              <h2 className='font-medium text-sm text-mb-white-50 truncate overflow-hidden min-w-0'>
                 {tool.function.name}
               </h2>
             </div>
