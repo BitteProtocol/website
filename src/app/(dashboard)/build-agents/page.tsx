@@ -30,7 +30,8 @@ export default function BuildAgents() {
   const router = useRouter();
 
   const { width } = useWindowSize();
-  const isMobile = !!width && width < 768;
+  // Consider undefined width as mobile to prevent layout flash
+  const isMobile = typeof width === 'undefined' || width < 768;
 
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [tools, setTools] = useState<Tool[]>([]);
