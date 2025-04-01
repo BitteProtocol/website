@@ -12,10 +12,15 @@ import { ImageUploader } from '@/components/agent-builder/ImageUploader';
 import { LoadingOverlay } from '@/components/agent-builder/LoadingOverlay';
 import { PromptEditor } from '@/components/agent-builder/PromptEditor';
 import { SelectedTools } from '@/components/agent-builder/SelectedTools';
+import { useWindowSize } from '@/lib/utils/useWindowSize';
 
 export default function ConfigurationPage() {
   const router = useRouter();
   const { toast } = useToast();
+
+  const { width } = useWindowSize();
+  const isMobile = !!width && width < 768;
+
   const [name, setName] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
   const [selectedTools, setSelectedTools] = useState<Tool[]>([]);
@@ -84,62 +89,11 @@ export default function ConfigurationPage() {
 
   return (
     <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
-      {/* Desktop Layout */}
-      <div className='hidden md:flex md:flex-col md:border md:border-mb-gray-800 md:rounded-md md:h-[90%] md:overflow-hidden'>
-        {/* Header */}
-        <div className='border-b border-mb-gray-800 px-6 py-4'>
-          <div className='flex items-center justify-between'>
-            <div className='space-y-1'>
-              <h1 className='font-semibold text-mb-white-50'>Configuration</h1>
-              <p className='text-sm text-mb-gray-200'>
-                How should your agent use these tools?
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop Content Area */}
-        <div className='flex flex-1 overflow-hidden'>
-          {/* Left Side - Tools and Editor */}
-          <div className='w-1/2 border-r border-mb-gray-800 pl-6 pr-9 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
-            <div className='hidden md:block h-full flex flex-col'>
-              <SelectedTools selectedTools={selectedTools} />
-              <div className='flex-grow h-[calc(100%-120px)] mt-6'>
-                <PromptEditor
-                  instructions={instructions}
-                  setInstructions={setInstructions}
-                  selectedTools={selectedTools}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side - Name, Image Generator, Cover Image */}
-          <div className='w-1/2 pl-9 pr-6 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
-            <div className='space-y-8'>
-              <div className='space-y-2'>
-                <label className='text-sm font-medium text-mb-white-100'>
-                  Agent Name <span className='text-mb-red'>*</span>
-                </label>
-                <Input
-                  className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base'
-                  placeholder='My Agent'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className='hidden md:block'>
-                <ImageUploader image={image} setImage={setImage} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Layout */}
-      <div className='md:hidden flex flex-col overflow-x-hidden'>
-        {/* Mobile Header */}
-        <div className='px-4 py-4'>
+      {/* Header */}
+      <div
+        className={`${isMobile ? 'px-4' : 'px-6'} py-4 ${!isMobile ? 'border-b border-mb-gray-800' : ''}`}
+      >
+        <div className='flex items-center justify-between'>
           <div className='space-y-1'>
             <h1 className='font-semibold text-mb-white-50'>Configuration</h1>
             <p className='text-sm text-mb-gray-200'>
@@ -147,78 +101,104 @@ export default function ConfigurationPage() {
             </p>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Content */}
-        <div className='px-4 py-5 space-y-8 pb-32 w-full max-w-full'>
-          {/* Tools Section */}
-          <div className='space-y-6'>
-            <SelectedTools selectedTools={selectedTools} />
-          </div>
+      {/* Content Area */}
+      <div
+        className={`${!isMobile ? 'flex border border-mb-gray-800 rounded-md overflow-hidden flex-1' : 'flex flex-col px-4 py-5 space-y-8 pb-32'}`}
+      >
+        {!isMobile ? (
+          <>
+            {/* Left Side - Tools and Editor (Desktop) */}
+            <div className='w-1/2 border-r border-mb-gray-800 pl-6 pr-9 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
+              <div className='h-full flex flex-col'>
+                <SelectedTools selectedTools={selectedTools} />
+                <div className='flex-grow h-[calc(100%-120px)] mt-6'>
+                  <PromptEditor
+                    instructions={instructions}
+                    setInstructions={setInstructions}
+                    selectedTools={selectedTools}
+                  />
+                </div>
+              </div>
+            </div>
 
-          {/* Prompt Editor Section */}
-          <div className='space-y-6'>
-            <div className='h-[400px] w-full'>
-              <PromptEditor
-                instructions={instructions}
-                setInstructions={setInstructions}
-                selectedTools={selectedTools}
+            {/* Right Side - Name, Image Generator (Desktop) */}
+            <div className='w-1/2 pl-9 pr-6 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
+              <div className='space-y-8'>
+                <div className='space-y-2'>
+                  <label className='text-sm font-medium text-mb-white-100'>
+                    Agent Name <span className='text-mb-red'>*</span>
+                  </label>
+                  <Input
+                    className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base'
+                    placeholder='My Agent'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <ImageUploader image={image} setImage={setImage} />
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Tools Section (Mobile) */}
+            <div className='space-y-6'>
+              <SelectedTools selectedTools={selectedTools} />
+            </div>
+
+            {/* Prompt Editor Section (Mobile) */}
+            <div className='space-y-6'>
+              <div className='h-[400px] w-full'>
+                <PromptEditor
+                  instructions={instructions}
+                  setInstructions={setInstructions}
+                  selectedTools={selectedTools}
+                />
+              </div>
+            </div>
+
+            {/* Agent Name Section (Mobile) */}
+            <div className='space-y-2'>
+              <label className='text-sm font-medium text-mb-white-100'>
+                Agent Name <span className='text-mb-red'>*</span>
+              </label>
+              <Input
+                className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base max-w-full'
+                placeholder='My Agent'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
-          </div>
 
-          {/* Agent Name Section */}
-          <div className='space-y-2'>
-            <label className='text-sm font-medium text-mb-white-100'>
-              Agent Name <span className='text-mb-red'>*</span>
-            </label>
-            <Input
-              className='border-mb-gray-600 text-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-mb-gray-500 text-base max-w-full'
-              placeholder='My Agent'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-
-          {/* Image Generator Section */}
-          <div className='space-y-2'>
-            <ImageUploader image={image} setImage={setImage} />
-          </div>
-        </div>
+            {/* Image Generator Section (Mobile) */}
+            <div className='space-y-2'>
+              <ImageUploader image={image} setImage={setImage} />
+            </div>
+          </>
+        )}
       </div>
 
-      {/* Desktop Bottom Action Bar */}
-      <div className='hidden md:flex bg-mb-gray-550 px-6 py-4 mt-6 rounded-md -mb-11 justify-between items-center mt-auto'>
+      {/* Bottom Action Bar */}
+      <div
+        className={`bg-mb-gray-550 px-6 ${isMobile ? 'py-5' : 'py-4'} ${isMobile ? 'fixed bottom-0 left-0 right-0 rounded-t-md' : 'mt-6 rounded-md -mb-11 mt-auto'} flex gap-3 justify-between items-center`}
+      >
         <Button
           variant='secondary'
           asChild
-          className='md:w-[200px] bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80'
+          size={isMobile ? 'sm' : 'default'}
+          className={`${isMobile ? 'w-full' : 'md:w-[200px]'} bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80`}
         >
           <Link href='/build-agents'>Back</Link>
         </Button>
         <Button
           onClick={createAgent}
           disabled={isCreatingAgent || !name.trim()}
-          className='md:w-[200px]'
-        >
-          {isCreatingAgent ? 'Creating...' : 'Create Agent'}
-        </Button>
-      </div>
-
-      {/* Mobile Fixed Bottom Buttons */}
-      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-mb-gray-550 px-6 py-5 flex gap-3 justify-between items-center rounded-t-md'>
-        <Button
-          variant='secondary'
-          asChild
-          size='sm'
-          className='w-full md:w-[120px] bg-secondary text-secondary-foreground hover:text-secondary-foreground hover:bg-secondary/80'
-        >
-          <Link href='/build-agents'>Back</Link>
-        </Button>
-        <Button
-          onClick={createAgent}
-          disabled={isCreatingAgent || !name.trim()}
-          className='w-full md:w-[120px]'
-          size='sm'
+          className={isMobile ? 'w-full' : 'md:w-[200px]'}
+          size={isMobile ? 'sm' : 'default'}
         >
           {isCreatingAgent ? 'Creating...' : 'Create Agent'}
         </Button>
