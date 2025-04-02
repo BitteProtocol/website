@@ -9,6 +9,12 @@ const getPingsByTool = async (toolName: string): Promise<number | null> => {
 };
 
 export async function GET(request: NextRequest) {
+  // Verify the request is from our application
+  const apiSecret = request.headers.get('x-api-secret');
+  if (!apiSecret || apiSecret !== process.env.API_SECRET) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const functionName = searchParams.get('function');
   const verifiedOnly = searchParams.get('verifiedOnly') !== 'false';
