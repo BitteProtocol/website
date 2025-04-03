@@ -40,9 +40,7 @@ const MpcSection = () => {
           Connect MPC
         </span>
         <div className='w-full max-w-lg bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center sm:justify-between flex-wrap gap-4'>
-          <code className='text-white md:text-lg font-mono'>
-            {MB_URL.MPC_URL}
-          </code>
+          <code className='text-white font-mono'>{MB_URL.MPC_URL}</code>
           <Button
             onClick={handleCopy}
             variant='secondary'
