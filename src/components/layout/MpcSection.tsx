@@ -31,23 +31,28 @@ const MpcSection = () => {
   };
 
   return (
-    <section className='flex flex-col gap-8 items-center justify-center w-full'>
+    <section className='flex flex-col items-center justify-center w-full'>
       <TextSection {...mpcTextSection} />
-
-      <Badge
-        variant='secondary'
-        className='bg-mb-purple-20 text-mb-purple rounded-full px-4 py-2 text-sm'
-      >
-        CONNECT MPC
-      </Badge>
-      <div className='w-full max-w-3xl bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center md:justify-between flex-wrap gap-4'>
-        <code className='text-white md:text-xl font-mono'>
-          {MB_URL.MPC_URL}
-        </code>
-        <Button onClick={handleCopy} variant='secondary' className='w-[120px]'>
-          {copied ? <Check className='w-4 h-4 inline mr-1' /> : null}
-          {copied ? 'Copied' : 'Copy'}
-        </Button>
+      <div className='flex flex-col gap-8 items-center justify-center w-full'>
+        <Badge
+          variant='secondary'
+          className='bg-mb-purple-20 text-mb-purple rounded-full px-4 py-2 text-sm'
+        >
+          CONNECT MPC
+        </Badge>
+        <div className='w-full max-w-lg bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center md:justify-between flex-wrap gap-4'>
+          <code className='text-white md:text-xl font-mono'>
+            {MB_URL.MPC_URL}
+          </code>
+          <Button
+            onClick={handleCopy}
+            variant='secondary'
+            className='w-[120px]'
+          >
+            {copied ? <Check className='w-4 h-4 inline mr-1' /> : null}
+            {copied ? 'Copied' : 'Copy'}
+          </Button>
+        </div>
       </div>
     </section>
   );
