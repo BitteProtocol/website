@@ -1,9 +1,9 @@
 'use client';
 
+import { fira } from '@/app/fonts';
 import { MB_URL } from '@/lib/url';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
-import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import TextSection from './TextSection';
 
@@ -34,14 +34,13 @@ const MpcSection = () => {
     <section className='flex flex-col items-center justify-center w-full my-24 px-4 sm:px-0'>
       <TextSection {...mpcTextSection} />
       <div className='flex flex-col gap-8 items-center justify-center w-full'>
-        <Badge
-          variant='secondary'
-          className='bg-mb-purple-20 text-mb-purple rounded-full px-4 py-2 text-sm'
+        <span
+          className={`${fira.className} bg-mb-purple-20 backdrop-blur-md rounded-full text-mb-purple uppercase text-xs py-1.5 px-5`}
         >
-          CONNECT MPC
-        </Badge>
+          Connect MPC
+        </span>
         <div className='w-full max-w-lg bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center sm:justify-between flex-wrap gap-4'>
-          <code className='text-white md:text-xl font-mono'>
+          <code className='text-white md:text-lg font-mono'>
             {MB_URL.MPC_URL}
           </code>
           <Button
