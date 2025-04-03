@@ -40,7 +40,7 @@ const MpcSection = () => {
         >
           CONNECT MPC
         </Badge>
-        <div className='w-full max-w-lg bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center md:justify-between flex-wrap gap-4'>
+        <div className='w-full max-w-lg bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center sm:justify-between flex-wrap gap-4'>
           <code className='text-white md:text-xl font-mono'>
             {MB_URL.MPC_URL}
           </code>
