@@ -31,7 +31,7 @@ const TextSection = ({
         <p className='text-mb-gray-300 md:text-[18px] font-normal mt-4 leading-tight mx-auto px-5 max-w-[650px]'>
           {subHeader}
         </p>
-        <div className='mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6 z-10  drop-shadow-xl'>
+        <div className='mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6 z-10 drop-shadow-xl'>
           <p className='font-normal text-white z-10'>{factTitle}</p>
           <span className='font-semibold text-[24px] text-white'>{fact}</span>
         </div>
