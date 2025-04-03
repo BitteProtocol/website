@@ -87,6 +87,7 @@ const config: Config = {
 
         // Purples
         'mb-purple-20': '#C084FC33',
+        'mb-purple-10': '#C084FC66',
         'mb-purple': '#C084FC',
         'mb-purple-70': '#E087FFB2',
 

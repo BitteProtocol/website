@@ -53,4 +53,5 @@ export const MB_URL = {
   BLOG: 'https://bitteprotocol.substack.com/',
   WHITE_PAPER: 'https://docsend.com/view/ngd388tyqh7jhe4y',
   REGISTRY_API_BASE: 'https://registry-gules.vercel.app/api',
+  MPC_URL: 'https://mcp.bitte.ai/sse',
 };
