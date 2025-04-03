@@ -28,7 +28,7 @@ const TextSection = ({
         <p className='pt-6 font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto max-w-[460px]'>
           {title}
         </p>
-        <p className='text-mb-gray-300 md:text-[20px] font-normal mt-4 leading-tight mx-auto px-5 max-w-[650px]'>
+        <p className='text-mb-gray-300 md:text-[18px] font-normal mt-4 leading-tight mx-auto px-5 max-w-[650px]'>
           {subHeader}
         </p>
         <div className='mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6 z-10  drop-shadow-xl'>
