@@ -18,13 +18,13 @@ const mpcTextSection = {
 };
 
 const MpcSection = () => {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(MB_URL.MPC_URL);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 3000);
     } catch (err) {
       console.error('Failed to copy text: ', err);
     }
