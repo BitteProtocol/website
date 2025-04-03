@@ -1,13 +1,13 @@
-import { productCardsData } from '@/lib/data/productCardsData';
-import TextSection from './TextSection';
-import { ProductCardsSection } from './ProductCardsSection';
-import { SupportedChainsSection } from './SupportedChainsSection';
-import { MB_URL } from '@/lib/url';
 import {
   dropCardData,
   newsCardData,
   videosCardData,
 } from '@/lib/data/exampleCardData';
+import { productCardsData } from '@/lib/data/productCardsData';
+import { MB_URL } from '@/lib/url';
+import { ProductCardsSection } from './ProductCardsSection';
+import { SupportedChainsSection } from './SupportedChainsSection';
+import TextSection from './TextSection';
 
 import dynamic from 'next/dynamic';
 
@@ -27,6 +27,8 @@ const NumbersSection = dynamic(() => import('./NumbersSection'), {
 });
 
 const AgentSection = dynamic(() => import('./AgentSection'));
+
+const MpcSection = dynamic(() => import('./MpcSection'));
 
 const headerTextSection = {
   title: 'Chain Agents Live',
@@ -56,6 +58,7 @@ export const HomeComponent = () => {
       <TextSection {...headerTextSection} />
       <AgentSection />
       <ProductCardsSection data={productCardsData} />
+      <MpcSection />
       <ExamplesSection data={dropCardData} isVideo={false} />
       <ExamplesSection data={newsCardData} isVideo={false} />
       <ExamplesSection data={videosCardData} isVideo={true} />
