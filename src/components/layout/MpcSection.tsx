@@ -31,7 +31,7 @@ const MpcSection = () => {
   };
 
   return (
-    <section className='flex flex-col items-center justify-center w-full my-24'>
+    <section className='flex flex-col items-center justify-center w-full my-24 px-4 sm:px-0'>
       <TextSection {...mpcTextSection} />
       <div className='flex flex-col gap-8 items-center justify-center w-full'>
         <Badge
@@ -47,7 +47,7 @@ const MpcSection = () => {
           <Button
             onClick={handleCopy}
             variant='secondary'
-            className='w-[120px]'
+            className='w-full sm:w-[120px]'
           >
             {copied ? <Check className='w-4 h-4 inline mr-1' /> : null}
             {copied ? 'Copied' : 'Copy'}
