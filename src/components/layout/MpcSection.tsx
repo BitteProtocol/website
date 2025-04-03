@@ -31,7 +31,7 @@ const MpcSection = () => {
   };
 
   return (
-    <section className='flex flex-col items-center justify-center w-full'>
+    <section className='flex flex-col items-center justify-center w-full my-24'>
       <TextSection {...mpcTextSection} />
       <div className='flex flex-col gap-8 items-center justify-center w-full'>
         <Badge
