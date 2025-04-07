@@ -27,7 +27,6 @@ import { ManageAccountsDialogProps } from '@/lib/wallet/types';
 import SectionHeader from '../ui/wallet/SectionHeader';
 import DialogSection from '../ui/wallet/DialogSection';
 import CreateAccountCard from '../ui/wallet/CreateAccountCard';
-import ManageAccountsButton from '../ui/wallet/ManageAccountsButton';
 
 const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   isOpen,
