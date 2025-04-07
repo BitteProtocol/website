@@ -37,7 +37,7 @@ const MpcSection = () => {
         <span
           className={`${fira.className} bg-mb-purple-20 backdrop-blur-md rounded-full text-mb-purple uppercase text-xs py-1.5 px-5`}
         >
-          Connect MPC
+          Connect MCP
         </span>
         <div className='w-full max-w-lg bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center sm:justify-between flex-wrap gap-4'>
           <code className='text-white font-mono'>{MB_URL.MPC_URL}</code>
