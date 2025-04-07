@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import TextSection from './TextSection';
 
-const mpcTextSection = {
+const mcpTextSection = {
   title: 'Code Less, Innovate More',
   subHeader:
     'Convert APIs into agents in minutes. Secure, scalable, and built for developers. Dive into our library or build custom agents to automate workflows, secure transactions, and scale ecosystems.',
@@ -17,12 +17,12 @@ const mpcTextSection = {
   noSpacing: true,
 };
 
-const MpcSection = () => {
+const MCPSection = () => {
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(MB_URL.MPC_URL);
+      await navigator.clipboard.writeText(MB_URL.MCP_URL);
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch (err) {
@@ -32,7 +32,7 @@ const MpcSection = () => {
 
   return (
     <section className='flex flex-col items-center justify-center w-full my-24 px-4 sm:px-0'>
-      <TextSection {...mpcTextSection} />
+      <TextSection {...mcpTextSection} />
       <div className='flex flex-col gap-8 items-center justify-center w-full'>
         <span
           className={`${fira.className} bg-mb-purple-20 backdrop-blur-md rounded-full text-mb-purple uppercase text-xs py-1.5 px-5`}
@@ -40,7 +40,7 @@ const MpcSection = () => {
           Connect MCP
         </span>
         <div className='w-full max-w-lg bg-black rounded-md border border-mb-purple-10 px-6 py-5 flex items-center justify-center sm:justify-between flex-wrap gap-4'>
-          <code className='text-white font-mono'>{MB_URL.MPC_URL}</code>
+          <code className='text-white font-mono'>{MB_URL.MCP_URL}</code>
           <Button
             onClick={handleCopy}
             variant='secondary'
@@ -55,4 +55,4 @@ const MpcSection = () => {
   );
 };
 
-export default MpcSection;
+export default MCPSection;
