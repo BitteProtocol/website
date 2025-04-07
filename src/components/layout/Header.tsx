@@ -25,8 +25,13 @@ import React, { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { Button } from '../ui/button';
 import { Modal } from '../ui/Modal';
-import ConnectDialog from './ConnectDialog';
 import ManageAccountsDialog from './ManageAccountsDialog';
+import dynamic from 'next/dynamic';
+import { useIsClient } from '@/hooks/useIsClient';
+
+const ConnectDialog = dynamic(() => import('./ConnectDialog'), {
+  ssr: false,
+});
 
 const Header = () => {
   useRedirection();
@@ -41,6 +46,8 @@ const Header = () => {
 
   const pathname = usePathname();
   const router = useRouter();
+
+  const isClient = useIsClient();
 
   useEffect(() => {
     // Prefetch the /chat route to make navigation faster
@@ -59,15 +66,15 @@ const Header = () => {
     return;
   }
 
-  if (isMobile) {
+  if (isMobile && isClient) {
     return (
       <>
         <header className='w-full h-[73px] px-6 md:px-16 border-b border-black flex top-0 justify-between items-center sticky z-50 bg-black backdrop-blur supports-[backdrop-filter]:bg-mb-black/60'>
           <Link href='/' className='flex items-center h-full'>
             <Image
               src='/bitte.svg'
-              width={0}
-              height={0}
+              width={90}
+              height={32}
               alt='bitte-mobile-logo'
             />
           </Link>
@@ -181,7 +188,11 @@ const Header = () => {
                   className='w-full'
                   target='_blank'
                 >
-                  <Button variant='outline' className='block w-full md:hidden'>
+                  <Button
+                    variant='outline'
+                    className='block w-full md:hidden'
+                    aria-label='Settings'
+                  >
                     Settings
                   </Button>
                 </Link>
@@ -216,9 +227,8 @@ const Header = () => {
             <Image
               src='/bitte.svg'
               alt='bitte-desktop-logo'
-              width={0}
-              height={0}
-              className='w-[120px] h-auto'
+              width={120}
+              height={24}
             />
           </Link>
           <div className='flex justify-end'>
@@ -317,6 +327,7 @@ const Header = () => {
                 {!isConnected && !isNearConnected && (
                   <NavigationMenuItem
                     className={`${!isConnected ? 'lg:pr-3' : ''}`}
+                    asChild
                   >
                     <ConnectDialog
                       isOpen={isConnectModalOpen}
@@ -342,7 +353,11 @@ const Header = () => {
                       className='w-full ml-2'
                       target='_blank'
                     >
-                      <Button variant='outline' size='icon'>
+                      <Button
+                        variant='outline'
+                        size='icon'
+                        aria-label='Settings'
+                      >
                         <Settings className='text-text-primary' size={16} />
                       </Button>
                     </Link>

@@ -74,7 +74,7 @@ const AllAgents = (props: AgentData) => {
   }
 
   return (
-    <section className='w-full'>
+    <section className='w-full' aria-label='All Agents'>
       {/* Filters */}
       <div className='grid grid-cols-1 lg:grid-cols-5 gap-8 w-full'>
         <div className='lg:hidden'>
@@ -112,10 +112,16 @@ const AllAgents = (props: AgentData) => {
                       variant='secondary'
                       className='w-full bg-mb-gray-600'
                       onClick={clearFilters}
+                      aria-label='Clear all filters'
                     >
                       Clear
                     </Button>
-                    <Button type='button' variant='default' className='w-full'>
+                    <Button
+                      type='button'
+                      variant='default'
+                      className='w-full'
+                      aria-label='Apply filters'
+                    >
                       Apply
                     </Button>
                   </div>
@@ -131,6 +137,7 @@ const AllAgents = (props: AgentData) => {
               variant='ghost'
               onClick={clearFilters}
               className={`${selectedFilters?.length ? 'visible' : 'invisible'} text-xs`}
+              aria-label='Clear all filters'
             >
               Clear
             </Button>
@@ -153,12 +160,15 @@ const AllAgents = (props: AgentData) => {
             <SearchIcon
               className='pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground'
               size={18}
+              aria-hidden='true'
             />
             <Input
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
               placeholder='Search'
               className='pl-8'
+              aria-label='Search agents'
+              role='searchbox'
             />
           </div>
           <div className='hidden lg:block'></div>

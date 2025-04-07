@@ -30,8 +30,8 @@ export default function AgentCard({
   const mappedChainIds = mapChainIdsToNetworks(agent?.chainIds || [0], true); // default to NEAR
 
   return (
-    <div className='bg-gradient-to-b from-mb-gray-750 to-[#18181a] p-[1px] rounded-xl md:rounded-lg cursor-pointer h-[336px] md:h-[254px]'>
-      <div className='bg-[#18181a] rounded-xl md:rounded-lg p-4 hover:bg-mb-dark-blue-2 transition-all duration-500 h-full flex flex-col'>
+    <div className='bg-gradient-to-b from-mb-gray-750 to-mb-black-50 p-[1px] rounded-xl md:rounded-lg cursor-pointer h-[336px] md:h-[254px]'>
+      <div className='bg-mb-black-50 rounded-xl md:rounded-lg p-4 hover:bg-mb-dark-blue-2 transition-all duration-500 h-full flex flex-col'>
         <Link
           href={goToAgentDetail('Hey, what can you do for me?')}
           className='flex flex-col h-full'
@@ -115,6 +115,9 @@ export default function AgentCard({
                         alt={`${network.name} icon`}
                         fill
                         className='object-contain rounded'
+                        loading='lazy'
+                        quality={60}
+                        priority={false}
                       />
                     </div>
 
@@ -138,6 +141,9 @@ export default function AgentCard({
                                 alt={`${network.name} icon`}
                                 fill
                                 className='object-contain rounded'
+                                loading='lazy'
+                                quality={60}
+                                priority={false}
                               />
                             </div>
                             <span className='text-xs font-medium'>

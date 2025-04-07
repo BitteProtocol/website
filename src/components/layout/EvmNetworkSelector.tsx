@@ -25,6 +25,8 @@ const EvmNetworkSelector = () => {
           width={14}
           height={14}
           alt='connect-wallet-modal-logo-near'
+          loading='lazy'
+          quality={60}
         />
       </div>
       <span className='text-xs text-mb-white-100 font-normal'>

@@ -1,10 +1,12 @@
+'use client';
+
 import { partnerData } from '@/lib/data/partnerData';
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
 import { fira } from '@/app/fonts';
 import { useEffect, useRef } from 'react';
 
-export const PartnersSection = () => {
+const PartnersSection = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,6 +59,7 @@ export const PartnersSection = () => {
                   height={60}
                   alt={`${data?.id}-logo`}
                   loading='lazy'
+                  quality={60}
                 />
               </div>
             </CardContent>
@@ -66,3 +69,5 @@ export const PartnersSection = () => {
     </section>
   );
 };
+
+export default PartnersSection;

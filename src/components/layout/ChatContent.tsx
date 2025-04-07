@@ -3,21 +3,13 @@
 import { useAllAssistants } from '@/hooks/useAssistants';
 import { RegistryData } from '@/lib/types/agent.types';
 import { AssistantsMode } from '@bitte-ai/chat';
-import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AgentsDrawer } from '../ui/agents/AgentsDrawer';
 import { Button } from '../ui/button';
 import PageLoaderSkeleton from './PageLoaderSkeleton';
-
-// Dynamically import components that rely on client-side navigation
-const AgentSelectorWithNoSSR = dynamic(
-  () => import('@/components/ui/agents/AgentSelector'),
-  { ssr: false }
-);
-const AiChatWithNoSSR = dynamic(() => import('@/components/layout/AiChat'), {
-  ssr: false,
-});
+import AiChat from './AiChat';
+import AgentSelector from '../ui/agents/AgentSelector';
 
 const ChatContent = ({
   chatId,
@@ -122,7 +114,7 @@ const ChatContent = ({
   }, [selectedAgent]);
 
   const agentContentComponent = agentsList ? (
-    <AgentSelectorWithNoSSR
+    <AgentSelector
       agentData={agentsList}
       onSelectAgent={handleSelectAgent}
       selectedAgent={selectedAgent}
@@ -153,7 +145,7 @@ const ChatContent = ({
       </div>
       <div className='grid grid-cols-1 w-full'>
         <div className='w-full h-[560px] lg:h-full'>
-          <AiChatWithNoSSR
+          <AiChat
             selectedAgent={selectedAgent}
             chatId={chatId}
             prompt={(prompt ?? promptParam) || undefined}
@@ -161,6 +153,7 @@ const ChatContent = ({
               <Button
                 className='w-full bg-mb-gray-600 hover:bg-mb-gray-600 hover:bg-opacity-60 text-white'
                 onClick={() => setIsAgentsDrawerOpen(true)}
+                aria-label='Open agents drawer'
               >
                 Agents
               </Button>

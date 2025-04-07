@@ -86,7 +86,7 @@ export const AgentSelector = ({
                 'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent',
                 isSelected
                   ? 'bg-mb-purple-20 border-mb-purple'
-                  : 'bg-[#18181A] hover:border-mb-purple'
+                  : 'bg-mb-black-50 hover:border-mb-purple'
               )}
             >
               <div className='mb-2 flex items-center justify-between gap-2'>
@@ -98,6 +98,7 @@ export const AgentSelector = ({
                     height={24}
                     alt={`${agent?.id}-logo`}
                     loading='lazy'
+                    priority={false}
                   />
                   <p className='font-medium transition-all duration-500 text-mb-white-50 text-sm'>
                     {agent.name}

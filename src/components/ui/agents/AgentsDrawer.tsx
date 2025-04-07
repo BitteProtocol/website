@@ -36,6 +36,7 @@ export const AgentsDrawer: FC<AgentsDrawerProps> = ({
             variant='outline'
             className='w-full text-center'
             onClick={() => onOpenChange(false)}
+            aria-label='Close drawer'
           >
             Close
           </Button>

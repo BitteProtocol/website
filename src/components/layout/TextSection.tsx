@@ -25,13 +25,13 @@ const TextSection = ({
       className={`p-5 sm:w-full md:w-5/6 lg:w-4/6 ${noSpacing ? '' : 'my-5 md:my-40'}`}
     >
       <div className='text-center w-full'>
-        <p className='pt-6 font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto max-w-[460px]'>
+        <p className='pt-6 font-semibold text-white text-[32px] md:text-[40px] leading-tight mx-auto max-w-[380px]'>
           {title}
         </p>
-        <p className='text-mb-gray-300 md:text-[20px] font-normal mt-4 leading-tight mx-auto px-5 max-w-[650px]'>
+        <p className='text-mb-gray-300 md:text-[18px] font-normal mt-4 leading-tight mx-auto px-5 max-w-[650px]'>
           {subHeader}
         </p>
-        <div className='mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6 z-10  drop-shadow-xl'>
+        <div className='mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6 z-10 drop-shadow-xl'>
           <p className='font-normal text-white z-10'>{factTitle}</p>
           <span className='font-semibold text-[24px] text-white'>{fact}</span>
         </div>
@@ -44,6 +44,7 @@ const TextSection = ({
               onClick={() =>
                 window.open(btnUrl, '_blank', 'noopener,noreferrer')
               }
+              aria-label={btnTitle}
             >
               {btnTitle}
             </Button>

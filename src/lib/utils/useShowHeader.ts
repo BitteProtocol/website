@@ -1,10 +1,10 @@
 // Utility function to determine if the header should be shown
 export function shouldShowHeader(pathname: string): boolean {
-  const noHeaderRoutes = ['/chat', '/agents'];
+  const noHeaderRoutes = ['/chat', '/agents', '/build-agents'];
   return !noHeaderRoutes.some((route) => pathname.startsWith(route));
 }
 
 export function shouldShowFooter(pathname: string): boolean {
-  const noFooterRoutes = ['/chat', '/agents'];
+  const noFooterRoutes = ['/chat', '/agents', '/build-agents'];
   return !noFooterRoutes.some((route) => pathname.startsWith(route));
 }

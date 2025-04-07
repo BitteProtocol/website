@@ -1,4 +1,7 @@
-import ChatContent from '@/components/layout/ChatContent';
+const ChatContent = dynamic(
+  () => import('../../../../components/layout/ChatContent'),
+  { ssr: false }
+);
 
 const ChatPage = async ({
   params,
@@ -16,3 +19,5 @@ const ChatPage = async ({
 };
 
 export default ChatPage;
+
+import dynamic from 'next/dynamic';

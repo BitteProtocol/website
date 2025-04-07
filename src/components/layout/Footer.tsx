@@ -95,9 +95,10 @@ const Footer = () => {
             <Image
               src='/bitte.svg'
               alt='bitte-logo'
-              width={0}
-              height={0}
-              className='w-[120px] h-auto'
+              width={120}
+              height={24}
+              priority={false}
+              loading='lazy'
             />
           </Link>
 

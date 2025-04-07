@@ -1,3 +1,5 @@
+'use client';
+
 import { Card } from '@/components/ui/card';
 import { ACTION_TEXTS } from '@/lib/agentConstants';
 import { RegistryData } from '@/lib/types/agent.types';
@@ -25,7 +27,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
         {agentData?.map((agent) => (
           <Card
             key={agent.id}
-            className='flex-shrink-0 flex flex-col min-w-[306px] min-h-[125px] p-4 bg-[#18181A] border-none hover:bg-black/50 transition-colors cursor-pointer'
+            className='flex-shrink-0 flex flex-col min-w-[306px] min-h-[125px] p-4 bg-mb-black-50 border-none hover:bg-black/50 transition-colors cursor-pointer'
             onClick={() =>
               router.replace(
                 `/chat?agentid=${agent.id}&prompt=${ACTION_TEXTS[agent.id]}`
@@ -81,6 +83,7 @@ export default function AgentRow({ agentData }: { agentData: RegistryData[] }) {
               <Button
                 size='sm'
                 className='bg-mb-blue-30 hover:bg-mb-blue-100/40 text-mb-blue-100 h-8'
+                aria-label={ACTION_TEXTS[agent.id]}
               >
                 <span className='flex items-center gap-1 text-[13px]'>
                   {ACTION_TEXTS[agent.id]}

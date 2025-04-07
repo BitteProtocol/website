@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Dialog,
   DialogContent,
@@ -19,6 +21,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Button } from '../ui/button';
 import ConnectAccountCard from './ConnectAccountCard';
 import { NearWalletConnector } from './NearWalletSelector';
+import { useIsClient } from '@/hooks/useIsClient';
 import { SuiWalletConnector } from './SuiWalletConnector';
 import { useWallet } from '@suiet/wallet-kit';
 
@@ -42,6 +45,8 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
 
   const { open } = useAppKit();
   const { connected: isSuiConnected } = useWallet();
+
+  const isClient = useIsClient();
 
   const content = (
     <div>
@@ -74,6 +79,8 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
             width={26}
             height={19}
             alt='bitte-connect-logo'
+            priority={false}
+            loading='lazy'
           />
         </div>
         <div>
@@ -86,13 +93,14 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
     </div>
   );
 
-  if (isMobile) {
+  if (isMobile && isClient) {
     return (
       <Drawer open={isOpen} onOpenChange={setConnectModalOpen}>
         <DrawerTrigger asChild>
           <Button
             onClick={() => setConnectModalOpen(true)}
             className={`${isWelcomeMessage ? 'w-[137px]' : 'w-full'}`}
+            aria-label='Connect wallet'
           >
             Connect
           </Button>
@@ -114,15 +122,19 @@ const ConnectDialog: React.FC<ConnectDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={setConnectModalOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         {sidebarOpen ? (
-          <Button className='w-full'>Connect Wallet</Button>
+          <Button className='w-full' aria-label='Connect wallet'>
+            Connect Wallet
+          </Button>
         ) : isSidebar ? (
           <Button size='icon'>
             <Link2 size={16} />
           </Button>
         ) : (
-          <Button className='w-[137px]'>Connect</Button>
+          <Button className='w-[137px]' aria-label='Connect wallet'>
+            Connect
+          </Button>
         )}
       </DialogTrigger>
       <DialogContent className='max-w-[510px] min-h-[415px] border border-mb-gray-800 bg-black rounded-md p-8'>
