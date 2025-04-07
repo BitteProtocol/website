@@ -20,7 +20,7 @@ type ProvidersProps = {
 
 const Providers: React.FC<ProvidersProps> = ({ children, cookies }) => {
   return (
-    <SuietWalletProvider autoConnect={false}>
+    <SuietWalletProvider autoConnect={true}>
       <BitteWalletContextProvider
         {...BitteWalletSetup}
         additionalWallets={[setupMeteorWallet() as WalletModuleFactory]}
