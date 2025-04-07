@@ -28,7 +28,7 @@ const NumbersSection = dynamic(() => import('./NumbersSection'), {
 
 const AgentSection = dynamic(() => import('./AgentSection'));
 
-const MpcSection = dynamic(() => import('./MpcSection'));
+const MCPSection = dynamic(() => import('./MCPSection'));
 
 const headerTextSection = {
   title: 'Chain Agents Live',
@@ -58,7 +58,7 @@ export const HomeComponent = () => {
       <TextSection {...headerTextSection} />
       <AgentSection />
       <ProductCardsSection data={productCardsData} />
-      <MpcSection />
+      <MCPSection />
       <ExamplesSection data={dropCardData} isVideo={false} />
       <ExamplesSection data={newsCardData} isVideo={false} />
       <ExamplesSection data={videosCardData} isVideo={true} />
