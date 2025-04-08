@@ -24,14 +24,21 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
+import { useWindowSize } from '@/lib/utils/useWindowSize';
 
 export default function BuildAgents() {
   const router = useRouter();
+
+  const { width } = useWindowSize();
+  // Consider undefined width as mobile to prevent layout flash
+  const isMobile = typeof width === 'undefined' || width < 768;
+
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
   const [commandKey, setCommandKey] = useState<string>('⌘');
+  const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
 
   useEffect(() => {
     // Set the correct command key based on OS
@@ -128,14 +135,80 @@ export default function BuildAgents() {
   }, [tools, selectedFilters]);
 
   return (
-    <div className='bg-background text-white flex flex-col h-[calc(100vh-124px)]'>
+    <div className='bg-background text-white h-[calc(100vh-124px)] flex flex-col'>
       <CommandMenu groups={groups} />
 
-      {/* Main Container - Only for Desktop */}
-      <div className='hidden md:flex md:flex-col md:border md:border-mb-gray-800 md:rounded-md md:h-[90%] md:overflow-hidden'>
-        {/* Header */}
-        <div className='px-6 py-4 md:border-b md:border-mb-gray-800'>
-          <div className='flex items-center justify-between'>
+      {/* Desktop Layout */}
+      {!isMobile ? (
+        <div className='flex flex-col border border-mb-gray-800 rounded-md h-[90%] overflow-hidden'>
+          {/* Header */}
+          <div className='px-6 py-4 border-b border-mb-gray-800'>
+            <div className='flex items-center justify-between'>
+              <div className='space-y-1'>
+                <h1 className='font-semibold text-mb-white-50'>
+                  Available Tools
+                </h1>
+                <p className='text-sm text-mb-gray-200'>
+                  Combine tools to create agents
+                </p>
+              </div>
+              <p className='text-sm text-mb-gray-200'>
+                <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
+                  {commandKey}
+                </kbd>{' '}
+                +{' '}
+                <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
+                  K
+                </kbd>{' '}
+                to open command menu
+              </p>
+            </div>
+          </div>
+
+          {/* Main Content Area */}
+          <div className='flex flex-1 overflow-hidden'>
+            {/* Filter Sidebar */}
+            <div className='w-64 border-r border-mb-gray-800 px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
+              <div className=''>
+                <div className='flex items-start justify-between'>
+                  <h2 className='text-xs font-semibold text-mb-silver'>
+                    Filters
+                  </h2>
+                  <Button
+                    variant='ghost'
+                    onClick={clearFilters}
+                    className={`${selectedFilters?.length ? 'visible' : 'invisible'} text-xs`}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </div>
+
+              <div className=''>
+                <Filters
+                  filters={filters}
+                  selectedFilters={selectedFilters}
+                  onFilterChange={handleFilterClick}
+                />
+              </div>
+            </div>
+
+            {/* Tool Grid */}
+            <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent px-6 py-5'>
+              <ToolGrid
+                tools={filteredTools}
+                selectedItems={selectedItems}
+                toggleSelection={toggleSelection}
+                loading={loading}
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        // Mobile Layout
+        <>
+          {/* Header */}
+          <div className='px-2 py-4'>
             <div className='space-y-1'>
               <h1 className='font-semibold text-mb-white-50'>
                 Available Tools
@@ -144,49 +217,51 @@ export default function BuildAgents() {
                 Combine tools to create agents
               </p>
             </div>
-            <p className='hidden md:block text-sm text-mb-gray-200'>
-              <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
-                {commandKey}
-              </kbd>{' '}
-              +{' '}
-              <kbd className='rounded-md border border-mb-gray-800 bg-mb-gray-900 px-2 py-0.5'>
-                K
-              </kbd>{' '}
-              to open command menu
-            </p>
           </div>
-        </div>
 
-        {/* Desktop Content Area with Filters and Grid */}
-        <div className='hidden md:flex md:flex-1 md:overflow-hidden'>
-          {/* Desktop Filter Sidebar */}
-          <div className='w-64 border-r border-mb-gray-800 px-4 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent'>
-            <div className=''>
-              <div className='flex items-start justify-between'>
-                <h2 className='text-xs font-semibold text-mb-silver'>
-                  Filters
-                </h2>
-                <Button
-                  variant='ghost'
-                  onClick={clearFilters}
-                  className={`${selectedFilters?.length ? 'visible' : 'invisible'} text-xs`}
-                >
-                  Clear
-                </Button>
+          <Dialog open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
+            <DialogTrigger className='w-full'>
+              <div className='flex flex-1 items-center gap-2 border-y border-mb-gray-800 w-full p-4'>
+                <ListFilter className='h-5 w-5' />
+                Filters
               </div>
-            </div>
+            </DialogTrigger>
+            <DialogContent className='h-full bg-background p-0'>
+              <DialogHeader className='text-left w-full h-auto flex flex-col'>
+                <div className='border-b border-mb-gray-800 p-6 bg-mb-black-50 w-full'>
+                  <DialogTitle>Filters</DialogTitle>
+                </div>
+                <div className='pt-0 lg:pt-4 p-4 h-[70vh] overflow-scroll'>
+                  <Filters
+                    filters={filters}
+                    selectedFilters={selectedFilters}
+                    onFilterChange={handleFilterClick}
+                    isMobile
+                  />
+                </div>
+              </DialogHeader>
+              <DialogFooter className='bg-background'>
+                <DialogClose className='py-4 px-6 border-t border-mb-gray-800 w-full'>
+                  <div className='flex gap-4 w-full items-center'>
+                    <Button
+                      type='button'
+                      variant='secondary'
+                      className='w-full'
+                      onClick={clearFilters}
+                    >
+                      Clear
+                    </Button>
+                    <Button type='button' variant='default' className='w-full'>
+                      Apply
+                    </Button>
+                  </div>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
 
-            <div className=''>
-              <Filters
-                filters={filters}
-                selectedFilters={selectedFilters}
-                onFilterChange={handleFilterClick}
-              />
-            </div>
-          </div>
-
-          {/* Desktop Main Content */}
-          <div className='flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-mb-gray-600 scrollbar-track-transparent px-6 py-5'>
+          {/* Tool Grid for Mobile */}
+          <div className='px-2 py-5 pb-24'>
             <ToolGrid
               tools={filteredTools}
               selectedItems={selectedItems}
@@ -194,94 +269,31 @@ export default function BuildAgents() {
               loading={loading}
             />
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
-      {/* Mobile Header - Outside Container */}
-      <div className='md:hidden px-2 py-4'>
-        <div className='space-y-1'>
-          <h1 className='font-semibold text-mb-white-50'>Available Tools</h1>
-          <p className='text-sm text-mb-gray-200'>
-            Combine tools to create agents
-          </p>
-        </div>
-      </div>
-
-      {/* Mobile Filters Dialog */}
-      <div className='md:hidden'>
-        <Dialog>
-          <DialogTrigger className='w-full'>
-            <div className='flex flex-1 items-center gap-2 border-y border-mb-gray-800 w-full p-4'>
-              <ListFilter className='h-5 w-5' />
-              Filters
-            </div>
-          </DialogTrigger>
-          <DialogContent className='h-full bg-background p-0'>
-            <DialogHeader className='text-left w-full h-auto flex flex-col'>
-              <div className='border-b border-mb-gray-800 p-6 bg-mb-black-50 w-full'>
-                <DialogTitle>Filters</DialogTitle>
-              </div>
-              <div className='pt-0 lg:pt-4 p-4 h-[70vh] overflow-scroll'>
-                <Filters
-                  filters={filters}
-                  selectedFilters={selectedFilters}
-                  onFilterChange={handleFilterClick}
-                  isMobile
-                />
-              </div>
-            </DialogHeader>
-            <DialogFooter className='bg-background'>
-              <DialogClose className='py-4 px-6 border-t border-mb-gray-800 w-full'>
-                <div className='flex gap-4 w-full items-center'>
-                  <Button
-                    type='button'
-                    variant='secondary'
-                    className='w-full'
-                    onClick={clearFilters}
-                  >
-                    Clear
-                  </Button>
-                  <Button type='button' variant='default' className='w-full'>
-                    Apply
-                  </Button>
-                </div>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
-
-      {/* Mobile Content */}
-      <div className='md:hidden px-2 py-5'>
-        <ToolGrid
-          tools={filteredTools}
-          selectedItems={selectedItems}
-          toggleSelection={toggleSelection}
-          loading={loading}
-        />
-      </div>
-
-      {/* Desktop Next Button */}
-      <div className='hidden md:flex bg-mb-gray-550 px-6 py-4 mt-6 rounded-md -mb-11 justify-end items-center mt-auto'>
-        <Button
-          onClick={handleNextStep}
-          className='md:w-[200px]'
-          disabled={selectedItems.size === 0}
-        >
-          Next
-        </Button>
-      </div>
-
-      {/* Mobile Fixed Bottom Button */}
-      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-mb-gray-550 px-6 py-5 flex justify-end rounded-t-md'>
-        <Button
-          onClick={handleNextStep}
-          className='w-[177px]'
-          size='sm'
-          disabled={selectedItems.size === 0}
-        >
-          Next
-        </Button>
+      {/* Bottom Action Buttons */}
+      <div
+        className={`${isMobile ? 'fixed bottom-0 left-0 right-0 bg-mb-gray-550 px-6 py-4' : '-mb-11 mt-6 px-6 py-4 bg-mb-gray-550'} flex justify-end items-center mt-auto rounded-t-md`}
+      >
+        {isMobile ? (
+          <Button
+            onClick={handleNextStep}
+            className='w-[177px]'
+            size='sm'
+            disabled={selectedItems.size === 0}
+          >
+            Next
+          </Button>
+        ) : (
+          <Button
+            onClick={handleNextStep}
+            className='md:w-[200px]'
+            disabled={selectedItems.size === 0}
+          >
+            Next
+          </Button>
+        )}
       </div>
     </div>
   );
