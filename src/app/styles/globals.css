@@ -92,39 +92,7 @@
   }
 }
 
-.aspect-ratio {
-  aspect-ratio: 1.8/1;
-}
-
-.container-home {
-  width: 100%;
-}
-
 @media only screen and (min-width: 2000px) {
-  .container-home {
-    width: 1600px;
-  }
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-@media only screen and (min-width: 2000px) {
-  .header-container {
-    justify-content: center;
-  }
-}
-
-.header-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-@media only screen and (min-width: 2000px) {
-  .header-wrapper,
   .footer-wrapper {
     width: 1600px;
   }
@@ -137,47 +105,7 @@
   }
 }
 
-.animation-height {
-  height: calc(100vh - 80px);
-}
-
-@media only screen and (max-width: 767px) {
-  .right-edge-extension {
-    margin-right: -20px;
-  }
-}
-
-@media only screen and (min-width: 767px) {
-  .right-edge-extension-desktop {
-    margin-right: -80px;
-  }
-}
-
-.blog-pre {
-  margin-bottom: 3em !important;
-  -webkit-box-shadow:
-    -10px 0px 13px -7px #000000,
-    10px 0px 13px -7px #000000,
-    35px -23px 2px -16px rgba(0, 0, 0, 0);
-  box-shadow:
-    -10px 0px 13px -7px #000000,
-    10px 0px 13px -7px #000000,
-    35px -23px 2px -16px rgba(0, 0, 0, 0);
-  position: relative;
-}
-
-.banner img:nth-child(2) {
-  transition: all 0.5s;
-  /* Apply transition to all properties */
-}
-
-.banner:hover img:nth-child(2) {
-  filter: brightness(0) invert(1);
-  margin-left: 0.75rem;
-}
-
 /* scrollbar */
-
 .disable-scrollbars::-webkit-scrollbar {
   width: 0px;
   height: 0px;
@@ -209,19 +137,6 @@
 
 .snap-center {
   scroll-snap-align: center;
-}
-
-/* class to achieve reown appkit button ui */
-.connect-chain-button {
-  background: var(--wui-color-accent-100);
-  border: 1px solid var(--wui-color-gray-glass-010);
-  border-radius: var(--wui-border-radius-m);
-  gap: var(--wui-spacing-xs);
-  padding: 9px var(--wui-spacing-l) 9px var(--wui-spacing-l);
-  margin-bottom: 8px;
-  font-size: 13px;
-  width: fit-content;
-  cursor: pointer;
 }
 
 /* reown appkit modals */
