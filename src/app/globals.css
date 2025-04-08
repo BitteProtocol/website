@@ -164,20 +164,45 @@
 }
 
 /* scrollbar */
-
-.disable-scrollbars::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  background: transparent;
-  /* Chrome/Safari/Webkit */
-}
-
 .disable-scrollbars {
-  scrollbar-width: none;
   /* Firefox */
-  -ms-overflow-style: none;
+  scrollbar-width: none;
   /* IE 10+ */
+  -ms-overflow-style: none;
+  /* Hide scrollbar but keep functionality */
+  overflow-y: scroll;
 }
+
+/* Chrome, Safari, Edge, Opera, and Arc */
+.disable-scrollbars::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+
+/* Additional selectors for Arc browser */
+.disable-scrollbars::-webkit-scrollbar-thumb {
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+.disable-scrollbars::-webkit-scrollbar-track {
+  background: transparent !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* Force hardware acceleration which can help with rendering issues */
+.disable-scrollbars {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
 
 .hover-icon:hover svg {
   stroke: #fafafa;
