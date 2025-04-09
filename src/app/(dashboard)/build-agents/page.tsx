@@ -63,7 +63,7 @@ export default function BuildAgents() {
           />
         ),
         label: tool.function.name,
-        action: () => toggleSelection(tool.id),
+        action: () => toggleSelection(tool.id || tool.function.name),
         metadata: tool.isPrimitive ? 'Primitive' : 'Tool',
       })),
     },
