@@ -7,6 +7,15 @@ import {
   CommandMenu,
   type CommandMenuGroup,
 } from '@/components/ui/command-menu';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { useFilters } from '@/hooks/useFilters';
 import { Filters as AgentFilters } from '@/lib/types/agent.types';
 import { Tool } from '@/lib/types/tool.types';
@@ -14,20 +23,11 @@ import { filterHandler } from '@/lib/utils/filters';
 import { getCommandKey } from '@/lib/utils/os';
 import { ListFilter } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useMemo } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-  DialogClose,
-} from '@/components/ui/dialog';
+import { useEffect, useMemo, useState } from 'react';
 
 export default function BuildAgents() {
   const router = useRouter();
-  const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
+  const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedFilters, setSelectedFilters] = useState<AgentFilters[]>([]);
@@ -54,7 +54,7 @@ export default function BuildAgents() {
   const groups: CommandMenuGroup[] = [
     {
       heading: 'Tools',
-      items: tools.map((tool, index) => ({
+      items: tools.map((tool) => ({
         icon: (
           <img
             src={tool?.image || 'bitte-symbol-black.svg'}
@@ -63,7 +63,7 @@ export default function BuildAgents() {
           />
         ),
         label: tool.function.name,
-        action: () => toggleSelection(index),
+        action: () => toggleSelection(tool.id || tool.function.name),
         metadata: tool.isPrimitive ? 'Primitive' : 'Tool',
       })),
     },
@@ -85,13 +85,13 @@ export default function BuildAgents() {
     fetchTools();
   }, []);
 
-  const toggleSelection = (index: number) => {
+  const toggleSelection = (toolId: string) => {
     setSelectedItems((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
+      if (newSet.has(toolId)) {
+        newSet.delete(toolId);
       } else {
-        newSet.add(index);
+        newSet.add(toolId);
       }
       return newSet;
     });
@@ -99,8 +99,8 @@ export default function BuildAgents() {
 
   const handleNextStep = () => {
     router.prefetch('/build-agents/config');
-    const selectedToolsData = Array.from(selectedItems).map(
-      (index) => tools[index]
+    const selectedToolsData = Array.from(selectedItems).map((toolId) =>
+      tools.find((tool) => tool.id === toolId)
     );
     localStorage.setItem('selectedTools', JSON.stringify(selectedToolsData));
     router.push('/build-agents/config');
