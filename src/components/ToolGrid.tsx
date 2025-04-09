@@ -1,14 +1,14 @@
+import InfoTooltip from '@/components/ui/InfoTooltip';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tool } from '@/lib/types/tool.types';
-import Image from 'next/image';
 import { mapChainIdsToNetworks } from '@/lib/utils/chainIds';
-import InfoTooltip from '@/components/ui/InfoTooltip';
-import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 
 interface ToolGridProps {
   tools: Tool[];
-  selectedItems: Set<number>;
-  toggleSelection: (index: number) => void;
+  selectedItems: Set<string>;
+  toggleSelection: (toolId: string) => void;
   loading: boolean;
 }
 
@@ -109,18 +109,20 @@ export function ToolGrid({
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:pb-0 pb-24 auto-rows-fr'>
-      {tools.map((tool, index) => {
+      {tools.map((tool: Tool, index: number) => {
         const networks = mapChainIdsToNetworks(tool.chainIds || [], true);
         const visibleCount = visiblePillCounts[index] || 1;
         const visibleNetworks = networks.slice(0, visibleCount);
         const remainingCount = networks.length - visibleCount;
 
+        const id = tool.id || tool.function.name;
+
         return (
           <div
             key={index}
-            onClick={() => toggleSelection(index)}
+            onClick={() => toggleSelection(id)}
             className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col border ${
-              selectedItems.has(index)
+              selectedItems.has(id)
                 ? 'bg-mb-purple-20 border-mb-purple'
                 : 'bg-mb-black-50 border-mb-black-50 hover:border-mb-purple'
             }`}
