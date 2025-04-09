@@ -1,15 +1,14 @@
 'use client';
 
-import { MB_URL } from '@/lib/url';
+import { VerifiedAgentData } from '@/lib/types/agent.types';
 import { useBitteWallet } from '@bitte-ai/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { useAccount } from 'wagmi';
-import { Card, CardContent } from './ui/card';
 import AgentImage from './layout/AgentImage';
 import { Button } from './ui/button';
-import { VerifiedAgentData } from '@/lib/types/agent.types';
+import { Card, CardContent } from './ui/card';
 
 export const AgentSectionComponent = ({
   agentData,
@@ -155,24 +154,21 @@ export const AgentSectionComponent = ({
           })}
       </div>
       <div className='mt-16 md:mt-10 flex items-center justify-center gap-3 md:gap-6'>
-        <Link href='/agents'>
-          <Button
-            variant='default'
-            className='w-[136px] md:w-[200px]'
-            aria-label='Browse all available agents'
-          >
-            Browse Agents
-          </Button>
-        </Link>
+        <Button
+          asChild
+          variant='default'
+          className='w-[136px] md:w-[200px]'
+          aria-label='Browse all available agents'
+        >
+          <Link href='/agents'>Browse Agents</Link>
+        </Button>
         <Button
           asChild
           variant='secondary'
           className='w-[136px] md:w-[200px]'
-          aria-label='Learn how to build a chain agent'
+          aria-label='Build your own agent'
         >
-          <Link href={MB_URL.DEV_DOCS} target='_blank'>
-            Build Chain Agent
-          </Link>
+          <Link href='/build-agents'>Build Chain Agent</Link>
         </Button>
       </div>
     </section>
