@@ -1,4 +1,4 @@
-import { ArrowUpRight, Bot, TerminalSquare, Hammer } from 'lucide-react';
+import { ArrowUpRight, Bot, Hammer, TerminalSquare } from 'lucide-react';
 import * as React from 'react';
 
 import { NavLinks } from '@/components/nav-links';
@@ -15,6 +15,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { BITTE_AGENTID } from '@/lib/agentConstants';
+import { MB_URL } from '@/lib/url';
 import { useBitteWallet } from '@bitte-ai/react';
 import { generateId } from 'ai';
 import Image from 'next/image';
@@ -56,7 +57,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     links: [
       {
         name: 'Documentation',
-        url: 'https://docs.bitte.ai/',
+        url: MB_URL.DEV_DOCS,
         icon: ArrowUpRight,
       },
     ],
