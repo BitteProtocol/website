@@ -22,7 +22,6 @@ import CurrentlyConnected from './CurrentlyConnected';
 import EvmNetworkSelector from './EvmNetworkSelector';
 import { NearWalletConnector } from './NearWalletSelector';
 import { SuiWalletConnector } from './SuiWalletConnector';
-import { useWallet } from '@suiet/wallet-kit';
 import { ManageAccountsDialogProps } from '@/lib/wallet/types';
 import SectionHeader from '../ui/wallet/SectionHeader';
 import DialogSection from '../ui/wallet/DialogSection';
@@ -40,29 +39,25 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
 }) => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
-
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { data: balance } = useBalance({ address });
 
   const { open } = useAppKit();
-  const { connected: localSuiConnected } = useWallet();
-  
-  const isSuiWalletConnected = isSuiConnected !== undefined ? isSuiConnected : localSuiConnected;
 
   const renderConnectedWallets = () => (
     <DialogSection>
-      <SectionHeader 
-        icon={UserCheck} 
-        title="Currently Connected" 
-        className={isMobile ? 'mb-4' : ''} 
+      <SectionHeader
+        icon={UserCheck}
+        title='Currently Connected'
+        className={isMobile ? 'mb-4' : ''}
       />
-      
+
       <div className='flex flex-col gap-6'>
         {isNearConnected && (
           <NearWalletConnector setConnectModalOpen={setConnectModalOpen} />
         )}
-        
+
         {isConnected && (
           <CurrentlyConnected
             chainIcon='/chains/evm_wallet_connector.svg'
@@ -77,10 +72,10 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             action={disconnect}
           />
         )}
-        
-        {isSuiWalletConnected && (
-          <SuiWalletConnector 
-            setConnectModalOpen={setConnectModalOpen} 
+
+        {isSuiConnected && (
+          <SuiWalletConnector
+            setConnectModalOpen={setConnectModalOpen}
             isManageDialog
           />
         )}
@@ -90,12 +85,12 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
 
   const renderConnectAccounts = () => (
     <DialogSection hasBorder={false}>
-      <SectionHeader 
-        icon={UserPlus} 
-        title="Connect Accounts" 
-        className="mb-4" 
+      <SectionHeader
+        icon={UserPlus}
+        title='Connect Accounts'
+        className='mb-4'
       />
-      
+
       <div className='flex flex-col gap-4'>
         {!isConnected && (
           <ConnectAccountCard
@@ -109,7 +104,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             account='0xd8da6...aa96045'
           />
         )}
-        
+
         {!isNearConnected && (
           <ConnectAccountCard
             action={[handleSignIn, () => setConnectModalOpen(false)]}
@@ -118,12 +113,12 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
             account='blackdragon.near'
           />
         )}
-        
-        {!isSuiWalletConnected && (
+
+        {!isSuiConnected && (
           <SuiWalletConnector setConnectModalOpen={setConnectModalOpen} />
         )}
-        
-        <CreateAccountCard className="mt-auto" />
+
+        <CreateAccountCard className='mt-auto' />
       </div>
     </DialogSection>
   );
@@ -171,7 +166,9 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           <Button
             variant='outline'
             size='icon'
-            className={`border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 ${isSidebar ? 'h-[32px] w-[32px]' : ''}`}
+            className={`border border-mb-blue-100 bg-mb-blue-30 hover:bg-mb-blue-100/40 ${
+              isSidebar ? 'h-[32px] w-[32px]' : ''
+            }`}
             aria-label='Manage accounts'
           >
             <User size={16} color='#60A5FA' />
