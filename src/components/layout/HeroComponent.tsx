@@ -2,13 +2,13 @@
 
 import { AGENT_IDS } from '@/lib/agentConstants';
 import { RegistryData, VerifiedAgentData } from '@/lib/types/agent.types';
-import { useEffect } from 'react';
-import HeroPromptInput from './HeroPromptInput';
-import AgentRow from './AgentRow';
-import { Skeleton } from '../ui/skeleton';
-import { Button } from '../ui/button';
-import Link from 'next/link';
 import { MB_URL } from '@/lib/url';
+import Link from 'next/link';
+import { useEffect } from 'react';
+import { Button } from '../ui/button';
+import { Skeleton } from '../ui/skeleton';
+import AgentRow from './AgentRow';
+import HeroPromptInput from './HeroPromptInput';
 
 export const Hero = ({
   selectedAgent,
@@ -74,9 +74,7 @@ export const Hero = ({
           </div>
           <div className='mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-6 z-10'>
             <Button asChild variant='secondary' className='w-fit md:w-[200px]'>
-              <Link href={MB_URL.DEV_DOCS} target='_blank'>
-                Build Agent
-              </Link>
+              <Link href='/build-agents'>Build Agent</Link>
             </Button>
             <Button asChild variant='secondary' className='w-fit md:w-[200px]'>
               <Link href={MB_URL.EMBED_DOCS} target='_blank'>
