@@ -86,7 +86,6 @@ export default function BuildAgents() {
   }, []);
 
   const toggleSelection = (toolId: string) => {
-    console.log('toggleSelection', toolId);
     setSelectedItems((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(toolId)) {
