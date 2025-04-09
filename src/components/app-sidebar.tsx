@@ -1,4 +1,10 @@
-import { ArrowUpRight, Bot, TerminalSquare, Hammer } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Bot,
+  TerminalSquare,
+  Hammer,
+  Server,
+} from 'lucide-react';
 import * as React from 'react';
 
 import { NavLinks } from '@/components/nav-links';
@@ -51,6 +57,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: '/build-agents',
         icon: Hammer,
         isActive: pathname.startsWith('/build-agents'),
+      },
+      {
+        title: 'MCP (beta)',
+        url: `/mcp/${generateId()}`,
+        icon: Server,
+        isActive: pathname.startsWith('/mcp'),
       },
     ],
     links: [
