@@ -17,6 +17,7 @@ import {
 import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { MB_URL } from '@/lib/url';
 import { useBitteWallet } from '@bitte-ai/react';
+import { useWallet } from '@suiet/wallet-kit';
 import { generateId } from 'ai';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,7 +27,8 @@ import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import EvmNetworkSelector from './layout/EvmNetworkSelector';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
-import { CopyStandard } from './ui/copy/Copy';
+import WalletBadge from './ui/wallet/WalletBadge';
+import WalletAddress from './ui/wallet/WalletAddress';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -78,6 +80,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   const { isConnected, address } = useAccount();
+  const { connected: isSuiConnected, account: suiAccount } = useWallet();
 
   const { open } = useSidebar();
 
@@ -116,7 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavLinks links={data.links} />
       </SidebarContent>
       <SidebarFooter className='p-4 w-full'>
-        {activeAccountId || isConnected ? (
+        {activeAccountId || isConnected || isSuiConnected ? (
           <div className='flex flex-col gap-4 mb-4'>
             {open ? (
               <>
@@ -128,30 +131,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {activeAccountId ? (
                   <>
                     <div>
-                      <div className='bg-mb-gray-600 rounded-full py-0.5 px-3 flex items-center gap-2 mb-3 w-fit'>
-                        <div className='bg-black p-0.5 rounded'>
-                          <Image
-                            src='/chains/near_wallet_connector_v2.svg'
-                            width={14}
-                            height={14}
-                            alt='connect-wallet-modal-logo-near'
-                          />
-                        </div>
-                        <span className='text-xs text-mb-white-100 font-normal'>
-                          NEAR
-                        </span>
-                      </div>
+                      <WalletBadge
+                        networkName='NEAR'
+                        iconPath='/chains/near_wallet_connector_v2.svg'
+                        className='mb-3'
+                      />
 
-                      <span className='text-xs texrt-mb-gray-300 flex items-center gap-3'>
-                        <CopyStandard
-                          text={activeAccountId}
-                          textColor='#CBD5E1'
-                          textSize='xs'
-                          copySize={14}
-                          nopadding
-                          isNearAddress
-                        />
-                      </span>
+                      <WalletAddress
+                        address={activeAccountId}
+                        isNearAddress={true}
+                      />
                     </div>
                     <SidebarSeparator className='bg-mb-black -mx-4' />
                   </>
@@ -161,13 +150,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <>
                     <div className='flex flex-col items-start gap-3'>
                       <EvmNetworkSelector />
-                      <CopyStandard
-                        text={address as string}
-                        textColor='#CBD5E1'
-                        textSize='xs'
-                        copySize={14}
-                        nopadding
+                      <WalletAddress address={address as string} />
+                    </div>
+                    <SidebarSeparator className='bg-mb-black -mx-4' />
+                  </>
+                )}
+
+                {isSuiConnected && suiAccount && (
+                  <>
+                    <div>
+                      <WalletBadge
+                        networkName='SUI'
+                        iconPath='/sui-logo.png'
+                        className='mb-3'
                       />
+
+                      <WalletAddress address={suiAccount.address} />
                     </div>
                     <SidebarSeparator className='bg-mb-black -mx-4' />
                   </>
@@ -176,7 +174,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             ) : null}
           </div>
         ) : null}
-        {!isConnected && !isNearConnected && (
+        {!isConnected && !isNearConnected && !isSuiConnected && (
           <ConnectDialog
             isOpen={isConnectModalOpen}
             setConnectModalOpen={setConnectModalOpen}
@@ -184,12 +182,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             sidebarOpen={open}
           />
         )}
-        {(isConnected || isNearConnected) && (
+        {(isConnected || isNearConnected || isSuiConnected) && (
           <ManageAccountsDialog
             isOpen={isConnectModalOpen}
             setConnectModalOpen={setConnectModalOpen}
             isConnected={isConnected}
             isNearConnected={isNearConnected}
+            isSuiConnected={isSuiConnected}
             handleSignIn={handleSignIn}
             sidebarOpen={open}
             isSidebar

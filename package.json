@@ -35,6 +35,7 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@reown/appkit": "^1.6.3",
     "@reown/appkit-adapter-wagmi": "^1.6.3",
+    "@suiet/wallet-kit": "^0.3.4",
     "@tanstack/react-query": "^5.62.16",
     "@tiptap/extension-placeholder": "^2.11.5",
     "@tiptap/pm": "^2.11.5",

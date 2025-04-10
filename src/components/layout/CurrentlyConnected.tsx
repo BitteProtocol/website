@@ -2,31 +2,36 @@ import Image from 'next/image';
 import { CopyStandard } from '../ui/copy/Copy';
 import { Button } from '../ui/button';
 import { Unlink } from 'lucide-react';
+import { ConnectedWalletProps } from '@/lib/wallet/types';
 
-const CurrentlyConnected = ({
+const CurrentlyConnected: React.FC<ConnectedWalletProps> = ({
   chainIcon,
   accountId,
   networkBadge,
   network,
   balance,
   action,
-}: {
-  chainIcon: string;
-  accountId: string;
-  networkBadge: JSX.Element;
-  network: string;
-  balance: string | number;
-  action: () => void;
 }) => {
   return (
     <div className='flex gap-2 items-center justify-between'>
       <div className='flex items-center gap-3'>
-        <Image
-          src={chainIcon}
-          width={40}
-          height={40}
-          alt='connect-wallet-modal-logo-near'
-        />
+        {network === 'SUI' ? (
+          <div className='flex items-center justify-center rounded-md h-[40px] w-[40px] bg-white'>
+            <Image
+              src={chainIcon}
+              width={24}
+              height={24}
+              alt='connect-wallet-modal-logo'
+            />
+          </div>
+        ) : (
+          <Image
+            src={chainIcon}
+            width={40}
+            height={40}
+            alt='connect-wallet-modal-logo'
+          />
+        )}
         <div className='flex flex-col items-start gap-1.5'>
           <CopyStandard
             text={accountId}

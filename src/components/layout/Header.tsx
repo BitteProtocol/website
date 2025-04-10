@@ -28,7 +28,7 @@ import { Modal } from '../ui/Modal';
 import ManageAccountsDialog from './ManageAccountsDialog';
 import dynamic from 'next/dynamic';
 import { useIsClient } from '@/hooks/useIsClient';
-
+import { useWallet as useSuiWallet } from '@suiet/wallet-kit';
 const ConnectDialog = dynamic(() => import('./ConnectDialog'), {
   ssr: false,
 });
@@ -37,7 +37,7 @@ const Header = () => {
   useRedirection();
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
-
+  const { connected: isSuiConnected } = useSuiWallet();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
 
@@ -197,16 +197,17 @@ const Header = () => {
                   </Button>
                 </Link>
               )}
-              {!isConnected && !isNearConnected && (
+              {!isConnected && !isNearConnected && !isSuiConnected && (
                 <ConnectDialog
                   isOpen={isConnectModalOpen}
                   setConnectModalOpen={setConnectModalOpen}
                 />
               )}
-              {(isConnected || isNearConnected) && (
+              {(isConnected || isNearConnected || isSuiConnected) && (
                 <ManageAccountsDialog
                   isOpen={isConnectModalOpen}
                   setConnectModalOpen={setConnectModalOpen}
+                  isSuiConnected={isSuiConnected}
                   isConnected={isConnected}
                   isNearConnected={isNearConnected}
                   handleSignIn={handleSignIn}
@@ -324,7 +325,7 @@ const Header = () => {
                     Docs <ArrowUpRight size={12} color='#FAFAFA' />
                   </NavigationMenuLink>
                 </NavigationMenuItem>
-                {!isConnected && !isNearConnected && (
+                {!isConnected && !isNearConnected && !isSuiConnected && (
                   <NavigationMenuItem
                     className={`${!isConnected ? 'lg:pr-3' : ''}`}
                     asChild
@@ -335,11 +336,12 @@ const Header = () => {
                     />
                   </NavigationMenuItem>
                 )}
-                {(isConnected || isNearConnected) && (
+                {(isConnected || isNearConnected || isSuiConnected) && (
                   <NavigationMenuItem>
                     <ManageAccountsDialog
                       isOpen={isConnectModalOpen}
                       setConnectModalOpen={setConnectModalOpen}
+                      isSuiConnected={isSuiConnected}
                       isConnected={isConnected}
                       isNearConnected={isNearConnected}
                       handleSignIn={handleSignIn}
