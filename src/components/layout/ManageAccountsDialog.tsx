@@ -50,7 +50,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
       <SectionHeader
         icon={UserCheck}
         title='Currently Connected'
-        className={isMobile ? 'mb-4' : ''}
+        className='mb-4'
       />
 
       <div className='flex flex-col gap-6'>
@@ -84,7 +84,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   );
 
   const renderConnectAccounts = () => (
-    <DialogSection hasBorder={false}>
+    <DialogSection hasBorder={true}>
       <SectionHeader
         icon={UserPlus}
         title='Connect Accounts'
