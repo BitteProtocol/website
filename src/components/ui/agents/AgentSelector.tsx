@@ -1,7 +1,7 @@
+import AgentImage from '@/components/layout/AgentImage';
 import { RegistryData } from '@/lib/types/agent.types';
 import { cn } from '@/lib/utils';
 import { ArrowUpRight, HelpCircle, Info, SearchIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import InfoTooltip from '../InfoTooltip';
@@ -91,8 +91,8 @@ export const AgentSelector = ({
             >
               <div className='mb-2 flex items-center justify-between gap-2'>
                 <div className='flex items-center gap-2'>
-                  <Image
-                    src={agent?.image || '/logo.svg'}
+                  <AgentImage
+                    src={agent?.image}
                     className='object-contain'
                     width={24}
                     height={24}
