@@ -109,11 +109,17 @@ const AiChat = ({
         }}
         wallet={{
           near: {
-            wallet: wallet,
+            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            wallet: wallet as any,
           },
           evm: {
-            sendTransaction,
-            switchChain,
+            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            sendTransaction: sendTransaction as any,
+            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            switchChain: switchChain as any,
             address,
             hash,
           },
