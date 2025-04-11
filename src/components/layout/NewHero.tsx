@@ -1,6 +1,5 @@
 import { RegistryData } from '@/lib/types/agent.types';
 import { MB_URL } from '@/lib/url';
-import '@bitte-ai/chat/style.css';
 import { cookies } from 'next/headers';
 import { getNetworkMapping } from '@/lib/utils/chainIds';
 import { Hero } from './HeroComponent';
