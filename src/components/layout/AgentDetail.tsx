@@ -86,12 +86,14 @@ export const AgentDetailComponent = ({
                       Daily Average
                     </div>
                     <div className='text-2xl font-bold text-white'>
-                      {Math.round(
-                        Object.values(pings).reduce(
-                          (sum, count) => sum + count,
-                          0
-                        ) / Object.keys(pings).length
-                      )}
+                      {pings && Object.keys(pings).length > 0
+                        ? Math.round(
+                            Object.values(pings).reduce(
+                              (sum, count) => sum + count,
+                              0
+                            ) / Object.keys(pings).length
+                          )
+                        : 0}
                     </div>
                   </CardContent>
                 </Card>
