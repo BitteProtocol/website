@@ -11,6 +11,7 @@ import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
 import ConnectDialog from './ConnectDialog';
 import CustomChatSendButton from './CustomChatSendBtn';
 import { useIsClient } from '@/hooks/useIsClient';
+import { useWallet as useSuiWallet } from '@suiet/wallet-kit';
 
 const chatColors = {
   generalBackground: '#18181A',
@@ -35,7 +36,7 @@ const AiChat = ({
 }) => {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
   const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
-
+  const suiWallet = useSuiWallet();
   const { address, isConnected: isEvmConnected } = useAccount();
   const { data: hash, sendTransaction } = useSendTransaction();
   const { switchChain } = useSwitchChain();
@@ -123,6 +124,9 @@ const AiChat = ({
             address,
             hash,
           },
+          sui: {
+            wallet: suiWallet,
+          }
         }}
         agentId={selectedAgent?.id || 'bitte-assistant'}
         apiUrl='/api/chat'
