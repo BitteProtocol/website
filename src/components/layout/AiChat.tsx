@@ -44,7 +44,8 @@ const AiChat = ({
   const { selector, isConnected, isWalletSelectorSetup } = useBitteWallet();
 
   const isClient = useIsClient();
-  const isWalletDisconnected = !isEvmConnected && !isConnected;
+  const isWalletDisconnected =
+    !isEvmConnected && !isConnected && !suiWallet.connected;
 
   useEffect(() => {
     if (!selector) {
@@ -126,7 +127,7 @@ const AiChat = ({
           },
           sui: {
             wallet: suiWallet,
-          }
+          },
         }}
         agentId={selectedAgent?.id || 'bitte-assistant'}
         apiUrl='/api/chat'
