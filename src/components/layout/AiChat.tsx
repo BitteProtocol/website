@@ -2,6 +2,7 @@
 
 'use client';
 
+import { useIsClient } from '@/hooks/useIsClient';
 import { RegistryData } from '@/lib/types/agent.types';
 import { BitteAiChat } from '@bitte-ai/chat';
 import { useBitteWallet, Wallet } from '@bitte-ai/react';
@@ -10,7 +11,6 @@ import { useEffect, useState } from 'react';
 import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
 import ConnectDialog from './ConnectDialog';
 import CustomChatSendButton from './CustomChatSendBtn';
-import { useIsClient } from '@/hooks/useIsClient';
 import { useWallet as useSuiWallet } from '@suiet/wallet-kit';
 
 const chatColors = {
@@ -111,17 +111,11 @@ const AiChat = ({
         }}
         wallet={{
           near: {
-            // @ts-ignore
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            wallet: wallet as any,
+            wallet,
           },
           evm: {
-            // @ts-ignore
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            sendTransaction: sendTransaction as any,
-            // @ts-ignore
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            switchChain: switchChain as any,
+            sendTransaction,
+            switchChain,
             address,
             hash,
           },
