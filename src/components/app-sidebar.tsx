@@ -94,7 +94,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const handleSignIn = async () => {
     try {
-      await connect?.();
+      await connect();
     } catch (error) {
       console.error('Failed to connect wallet:', error);
     }
