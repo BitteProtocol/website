@@ -100,8 +100,9 @@ export default function BuildAgents() {
   const handleNextStep = () => {
     router.prefetch('/build-agents/config');
     const selectedToolsData = Array.from(selectedItems).map((toolId) =>
-      tools.find((tool) => tool.id === toolId)
+      tools.find((tool) => tool.id || tool.function.name === toolId)
     );
+
     localStorage.setItem('selectedTools', JSON.stringify(selectedToolsData));
     router.push('/build-agents/config');
   };
