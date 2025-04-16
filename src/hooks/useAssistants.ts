@@ -178,3 +178,35 @@ export const useAssistantById = (agentId: string) => {
 
   return { agent, loading, error };
 };
+
+export const useMyAssistants = (accountId: string | null) => {
+  const [agents, setAgents] = useState<RegistryData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchMyAssistants = async () => {
+      try {
+        const response = await fetch(
+          `${MB_URL.REGISTRY_API_BASE}/agents?accountId=${accountId}`
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch my agents');
+        }
+        const result = await response.json();
+
+        setAgents(result);
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (accountId) {
+      fetchMyAssistants();
+    }
+  }, [accountId]);
+
+  return { agents, loading, error };
+};
