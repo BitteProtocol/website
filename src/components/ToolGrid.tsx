@@ -115,14 +115,12 @@ export function ToolGrid({
         const visibleNetworks = networks.slice(0, visibleCount);
         const remainingCount = networks.length - visibleCount;
 
-        const id = tool.id || tool.function.name;
-
         return (
           <div
             key={index}
-            onClick={() => toggleSelection(id)}
+            onClick={() => toggleSelection(tool.id)}
             className={`p-4 text-left rounded-md min-h-[125px] cursor-pointer flex flex-col border ${
-              selectedItems.has(id)
+              selectedItems.has(tool.id)
                 ? 'bg-mb-purple-20 border-mb-purple'
                 : 'bg-mb-black-50 border-mb-black-50 hover:border-mb-purple'
             }`}

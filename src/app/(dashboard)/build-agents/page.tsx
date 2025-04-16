@@ -63,7 +63,7 @@ export default function BuildAgents() {
           />
         ),
         label: tool.function.name,
-        action: () => toggleSelection(tool.id || tool.function.name),
+        action: () => toggleSelection(tool.id),
         metadata: tool.isPrimitive ? 'Primitive' : 'Tool',
       })),
     },
@@ -74,7 +74,17 @@ export default function BuildAgents() {
       try {
         const response = await fetch('/api/tools');
         const data = await response.json();
-        setTools(data);
+        setTools(
+          data.map((tool: Tool) => {
+            if (!tool.id) {
+              return {
+                ...tool,
+                id: tool.function.name,
+              };
+            }
+            return tool;
+          })
+        );
       } catch (error) {
         console.error('Failed to fetch tools:', error);
       } finally {
@@ -100,7 +110,7 @@ export default function BuildAgents() {
   const handleNextStep = () => {
     router.prefetch('/build-agents/config');
     const selectedToolsData = Array.from(selectedItems).map((toolId) =>
-      tools.find((tool) => tool.id || tool.function.name === toolId)
+      tools.find((tool) => tool.id === toolId)
     );
 
     localStorage.setItem('selectedTools', JSON.stringify(selectedToolsData));
