@@ -188,7 +188,7 @@ export const useMyAssistants = (accountId: string | null) => {
     const fetchMyAssistants = async () => {
       try {
         const response = await fetch(
-          `${MB_URL.REGISTRY_API_BASE}/agents?accountId=${accountId}`
+          `${MB_URL.REGISTRY_API_BASE}/agents?accountId=${accountId}&verifiedOnly=false`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch my agents');
