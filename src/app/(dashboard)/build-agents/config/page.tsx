@@ -58,7 +58,7 @@ export default function ConfigurationPage() {
         },
         body: JSON.stringify({
           name: name.trim(),
-          accountId: activeAccountId || address,
+          accountId: activeAccountId || address || '',
           description: 'Custom agent created from tools',
           instructions,
           tools: selectedTools,
