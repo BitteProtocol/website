@@ -12,7 +12,8 @@ import { ImageUploader } from '@/components/agent-builder/ImageUploader';
 import { LoadingOverlay } from '@/components/agent-builder/LoadingOverlay';
 import { PromptEditor } from '@/components/agent-builder/PromptEditor';
 import { SelectedTools } from '@/components/agent-builder/SelectedTools';
-
+import { useBitteWallet } from '@bitte-ai/react';
+import { useAccount } from 'wagmi';
 export default function ConfigurationPage() {
   const router = useRouter();
   const { toast } = useToast();
@@ -21,6 +22,9 @@ export default function ConfigurationPage() {
   const [selectedTools, setSelectedTools] = useState<Tool[]>([]);
   const [instructions, setInstructions] = useState<string>('');
   const [isCreatingAgent, setIsCreatingAgent] = useState<boolean>(false);
+
+  const { activeAccountId } = useBitteWallet();
+  const { address } = useAccount();
 
   // Load selected tools from localStorage on component mount
   useEffect(() => {
@@ -54,7 +58,7 @@ export default function ConfigurationPage() {
         },
         body: JSON.stringify({
           name: name.trim(),
-          accountId: '',
+          accountId: activeAccountId || address,
           description: 'Custom agent created from tools',
           instructions,
           tools: selectedTools,
