@@ -179,7 +179,7 @@ export const useAssistantById = (agentId: string) => {
   return { agent, loading, error };
 };
 
-export const useMyAssistants = (accountId: string) => {
+export const useMyAssistants = (accountId: string | null) => {
   const [agents, setAgents] = useState<RegistryData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);

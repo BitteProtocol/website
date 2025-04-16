@@ -8,7 +8,7 @@ import Link from 'next/link';
 export default async function MyAgents() {
   const { activeAccountId } = useBitteWallet();
 
-  const { agents, loading } = useMyAssistants(activeAccountId || '');
+  const { agents, loading } = useMyAssistants(activeAccountId);
 
   if (!agents?.length && !loading) {
     return (
