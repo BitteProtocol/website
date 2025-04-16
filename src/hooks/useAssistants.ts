@@ -195,7 +195,6 @@ export const useMyAssistants = (accountId: string) => {
         }
         const result = await response.json();
 
-        console.log('result', result);
         setAgents(result);
       } catch (err) {
         setError(err as Error);
