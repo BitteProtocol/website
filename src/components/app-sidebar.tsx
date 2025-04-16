@@ -1,4 +1,10 @@
-import { ArrowUpRight, Bot, Hammer, TerminalSquare } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Bot,
+  FlaskConical,
+  Hammer,
+  TerminalSquare,
+} from 'lucide-react';
 import * as React from 'react';
 
 import { NavLinks } from '@/components/nav-links';
@@ -27,13 +33,24 @@ import { useAccount } from 'wagmi';
 import ConnectDialog from './layout/ConnectDialog';
 import EvmNetworkSelector from './layout/EvmNetworkSelector';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
-import WalletBadge from './ui/wallet/WalletBadge';
 import WalletAddress from './ui/wallet/WalletAddress';
+import WalletBadge from './ui/wallet/WalletBadge';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
 
   const pathname = usePathname();
+
+  const { isConnected, address } = useAccount();
+  const { connected: isSuiConnected, account: suiAccount } = useWallet();
+
+  const {
+    isConnected: isNearConnected,
+    connect,
+    activeAccountId,
+  } = useBitteWallet();
+
+  const { open } = useSidebar();
 
   const data = {
     navMain: [
@@ -55,12 +72,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Hammer,
         isActive: pathname.startsWith('/build-agents'),
       },
-      {
-        title: 'My Agents',
-        url: '/my-agents',
-        icon: Hammer,
-        isActive: pathname.startsWith('/my-agents'),
-      },
+      ...(activeAccountId
+        ? [
+            {
+              title: 'My Agents',
+              url: '/my-agents',
+              icon: FlaskConical,
+              isActive: pathname.startsWith('/my-agents'),
+            },
+          ]
+        : []),
     ],
     links: [
       {
@@ -71,24 +92,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     ],
   };
 
-  const {
-    isConnected: isNearConnected,
-    connect,
-    activeAccountId,
-  } = useBitteWallet();
-
   const handleSignIn = async () => {
     try {
-      await connect();
+      await connect?.();
     } catch (error) {
       console.error('Failed to connect wallet:', error);
     }
   };
-
-  const { isConnected, address } = useAccount();
-  const { connected: isSuiConnected, account: suiAccount } = useWallet();
-
-  const { open } = useSidebar();
 
   return (
     <Sidebar collapsible='icon' {...props}>
