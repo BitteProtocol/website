@@ -55,6 +55,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Hammer,
         isActive: pathname.startsWith('/build-agents'),
       },
+      {
+        title: 'My Agents',
+        url: '/my-agents',
+        icon: Hammer,
+        isActive: pathname.startsWith('/my-agents'),
+      },
     ],
     links: [
       {
