@@ -35,7 +35,6 @@ const ChatContent = ({
     ? [...agentData.unverifiedAgents, ...agentData.agents]
     : agentData.agents;
 
-  console.log({ agentsList });
   const togglePlayground = (value: boolean) => {
     const params = new URLSearchParams(searchParams.toString());
 
