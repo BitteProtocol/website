@@ -92,7 +92,7 @@ export const AgentSelector = ({
               <div className='mb-2 flex items-center justify-between gap-2'>
                 <div className='flex items-center gap-2'>
                   <AgentImage
-                    src={agent?.image}
+                    src={agent?.image || '/logo.svg'}
                     className='object-contain'
                     width={24}
                     height={24}

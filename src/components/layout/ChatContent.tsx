@@ -32,8 +32,8 @@ const ChatContent = ({
   const isPlayground = mode === AssistantsMode.DEBUG;
 
   const agentsList = isPlayground
-    ? agentData?.unverifiedAgents
-    : agentData?.agents;
+    ? [...agentData.unverifiedAgents, ...agentData.agents]
+    : agentData.agents;
 
   const togglePlayground = (value: boolean) => {
     const params = new URLSearchParams(searchParams.toString());
