@@ -52,9 +52,6 @@ export const MB_URL = {
   SMART_ACTIONS: 'https://wallet.bitte.ai/smart-actions',
   BLOG: 'https://bitteprotocol.substack.com/',
   WHITE_PAPER: 'https://docsend.com/view/ngd388tyqh7jhe4y',
-  // FIXME: revert
-  // REGISTRY_API_BASE: 'https://registry-gules.vercel.app/api',
-  REGISTRY_API_BASE:
-    'https://registry-git-sql-part1-bitteprotocol.vercel.app/api',
+  REGISTRY_API_BASE: 'https://registry-gules.vercel.app/api',
   MCP_URL: 'https://mcp.bitte.ai/sse',
 };
