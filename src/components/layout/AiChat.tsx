@@ -79,7 +79,7 @@ const AiChat = ({
     isClient && (
       <BitteAiChat
         options={{
-          agentImage: selectedAgent?.image,
+          agentImage: selectedAgent?.image || '/logo.svg',
           agentName: selectedAgent?.name,
           chatId,
           prompt,
