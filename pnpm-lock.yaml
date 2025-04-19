@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@bitte-ai/chat':
-        specifier: 0.3.0
-        version: 0.3.0(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
+        specifier: 0.4.0
+        version: 0.4.0(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
       '@bitte-ai/react':
         specifier: 0.8.2
         version: 0.8.2(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)
@@ -126,8 +126,8 @@ importers:
         specifier: ^15.2.2
         version: 15.2.2
       lucide-react:
-        specifier: ^0.307.0
-        version: 0.307.0(react@18.2.0)
+        specifier: ^0.462.0
+        version: 0.462.0(react@18.2.0)
       near-api-js:
         specifier: ^5.0.1
         version: 5.0.1
@@ -1051,8 +1051,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@bitte-ai/chat@0.3.0':
-    resolution: {integrity: sha512-Rm/RAzcJ5fcD/4XS6yIGxHe/IO/RoJVy+h91M9k64vOP/7QdkuvckIBPCuEgPjidoebznyCQpieuQkr/VaSU4g==}
+  '@bitte-ai/chat@0.4.0':
+    resolution: {integrity: sha512-pfTZvFxny3wh0rJzO7I065r/5JYvoXuPMZS11ku3UvZ3Kejui50/+JGwMgwDarV2Vk6GIF2jl5CMSwaIXfMjBw==}
 
   '@bitte-ai/react@0.8.2':
     resolution: {integrity: sha512-Egou8a45Gg+cULCGZ68aLnb0btJj0WwGRkWSebU7YnIgjlfQR8kaYnzVvYd5NIf8CxAiqoWNEgA1QyNvIsphoQ==}
@@ -5790,11 +5790,6 @@ packages:
   lru_map@0.4.1:
     resolution: {integrity: sha512-I+lBvqMMFfqaV8CJCISjI3wbjmwVu/VyOoU7+qtu9d7ioW5klMgsTTiUOUp+DJvfTTzKXoPbyC6YfgkNcyPSOg==}
 
-  lucide-react@0.307.0:
-    resolution: {integrity: sha512-+vZ+vUiWPZTMnLHURg4aoIaz6NHOWXVVcVd8iLROu1k4LbyjcnHIKmbjXHCmulz7XAYLWRVXzhJJgIr+Aq3vOg==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
-
   lucide-react@0.462.0:
     resolution: {integrity: sha512-NTL7EbAao9IFtuSivSZgrAh4fZd09Lr+6MTkqIxuHaH2nnYiYIzXPo06cOxHg9wKLdj6LL8TByG4qpePqwgx/g==}
     peerDependencies:
@@ -8859,7 +8854,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@bitte-ai/chat@0.3.0(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)':
+  '@bitte-ai/chat@0.4.0(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@ai-sdk/anthropic': 1.0.3(zod@3.24.1)
       '@ai-sdk/openai': 1.0.5(zod@3.24.1)
@@ -15692,10 +15687,6 @@ snapshots:
       yallist: 4.0.0
 
   lru_map@0.4.1: {}
-
-  lucide-react@0.307.0(react@18.2.0):
-    dependencies:
-      react: 18.2.0
 
   lucide-react@0.462.0(react@18.2.0):
     dependencies:
