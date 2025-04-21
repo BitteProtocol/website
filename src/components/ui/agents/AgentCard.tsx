@@ -27,7 +27,10 @@ export default function AgentCard({
   const coverImage = getCoverImageUrl(agent.image);
   const runAgentUrl = getRunAgentUrl(agent.id, agent.verified);
 
-  const mappedChainIds = mapChainIdsToNetworks(agent?.chainIds || [0], true); // default to NEAR
+  const mappedChainIds = mapChainIdsToNetworks(
+    agent?.chainIds?.length ? agent.chainIds : [0],
+    true
+  ); // default to NEAR
 
   return (
     <div className='bg-gradient-to-b from-mb-gray-750 to-mb-black-50 p-[1px] rounded-xl md:rounded-lg cursor-pointer h-[336px] md:h-[254px]'>
@@ -56,7 +59,7 @@ export default function AgentCard({
               </div>
               <div className='flex flex-col'>
                 <span className='font-medium'>{agent.name}</span>
-                <span className='text-sm text-mb-gray-150 md:hidden'>
+                <span className='text-sm text-mb-gray-150 md:hidden truncate max-w-[160px]'>
                   By {agent.accountId}
                 </span>
               </div>
@@ -78,7 +81,7 @@ export default function AgentCard({
 
           <div className='mt-auto'>
             <div className='flex flex-wrap gap-2 items-center'>
-              <span className='hidden md:inline-flex text-sm text-mb-gray-200'>
+              <span className='hidden md:inline-flex text-sm text-mb-gray-200 truncate max-w-[400px]'>
                 By {agent.accountId}
               </span>
               {agent.category && (
