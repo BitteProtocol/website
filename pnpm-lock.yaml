@@ -14,6 +14,9 @@ importers:
       '@bitte-ai/chat':
         specifier: 0.4.0
         version: 0.4.0(@tanstack/query-core@5.62.16)(@tanstack/react-query@5.62.16(react@18.2.0))(@types/react-dom@18.2.19)(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(tailwindcss@3.4.1)(typescript@5.3.3)(utf-8-validate@5.0.10)
+      '@bitte-ai/data':
+        specifier: 0.1.0-add-primitives-array-7076953
+        version: 0.1.0-add-primitives-array-7076953(typescript@5.3.3)
       '@bitte-ai/react':
         specifier: 0.8.2
         version: 0.8.2(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)
@@ -76,7 +79,7 @@ importers:
         version: 1.6.3(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       '@reown/appkit-adapter-wagmi':
         specifier: ^1.6.3
-        version: 1.6.3(4dc90acacfbe163dae5b69243a325cad)
+        version: 1.6.3(qjcpvanqb55x7zoyvdobudor3i)
       '@suiet/wallet-kit':
         specifier: ^0.3.4
         version: 0.3.4(@mysten/sui@1.26.1(typescript@5.3.3))(@types/react@18.2.60)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.3.3)
@@ -1054,6 +1057,9 @@ packages:
   '@bitte-ai/chat@0.4.0':
     resolution: {integrity: sha512-pfTZvFxny3wh0rJzO7I065r/5JYvoXuPMZS11ku3UvZ3Kejui50/+JGwMgwDarV2Vk6GIF2jl5CMSwaIXfMjBw==}
 
+  '@bitte-ai/data@0.1.0-add-primitives-array-7076953':
+    resolution: {integrity: sha512-HrUSIPW1vXznX3gUEtxlePQoPST3aO9GKXKEmZ9AV0fJGQG0o0hOqzYRCfl6dRGiQZvfl8nFGz+6Pvkv1WAJJw==}
+
   '@bitte-ai/react@0.8.2':
     resolution: {integrity: sha512-Egou8a45Gg+cULCGZ68aLnb0btJj0WwGRkWSebU7YnIgjlfQR8kaYnzVvYd5NIf8CxAiqoWNEgA1QyNvIsphoQ==}
 
@@ -1840,6 +1846,18 @@ packages:
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+
+  '@prisma/client@6.6.0':
+    resolution: {integrity: sha512-vfp73YT/BHsWWOAuthKQ/1lBgESSqYqAWZEYyTdGXyFAHpmewwWL2Iz6ErIzkj4aHbuc6/cGSsE6ZY+pBO04Cg==}
+    engines: {node: '>=18.18'}
+    peerDependencies:
+      prisma: '*'
+      typescript: '>=5.1.0'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+      typescript:
+        optional: true
 
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -8922,6 +8940,13 @@ snapshots:
       - typescript
       - utf-8-validate
 
+  '@bitte-ai/data@0.1.0-add-primitives-array-7076953(typescript@5.3.3)':
+    dependencies:
+      '@prisma/client': 6.6.0(typescript@5.3.3)
+    transitivePeerDependencies:
+      - prisma
+      - typescript
+
   '@bitte-ai/react@0.8.2(bn.js@5.2.1)(borsh@1.0.0)(graphql@16.9.0)(near-api-js@5.0.1)':
     dependencies:
       '@bitte-ai/wallet': 0.8.2
@@ -10305,6 +10330,10 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
+  '@prisma/client@6.6.0(typescript@5.3.3)':
+    optionalDependencies:
+      typescript: 5.3.3
+
   '@protobufjs/aspromise@1.1.2': {}
 
   '@protobufjs/base64@1.1.2': {}
@@ -11255,7 +11284,7 @@ snapshots:
 
   '@remirror/core-constants@3.0.0': {}
 
-  '@reown/appkit-adapter-wagmi@1.6.3(4dc90acacfbe163dae5b69243a325cad)':
+  '@reown/appkit-adapter-wagmi@1.6.3(qjcpvanqb55x7zoyvdobudor3i)':
     dependencies:
       '@coinbase/wallet-sdk': 4.3.0
       '@reown/appkit': 1.6.3(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.24.1)
@@ -14095,7 +14124,7 @@ snapshots:
       debug: 4.3.4
       enhanced-resolve: 5.15.0
       eslint: 8.57.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.1.0(eslint@8.57.0)(typescript@5.3.3))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.2
@@ -14107,7 +14136,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -14128,7 +14157,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
       hasown: 2.0.1
       is-core-module: 2.13.1
       is-glob: 4.0.3
