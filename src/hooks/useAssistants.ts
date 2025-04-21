@@ -205,7 +205,7 @@ export const useMyAssistants = (accountIds: {
         // Fetch assistants for each account ID
         for (const accountId of validAccountIds) {
           const response = await fetch(
-            `${MB_URL.REGISTRY_API_BASE}/agents?accountId=${accountId}&verifiedOnly=false`
+            `${MB_URL.REGISTRY_API_BASE}/agents?accountId=${accountId}`
           );
 
           if (response.ok) {
