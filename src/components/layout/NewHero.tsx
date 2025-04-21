@@ -1,3 +1,4 @@
+import { BITTE_AGENTID } from '@/lib/agentConstants';
 import { fetchVerifiedAssistants } from '@/lib/data/fetchVerifiedAssistants';
 import { RegistryData } from '@/lib/types/agent.types';
 import { cookies } from 'next/headers';
@@ -26,8 +27,8 @@ export default async function NewHero() {
         agents:
           agentData.agents?.map((agent) => ({
             ...agent,
-            id: agent.id || '',
-            name: agent.name || 'Unnamed Agent',
+            id: agent.id || BITTE_AGENTID,
+            name: agent.name || 'Bitte Assistant',
             image: agent.image || '/logo.svg',
           })) || [],
         filters: agentData.filters || [],
