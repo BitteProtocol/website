@@ -3,12 +3,20 @@ import AgentCard from '@/components/ui/agents/AgentCard';
 import { Button } from '@/components/ui/button';
 import { useMyAssistants } from '@/hooks/useAssistants';
 import { useBitteWallet } from '@bitte-ai/react';
+import { useWallet } from '@suiet/wallet-kit';
 import Link from 'next/link';
+import { useAccount } from 'wagmi';
 
 export default async function MyAgents() {
   const { activeAccountId } = useBitteWallet();
+  const { address: suiAddress } = useWallet();
+  const { address: ethAddress } = useAccount();
 
-  const { agents, loading } = useMyAssistants(activeAccountId);
+  const { agents, loading } = useMyAssistants({
+    ethAddress,
+    suiAddress,
+    nearAddress: activeAccountId,
+  });
 
   if (!agents?.length && !loading) {
     return (
