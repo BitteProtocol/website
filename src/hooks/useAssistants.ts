@@ -179,23 +179,47 @@ export const useAssistantById = (agentId: string) => {
   return { agent, loading, error };
 };
 
-export const useMyAssistants = (accountId: string | null) => {
+export const useMyAssistants = (accountIds: {
+  ethAddress?: string | null;
+  suiAddress?: string | null;
+  nearAddress?: string | null;
+}) => {
   const [agents, setAgents] = useState<RegistryData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  // Destructure here to use primitive values in dependency array
+  const { ethAddress, suiAddress, nearAddress } = accountIds;
+
   useEffect(() => {
     const fetchMyAssistants = async () => {
       try {
-        const response = await fetch(
-          `${MB_URL.REGISTRY_API_BASE}/agents?accountId=${accountId}&verifiedOnly=false`
-        );
-        if (!response.ok) {
-          throw new Error('Failed to fetch my agents');
-        }
-        const result = await response.json();
+        setLoading(true);
+        const allAgents: RegistryData[] = [];
 
-        setAgents(result);
+        // Create an array of valid account IDs
+        const validAccountIds = [ethAddress, suiAddress, nearAddress].filter(
+          (id): id is string => !!id
+        );
+
+        // Fetch assistants for each account ID
+        for (const accountId of validAccountIds) {
+          const response = await fetch(
+            `${MB_URL.REGISTRY_API_BASE}/agents?accountId=${accountId}`
+          );
+
+          if (response.ok) {
+            const result = await response.json();
+            allAgents.push(...result);
+          }
+        }
+
+        // Remove duplicates by ID
+        const uniqueAgents = Array.from(
+          new Map(allAgents.map((agent) => [agent.id, agent])).values()
+        );
+
+        setAgents(uniqueAgents);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -203,10 +227,16 @@ export const useMyAssistants = (accountId: string | null) => {
       }
     };
 
-    if (accountId) {
+    const hasAnyAccount = [ethAddress, suiAddress, nearAddress].some(
+      (id) => !!id
+    );
+    if (hasAnyAccount) {
       fetchMyAssistants();
+    } else {
+      setAgents([]);
+      setLoading(false);
     }
-  }, [accountId]);
+  }, [ethAddress, suiAddress, nearAddress]); // Use primitive values instead of the object
 
   return { agents, loading, error };
 };

@@ -41,7 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const pathname = usePathname();
 
-  const { isConnected, address } = useAccount();
+  const { isConnected, address: ethAddress } = useAccount();
   const { connected: isSuiConnected, account: suiAccount } = useWallet();
 
   const {
@@ -72,7 +72,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Hammer,
         isActive: pathname.startsWith('/build-agents'),
       },
-      ...(activeAccountId
+      ...(isConnected || isSuiConnected || isNearConnected
         ? [
             {
               title: 'My Agents',
@@ -166,7 +166,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <>
                     <div className='flex flex-col items-start gap-3'>
                       <EvmNetworkSelector />
-                      <WalletAddress address={address as string} />
+                      <WalletAddress address={ethAddress as string} />
                     </div>
                     <SidebarSeparator className='bg-mb-black -mx-4' />
                   </>
