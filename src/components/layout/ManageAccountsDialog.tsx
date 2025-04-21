@@ -25,7 +25,6 @@ import { SuiWalletConnector } from './SuiWalletConnector';
 import { ManageAccountsDialogProps } from '@/lib/wallet/types';
 import SectionHeader from '../ui/wallet/SectionHeader';
 import DialogSection from '../ui/wallet/DialogSection';
-import CreateAccountCard from '../ui/wallet/CreateAccountCard';
 
 const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   isOpen,
@@ -117,8 +116,6 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
         {!isSuiConnected && (
           <SuiWalletConnector setConnectModalOpen={setConnectModalOpen} />
         )}
-
-        <CreateAccountCard className='mt-auto' />
       </div>
     </DialogSection>
   );
