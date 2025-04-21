@@ -53,16 +53,17 @@ export async function POST(request: NextRequest) {
       id: crypto.randomUUID(),
     };
 
-    // TODO: check that his is complete
     const newAgent: Prisma.AgentCreateInput = {
       id: input.id,
       description: input.description || input.generatedDescription || '',
       instructions: input.instructions || '',
       name: input.name,
       image: input.image,
-      tools: [],
-      primitives: [],
       categories: input.category ? [input.category] : [],
+      accountId: input.accountId,
+      repo: input.repo,
+      verified: false,
+      chainIds: input.chainIds,
     };
 
     if (input.tools)
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await createAgent(newAgent as Prisma.AgentCreateInput);
+    await createAgent(newAgent);
 
     return NextResponse.json(newAgent, { status: 201 });
   } catch (error) {
