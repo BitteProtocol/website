@@ -4,7 +4,9 @@ import { filterLocalAndTunnelUrls, networkMapping } from '../utils/network';
 
 export const fetchVerifiedAssistants = async () => {
   try {
-    const response = await fetch(`${MB_URL.REGISTRY_API_BASE}/agents`);
+    const response = await fetch(
+      `${MB_URL.REGISTRY_API_BASE}/agents?verifiedOnly=true`
+    );
     if (!response.ok) {
       return { error: 'Failed to fetch verified agents' };
     }
