@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "ts": "tsc --noEmit --incremental",
     "test": "jest",
+    "postinstall": "prisma generate",
     "prepare": "husky",
     "pre-commit": "pnpm run ts && pnpx lint-staged && git add -A ."
   },
@@ -74,6 +75,7 @@
     "wagmi": "^2.14.16"
   },
   "devDependencies": {
+    "@prisma/client": "^6.6.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.20",
     "@types/react": "18.3.12",
@@ -87,6 +89,7 @@
     "jest": "^29.7.0",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
+    "prisma": "^6.6.0",
     "remark-gfm": "^4.0.0",
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.1.2",
@@ -100,5 +103,8 @@
       "npx prettier --write",
       "npx eslint --quiet --fix"
     ]
+  },
+  "prisma": {
+    "schema": "node_modules/@bitte-ai/data/prisma/schema.prisma"
   }
 }
