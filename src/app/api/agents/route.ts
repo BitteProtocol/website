@@ -64,6 +64,8 @@ export async function POST(request: NextRequest) {
       repo: input.repo,
       verified: false,
       chainIds: input.chainIds,
+      tools: [],
+      primitives: [],
     };
 
     if (input.tools)
