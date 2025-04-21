@@ -14,8 +14,6 @@ import { PromptEditor } from '@/components/agent-builder/PromptEditor';
 import { SelectedTools } from '@/components/agent-builder/SelectedTools';
 import { useBitteWallet } from '@bitte-ai/react';
 
-export const dynamic = 'force-dynamic';
-
 export default function ConfigurationPage() {
   const router = useRouter();
   const { toast } = useToast();
