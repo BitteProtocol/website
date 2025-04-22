@@ -13,8 +13,8 @@ export async function GET(_request: NextRequest) {
     const res = await prismaClient.$queryRaw`
       SELECT
         t.*,
-        COALESCE(c.calls, 0) AS pings,
-        COALESCE(a.chain_ids, []) AS chain_ids,
+        COALESCE(c.pings, 0) AS pings,
+        COALESCE(a.chain_ids, ARRAY[]::bigint[]) AS chain_ids,
         COALESCE(a.image, '/bitte-symbol-black.svg') AS image
       FROM tool t
       LEFT JOIN (
@@ -22,9 +22,7 @@ export async function GET(_request: NextRequest) {
         FROM tool_call
         GROUP BY tool_id
       ) c ON t.id = c.tool_id
-      LEFT JOIN(
-        SELECT id, chain_ids, image FROM agent
-      ) a ON t.agent_id = a.id;
+      LEFT JOIN agent a ON t.agent_id = a.id;
     `;
 
     console.log(res);
