@@ -10,12 +10,18 @@ export async function GET(_request: NextRequest) {
   // const chainId = searchParams.get('chainId');
 
   try {
-    const res = await prismaClient.$queryRaw`
+    const tools = await prismaClient.$queryRaw`
       SELECT
-        t.*,
+        t.id,
+        t.agent_id as "agentId",
+        t.execution,
+        t.function,
+        t.type,
+        t.verified,
         COALESCE(c.pings, 0) AS pings,
-        COALESCE(a.chain_ids, ARRAY[]::bigint[]) AS chain_ids,
-        COALESCE(a.image, '/bitte-symbol-black.svg') AS image
+        COALESCE(a.chain_ids, ARRAY[]::bigint[]) AS "chainIds",
+        COALESCE(a.image, '/bitte-symbol-black.svg') AS image,
+        FALSE as "isPrimitive"
       FROM tool t
       LEFT JOIN (
         SELECT tool_id, count(*) AS pings
@@ -25,26 +31,26 @@ export async function GET(_request: NextRequest) {
       LEFT JOIN agent a ON t.agent_id = a.id;
     `;
 
-    console.log(res);
+    console.log(tools);
 
     // FIXME: add primitives
 
     // Response shape
     // {
-    //   pings: number;
-    //   isPrimitive: boolean;
-    //   image: any;
-    //   function: JsonValue;
-    //   id: string;
-    //   agentId: string | null;
-    //   execution: JsonValue;
-    //   type: string;
-    //   verified: boolean;
+    //   [x][] pings: number;
+    //   [x][] isPrimitive: boolean;
+    //   [x][] image: any;
+    //   [x][] function: JsonValue;
+    //   [x][] id: string;
+    //   [x][] agentId: string | null;
+    //   [x][] execution: JsonValue;
+    //   [x][] type: string;
+    //   [x][] verified: boolean;
     // }[]
 
     // Convert any BigInt values to strings to avoid JSON serialization issues
     const sanitizedRes = JSON.parse(
-      JSON.stringify(res, (_, value) =>
+      JSON.stringify(tools, (_, value) =>
         typeof value === 'bigint' ? value.toString() : value
       )
     );
