@@ -17,10 +17,12 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
   };
 
   const publisher = agent.publisher || agent.accountId;
+
   const displayPublisher =
     publisher && !publisher.endsWith('.near')
       ? shortenAddress(publisher)
       : publisher;
+
 
   return (
     <ul>
