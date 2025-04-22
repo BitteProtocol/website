@@ -1,6 +1,28 @@
 import { prismaClient } from '@bitte-ai/data';
 import { NextRequest, NextResponse } from 'next/server';
 
+const { BITTE_API_URL = 'https://wallet.bitte.ai/api/v1' } = process.env;
+
+type SqlTool = {
+  pings: number;
+  isPrimitive: boolean;
+  image: string;
+  function: object;
+  id: string;
+  agentId: string | null;
+  execution: object | null;
+  type: string;
+  verified: boolean;
+  chainIds: string[];
+};
+
+type PrimitiveResponse = {
+  id: string;
+  function: object;
+  chainIds: string[];
+  pings: number;
+};
+
 export async function GET(request: NextRequest) {
   // Get search parameters
   const { searchParams } = new URL(request.url);
@@ -33,6 +55,7 @@ export async function GET(request: NextRequest) {
         ? `WHERE ${whereConditions.join(' AND ')}`
         : '';
 
+    // TODO: Change once chain IDs are be migrated to text[]
     const query = `
       SELECT
         t.id,
@@ -41,8 +64,8 @@ export async function GET(request: NextRequest) {
         t.function,
         t.type,
         t.verified,
-        COALESCE(c.pings, 0) AS pings,
-        COALESCE(a.chain_ids, ARRAY[]::bigint[]) AS "chainIds",
+        COALESCE(c.pings::int, 0) AS pings,
+        COALESCE(array(select x::text from unnest(a.chain_ids) as x), ARRAY[]::text[]) AS "chainIds",
         COALESCE(a.image, '/bitte-symbol-black.svg') AS image,
         FALSE as "isPrimitive"
       FROM tool t
@@ -56,33 +79,37 @@ export async function GET(request: NextRequest) {
       LIMIT ${limit} OFFSET ${offset}
     `;
 
-    const tools = await prismaClient.$queryRawUnsafe(query, ...params);
-
-    console.log(tools);
-
-    // FIXME: add primitives
-
-    // Response shape
-    // {
-    //   [x][] pings: number;
-    //   [x][] isPrimitive: boolean;
-    //   [x][] image: any;
-    //   [x][] function: JsonValue;
-    //   [x][] id: string;
-    //   [x][] agentId: string | null;
-    //   [x][] execution: JsonValue;
-    //   [x][] type: string;
-    //   [x][] verified: boolean;
-    // }[]
-
-    // Convert any BigInt values to strings to avoid JSON serialization issues
-    const sanitizedRes = JSON.parse(
-      JSON.stringify(tools, (_, value) =>
-        typeof value === 'bigint' ? value.toString() : value
-      )
+    const tools: SqlTool[] = await prismaClient.$queryRawUnsafe(
+      query,
+      ...params
     );
 
-    return NextResponse.json(sanitizedRes);
+    const primitivesRes = await fetch(`${BITTE_API_URL}/primitives`);
+    if (!primitivesRes.ok) throw await primitivesRes.json();
+    const primitives: SqlTool[] = (
+      (await primitivesRes.json()) as PrimitiveResponse[]
+    ).map((p) => ({
+      ...p,
+      isPrimitive: true,
+      image: '/bitte-symbol-black.svg',
+      agentId: null,
+      execution: null,
+      type: 'function',
+      verified: true,
+    }));
+
+    const res = [...primitives, ...tools];
+    res.sort((a, b) => b.pings - a.pings);
+
+    return new NextResponse(
+      JSON.stringify([...primitives, ...tools], (_, value) =>
+        typeof value === 'bigint' ? value.toString() : value
+      ),
+      {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      }
+    );
   } catch (error) {
     console.error('Error fetching tools:', error);
     return NextResponse.json(
