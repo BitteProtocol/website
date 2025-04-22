@@ -53,6 +53,12 @@ export const chainData = [
     scale: 0.9,
     enabled: false,
   },
+  {
+    logo: '/chains/gray/new_sui.svg',
+    name: 'Sui',
+    scale: 0.9,
+    enabled: false,
+  },
   // {
   //   logo: '/chains/btc.svg',
   //   scale: 0.9,
