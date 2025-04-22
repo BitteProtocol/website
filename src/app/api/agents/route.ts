@@ -1,6 +1,6 @@
 import { RegistryData } from '@/lib/types/agent.types';
 import { NextRequest, NextResponse } from 'next/server';
-import { queryAgents } from '@/lib/utils/firestore';
+import { listAgentsFiltered } from '@bitte-ai/data';
 import { createAgent, Prisma } from '@bitte-ai/data';
 import { kv } from '@vercel/kv';
 
@@ -13,12 +13,12 @@ export async function GET(request: NextRequest) {
     const verifiedOnly = searchParams.get('verifiedOnly') !== 'false';
     const category = searchParams.get('category') || undefined;
 
-    const agents = await queryAgents<RegistryData>({
+    const agents = await listAgentsFiltered({
       verified: verifiedOnly,
       chainIds,
       offset,
       limit,
-      category: category === '' ? undefined : category,
+      categories: category ? [category] : undefined,
     });
 
     const agentIds = agents.map((agent) => agent.id);

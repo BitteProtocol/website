@@ -1,49 +1,50 @@
-import { queryTools } from '@/lib/utils/firestore';
+import { prismaClient } from '@bitte-ai/data';
 import { NextRequest, NextResponse } from 'next/server';
-import { Tool } from '@/lib/types/tool.types';
-import { kv } from '@vercel/kv';
-import { BittePrimitiveNames } from '@/lib/constants';
 
-const getPingsByTool = async (toolName: string): Promise<number | null> => {
-  return await kv.get<number>(`smart-action:v1.0:tool:${toolName}:pings`);
-};
-
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const functionName = searchParams.get('function');
-  const verifiedOnly = searchParams.get('verifiedOnly') !== 'false';
-  const offset = parseInt(searchParams.get('offset') || '0');
-  const chainId = searchParams.get('chainId');
+export async function GET(_request: NextRequest) {
+  // // FIXME: make use of these params
+  // const { searchParams } = new URL(request.url);
+  // const functionName = searchParams.get('function');
+  // const verifiedOnly = searchParams.get('verifiedOnly') !== 'false';
+  // const offset = parseInt(searchParams.get('offset') || '0');
+  // const chainId = searchParams.get('chainId');
 
   try {
-    const tools = await queryTools<Tool>({
-      verified: verifiedOnly,
-      functionName: functionName || undefined,
-      offset,
-      chainId: chainId || undefined,
-    });
+    const res = await prismaClient.$queryRaw`
+      SELECT
+        t.*,
+        COALESCE(c.calls, 0) AS pings,
+        COALESCE(a.chain_ids, []) AS chain_ids,
+        COALESCE(a.image, '/bitte-symbol-black.svg') AS image
+      FROM tool t
+      LEFT JOIN (
+        SELECT tool_id, count(*) AS pings
+        FROM tool_call
+        GROUP BY tool_id
+      ) c ON t.id = c.tool_id
+      LEFT JOIN(
+        SELECT id, chain_ids, image FROM agent
+      ) a ON t.agent_id = a.id;
+    `;
 
-    const toolsWithPrimitiveFlags = tools.map((tool) => ({
-      ...tool,
-      isPrimitive: BittePrimitiveNames.includes(tool.function.name),
-      image: BittePrimitiveNames.includes(tool.function.name)
-        ? `/bitte-symbol-black.svg`
-        : tool.image,
-    }));
+    console.log(res);
 
-    const toolsWithPings = await Promise.all(
-      toolsWithPrimitiveFlags.map(async (tool) => {
-        const pings = await getPingsByTool(tool.function.name);
-        return {
-          ...tool,
-          pings: pings || 0,
-        };
-      })
-    );
-    console.log(toolsWithPings);
-    const sortedTools = toolsWithPings.sort((a, b) => b.pings - a.pings);
+    // FIXME: add primitives
 
-    return NextResponse.json(sortedTools);
+    // Response shape
+    // {
+    //   pings: number;
+    //   isPrimitive: boolean;
+    //   image: any;
+    //   function: JsonValue;
+    //   id: string;
+    //   agentId: string | null;
+    //   execution: JsonValue;
+    //   type: string;
+    //   verified: boolean;
+    // }[]
+
+    return NextResponse.json(res);
   } catch (error) {
     console.error('Error fetching tools:', error);
     return NextResponse.json(
