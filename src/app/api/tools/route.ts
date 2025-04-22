@@ -1,16 +1,39 @@
 import { prismaClient } from '@bitte-ai/data';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(_request: NextRequest) {
-  // // FIXME: make use of these params
-  // const { searchParams } = new URL(request.url);
-  // const functionName = searchParams.get('function');
-  // const verifiedOnly = searchParams.get('verifiedOnly') !== 'false';
-  // const offset = parseInt(searchParams.get('offset') || '0');
-  // const chainId = searchParams.get('chainId');
+export async function GET(request: NextRequest) {
+  // Get search parameters
+  const { searchParams } = new URL(request.url);
+  const functionName = searchParams.get('function');
+  const verifiedOnly = searchParams.get('verifiedOnly') !== 'false';
+  const offset = parseInt(searchParams.get('offset') || '0');
+  const limit = parseInt(searchParams.get('limit') || '10000');
+  const chainId = searchParams.get('chainId');
 
   try {
-    const tools = await prismaClient.$queryRaw`
+    let whereConditions = [];
+    let params = [];
+
+    if (verifiedOnly) {
+      whereConditions.push(`a.verified = true`);
+    }
+
+    if (functionName) {
+      whereConditions.push(`t.function->>'name' = $${functionName}`);
+      params.push(functionName);
+    }
+
+    if (chainId) {
+      whereConditions.push(`$${params.length + 1} IN a.chain_ids`);
+      params.push(chainId);
+    }
+
+    const whereClause =
+      whereConditions.length > 0
+        ? `WHERE ${whereConditions.join(' AND ')}`
+        : '';
+
+    const query = `
       SELECT
         t.id,
         t.agent_id as "agentId",
@@ -28,8 +51,12 @@ export async function GET(_request: NextRequest) {
         FROM tool_call
         GROUP BY tool_id
       ) c ON t.id = c.tool_id
-      LEFT JOIN agent a ON t.agent_id = a.id;
+      LEFT JOIN agent a ON t.agent_id = a.id
+      ${whereClause}
+      LIMIT ${limit} OFFSET ${offset}
     `;
+
+    const tools = await prismaClient.$queryRawUnsafe(query, ...params);
 
     console.log(tools);
 
