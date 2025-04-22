@@ -27,9 +27,12 @@ export default function AgentCard({
   const coverImage = getCoverImageUrl(agent.image);
   const runAgentUrl = getRunAgentUrl(agent.id, agent.verified);
   const publisher = agent.publisher || agent.accountId;
-  const displayPublisher = !publisher.endsWith('.near')
-    ? shortenAddress(publisher)
-    : publisher;
+
+  const displayPublisher =
+    publisher && !publisher.endsWith('.near')
+      ? shortenAddress(publisher)
+      : publisher;
+
 
   const mappedChainIds = mapChainIdsToNetworks(
     agent?.chainIds?.length ? agent.chainIds : [0],
