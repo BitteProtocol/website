@@ -4,6 +4,7 @@ import {
   FlaskConical,
   Hammer,
   TerminalSquare,
+  Settings,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -82,6 +83,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
           ]
         : []),
+      {
+        title: 'Settings',
+        url: '/settings',
+        icon: Settings,
+        isActive: pathname.startsWith('/settings'),
+      },
     ],
     links: [
       {
