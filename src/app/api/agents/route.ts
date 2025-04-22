@@ -4,6 +4,8 @@ import { listAgentsFiltered } from '@bitte-ai/data';
 import { createAgent, Prisma } from '@bitte-ai/data';
 import { kv } from '@vercel/kv';
 
+const { BITTE_API_URL = 'https://wallet.bitte.ai/api/v1' } = process.env;
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -68,15 +70,18 @@ export async function POST(request: NextRequest) {
       primitives: [],
     };
 
+    const primitiveNames: string[] = (
+      (await (await fetch(`${BITTE_API_URL}/primitives`)).json()) as {
+        id: string;
+      }[]
+    ).map((primitive) => primitive.id);
+
     if (input.tools)
       input.tools.forEach((tool) => {
-        // @ts-expect-error type shit
-        if (tool.id) {
-          // @ts-expect-error type shit
-          newAgent.tools.push(tool.id);
+        if (primitiveNames.includes(tool.function.name)) {
+          (newAgent.primitives as string[]).push(tool.function.name);
         } else {
-          // @ts-expect-error type shit
-          newAgent.primitives.push(tool.function.name);
+          (newAgent.tools as string[]).push(tool.function.name);
         }
       });
 
