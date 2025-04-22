@@ -50,7 +50,7 @@ export const AgentDetailComponent = ({
         </div>
         <div className='w-full'>
           <div className='grid grid-cols-1'>
-            <div className='h-[420px] lg:h-[600px] mb-6 '>
+            <div className='lg:h-[600px] mb-6 '>
               <AiChat
                 selectedAgent={agent}
                 isAgentPage

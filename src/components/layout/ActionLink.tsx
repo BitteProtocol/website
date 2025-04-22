@@ -44,14 +44,14 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
 
       <li className='w-full flex mb-5 items-center'>
         <div className='text-mb-gray-200 text-sm'>Publisher</div>
-        <div className='text-right text-sm ml-auto font-semibold'>
+        <div className='text-right text-sm ml-auto font-semibold truncate max-w-[120px] md:max-w-[200px]'>
           {agent.publisher || agent.accountId || 'Bitte'}
         </div>
       </li>
 
       <li className='w-full flex mb-5 items-center'>
         <div className='text-mb-gray-200 text-sm'>Id</div>
-        <div className='text-right text-sm ml-auto font-semibold'>
+        <div className='text-right text-sm ml-auto font-semibold truncate max-w-[120px] md:max-w-[200px]'>
           {agent.id}
         </div>
       </li>
