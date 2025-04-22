@@ -60,7 +60,7 @@ export default function AgentCard({
               <div className='flex flex-col'>
                 <span className='font-medium'>{agent.name}</span>
                 <span className='text-sm text-mb-gray-150 md:hidden truncate max-w-[160px]'>
-                  By {agent.accountId}
+                  By {agent.publisher || agent.accountId}
                 </span>
               </div>
             </div>
