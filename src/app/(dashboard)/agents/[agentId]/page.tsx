@@ -1,10 +1,23 @@
 import { AgentDetailComponent } from '@/components/layout/AgentDetail';
 import { getAllDailyPingsByAgentId } from '@/lib/api/kv';
 
-// Remove revalidate
-// Remove force-static
-export const dynamic = 'force-dynamic'; // Change to force-dynamic
+export const revalidate = 3600;
+export const dynamic = 'force-static';
 export const dynamicParams = true;
+
+// Generate static params for common agent pages
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/agents`);
+    const agents = await res.json();
+    return agents.map((agent: { id: string }) => ({
+      agentId: agent.id,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
+}
 
 export default async function AgentDetail({
   params,
