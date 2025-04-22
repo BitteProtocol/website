@@ -1,7 +1,7 @@
 import { RegistryData } from '@/lib/types/agent.types';
 import { NextRequest, NextResponse } from 'next/server';
-import { write, queryAgents } from '@/lib/utils/firestore';
-import { COLLECTIONS } from '@/lib/constants';
+import { listAgentsFiltered } from '@bitte-ai/data';
+import { createAgent, Prisma } from '@bitte-ai/data';
 import { kv } from '@vercel/kv';
 
 export async function GET(request: NextRequest) {
@@ -13,12 +13,12 @@ export async function GET(request: NextRequest) {
     const verifiedOnly = searchParams.get('verifiedOnly') !== 'false';
     const category = searchParams.get('category') || undefined;
 
-    const agents = await queryAgents<RegistryData>({
+    const agents = await listAgentsFiltered({
       verified: verifiedOnly,
       chainIds,
       offset,
       limit,
-      category: category === '' ? undefined : category,
+      categories: category ? [category] : undefined,
     });
 
     const agentIds = agents.map((agent) => agent.id);
@@ -47,11 +47,38 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const newAgent: RegistryData = {
+    const input: RegistryData = {
       ...body,
       verified: false,
       id: crypto.randomUUID(),
     };
+
+    const newAgent: Prisma.AgentCreateInput = {
+      id: input.id,
+      description: input.description || input.generatedDescription || '',
+      instructions: input.instructions || '',
+      name: input.name,
+      image: input.image,
+      categories: input.category ? [input.category] : [],
+      accountId: input.accountId,
+      repo: input.repo,
+      verified: false,
+      chainIds: input.chainIds,
+      tools: [],
+      primitives: [],
+    };
+
+    if (input.tools)
+      input.tools.forEach((tool) => {
+        // @ts-expect-error type shit
+        if (tool.id) {
+          // @ts-expect-error type shit
+          newAgent.tools.push(tool.id);
+        } else {
+          // @ts-expect-error type shit
+          newAgent.primitives.push(tool.function.name);
+        }
+      });
 
     const requiredFields = [
       'name',
@@ -60,7 +87,7 @@ export async function POST(request: NextRequest) {
       'instructions',
       'tools',
       'image',
-      'generatedDescription',
+      'description',
     ];
     const missingFields = requiredFields.filter(
       (field) => !(field in newAgent)
@@ -73,11 +100,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await write(COLLECTIONS.AGENTS, newAgent.id, newAgent);
-
-    if (!result.success) {
-      throw result.error;
-    }
+    await createAgent(newAgent);
 
     return NextResponse.json(newAgent, { status: 201 });
   } catch (error) {

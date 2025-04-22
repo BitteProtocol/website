@@ -12,4 +12,4 @@ export const ACTION_TEXTS: Record<string, string> = {
   'near-uniswap-agent.vercel.app': 'Swap 1 AVAX for USDC',
 };
 
-export const BITTE_AGENTID = '5195388f-0961-4a51-af0d-58d790f55e62';
+export const BITTE_AGENTID = 'bitte-defi';

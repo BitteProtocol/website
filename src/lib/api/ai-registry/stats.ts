@@ -1,9 +1,8 @@
-import { readAll } from '@/lib/utils/firestore';
-import { BitteAssistantConfig } from './registry';
+import { listAgents } from '@bitte-ai/data';
 import { getAllDailyPingsByAgentId, getTotalPingsByAgentIds } from '../kv';
 
 export const getStats = async () => {
-  const assistants = await readAll<BitteAssistantConfig>('ai-assistants');
+  const assistants = await listAgents();
   const agentIds = assistants.map((a) => a.id);
 
   const pingCounts = await getTotalPingsByAgentIds(agentIds);
