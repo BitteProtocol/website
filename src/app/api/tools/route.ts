@@ -42,7 +42,14 @@ export async function GET(_request: NextRequest) {
     //   verified: boolean;
     // }[]
 
-    return NextResponse.json(res);
+    // Convert any BigInt values to strings to avoid JSON serialization issues
+    const sanitizedRes = JSON.parse(
+      JSON.stringify(res, (_, value) =>
+        typeof value === 'bigint' ? value.toString() : value
+      )
+    );
+
+    return NextResponse.json(sanitizedRes);
   } catch (error) {
     console.error('Error fetching tools:', error);
     return NextResponse.json(
