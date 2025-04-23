@@ -3,12 +3,13 @@
 'use client';
 
 import { useIsClient } from '@/hooks/useIsClient';
+import { useWalletConnection } from '@/hooks/useWalletConnection';
 import { RegistryData } from '@/lib/types/agent.types';
 import { BitteAiChat } from '@bitte-ai/chat';
 import { useBitteWallet, Wallet } from '@bitte-ai/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useAccount, useSendTransaction, useSwitchChain } from 'wagmi';
+import { useSendTransaction, useSwitchChain } from 'wagmi';
 import ConnectDialog from './ConnectDialog';
 import CustomChatSendButton from './CustomChatSendBtn';
 import { useWallet as useSuiWallet } from '@suiet/wallet-kit';
@@ -37,15 +38,16 @@ const AiChat = ({
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
   const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
   const suiWallet = useSuiWallet();
-  const { address, isConnected: isEvmConnected } = useAccount();
   const { data: hash, sendTransaction } = useSendTransaction();
   const { switchChain } = useSwitchChain();
 
   const { selector, isConnected, isWalletSelectorSetup } = useBitteWallet();
+  const { isEvmConnected, isNearConnected, isSuiConnected, isLoading } =
+    useWalletConnection();
 
   const isClient = useIsClient();
   const isWalletDisconnected =
-    !isEvmConnected && !isConnected && !suiWallet.connected;
+    !isEvmConnected && !isNearConnected && !isSuiConnected;
 
   useEffect(() => {
     if (!selector) {
@@ -74,6 +76,10 @@ const AiChat = ({
 
     fetchWallet();
   }, [selector, isConnected, isWalletSelectorSetup]);
+
+  if (isLoading) {
+    return null; // Or a loading spinner
+  }
 
   return (
     isClient && (
@@ -116,7 +122,7 @@ const AiChat = ({
           evm: {
             sendTransaction,
             switchChain,
-            address,
+            address: isEvmConnected ? undefined : undefined,
             hash,
           },
           sui: {

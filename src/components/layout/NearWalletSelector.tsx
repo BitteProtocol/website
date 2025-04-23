@@ -25,6 +25,9 @@ export const NearWalletConnector = ({
   const handleSignIn = async () => {
     try {
       await connect();
+      setTimeout(() => {
+        window.dispatchEvent(new Event('walletStateChanged'));
+      }, 500);
     } catch (error) {
       console.error('Failed to connect wallet:', error);
     }
