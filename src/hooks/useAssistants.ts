@@ -27,7 +27,7 @@ export const useAssistantsByCategory = (category?: string) => {
     const fetchAssistantsByCategory = async () => {
       try {
         const response = await fetch(
-          `${MB_URL.REGISTRY_API_BASE}/agents?verifiedOnly=false&limit=150`
+          `${MB_URL.REGISTRY_API_BASE}/agents?verifiedOnly=false`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch agents');
@@ -99,9 +99,7 @@ export const useAllAssistants = () => {
   useEffect(() => {
     const fetchUnverifiedAssistants = async () => {
       try {
-        const response = await fetch(
-          `${MB_URL.REGISTRY_API_BASE}/agents?limit=150`
-        );
+        const response = await fetch(`${MB_URL.REGISTRY_API_BASE}/agents`);
         if (!response.ok) {
           throw new Error('Failed to fetch unverified agents');
         }
