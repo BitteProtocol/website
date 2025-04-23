@@ -82,6 +82,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
           ]
         : []),
+      {
+        title: 'Delegated Staking',
+        url: '/delegated-staking',
+        icon: Hammer,
+        isActive: pathname.startsWith('/delegated-staking'),
+      },
     ],
     links: [
       {
