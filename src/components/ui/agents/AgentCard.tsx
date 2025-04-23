@@ -33,7 +33,6 @@ export default function AgentCard({
       ? shortenAddress(publisher)
       : publisher;
 
-
   const mappedChainIds = mapChainIdsToNetworks(
     agent?.chainIds?.length ? agent.chainIds : [0],
     true

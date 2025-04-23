@@ -11,6 +11,7 @@
     "test": "jest",
     "postinstall": "prisma generate",
     "prepare": "husky",
+    "fmt": "prettier --write . && eslint --fix .",
     "pre-commit": "pnpm run ts && pnpx lint-staged && git add -A ."
   },
   "dependencies": {
