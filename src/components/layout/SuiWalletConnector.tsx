@@ -42,6 +42,10 @@ export const SuiWalletConnector: React.FC<WalletConnectorProps> = ({
       select(walletName);
       setShowWalletModal(false);
       setConnectModalOpen?.(false);
+      // Force a state update after a short delay to ensure the connection is complete
+      setTimeout(() => {
+        window.dispatchEvent(new Event('walletStateChanged'));
+      }, 500);
     } catch (error) {
       console.error('Failed to connect to wallet:', error);
       setConnectionError(

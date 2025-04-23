@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { headers } from 'next/headers';
+import { headers, cookies } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 
 import '@/app/styles/globals.css';
@@ -51,7 +51,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookies = headers().get('wagmi');
+  const wagmiCookies = headers().get('wagmi');
+  const cookieStore = cookies();
+  const walletState = cookieStore.get('wallet_state')?.value;
+  const decodedState = walletState ? decodeURIComponent(walletState) : null;
+  const parsedState = decodedState ? JSON.parse(decodedState) : null;
+  const isConnected =
+    parsedState?.isEvmConnected ||
+    parsedState?.isNearConnected ||
+    parsedState?.isSuiConnected;
+
   return (
     <html lang='en' className='overflow-x-hidden'>
       <head>
@@ -61,10 +70,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} dark bg-black`}>
-        <Providers cookies={cookies}>
-          <Header />
+        <Providers cookies={wagmiCookies}>
+          {!isConnected && <Header />}
           {children}
-          <Footer />
+          {!isConnected && <Footer />}
           <Analytics />
           <NextTopLoader color='#334155' showSpinner={false} height={4} />
           <SpeedInsights />

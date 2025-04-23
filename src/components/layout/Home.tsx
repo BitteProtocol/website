@@ -8,6 +8,7 @@ import { MB_URL } from '@/lib/url';
 import { ProductCardsSection } from './ProductCardsSection';
 import { SupportedChainsSection } from './SupportedChainsSection';
 import TextSection from './TextSection';
+import { WalletConnectionState } from '@/lib/types/wallet.types';
 
 import dynamic from 'next/dynamic';
 
@@ -51,7 +52,11 @@ const crossSection = {
   isDisabled: false,
 };
 
-export const HomeComponent = () => {
+interface HomeComponentProps {
+  initialWalletState: WalletConnectionState | null;
+}
+
+export const HomeComponent: React.FC<HomeComponentProps> = () => {
   return (
     <>
       <SupportedChainsSection />
