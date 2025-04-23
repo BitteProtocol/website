@@ -13,6 +13,7 @@ import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import Providers from '@/lib/providers/Providers';
 import { MB_URL } from '@/lib/url';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -67,6 +68,7 @@ export default function RootLayout({
           <Analytics />
           <NextTopLoader color='#334155' showSpinner={false} height={4} />
           <SpeedInsights />
+          <Toaster />
         </Providers>
       </body>
     </html>

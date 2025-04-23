@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Plus, ArrowLeft, Loader2 } from 'lucide-react';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { useState, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
+import { Loader2, Plus, Trash } from 'lucide-react';
+import Image from 'next/image';
+import { useRef, useState } from 'react';
 
 interface ImageUploaderProps {
   image: string | null;
@@ -205,7 +205,7 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
                     }}
                     className='h-9 w-9 p-0'
                   >
-                    <ArrowLeft className='h-4 w-4' />
+                    <Trash className='h-4 w-4' />
                   </Button>
                 </div>
               </div>
