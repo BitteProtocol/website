@@ -1,4 +1,4 @@
-import { useSocialConnections } from '@/hooks/useSocialConnections';
+import { useNextAuthSocialConnections } from '@/hooks/useNextAuthSocialConnections';
 import { Github, Loader2, Twitter, X } from 'lucide-react';
 
 const SocialSection = () => {
@@ -10,7 +10,9 @@ const SocialSection = () => {
     disconnectSocialAccount,
     isConnected,
     getAccount,
-  } = useSocialConnections();
+    session,
+    status,
+  } = useNextAuthSocialConnections();
 
   const handleConnect = (provider: string) => {
     connectSocialAccount(provider);
@@ -46,7 +48,9 @@ const SocialSection = () => {
           <div className='ml-4 flex items-center'>
             {isConnected('twitter') ? (
               <>
-                <span className='text-gray-400 mr-4'>CONNECTED</span>
+                <span className='text-gray-400 mr-4'>
+                  {getAccount('twitter')?.username || 'CONNECTED'}
+                </span>
                 <button
                   className='text-gray-400 hover:text-red-500'
                   onClick={() => handleDisconnect('twitter')}
@@ -84,7 +88,7 @@ const SocialSection = () => {
             {isConnected('github') ? (
               <>
                 <span className='text-blue-400 mr-4'>
-                  {getAccount('github')?.username}
+                  {getAccount('github')?.username || '@github-user'}
                 </span>
                 <button
                   className='text-gray-400 hover:text-red-500'

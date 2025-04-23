@@ -1,61 +1,88 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-// Mock function to simulate saving social accounts to a database
-// This would be replaced with actual database operations
+// Get user from session
+const getUserFromSession = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user) {
+    throw new Error('Unauthorized');
+  }
+  return session.user;
+};
+
+// Save connection to database (this would connect to your DB)
 const saveUserSocialAccount = async (
   userId: string,
   provider: string,
   accountDetails: any
 ) => {
-  console.log(`Saving ${provider} account for user ${userId}:`, accountDetails);
-  // Simulate success
+  // Here you'd store in your database, example with Prisma:
+  // return prisma.socialConnection.upsert({
+  //   where: {
+  //     userId_provider: { userId, provider }
+  //   },
+  //   update: {
+  //     username: accountDetails.username,
+  //     profileUrl: accountDetails.profileUrl
+  //   },
+  //   create: {
+  //     userId,
+  //     provider,
+  //     username: accountDetails.username,
+  //     profileUrl: accountDetails.profileUrl
+  //   }
+  // });
+
+  // For now, just simulate success
+  console.log(
+    `Saving ${provider} connection for user ${userId}:`,
+    accountDetails
+  );
   return { success: true };
 };
 
-// Mock function to simulate getting user ID from session
-// This would be replaced with actual auth verification
-const getUserIdFromSession = async (request: NextRequest) => {
-  // In a real implementation, you would verify session/token
-  // and extract the user ID
-  return 'mock-user-id';
-};
-
-export async function POST(request: NextRequest) {
+// Get user's connected accounts
+export async function GET() {
   try {
-    const { provider, accountDetails } = await request.json();
+    const user = await getUserFromSession();
 
-    if (!provider) {
-      return NextResponse.json(
-        { error: 'Provider is required' },
-        { status: 400 }
-      );
+    // Here you'd fetch from your database, example with Prisma:
+    // const connections = await prisma.socialConnection.findMany({
+    //   where: { userId: user.id }
+    // });
+
+    // For now, return mock data based on session
+    const connections = [];
+
+    // If the user is authenticated via GitHub, add GitHub connection
+    if (user.provider === 'github') {
+      connections.push({
+        provider: 'github',
+        username: user.username || '@github-user',
+        profileUrl: `https://github.com/${user.username}`,
+      });
     }
 
-    // Get user ID from session (mock for now)
-    const userId = await getUserIdFromSession(request);
+    // If the user is authenticated via Twitter, add Twitter connection
+    if (user.provider === 'twitter') {
+      connections.push({
+        provider: 'twitter',
+        username: user.username || '@twitter-user',
+        profileUrl: `https://twitter.com/${user.username}`,
+      });
+    }
 
-    // Save social account (mock for now)
-    await saveUserSocialAccount(userId, provider, accountDetails);
-
-    // Simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
+    return NextResponse.json({ accounts: connections }, { status: 200 });
+  } catch (error: any) {
     return NextResponse.json(
-      {
-        message: `${provider} account connected successfully`,
-        accountDetails,
-      },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error(`Failed to connect social account:`, error);
-    return NextResponse.json(
-      { error: 'Failed to connect social account' },
-      { status: 500 }
+      { error: 'Failed to get social connections' },
+      { status: error.message === 'Unauthorized' ? 401 : 500 }
     );
   }
 }
 
+// Delete social connection
 export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -68,25 +95,26 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // Get user ID from session (mock for now)
-    const userId = await getUserIdFromSession(request);
+    const user = await getUserFromSession();
 
-    // In a real implementation, you would delete the social account
-    // from the database
-    console.log(`Disconnecting ${provider} account for user ${userId}`);
+    // Here you'd delete from your database, example with Prisma:
+    // await prisma.socialConnection.delete({
+    //   where: {
+    //     userId_provider: { userId: user.id, provider }
+    //   }
+    // });
 
-    // Simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // Just log for now
+    console.log(`Deleting ${provider} connection for user ${user.id}`);
 
     return NextResponse.json(
       { message: `${provider} account disconnected successfully` },
       { status: 200 }
     );
-  } catch (error) {
-    console.error(`Failed to disconnect social account:`, error);
+  } catch (error: any) {
     return NextResponse.json(
       { error: 'Failed to disconnect social account' },
-      { status: 500 }
+      { status: error.message === 'Unauthorized' ? 401 : 500 }
     );
   }
 }
