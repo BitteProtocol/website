@@ -23,7 +23,6 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
       ? shortenAddress(publisher)
       : publisher;
 
-
   return (
     <ul>
       <li className='w-full flex mb-5 items-center'>
