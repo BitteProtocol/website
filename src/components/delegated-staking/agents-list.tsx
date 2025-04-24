@@ -5,8 +5,10 @@ import { useEffect } from 'react';
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
 import { graphQLClient } from '@/lib/graphql/client';
 import { GET_AGENTS_BY_STAKE } from '@/lib/graphql/queries';
-import { ArrowRight, InfoIcon } from 'lucide-react';
+import { AlertCircle, ArrowRight, CheckCircle, InfoIcon } from 'lucide-react';
 import { useState } from 'react';
+import { parseAbi, parseUnits } from 'viem';
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { Button } from '../ui/button';
 import {
   Dialog,
@@ -33,8 +35,13 @@ import {
   TooltipTrigger,
 } from '../ui/tooltip';
 
-// ... keep the rest of the imports
+// Define the contract address
+const STAKING_CONTRACT_ADDRESS = '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
 
+// Define the ABI for just the stake function
+const stakingAbi = parseAbi([
+  'function stake(address agent, uint256 amount) external returns (uint256)',
+]);
 interface Agent {
   id: string;
   isActive: boolean;
@@ -64,6 +71,17 @@ export function AgentsList({ address }: { address?: string }) {
   const [stakeAmount, setStakeAmount] = useState('');
   const [open, setOpen] = useState(false);
 
+  const {
+    writeContract,
+    isPending: isStaking,
+    data: txHash,
+  } = useWriteContract();
+  const {
+    isLoading: isConfirming,
+    isSuccess: isStakeConfirmed,
+    data: txReceipt,
+  } = useWaitForTransactionReceipt({ hash: txHash });
+
   const { bitte, dBitte, sBitte } = useBitteTokenBalances(address);
 
   console.log({ bitte, dBitte, sBitte });
@@ -91,14 +109,36 @@ export function AgentsList({ address }: { address?: string }) {
     fetchAgents();
   }, []);
 
-  const handleStake = () => {
-    if (selectedAgent) {
-      //    onStake(selectedAgent.id, stakeAmount)
-      setOpen(false);
-      setStakeAmount('');
+  const handleStake = async () => {
+    if (!selectedAgent || !stakeAmount || stakeAmount === '0') {
+      // Show error message - can't stake with no amount or agent
+      return;
+    }
+
+    try {
+      // Parse the amount with 18 decimals (assuming your token has 18 decimals)
+      const parsedAmount = parseUnits(stakeAmount, 18);
+
+      // Call the contract
+      writeContract({
+        address: STAKING_CONTRACT_ADDRESS,
+        abi: stakingAbi,
+        functionName: 'stake',
+        args: [selectedAgent.id as `0x${string}`, parsedAmount],
+      });
+
+      // The UI will be updated automatically based on the isPending, isConfirming states
+      // After transaction is confirmed:
+      if (isStakeConfirmed) {
+        setOpen(false);
+        setStakeAmount('');
+        // Maybe show a success message or refresh balances
+      }
+    } catch (error) {
+      console.error('Error staking tokens:', error);
+      // Handle error (show toast message, etc.)
     }
   };
-
   if (loading) return <div>Loading agents...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -194,11 +234,47 @@ export function AgentsList({ address }: { address?: string }) {
                       </p>
                     </div>
                   </div>
+
+                  {isStakeConfirmed && (
+                    <div
+                      className={`p-3 rounded-md ${
+                        isStaking
+                          ? 'bg-blue-50 text-blue-700'
+                          : isStakeConfirmed
+                            ? 'bg-green-50 text-green-700'
+                            : 'bg-red-50 text-red-700'
+                      }`}
+                    >
+                      <div className='flex items-center'>
+                        {isStakeConfirmed ? (
+                          <CheckCircle className='h-5 w-5 mr-2 flex-shrink-0' />
+                        ) : (
+                          <AlertCircle className='h-5 w-5 mr-2 flex-shrink-0' />
+                        )}
+                        <p className='text-sm font-medium'>
+                          {txReceipt?.transactionHash}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                   <div className='flex gap-4 justify-end items-center'>
                     <Button variant='outline' onClick={() => setOpen(false)}>
                       Cancel
                     </Button>
-                    <Button onClick={handleStake}>Stake Tokens</Button>
+                    <Button
+                      onClick={handleStake}
+                      disabled={isStaking || isConfirming || isStakeConfirmed}
+                      className={isStaking || isConfirming ? 'opacity-80' : ''}
+                    >
+                      {isStaking || isConfirming ? (
+                        <>
+                          <span className='mr-2'>Staking</span>
+                          <div className='h-4 w-4 rounded-full border-2 border-current border-t-transparent animate-spin' />
+                        </>
+                      ) : (
+                        'Stake'
+                      )}
+                    </Button>{' '}
                   </div>
                 </DialogContent>
               </Dialog>
