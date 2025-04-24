@@ -87,12 +87,6 @@ export function ImageUploader({ image, setImage }: ImageUploaderProps) {
 
       // Update the image state
       setImage(data.url);
-
-      toast({
-        title: 'Success',
-        description: 'Image generated successfully and added to your agent',
-        variant: 'default',
-      });
     } catch (error) {
       console.error('Failed to generate image:', error);
       toast({
