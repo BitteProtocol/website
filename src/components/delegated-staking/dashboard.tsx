@@ -1,9 +1,9 @@
 'use client';
 
-import { AgentsList } from './agents-list';
-import { UserBalance } from './balance';
+import AgentsList from './agents-list';
+import UserBalance from './balance';
 
-export default function Dashboard() {
+const Dashboard = () => {
   /* const { address } = useAccount(); */
   return (
     <div className='min-h-screen bg-background'>
@@ -20,4 +20,6 @@ export default function Dashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default Dashboard;

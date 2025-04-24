@@ -42,7 +42,7 @@ const stakingAbi = parseAbi([
   'function stake(address agent, uint256 amount) external returns (uint256)',
 ]);
 
-export function AgentsList({ address }: { address: `0x${string}` }) {
+const AgentsList = ({ address }: { address: `0x${string}` }) => {
   const [selectedAgent, setSelectedAgent] = useState<DelegatedAgent | null>(
     null
   );
@@ -250,4 +250,6 @@ export function AgentsList({ address }: { address: `0x${string}` }) {
       </TableBody>
     </Table>
   );
-}
+};
+
+export default AgentsList;

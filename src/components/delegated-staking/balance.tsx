@@ -12,7 +12,7 @@ import { Wallet } from 'lucide-react';
 import { sepolia } from 'viem/chains';
 import { Skeleton } from '../ui/skeleton';
 
-export function UserBalance({ address }: { address: `0x${string}` }) {
+const UserBalance = ({ address }: { address: `0x${string}` }) => {
   const { balances, isLoading, error, refetch } = useBitteTokenBalances(
     sepolia,
     address
@@ -54,4 +54,6 @@ export function UserBalance({ address }: { address: `0x${string}` }) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default UserBalance;
