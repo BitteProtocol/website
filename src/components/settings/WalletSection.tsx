@@ -4,17 +4,31 @@ import EvmNetworkSelector from '@/components/layout/EvmNetworkSelector';
 import { useBitteWallet } from '@bitte-ai/react';
 import { useWallet } from '@suiet/wallet-kit';
 import { useAccount } from 'wagmi';
-import { Copy } from 'lucide-react';
+import { Copy, Unlink } from 'lucide-react';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 const WalletSection = () => {
-  const { isConnected, address: ethAddress } = useAccount();
-  const { connected: isSuiConnected, account: suiAccount } = useWallet();
-  const { isConnected: isNearConnected, activeAccountId } = useBitteWallet();
+  const { isConnected, address: ethAddress, disconnect } = useAccount();
+  const {
+    connected: isSuiConnected,
+    account: suiAccount,
+    disconnect: disconnectSui,
+  } = useWallet();
+  const {
+    isConnected: isNearConnected,
+    activeAccountId,
+    selector,
+  } = useBitteWallet();
 
   const [copiedAddresses, setCopiedAddresses] = useState<
     Record<string, boolean>
   >({});
+
+  const handleSignout = async () => {
+    const wallet = await selector.wallet();
+    return wallet.signOut();
+  };
 
   const copyAddress = (address: string) => {
     navigator.clipboard.writeText(address);
@@ -30,67 +44,65 @@ const WalletSection = () => {
 
   return (
     <div>
-      <h2 className='text-xl font-bold mb-4'>Accounts & Networks</h2>
+      <h2 className='text-xl font-semibold mb-4'>Accounts & Networks</h2>
       <div className='border-b border-zinc-800 mb-8 pb-2'></div>
 
-      <h3 className='text-lg font-bold mb-4'>Connected Wallets</h3>
-      <p className='text-gray-400 mb-6'>
+      <h3 className='text-lg font-semibold mb-4'>Connected Wallets</h3>
+      <p className='text-mb-silver text-sm font-medium mb-6'>
         These wallets are currently connected.
       </p>
 
-      <div className='space-y-6'>
+      <div className='space-y-2'>
         {/* NEAR Wallet */}
         {isNearConnected && activeAccountId && (
-          <div className='mb-6 p-4 bg-zinc-900 rounded-md'>
-            <div className='mb-4'>
+          <>
+            <div className='mb-2 inline-block'>
               <WalletBadge
                 networkName='NEAR'
                 iconPath='/chains/near_wallet_connector_v2.svg'
-                className='mb-3'
+                className=''
               />
             </div>
             <div className='flex items-center justify-between'>
               <WalletAddress address={activeAccountId} isNearAddress={true} />
-              <button
-                className='text-gray-400 hover:text-white'
-                onClick={() => copyAddress(activeAccountId)}
-                title='Copy address'
+              <Button
+                variant='outline'
+                className='px-2.5 border border-mb-red-30 bg-transparent'
+                size='sm'
+                onClick={handleSignout}
+                aria-label='Disconnect'
               >
-                <Copy size={18} />
-              </button>
+                <Unlink size={16} color='#EF4444' />
+              </Button>
             </div>
-            {copiedAddresses[activeAccountId] && (
-              <span className='text-green-500 text-xs mt-1 block'>Copied!</span>
-            )}
-          </div>
+          </>
         )}
 
         {/* Ethereum Wallet */}
         {isConnected && ethAddress && (
-          <div className='mb-6 p-4 bg-zinc-900 rounded-md'>
-            <div className='mb-4'>
+          <>
+            <div className='mb-2 inline-block'>
               <EvmNetworkSelector />
             </div>
             <div className='flex items-center justify-between'>
               <WalletAddress address={ethAddress as string} />
-              <button
-                className='text-gray-400 hover:text-white'
-                onClick={() => copyAddress(ethAddress as string)}
-                title='Copy address'
+              <Button
+                variant='outline'
+                className='px-2.5 border border-mb-red-30 bg-transparent'
+                size='sm'
+                onClick={disconnect}
+                aria-label='Disconnect'
               >
-                <Copy size={18} />
-              </button>
+                <Unlink size={16} color='#EF4444' />
+              </Button>
             </div>
-            {copiedAddresses[ethAddress as string] && (
-              <span className='text-green-500 text-xs mt-1 block'>Copied!</span>
-            )}
-          </div>
+          </>
         )}
 
         {/* SUI Wallet */}
         {isSuiConnected && suiAccount && (
-          <div className='mb-6 p-4 bg-zinc-900 rounded-md'>
-            <div className='mb-4'>
+          <>
+            <div className='mb-2 inline-block'>
               <WalletBadge
                 networkName='SUI'
                 iconPath='/sui-logo.png'
@@ -99,18 +111,17 @@ const WalletSection = () => {
             </div>
             <div className='flex items-center justify-between'>
               <WalletAddress address={suiAccount.address} />
-              <button
-                className='text-gray-400 hover:text-white'
-                onClick={() => copyAddress(suiAccount.address)}
-                title='Copy address'
+              <Button
+                variant='outline'
+                className='px-2.5 border border-mb-red-30 bg-transparent'
+                size='sm'
+                onClick={disconnectSui}
+                aria-label='Disconnect'
               >
-                <Copy size={18} />
-              </button>
+                <Unlink size={16} color='#EF4444' />
+              </Button>
             </div>
-            {copiedAddresses[suiAccount.address] && (
-              <span className='text-green-500 text-xs mt-1 block'>Copied!</span>
-            )}
-          </div>
+          </>
         )}
 
         {/* Fallback message if no wallets are connected */}

@@ -24,8 +24,8 @@ const SocialSection = () => {
 
   return (
     <div className='mb-12'>
-      <h2 className='text-xl font-bold mb-4'>Socials</h2>
-      <p className='text-gray-400 mb-6'>
+      <h2 className='text-lg font-semibold mb-4'>Socials</h2>
+      <p className='text-mb-silver text-sm font-medium mb-6'>
         Connect your social accounts for additional methods of account recovery.
       </p>
 
@@ -33,26 +33,26 @@ const SocialSection = () => {
         {/* Twitter/X Connection */}
         <div className='flex items-center'>
           <button
-            className='flex items-center bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded w-32'
+            className={`flex items-center ${isConnected('twitter') ? 'bg-mb-blue-30' : 'bg-zinc-800'} hover:bg-zinc-700 px-4 py-2 rounded w-32 ${
+              isConnecting && !isConnected('twitter') ? 'animate-pulse' : ''
+            }`}
             onClick={() => handleConnect('twitter')}
             disabled={isConnecting || isDisconnecting || isConnected('twitter')}
           >
-            {isConnecting && !isConnected('twitter') ? (
+            {isConnecting && !isConnected('twitter') && (
               <Loader2 size={20} className='mr-2 animate-spin' />
-            ) : (
-              <Twitter size={20} className='mr-2' />
             )}
-            <span>X</span>
+            <span className='mx-auto'>X</span>
           </button>
 
           <div className='ml-4 flex items-center'>
             {isConnected('twitter') ? (
               <>
-                <span className='text-gray-400 mr-4'>
+                <span className='text-mb-blue-100 mr-4'>
                   {getAccount('twitter')?.username || 'CONNECTED'}
                 </span>
                 <button
-                  className='text-gray-400 hover:text-red-500'
+                  className='text-mb-silver hover:text-red-500'
                   onClick={() => handleDisconnect('twitter')}
                   disabled={isDisconnecting}
                 >
@@ -64,7 +64,9 @@ const SocialSection = () => {
                 </button>
               </>
             ) : (
-              <span className='text-gray-400'>NOT CONNECTED</span>
+              <span className='text-[#ADAFB6] font-medium text-xs uppercase'>
+                NOT CONNECTED
+              </span>
             )}
           </div>
         </div>
@@ -72,7 +74,7 @@ const SocialSection = () => {
         {/* GitHub Connection */}
         <div className='flex items-center'>
           <button
-            className='flex items-center bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded w-32'
+            className='flex items-center bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded w-32 h-[40px]'
             onClick={() => handleConnect('github')}
             disabled={isConnecting || isDisconnecting || isConnected('github')}
           >
@@ -81,7 +83,7 @@ const SocialSection = () => {
             ) : (
               <Github size={20} className='mr-2' />
             )}
-            <span>Github</span>
+            <span className='font-medium text-sm'>Github</span>
           </button>
 
           <div className='ml-4 flex items-center'>
@@ -91,7 +93,7 @@ const SocialSection = () => {
                   {getAccount('github')?.username || '@github-user'}
                 </span>
                 <button
-                  className='text-gray-400 hover:text-red-500'
+                  className='text-gray-400 hover:text-red-500 h-[40px]'
                   onClick={() => handleDisconnect('github')}
                   disabled={isDisconnecting}
                 >
@@ -103,7 +105,9 @@ const SocialSection = () => {
                 </button>
               </>
             ) : (
-              <span className='text-gray-400'>NOT CONNECTED</span>
+              <span className='text-[#ADAFB6] font-medium text-xs uppercase'>
+                NOT CONNECTED
+              </span>
             )}
           </div>
         </div>

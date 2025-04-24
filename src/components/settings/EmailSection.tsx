@@ -9,21 +9,23 @@ const EmailSection = () => {
 
   return (
     <div className='mb-12'>
-      <h2 className='text-xl font-bold mb-4'>E-Mail</h2>
-      <p className='text-gray-400 mb-6'>
+      <h2 className='text-lg font-semibold mb-4'>E-Mail</h2>
+      <p className='text-mb-silver text-sm font-medium mb-6'>
         This email address will be used to send important notifications about
         your account and to assist with account recovery.
       </p>
 
       <div className='mb-6'>
-        <label className='block text-gray-400 mb-2'>E-Mail Address</label>
+        <label className='block text-[#ADAFB6] text-sm font-medium mb-2'>
+          E-Mail Address
+        </label>
         <div className='relative'>
           <Input
             type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Enter your email address'
-            className='w-full max-w-md bg-zinc-900 border-zinc-700 text-white'
+            className='w-full max-w-md bg-[#282A2F] border-none text-[#6B6E74] text-base font-normal'
           />
           {isSuccess && (
             <div className='absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500'>
@@ -37,7 +39,7 @@ const EmailSection = () => {
       <Button
         onClick={saveEmail}
         disabled={!email || isSaving}
-        className='bg-zinc-800 hover:bg-zinc-700'
+        variant='secondary'
       >
         {isSaving ? 'Saving...' : 'Save'}
       </Button>
