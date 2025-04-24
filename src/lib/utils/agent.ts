@@ -7,7 +7,7 @@ import { generateId } from 'ai';
  */
 export const getCoverImageUrl = (imageUrl: string | undefined): string => {
   if (!imageUrl) return '/logo.svg';
-  if (imageUrl.startsWith('http')) {
+  if (imageUrl.startsWith('http') || imageUrl.startsWith('data:')) {
     return imageUrl;
   }
   return `/${imageUrl.replace(/^\//, '')}`;

@@ -45,7 +45,6 @@ export const MB_URL = {
     'https://github.com/Mintbase/mintbase-js/tree/beta/packages/storage',
   MINTBASEJS_RPC:
     'https://github.com/Mintbase/mintbase-js/tree/beta/packages/rpc',
-  ARWEAVE: 'https://arweave.org',
   STRIPE: 'https://stripe.com/docs/js',
   NEARCON_MINSTA: 'https://nearcon.mintbase.xyz',
   SMART_ACTIONS_PROMPT: 'https://wallet.bitte.ai/smart-actions/prompt',

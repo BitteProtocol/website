@@ -8,7 +8,7 @@ export const dropCardData = {
     {
       id: 1,
       badge: 'Embed',
-      action: 'Embeded Agent Example',
+      action: 'Embedded Agent Example',
       sub: '10 Min Install',
       bg: '/examples/embed_bitte_growthmate_2.webp',
       link: `https://chat.growthmate.xyz/`,
@@ -107,7 +107,7 @@ export const newsCardData = {
   cards: [
     {
       id: 1,
-      badge: 'Hackaton',
+      badge: 'Hackathon',
       action: '1 Trillion Agents Hackathon',
       sub: '',
       bg: '/examples/hackaton.webp',
@@ -117,7 +117,7 @@ export const newsCardData = {
     },
     {
       id: 2,
-      badge: 'Agent Onbording',
+      badge: 'Agent Onboarding',
       action: 'Embed AI, Automate DeFi, Grow your app',
       sub: '',
       bg: '/examples/paul.webp',
@@ -128,7 +128,7 @@ export const newsCardData = {
     {
       id: 3,
       badge: 'Avalanche',
-      action: 'Avalanche Infra Build(AI) Grant boost Bitte’s Mission',
+      action: 'Avalanche infraBUIDL(AI) Grant boosts Bitte’s Mission',
       sub: '',
       bg: '/examples/ava.webp',
       link: 'https://bitteprotocol.substack.com/p/bitte-receives-infrabuidlai-grant',
