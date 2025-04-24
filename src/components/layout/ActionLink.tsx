@@ -5,6 +5,7 @@ import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { buttonVariants } from '../ui/button';
 import { Badge } from '@/components/ui/badge';
 import { RegistryData } from '@/lib/types/agent.types';
+import { shortenAddress } from '@/lib/utils/strings';
 
 export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
   const buttonCss = `flex p-0 repository-link ${buttonVariants({
@@ -14,6 +15,13 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
   const handleActionClick = (type: string) => {
     trackAnalytics(`Detail Page ${type}`, agent.name);
   };
+
+  const publisher = agent.publisher || agent.accountId;
+
+  const displayPublisher =
+    publisher && !publisher.endsWith('.near')
+      ? shortenAddress(publisher)
+      : publisher;
 
   return (
     <ul>
@@ -45,7 +53,7 @@ export const ActionLink = ({ agent }: { agent: RegistryData }): JSX.Element => {
       <li className='w-full flex mb-5 items-center'>
         <div className='text-mb-gray-200 text-sm'>Publisher</div>
         <div className='text-right text-sm ml-auto font-semibold truncate max-w-[120px] md:max-w-[200px]'>
-          {agent.publisher || agent.accountId || 'Bitte'}
+          {displayPublisher || 'Bitte'}
         </div>
       </li>
 

@@ -9,8 +9,11 @@
     "lint": "next lint",
     "ts": "tsc --noEmit --incremental",
     "test": "jest",
+    "test-unit": "jest --testPathIgnorePatterns=e2e",
+    "test-e2e": "jest --testPathIgnorePatterns=unit",
     "postinstall": "prisma generate",
     "prepare": "husky",
+    "fmt": "prettier --write . && eslint --fix .",
     "pre-commit": "pnpm run ts && pnpx lint-staged && git add -A ."
   },
   "dependencies": {
@@ -35,6 +38,7 @@
     "@radix-ui/react-separator": "^1.1.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.11",
     "@radix-ui/react-tooltip": "^1.1.7",
     "@reown/appkit": "^1.6.3",
     "@reown/appkit-adapter-wagmi": "^1.6.3",
@@ -57,7 +61,7 @@
     "lint-staged": "^15.2.2",
     "lucide-react": "^0.462.0",
     "near-api-js": "^5.0.1",
-    "next": "14.1.0",
+    "next": "14.2.25",
     "nextjs-toploader": "^1.6.6",
     "openai": "^4.73.1",
     "prismjs": "^1.29.0",

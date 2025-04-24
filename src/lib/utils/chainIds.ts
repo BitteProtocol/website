@@ -17,6 +17,8 @@ export function getNetworkMapping(
     42161: { name: 'Arbitrum', icon: `${baseIconPath}arbi.svg` },
     10: { name: 'Optimism', icon: `${baseIconPath}op.svg` },
     8453: { name: 'Base', icon: `${baseIconPath}base.svg` },
+    101: { name: 'Sui', icon: `${baseIconPath}sui.svg` },
+    11155111: { name: 'Sepolia', icon: `${baseIconPath}eth.svg` },
   };
 }
 

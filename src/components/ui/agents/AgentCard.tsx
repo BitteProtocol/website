@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import type { RegistryData } from '@/lib/types/agent.types';
 import { getCoverImageUrl, getRunAgentUrl } from '@/lib/utils/agent';
 import { mapChainIdsToNetworks } from '@/lib/utils/chainIds';
-import { shortenString } from '@/lib/utils/strings';
+import { shortenAddress, shortenString } from '@/lib/utils/strings';
 import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,6 +26,12 @@ export default function AgentCard({
 
   const coverImage = getCoverImageUrl(agent.image);
   const runAgentUrl = getRunAgentUrl(agent.id, agent.verified);
+  const publisher = agent.publisher || agent.accountId;
+
+  const displayPublisher =
+    publisher && !publisher.endsWith('.near')
+      ? shortenAddress(publisher)
+      : publisher;
 
   const mappedChainIds = mapChainIdsToNetworks(
     agent?.chainIds?.length ? agent.chainIds : [0],
@@ -60,7 +66,7 @@ export default function AgentCard({
               <div className='flex flex-col'>
                 <span className='font-medium'>{agent.name}</span>
                 <span className='text-sm text-mb-gray-150 md:hidden truncate max-w-[160px]'>
-                  By {agent.accountId}
+                  By {displayPublisher}
                 </span>
               </div>
             </div>
@@ -82,7 +88,7 @@ export default function AgentCard({
           <div className='mt-auto'>
             <div className='flex flex-wrap gap-2 items-center'>
               <span className='hidden md:inline-flex text-sm text-mb-gray-200 truncate max-w-[400px]'>
-                By {agent.accountId}
+                By {displayPublisher}
               </span>
               {agent.category && (
                 <span className='text-xs font-medium px-2.5 py-1 bg-mb-gray-600 rounded-full'>
