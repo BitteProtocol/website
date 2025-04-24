@@ -2,7 +2,7 @@ import { gql } from 'graphql-request';
 
 export const GET_AGENTS_BY_STAKE = gql`
   query GetAgents($first: Int, $skip: Int) {
-    registeredAgents(
+    agents: registeredAgents(
       orderBy: totalStaked
       orderDirection: desc
       first: $first

@@ -8,14 +8,14 @@ export const DBITTE_TOKEN_ADDRESS =
 export const SBITTE_TOKEN_ADDRESS =
   '0x5C4b5813Be000770C589E5Cc5A2e278af3bC294e';
 
-interface TokenBalance {
+export interface TokenBalance {
   address: Address;
   symbol: string;
   decimals: number;
   amount: bigint;
 }
 
-interface BitteBalances {
+export interface BitteBalances {
   bitte: TokenBalance;
   dBitte: TokenBalance;
   sBitte: TokenBalance;

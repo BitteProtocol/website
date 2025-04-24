@@ -1,137 +1,96 @@
+import { getBitteTokenBalances } from '@/lib/balances/bitteTokens';
+import { formatTokenBalance } from '@/lib/utils/delegatedagents';
 import { useEffect, useState } from 'react';
-import { createPublicClient, formatUnits, http, parseAbi } from 'viem';
-import { sepolia } from 'viem/chains'; // Change to your target chain
+import { Chain } from 'viem';
 
-// Token addresses
-const BITTE_TOKEN_ADDRESS = '0x7D505943c86246B7d5459AA23Fd6c174E3088412';
-const DBITTE_TOKEN_ADDRESS = '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
-const SBITTE_TOKEN_ADDRESS = '0x5C4b5813Be000770C589E5Cc5A2e278af3bC294e';
-
-// ABI fragment for ERC20 functions
-const tokenAbi = parseAbi([
-  'function balanceOf(address owner) view returns (uint256)',
-  'function decimals() view returns (uint8)',
-  'function symbol() view returns (string)',
-]);
-
-// Configure client - change to appropriate network
-const client = createPublicClient({
-  chain: sepolia, // Change this to the appropriate chain
-  transport: http(),
-});
-
-interface TokenBalance {
-  balance: number;
-  symbol: string;
-  rawBalance: bigint;
-  loading: boolean;
-  error: Error | null;
+interface FormattedTokenBalance {
+  balance: string;
 }
 
-interface TokenBalances {
-  bitte: TokenBalance;
-  dBitte: TokenBalance;
-  sBitte: TokenBalance;
+interface Balances {
+  bitte: FormattedTokenBalance;
+  dBitte: FormattedTokenBalance;
+  sBitte: FormattedTokenBalance;
+}
+
+interface UseTokenBalancesResult {
+  balances: Balances | null;
+  isLoading: boolean;
+  error: Error | null;
   refetch: () => Promise<void>;
 }
 
-export function useBitteTokenBalances(address?: string): TokenBalances {
-  const [bitteBalance, setBitteBalance] = useState<TokenBalance>({
-    balance: 0,
-    symbol: 'BITTE',
-    rawBalance: BigInt(0),
-    loading: true,
-    error: null,
-  });
+/**
+ * Hook to fetch BITTE token balances
+ * @param chain The blockchain chain to use
+ * @param address The wallet address to check balances for
+ * @returns Object containing balances, loading state, error state, and refetch function
+ */
+export function useBitteTokenBalances(
+  chain: Chain | undefined,
+  address: `0x${string}` | undefined
+): UseTokenBalancesResult {
+  const [balances, setBalances] = useState<Balances | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  const [dBitteBalance, setDBitteBalance] = useState<TokenBalance>({
-    balance: 0,
-    symbol: 'dBITTE',
-    rawBalance: BigInt(0),
-    loading: true,
-    error: null,
-  });
-
-  const [sBitteBalance, setSBitteBalance] = useState<TokenBalance>({
-    balance: 0,
-    symbol: 'sBITTE',
-    rawBalance: BigInt(0),
-    loading: true,
-    error: null,
-  });
-
-  const fetchBalance = async (
-    tokenAddress: string,
-    setBalanceState: React.Dispatch<React.SetStateAction<TokenBalance>>
-  ) => {
-    if (!address) {
-      setBalanceState((prev) => ({ ...prev, loading: false }));
+  // Function to fetch balances
+  const fetchBalances = async () => {
+    if (!chain || !address) {
+      setIsLoading(false);
       return;
     }
 
     try {
-      setBalanceState((prev) => ({ ...prev, loading: true, error: null }));
+      setIsLoading(true);
+      setError(null);
 
-      // Get token decimals
-      const decimals = await client.readContract({
-        address: tokenAddress as `0x${string}`,
-        abi: tokenAbi,
-        functionName: 'decimals',
-      });
+      const result = await getBitteTokenBalances(chain, address);
+      const formattedResult = {
+        bitte: {
+          balance: formatTokenBalance(
+            result.bitte.amount,
+            18,
+            result.bitte.symbol
+          ),
+        },
+        dBitte: {
+          balance: formatTokenBalance(
+            result.dBitte.amount,
+            18,
+            result.dBitte.symbol
+          ),
+        },
+        sBitte: {
+          balance: formatTokenBalance(
+            result.sBitte.amount,
+            18,
+            result.sBitte.symbol
+          ),
+        },
+      };
 
-      // Get token symbol
-      const tokenSymbol = await client.readContract({
-        address: tokenAddress as `0x${string}`,
-        abi: tokenAbi,
-        functionName: 'symbol',
-      });
-
-      // Get balance of address
-      const rawBalance = await client.readContract({
-        address: tokenAddress as `0x${string}`,
-        abi: tokenAbi,
-        functionName: 'balanceOf',
-        args: [address as `0x${string}`],
-      });
-
-      // Format the balance with correct decimals
-      const formattedBalance = parseFloat(
-        formatUnits(rawBalance as bigint, decimals as number)
+      setBalances(formattedResult);
+    } catch (err) {
+      console.error('Error fetching token balances:', err);
+      setError(
+        err instanceof Error ? err : new Error('Failed to fetch balances')
       );
-
-      setBalanceState({
-        balance: formattedBalance,
-        symbol: tokenSymbol as string,
-        rawBalance: rawBalance as bigint,
-        loading: false,
-        error: null,
-      });
-    } catch (error) {
-      console.error(`Error fetching token balance for ${tokenAddress}:`, error);
-      setBalanceState((prev) => ({
-        ...prev,
-        loading: false,
-        error: error instanceof Error ? error : new Error('Unknown error'),
-      }));
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const fetchAllBalances = async () => {
-    await Promise.all([
-      fetchBalance(BITTE_TOKEN_ADDRESS, setBitteBalance),
-      fetchBalance(DBITTE_TOKEN_ADDRESS, setDBitteBalance),
-      fetchBalance(SBITTE_TOKEN_ADDRESS, setSBitteBalance),
-    ]);
-  };
-
+  // Fetch balances when dependencies change
   useEffect(() => {
-    fetchAllBalances();
-  }, [address]);
+    fetchBalances();
+  }, [chain, address]);
 
+  // Return hook data
   return {
-    bitte: bitteBalance,
-    dBitte: dBitteBalance,
-    sBitte: sBitteBalance,
-    refetch: fetchAllBalances,
+    balances,
+    isLoading,
+    error,
+    refetch: fetchBalances,
   };
 }

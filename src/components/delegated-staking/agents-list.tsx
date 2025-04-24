@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
-import { graphQLClient } from '@/lib/graphql/client';
-import { GET_AGENTS_BY_STAKE } from '@/lib/graphql/queries';
+import { DelegatedAgent, useDelegatedAgents } from '@/hooks/useDelegatedAgents';
+import { formatTokenBalance } from '@/lib/utils/delegatedagents';
 import { AlertCircle, ArrowRight, CheckCircle, InfoIcon } from 'lucide-react';
 import { useState } from 'react';
 import { parseAbi, parseUnits } from 'viem';
+import { sepolia } from 'viem/chains';
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { Button } from '../ui/button';
 import {
@@ -42,32 +41,11 @@ const STAKING_CONTRACT_ADDRESS = '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
 const stakingAbi = parseAbi([
   'function stake(address agent, uint256 amount) external returns (uint256)',
 ]);
-interface Agent {
-  id: string;
-  isActive: boolean;
-  totalStaked: string;
-  totalDelegated: string;
-  delegates: [
-    {
-      id: string;
-      staker: {
-        id: string;
-      };
-      amount: string;
-      initialAmount: string;
-    },
-  ];
-}
 
-interface AgentsResponse {
-  registeredAgents: Agent[];
-}
-
-export function AgentsList({ address }: { address?: string }) {
-  const [agents, setAgents] = useState<Agent[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+export function AgentsList({ address }: { address: `0x${string}` }) {
+  const [selectedAgent, setSelectedAgent] = useState<DelegatedAgent | null>(
+    null
+  );
   const [stakeAmount, setStakeAmount] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -82,32 +60,8 @@ export function AgentsList({ address }: { address?: string }) {
     data: txReceipt,
   } = useWaitForTransactionReceipt({ hash: txHash });
 
-  const { bitte, dBitte, sBitte } = useBitteTokenBalances(address);
-
-  console.log({ bitte, dBitte, sBitte });
-
-  useEffect(() => {
-    async function fetchAgents() {
-      try {
-        const data = await graphQLClient.request<AgentsResponse>(
-          GET_AGENTS_BY_STAKE,
-          {
-            first: 10,
-            skip: 0,
-          }
-        );
-
-        setAgents(data.registeredAgents);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching agents:', err);
-        setError('Failed to load agents data');
-        setLoading(false);
-      }
-    }
-
-    fetchAgents();
-  }, []);
+  const { balances } = useBitteTokenBalances(sepolia, address);
+  const { agents, loading, error } = useDelegatedAgents();
 
   const handleStake = async () => {
     if (!selectedAgent || !stakeAmount || stakeAmount === '0') {
@@ -155,7 +109,7 @@ export function AgentsList({ address }: { address?: string }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {agents.map((agent) => (
+        {agents?.map((agent) => (
           <TableRow key={agent.id}>
             <TableCell>
               {agent.id}{' '}
@@ -163,36 +117,48 @@ export function AgentsList({ address }: { address?: string }) {
                 Active: {agent.isActive ? 'Yes' : 'No'}
               </p>
             </TableCell>
-            <TableCell>{agent.totalDelegated}</TableCell>
             <TableCell>
-              {agent.totalStaked}{' '}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <InfoIcon className='h-3.5 w-3.5 text-muted-foreground cursor-help' />
-                  </TooltipTrigger>
-                  <TooltipContent side='top' align='start' className='max-w-xs'>
-                    <div className='space-y-2'>
-                      <h4 className='font-medium'>Staked Accounts</h4>
-                      <div className='max-h-[200px] overflow-y-auto'>
-                        {agent.delegates.map((delegate, index) => (
-                          <div
-                            key={index}
-                            className='flex justify-between text-xs py-1 border-b border-border last:border-0'
-                          >
-                            <span className='text-muted-foreground mr-4 w-[100px] truncate'>
-                              {delegate.staker.id}
-                            </span>
-                            <span className='font-medium'>
-                              {delegate.amount}
-                            </span>
-                          </div>
-                        ))}
+              {formatTokenBalance(BigInt(agent.totalDelegated), 18, 'dBITTE')}
+            </TableCell>
+            <TableCell>
+              <div className='flex items-center gap-2'>
+                {formatTokenBalance(BigInt(agent.totalStaked), 18, 'sBITTE')}
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <InfoIcon className='h-3.5 w-3.5 text-muted-foreground cursor-help' />
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side='top'
+                      align='start'
+                      className='max-w-xs'
+                    >
+                      <div className='space-y-2'>
+                        <h4 className='font-medium'>Staked Accounts</h4>
+                        <div className='max-h-[200px] overflow-y-auto'>
+                          {agent.delegates.map((delegate, index) => (
+                            <div
+                              key={index}
+                              className='flex justify-between text-xs py-1 border-b border-border last:border-0'
+                            >
+                              <span className='text-muted-foreground mr-4 w-[100px] truncate'>
+                                {delegate.staker.id}
+                              </span>
+                              <span className='font-medium'>
+                                {formatTokenBalance(
+                                  BigInt(delegate.amount),
+                                  18,
+                                  'sBITTE'
+                                )}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
             </TableCell>
             <TableCell className='text-right'>
               <Dialog
@@ -230,7 +196,7 @@ export function AgentsList({ address }: { address?: string }) {
                         onChange={(e) => setStakeAmount(e.target.value)}
                       />
                       <p className='text-xs text-muted-foreground'>
-                        Available: {bitte.balance.toLocaleString()} $BITTE
+                        Available: {balances?.bitte.balance}
                       </p>
                     </div>
                   </div>
