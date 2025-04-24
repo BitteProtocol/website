@@ -153,8 +153,8 @@ export function NotionLikeEditor({
           background-color: rgba(63, 63, 70, 0.5);
           padding: 0.1rem 0.2rem;
           border-radius: 0.2rem;
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-            monospace;
+          font-family:
+            ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
           font-size: 0.875rem;
           color: #e4e4e7;
         }

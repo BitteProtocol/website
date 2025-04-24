@@ -7,7 +7,7 @@ import { useWallet } from '@suiet/wallet-kit';
 import Link from 'next/link';
 import { useAccount } from 'wagmi';
 
-export default async function MyAgents() {
+export default function MyAgents() {
   const { activeAccountId } = useBitteWallet();
   const { address: suiAddress } = useWallet();
   const { address: ethAddress } = useAccount();
