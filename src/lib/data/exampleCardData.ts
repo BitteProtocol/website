@@ -107,7 +107,7 @@ export const newsCardData = {
   cards: [
     {
       id: 1,
-      badge: 'Hackaton',
+      badge: 'Hackathon',
       action: '1 Trillion Agents Hackathon',
       sub: '',
       bg: '/examples/hackaton.webp',
