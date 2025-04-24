@@ -1,10 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-/* const ARWEAVE_URL = 'https://arweave.net';
-// Using direct upload endpoint
-const MINTBASE_ARWEAVE_URL = 'https://upload.mintbase.xyz/arweave'; */
-
 // Log API key status (masked for security)
 const apiKey = process.env.OPENAI_API_KEY || '';
 console.log(
@@ -63,66 +59,11 @@ export async function GET(request: Request) {
     }
 
     // For initial testing, just return the OpenAI image URL directly
-    // This helps identify if the issue is with OpenAI or with Arweave
+    // This helps identify if the issue is with OpenAI
     return NextResponse.json({
       url: imageUrl,
       hash: 'direct-openai-url', // Placeholder
     });
-
-    /* Commenting out Arweave upload for now to simplify debugging
-    console.log('Fetching image from:', imageUrl);
-    
-    // Get the generated image from OpenAI URL
-    const imageResponse = await fetch(imageUrl);
-    if (!imageResponse.ok) {
-      throw new Error(`Failed to fetch image: ${imageResponse.statusText}`);
-    }
-    
-    const imageBlob = await imageResponse.blob();
-    
-    console.log('Image fetched, uploading to Arweave');
-    
-    // Create FormData and append the image
-    const formData = new FormData();
-    formData.append('file', imageBlob, 'image.png');
-
-    // Upload to Arweave
-    console.log('Uploading to Arweave URL:', MINTBASE_ARWEAVE_URL);
-    const arweaveResponse = await fetch(MINTBASE_ARWEAVE_URL, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'mb-api-key': 'omni-site',
-      },
-    });
-
-    if (!arweaveResponse.ok) {
-      const errorText = await arweaveResponse.text();
-      console.error('Arweave upload error:', errorText);
-      throw new Error(`Failed to upload to Arweave: ${errorText}`);
-    }
-
-    console.log('Image uploaded to Arweave');
-    
-    // Parse response
-    const arweaveData = await arweaveResponse.json();
-    console.log('Arweave response:', JSON.stringify(arweaveData));
-    const arweaveHash = arweaveData.id;
-
-    if (!arweaveData || typeof arweaveHash !== 'string') {
-      console.error('Invalid Arweave response:', arweaveData);
-      throw new Error('Invalid response from Arweave service');
-    }
-
-    const url = `${ARWEAVE_URL}/${arweaveHash}`;
-    console.log('Image URL:', url);
-
-    // Return the URL of the uploaded image
-    return NextResponse.json({
-      url,
-      hash: arweaveHash,
-    });
-    */
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : 'Unknown error';

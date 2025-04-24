@@ -50,11 +50,6 @@ export const partnerData = [
     scale: 0.9,
   },
   {
-    id: 11,
-    logo: '/partner_backers/arweave.svg',
-    scale: 0.9,
-  },
-  {
     id: 12,
     logo: '/partner_backers/warburg.svg',
     scale: 0.9,

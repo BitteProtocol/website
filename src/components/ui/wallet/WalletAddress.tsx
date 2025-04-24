@@ -32,4 +32,4 @@ export const WalletAddress: React.FC<WalletAddressProps> = ({
   );
 };
 
-export default WalletAddress; 
+export default WalletAddress;

@@ -1,4 +1,4 @@
-import { RegistryData } from '@/lib/types/agent.types';
+import { PluginToolSpec, RegistryData } from '@/lib/types/agent.types';
 import { NextRequest, NextResponse } from 'next/server';
 import { listAgentsFiltered } from '@bitte-ai/data';
 import { createAgent, Prisma } from '@bitte-ai/data';
@@ -81,7 +81,9 @@ export async function POST(request: NextRequest) {
         if (primitiveNames.includes(tool.function.name)) {
           (newAgent.primitives as string[]).push(tool.function.name);
         } else {
-          (newAgent.tools as string[]).push(tool.function.name);
+          if (!(tool as PluginToolSpec).id)
+            throw new Error(`Tool without ID: ${JSON.stringify(tool)}`);
+          (newAgent.tools as string[]).push((tool as PluginToolSpec).id);
         }
       });
 
