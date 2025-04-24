@@ -13,7 +13,8 @@
     "test-e2e": "jest --testPathIgnorePatterns=unit",
     "postinstall": "prisma generate",
     "prepare": "husky",
-    "fmt": "prettier --write . && eslint --fix .",
+    "check": "prettier --check {src,test} && eslint src && pnpm run lint",
+    "fmt": "prettier --write {src,test} && eslint --fix src",
     "pre-commit": "pnpm run ts && pnpx lint-staged && git add -A ."
   },
   "dependencies": {
