@@ -23,6 +23,7 @@ export default async function NewHero() {
             id: agent.id || BITTE_AGENTID,
             name: agent.name || 'Bitte Assistant',
             image: agent.image || '/logo.svg',
+            chainIds: [...new Set(agent?.chainIds || [])],
           })) || [],
         filters: agentData.filters || [],
       }
