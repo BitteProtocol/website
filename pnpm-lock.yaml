@@ -131,6 +131,9 @@ importers:
       framer-motion:
         specifier: ^11.18.2
         version: 11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      graphql-request:
+        specifier: ^7.1.2
+        version: 7.1.2(graphql@16.9.0)
       lint-staged:
         specifier: ^15.5.1
         version: 15.5.1
@@ -9653,7 +9656,7 @@ snapshots:
       '@ethereumjs/tx': 4.2.0
       '@types/debug': 4.1.12
       debug: 4.4.0
-      semver: 7.6.3
+      semver: 7.7.1
       superstruct: 1.0.4
     transitivePeerDependencies:
       - supports-color
@@ -12051,8 +12054,8 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.6.3
-      ts-api-utils: 1.2.1(typescript@5.8.3)
+      semver: 7.7.1
+      ts-api-utils: 1.4.3(typescript@5.8.3)
     optionalDependencies:
       typescript: 5.8.3
     transitivePeerDependencies:
