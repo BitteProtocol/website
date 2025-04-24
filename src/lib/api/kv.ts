@@ -38,6 +38,7 @@ export const getDailyPingsByAgentId = async (
     `smart-action:v1.0:agent:${agentId}:pings:${date}`
   );
 };
+
 export const getAllDailyPingsByAgentId = async (
   agentId: string
 ): Promise<Record<string, number>> => {
@@ -62,4 +63,52 @@ export const getAllDailyPingsByAgentId = async (
   });
 
   return dailyPings;
+};
+
+export const getAllDailyPings = async (
+  agentIds: string[]
+): Promise<Record<string, number>> => {
+  // Manually generate all possible keys
+  const keys: string[] = [];
+  const dates: string[] = datesUntilToday();
+  const pipeline = kv.pipeline();
+  agentIds.forEach((agentId) => {
+    dates.forEach(async (date) => {
+      const k = `smart-action:v1.0:agent:${agentId}:pings:${date}`;
+      keys.push(k);
+      pipeline.get<number>(k);
+    });
+  });
+
+  const values = await pipeline.exec<number[]>();
+
+  const dailyPings: Record<string, number> = {};
+  keys.forEach((k, i) => {
+    const v = values[i];
+    // Do nothing if null
+    if (!v) return;
+
+    const d = k.split(':')[5];
+    if (dailyPings[d]) {
+      // Add if it exists
+      dailyPings[d] += v;
+    } else {
+      // Create otherwise
+      dailyPings[d] = v;
+    }
+  });
+
+  return dailyPings;
+};
+
+const datesUntilToday = () => {
+  const start = new Date('2025-01-01');
+  const end = new Date();
+  const dates: string[] = [];
+
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    dates.push(d.toISOString().split('T')[0]);
+  }
+
+  return dates;
 };
