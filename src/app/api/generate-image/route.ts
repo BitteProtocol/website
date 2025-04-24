@@ -50,9 +50,10 @@ export async function GET(request: Request) {
       size: '1024x1024',
       response_format: 'url',
     });
-
+    if (!response.data) {
+      throw new Error('No data in OpenAI response');
+    }
     console.log('OpenAI response received');
-
     const imageUrl = response.data[0].url;
     if (!imageUrl) {
       throw new Error('No image URL in OpenAI response');
