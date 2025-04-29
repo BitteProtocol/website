@@ -84,6 +84,7 @@ const AiChat = ({
           chatId,
           prompt,
           colors: chatColors,
+          mcpServerUrl: process.env.NEXT_PUBLIC_MCP_SERVER_URL,
           customComponents: {
             welcomeMessageComponent:
               isWalletDisconnected && !isAgentPage ? (
