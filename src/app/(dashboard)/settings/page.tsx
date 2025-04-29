@@ -9,14 +9,8 @@ export default function SettingsPage() {
     <div className='text-white min-h-screen mx-auto p-6'>
       <h1 className='text-xl font-semibold mb-3'>Security & Access</h1>
       <div className='border-b border-zinc-800 mb-8 pb-2'></div>
-
-      {/* Email Section */}
       <EmailSection />
-
-      {/* Socials Section */}
       <SocialSection />
-
-      {/* Accounts & Networks Section */}
       <WalletSection />
     </div>
   );
