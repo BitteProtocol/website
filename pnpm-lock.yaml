@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@bitte-ai/chat':
-        specifier: 0.4.0
-        version: 0.4.0(@tanstack/query-core@5.74.4)(@tanstack/react-query@5.74.4(react@18.3.1))(@types/react-dom@18.3.6(@types/react@18.2.60))(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.17)(typescript@5.8.3)(utf-8-validate@5.0.10)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: 0.4.2
+        version: 0.4.2(@tanstack/query-core@5.74.4)(@tanstack/react-query@5.74.4(react@18.3.1))(@types/react-dom@18.3.6(@types/react@18.2.60))(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.17)(typescript@5.8.3)(utf-8-validate@5.0.10)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@bitte-ai/data':
         specifier: 0.1.0-add-primitives-array-7076953
         version: 0.1.0-add-primitives-array-7076953(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3)
@@ -1058,8 +1058,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@bitte-ai/chat@0.4.0':
-    resolution: {integrity: sha512-pfTZvFxny3wh0rJzO7I065r/5JYvoXuPMZS11ku3UvZ3Kejui50/+JGwMgwDarV2Vk6GIF2jl5CMSwaIXfMjBw==}
+  '@bitte-ai/chat@0.4.2':
+    resolution: {integrity: sha512-uGlqzp5U+mZjegp9ngzYt5yFQZMGmbyg5OrVDQdq8lIuRq2QSwr7XhMyVptK1qPbwu9zpBjCTd4RNmcAjnI7Wg==}
 
   '@bitte-ai/data@0.1.0-add-primitives-array-7076953':
     resolution: {integrity: sha512-HrUSIPW1vXznX3gUEtxlePQoPST3aO9GKXKEmZ9AV0fJGQG0o0hOqzYRCfl6dRGiQZvfl8nFGz+6Pvkv1WAJJw==}
@@ -5737,6 +5737,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.memoize@4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
@@ -6898,9 +6899,6 @@ packages:
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
-
-  rfdc@1.3.1:
-    resolution: {integrity: sha512-r5a3l5HzYlIC68TpmYKlxWjmOP6wiPJ1vWv2HeLhNsRZMrCkxeqxiHlQ21oXmQ4F3SiryXBHhAD7JZqvOJjFmg==}
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
@@ -8859,7 +8857,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@bitte-ai/chat@0.4.0(@tanstack/query-core@5.74.4)(@tanstack/react-query@5.74.4(react@18.3.1))(@types/react-dom@18.3.6(@types/react@18.2.60))(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.17)(typescript@5.8.3)(utf-8-validate@5.0.10)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@bitte-ai/chat@0.4.2(@tanstack/query-core@5.74.4)(@tanstack/react-query@5.74.4(react@18.3.1))(@types/react-dom@18.3.6(@types/react@18.2.60))(@types/react@18.2.60)(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.17)(typescript@5.8.3)(utf-8-validate@5.0.10)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
       '@ai-sdk/anthropic': 1.0.3(zod@3.24.1)
       '@ai-sdk/openai': 1.0.5(zod@3.24.1)
@@ -8867,7 +8865,7 @@ snapshots:
       '@mintbase-js/data': 0.6.5(graphql@16.9.0)
       '@mintbase-js/rpc': 0.6.5
       '@mysten/sui': 1.26.1(typescript@5.8.3)
-      '@near-wallet-selector/core': 8.10.1(near-api-js@5.1.1)
+      '@near-wallet-selector/core': 8.10.2(near-api-js@5.1.1)
       '@radix-ui/react-accordion': 1.2.8(@types/react-dom@18.3.6(@types/react@18.2.60))(@types/react@18.2.60)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-label': 2.1.4(@types/react-dom@18.3.6(@types/react@18.2.60))(@types/react@18.2.60)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot': 1.2.0(@types/react@18.2.60)(react@18.3.1)
@@ -9648,7 +9646,7 @@ snapshots:
       '@ethereumjs/tx': 4.2.0
       '@types/debug': 4.1.12
       debug: 4.4.0
-      semver: 7.6.3
+      semver: 7.7.1
       superstruct: 1.0.4
     transitivePeerDependencies:
       - supports-color
@@ -9805,8 +9803,8 @@ snapshots:
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@mysten/bcs': 1.6.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.7.2
       '@scure/base': 1.2.4
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
@@ -12046,8 +12044,8 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.6.3
-      ts-api-utils: 1.2.1(typescript@5.8.3)
+      semver: 7.7.1
+      ts-api-utils: 1.4.3(typescript@5.8.3)
     optionalDependencies:
       typescript: 5.8.3
     transitivePeerDependencies:
@@ -16051,7 +16049,7 @@ snapshots:
       '@safe-global/safe-gateway-typescript-sdk': 3.22.9
       near-api-js: 5.1.1
       near-ca: 0.8.4(@upstash/redis@1.34.3)(@vercel/kv@3.0.0)(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.24.1)
-      semver: 7.6.3
+      semver: 7.7.1
       viem: 2.28.0(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.24.1)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -16712,7 +16710,7 @@ snapshots:
       fast-deep-equal: 3.1.3
       lottie-web: 5.12.2
       react: 18.3.1
-      rfdc: 1.3.1
+      rfdc: 1.4.1
 
   react-markdown@9.1.0(@types/react@18.2.60)(react@18.3.1):
     dependencies:
@@ -16996,8 +16994,6 @@ snapshots:
       - supports-color
 
   reusify@1.0.4: {}
-
-  rfdc@1.3.1: {}
 
   rfdc@1.4.1: {}
 
