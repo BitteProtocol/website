@@ -11,12 +11,18 @@ import {
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
 import { useUserStakedAgents } from '@/hooks/useUserStakedAgents';
 import { Users } from 'lucide-react';
-import { sepolia } from 'viem/chains';
+import { Chain } from 'viem/chains';
 import { Skeleton } from '../ui/skeleton';
 
-const UserBalance = ({ address }: { address: `0x${string}` }) => {
+const UserBalance = ({
+  chain,
+  address,
+}: {
+  chain: Chain;
+  address: `0x${string}`;
+}) => {
   const { balances, isLoading, error, refetch } = useBitteTokenBalances(
-    sepolia,
+    chain,
     address
   );
 

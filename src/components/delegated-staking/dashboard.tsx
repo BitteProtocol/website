@@ -1,11 +1,12 @@
 'use client';
 
+import { sepolia } from 'viem/chains';
 import { useAccount } from 'wagmi';
 import AgentsList from './agents-list';
 import UserBalance from './balance';
 
 const Dashboard = () => {
-  const { address } = useAccount();
+  const { address, chain } = useAccount();
   if (!address) return null;
 
   return (
@@ -17,8 +18,8 @@ const Dashboard = () => {
         </p>
 
         <div className='grid gap-6'>
-          <UserBalance address={address} />
-          <AgentsList address={address} />
+          <UserBalance chain={chain || sepolia} address={address} />
+          <AgentsList chain={chain || sepolia} address={address} />
         </div>
       </div>
     </div>

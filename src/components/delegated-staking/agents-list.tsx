@@ -6,8 +6,7 @@ import { BITTE_TOKEN_ADDRESS } from '@/lib/balances/bitteTokens';
 import { formatTokenBalance } from '@/lib/utils/delegatedagents';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { parseAbi, parseUnits } from 'viem';
-import { sepolia } from 'viem/chains';
+import { Chain, parseAbi, parseUnits } from 'viem';
 import {
   useReadContract,
   useWaitForTransactionReceipt,
@@ -51,8 +50,14 @@ const stakingAbi = parseAbi([
   'function stake(address agent, uint256 amount) external returns (uint256)',
 ]);
 
-const AgentsList = ({ address }: { address: `0x${string}` }) => {
-  const { balances } = useBitteTokenBalances(sepolia, address);
+const AgentsList = ({
+  chain,
+  address,
+}: {
+  chain: Chain;
+  address: `0x${string}`;
+}) => {
+  const { balances } = useBitteTokenBalances(chain, address);
   const { agents, loading, error } = useDelegatedAgents();
 
   // Component state
