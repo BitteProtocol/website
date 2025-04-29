@@ -1,5 +1,6 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
 import {
   Card,
   CardContent,
@@ -8,7 +9,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
-import { Wallet } from 'lucide-react';
+import { useUserStakedAgents } from '@/hooks/useUserStakedAgents';
+import { Users } from 'lucide-react';
 import { sepolia } from 'viem/chains';
 import { Skeleton } from '../ui/skeleton';
 
@@ -18,6 +20,15 @@ const UserBalance = ({ address }: { address: `0x${string}` }) => {
     address
   );
 
+  const {
+    stakes,
+    formattedTotal,
+    isLoading: stakesLoading,
+    error: stakesError,
+    refetch: refetchStakes,
+  } = useUserStakedAgents(address);
+
+  // Handle balance error
   if (error) {
     return (
       <div className='p-4 bg-red-50 text-red-800 rounded-md'>
@@ -30,29 +41,88 @@ const UserBalance = ({ address }: { address: `0x${string}` }) => {
   }
 
   return (
-    <Card>
-      <CardHeader className='pb-3'>
-        <CardTitle className='text-xl'>Token Balance</CardTitle>
-        <CardDescription>Your available $BITTE tokens</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className='flex items-center gap-2'>
-          <Wallet className='h-8 w-8 text-primary' />
-          <div>
-            {isLoading ? (
-              <Skeleton className='h-8 w-32' />
-            ) : (
-              <div className='text-3xl font-bold'>
-                {balances?.bitte.balance}
-              </div>
-            )}
-            <p className='text-sm text-muted-foreground'>
-              Available for staking
-            </p>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-6 items-start'>
+      {/* Token Balance Card */}
+      <Card className='col-span-1'>
+        <CardHeader className='pb-3'>
+          <CardTitle className='text-xl'>Balance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className='flex items-center gap-2'>
+            <div>
+              {isLoading ? (
+                <Skeleton className='h-8 w-32' />
+              ) : (
+                <div className='text-3xl font-bold'>
+                  {balances?.bitte.balance}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      {/* Staked Tokens Card */}
+      <Card className='col-span-2'>
+        <CardHeader className='pb-3'>
+          <CardTitle className='text-xl'>Your Staked Tokens</CardTitle>
+          <CardDescription>
+            Tokens you&apos;ve delegated to agents
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {stakesLoading ? (
+            <div className='space-y-2'>
+              <Skeleton className='h-12 w-full' />
+              <Skeleton className='h-12 w-full' />
+              <Skeleton className='h-12 w-full' />
+            </div>
+          ) : stakesError ? (
+            <div className='p-4 bg-red-50 text-red-800 rounded-md'>
+              Error loading stakes: {stakesError.message}
+              <button
+                onClick={refetchStakes}
+                className='ml-2 text-red-600 underline'
+              >
+                Retry
+              </button>
+            </div>
+          ) : stakes.length === 0 ? (
+            <div className='text-center py-6 text-muted-foreground'>
+              <Users className='h-12 w-12 mx-auto mb-2 opacity-50' />
+              <p>You haven&apos;t staked with any agents yet</p>
+            </div>
+          ) : (
+            <div className='space-y-3'>
+              {stakes.map((stake) => (
+                <div key={stake.delegationId} className='flex items-center'>
+                  {/* Agent Details */}
+                  <div className='flex-1 min-w-0'>
+                    <p className='font-medium truncate'>{stake.agentId}</p>
+                  </div>
+
+                  {/* Delegation Amount */}
+                  <div className='flex items-center'>
+                    <div className='text-right'>
+                      <p className='font-medium'>{stake.formattedAmount}</p>
+                      <p className='text-xs text-muted-foreground'>sBITTE</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* Total Staked */}
+              <div className='flex justify-between items-center pt-2 border-t'>
+                <span className='font-medium'>Total Staked:</span>
+                <Badge variant='secondary' className='text-sm'>
+                  {formattedTotal} sBITTE
+                </Badge>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

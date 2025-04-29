@@ -2,12 +2,17 @@
 
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
 import { DelegatedAgent, useDelegatedAgents } from '@/hooks/useDelegatedAgents';
+import { BITTE_TOKEN_ADDRESS } from '@/lib/balances/bitteTokens';
 import { formatTokenBalance } from '@/lib/utils/delegatedagents';
-import { AlertCircle, ArrowRight, CheckCircle, InfoIcon } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, InfoIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { parseAbi, parseUnits } from 'viem';
 import { sepolia } from 'viem/chains';
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import {
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from 'wagmi';
 import { Button } from '../ui/button';
 import {
   Dialog,
@@ -37,64 +42,220 @@ import {
 // Define the contract address
 const STAKING_CONTRACT_ADDRESS = '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
 
+const tokenAbi = parseAbi([
+  'function approve(address spender, uint256 amount) returns (bool)',
+]);
+
 // Define the ABI for just the stake function
 const stakingAbi = parseAbi([
   'function stake(address agent, uint256 amount) external returns (uint256)',
 ]);
 
 const AgentsList = ({ address }: { address: `0x${string}` }) => {
+  const { balances } = useBitteTokenBalances(sepolia, address);
+  const { agents, loading, error } = useDelegatedAgents();
+
+  // Component state
   const [selectedAgent, setSelectedAgent] = useState<DelegatedAgent | null>(
     null
   );
   const [stakeAmount, setStakeAmount] = useState('');
   const [open, setOpen] = useState(false);
+  const [txStatus, setTxStatus] = useState<
+    'idle' | 'checking' | 'approving' | 'staking' | 'success' | 'error'
+  >('idle');
+  const [statusMessage, setStatusMessage] = useState('');
+  const [approvalTxHash, setApprovalTxHash] = useState<
+    `0x${string}` | undefined
+  >();
 
+  // Contract interaction hooks
   const {
+    data: writeData,
+    isPending: isWritePending,
     writeContract,
-    isPending: isStaking,
-    data: txHash,
   } = useWriteContract();
   const {
-    isLoading: isConfirming,
-    isSuccess: isStakeConfirmed,
     data: txReceipt,
-  } = useWaitForTransactionReceipt({ hash: txHash });
+    isLoading: isConfirming,
+    isSuccess: isTxSuccess,
+  } = useWaitForTransactionReceipt({ hash: writeData });
 
-  const { balances } = useBitteTokenBalances(sepolia, address);
-  const { agents, loading, error } = useDelegatedAgents();
+  // Check approval status on open
+  const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
+    address: BITTE_TOKEN_ADDRESS,
+    abi: tokenAbi,
+    functionName: 'allowance',
+    args: address && [address, STAKING_CONTRACT_ADDRESS],
+    query: { enabled: !!address && open },
+  });
 
+  // Handle transaction status changes
+  useEffect(() => {
+    if (!isWritePending && !isConfirming && isTxSuccess) {
+      if (txStatus === 'approving') {
+        setTxStatus('staking');
+        setStatusMessage('Approval successful! Now staking tokens...');
+        setApprovalTxHash(writeData);
+
+        // Small delay to ensure the approval transaction is fully processed
+        setTimeout(() => {
+          handleStakingStep();
+        }, 2000);
+      } else if (txStatus === 'staking') {
+        setTxStatus('success');
+        setStatusMessage('Staking successful! Transaction confirmed.');
+
+        // Close dialog after success
+        setTimeout(() => {
+          setOpen(false);
+          setStakeAmount('');
+          setTxStatus('idle');
+        }, 3000);
+      }
+    }
+  }, [isWritePending, isConfirming, isTxSuccess, txStatus]);
+
+  // Main staking function
   const handleStake = async () => {
-    if (!selectedAgent || !stakeAmount || stakeAmount === '0') {
-      // Show error message - can't stake with no amount or agent
+    if (!selectedAgent || !stakeAmount || parseFloat(stakeAmount) <= 0) {
+      setStatusMessage('Please select an agent and enter a valid amount');
+      return;
+    }
+
+    if (!address) {
+      setStatusMessage('Please connect your wallet');
       return;
     }
 
     try {
-      // Parse the amount with 18 decimals (assuming your token has 18 decimals)
+      setTxStatus('checking');
+      setStatusMessage('Checking allowance and balance...');
+
+      // Parse the amount with 18 decimals
       const parsedAmount = parseUnits(stakeAmount, 18);
 
-      // Call the contract
+      // Refresh allowance data
+      await refetchAllowance();
+
+      // Check if we have enough allowance
+      if (!allowanceData || allowanceData < parsedAmount) {
+        // Need to approve first
+        setTxStatus('approving');
+        setStatusMessage('Approving tokens for staking...');
+
+        writeContract({
+          address: BITTE_TOKEN_ADDRESS,
+          abi: tokenAbi,
+          functionName: 'approve',
+          args: [STAKING_CONTRACT_ADDRESS, parsedAmount],
+        });
+      } else {
+        // Already approved, go straight to staking
+        setTxStatus('staking');
+        setStatusMessage('Tokens already approved. Staking now...');
+        handleStakingStep();
+      }
+    } catch (error) {
+      console.error('Error initiating stake:', error);
+      setTxStatus('error');
+      setStatusMessage(
+        `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
+    }
+  };
+
+  // Separate function for the staking step
+  const handleStakingStep = () => {
+    try {
+      if (!selectedAgent || !stakeAmount) return;
+
+      const parsedAmount = parseUnits(stakeAmount, 18);
+
       writeContract({
         address: STAKING_CONTRACT_ADDRESS,
         abi: stakingAbi,
         functionName: 'stake',
         args: [selectedAgent.id as `0x${string}`, parsedAmount],
+        // Using lower-level configuration
+        gas: 500000n, // Higher gas limit to prevent out-of-gas errors
       });
-
-      // The UI will be updated automatically based on the isPending, isConfirming states
-      // After transaction is confirmed:
-      if (isStakeConfirmed) {
-        setOpen(false);
-        setStakeAmount('');
-        // Maybe show a success message or refresh balances
-      }
     } catch (error) {
-      console.error('Error staking tokens:', error);
-      // Handle error (show toast message, etc.)
+      console.error('Error during staking step:', error);
+      setTxStatus('error');
+      setStatusMessage(
+        `Staking failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   };
+
+  // Reset function for error states
+  const resetStakingProcess = () => {
+    setTxStatus('idle');
+    setStatusMessage('');
+    setApprovalTxHash(undefined);
+  };
+
   if (loading) return <div>Loading agents...</div>;
   if (error) return <div>Error: {error}</div>;
+
+  // JSX for dialog buttons
+  const renderDialogActions = () => {
+    switch (txStatus) {
+      case 'idle':
+      case 'checking':
+        return (
+          <>
+            <Button variant='outline' onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleStake}
+              disabled={
+                !selectedAgent || !stakeAmount || txStatus === 'checking'
+              }
+            >
+              {txStatus === 'checking' ? 'Checking...' : 'Stake'}
+            </Button>
+          </>
+        );
+      case 'approving':
+      case 'staking':
+        return (
+          <Button disabled className='w-full'>
+            <span className='mr-2'>
+              {txStatus === 'approving' ? 'Approving...' : 'Staking...'}
+            </span>
+            <div className='h-4 w-4 rounded-full border-2 border-current border-t-transparent animate-spin' />
+          </Button>
+        );
+      case 'success':
+        return (
+          <div>
+            <p>Stake successful! Tx Hash: {txReceipt?.transactionHash}</p>
+
+            <Button
+              variant='outline'
+              className='w-full'
+              onClick={() => setOpen(false)}
+            >
+              Close
+            </Button>
+          </div>
+        );
+      case 'error':
+        return (
+          <>
+            <Button variant='outline' onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant='destructive' onClick={resetStakingProcess}>
+              Try Again
+            </Button>
+          </>
+        );
+    }
+  };
 
   return (
     <Table>
@@ -102,9 +263,9 @@ const AgentsList = ({ address }: { address: `0x${string}` }) => {
         <TableRow>
           <TableHead>Agent</TableHead>
           <TableHead>
-            <div className='flex items-center'>Delegated</div>
+            <div className='flex items-center'>Total Delegated</div>
           </TableHead>
-          <TableHead>Staked</TableHead>
+          <TableHead>Total Staked</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
@@ -201,46 +362,45 @@ const AgentsList = ({ address }: { address: `0x${string}` }) => {
                     </div>
                   </div>
 
-                  {isStakeConfirmed && (
+                  {/* Status message */}
+                  {txStatus !== 'idle' && (
                     <div
                       className={`p-3 rounded-md ${
-                        isStaking
-                          ? 'bg-blue-50 text-blue-700'
-                          : isStakeConfirmed
-                            ? 'bg-green-50 text-green-700'
-                            : 'bg-red-50 text-red-700'
+                        txStatus === 'success'
+                          ? 'bg-green-50 text-green-700'
+                          : txStatus === 'error'
+                            ? 'bg-red-50 text-red-700'
+                            : 'bg-blue-50 text-blue-700'
                       }`}
                     >
-                      <div className='flex items-center'>
-                        {isStakeConfirmed ? (
-                          <CheckCircle className='h-5 w-5 mr-2 flex-shrink-0' />
-                        ) : (
-                          <AlertCircle className='h-5 w-5 mr-2 flex-shrink-0' />
+                      <p>{statusMessage}</p>
+                      {approvalTxHash &&
+                        txStatus !== 'success' &&
+                        txStatus !== 'error' && (
+                          <a
+                            href={`https://sepolia.etherscan.io/tx/${approvalTxHash}`}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='text-sm underline'
+                          >
+                            View approval transaction
+                          </a>
                         )}
-                        <p className='text-sm font-medium'>
-                          {txReceipt?.transactionHash}
-                        </p>
-                      </div>
+                      {writeData && txStatus === 'staking' && (
+                        <a
+                          href={`https://sepolia.etherscan.io/tx/${writeData}`}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='text-sm underline'
+                        >
+                          View staking transaction
+                        </a>
+                      )}
                     </div>
                   )}
-                  <div className='flex gap-4 justify-end items-center'>
-                    <Button variant='outline' onClick={() => setOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={handleStake}
-                      disabled={isStaking || isConfirming || isStakeConfirmed}
-                      className={isStaking || isConfirming ? 'opacity-80' : ''}
-                    >
-                      {isStaking || isConfirming ? (
-                        <>
-                          <span className='mr-2'>Staking</span>
-                          <div className='h-4 w-4 rounded-full border-2 border-current border-t-transparent animate-spin' />
-                        </>
-                      ) : (
-                        'Stake'
-                      )}
-                    </Button>{' '}
+                  {/* Dialog actions */}
+                  <div className='flex justify-end gap-4 mt-4'>
+                    {renderDialogActions()}
                   </div>
                 </DialogContent>
               </Dialog>

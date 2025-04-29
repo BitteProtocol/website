@@ -28,3 +28,22 @@ export const GET_AGENTS_BY_STAKE = gql`
     }
   }
 `;
+
+export const GET_USER_STAKES = gql`
+  query GetUserDelegatedAgents($address: Bytes) {
+    registeredAgents {
+      id
+      isActive
+      totalStaked
+      totalDelegated
+      delegates(where: { staker_: { id: $address } }) {
+        id
+        amount
+        initialAmount
+        staker {
+          id
+        }
+      }
+    }
+  }
+`;

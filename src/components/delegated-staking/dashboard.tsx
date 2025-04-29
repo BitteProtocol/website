@@ -1,10 +1,13 @@
 'use client';
 
+import { useAccount } from 'wagmi';
 import AgentsList from './agents-list';
 import UserBalance from './balance';
 
 const Dashboard = () => {
-  /* const { address } = useAccount(); */
+  const { address } = useAccount();
+  if (!address) return null;
+
   return (
     <div className='min-h-screen bg-background'>
       <div className='container mx-auto px-4 py-8'>
@@ -14,8 +17,8 @@ const Dashboard = () => {
         </p>
 
         <div className='grid gap-6'>
-          <UserBalance address='0x7f01D9b227593E033bf8d6FC86e634d27aa85568' />
-          <AgentsList address='0x7f01D9b227593E033bf8d6FC86e634d27aa85568' />
+          <UserBalance address={address} />
+          <AgentsList address={address} />
         </div>
       </div>
     </div>
