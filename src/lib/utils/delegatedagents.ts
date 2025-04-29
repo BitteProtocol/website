@@ -2,7 +2,7 @@ import { formatUnits } from 'viem';
 
 export const formatTokenBalance = (
   rawBalance: bigint,
-  decimals: number = 18,
+  decimals: number,
   symbol: string
 ) => {
   const formatted = parseFloat(

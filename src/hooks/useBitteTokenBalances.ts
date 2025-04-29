@@ -50,21 +50,21 @@ export function useBitteTokenBalances(
         bitte: {
           balance: formatTokenBalance(
             result.bitte.amount,
-            18,
+            result.bitte.decimals,
             result.bitte.symbol
           ),
         },
         dBitte: {
           balance: formatTokenBalance(
             result.dBitte.amount,
-            18,
+            result.dBitte.decimals,
             result.dBitte.symbol
           ),
         },
         sBitte: {
           balance: formatTokenBalance(
             result.sBitte.amount,
-            18,
+            result.sBitte.decimals,
             result.sBitte.symbol
           ),
         },
