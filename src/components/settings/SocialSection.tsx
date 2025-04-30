@@ -101,7 +101,9 @@ const SocialSection = () => {
           {/* GitHub Connection */}
           <div className='flex items-center'>
             <button
-              className='flex items-center bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded w-32 h-[40px]'
+              className={`flex items-center ${isConnected('github') ? 'bg-mb-blue-30' : 'bg-zinc-800'} hover:bg-zinc-700 px-4 py-2 rounded w-32 h-[40px] ${
+                isConnecting && !isConnected('github') ? 'animate-pulse' : ''
+              }`}
               onClick={() => handleConnect('github')}
               disabled={
                 isConnecting || isDisconnecting || isConnected('github')
