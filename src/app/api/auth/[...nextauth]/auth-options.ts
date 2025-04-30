@@ -62,8 +62,8 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    // @ts-ignore - NextAuth types are difficult to get right
-    async session({ session, token }) {
+    async session(params: { session: any; token: any }) {
+      const { session, token } = params;
       if (session?.user) {
         // Add provider-specific data to session
         session.user.id = token.sub || '';
@@ -72,17 +72,28 @@ export const authOptions = {
       }
       return session;
     },
-    // @ts-ignore - NextAuth types are difficult to get right
-    async jwt({ token, user, account, trigger, session }) {
+    async jwt(params: {
+      token: any;
+      user?: any;
+      account?: any;
+      trigger?: any;
+    }) {
+      const { token, user, account, trigger } = params;
       // On sign in or when user data changes
       if (trigger === 'signIn' || trigger === 'update' || user) {
         if (user) {
           // Keep the original user ID provided by the provider
           token.sub = user.id;
 
-          // Add provider-specific information
-          token.provider = account?.provider || '';
-          token.username = user.username || '';
+          // Add provider-specific information from the account object
+          if (account) {
+            token.provider = account.provider;
+          }
+
+          // Add username from the custom user object we created in the profile callbacks
+          if ('username' in user) {
+            token.username = user.username;
+          }
 
           console.log('JWT callback:', {
             trigger,
@@ -95,27 +106,13 @@ export const authOptions = {
 
       return token;
     },
-    // Handle sign in callback for more flexibility
-    async signIn({
-      user,
-      account,
-      profile,
-    }: {
-      user: any;
-      account: any;
-      profile: any;
-    }) {
+    async signIn(params: { user: any; account?: any; profile?: any }) {
+      const { user } = params;
       // Validate essential data
       if (!user || !user.id) {
         console.error('Sign in failed - missing user data:', { user });
         return false;
       }
-
-      console.log('Sign in callback:', {
-        provider: account?.provider,
-        userId: user.id,
-        email: user.email,
-      });
 
       return true;
     },

@@ -103,7 +103,9 @@ const saveSocialConnections = (connections: SocialConnection[]): void => {
 // Get user from session
 const getUserFromSession = async () => {
   const session = await getServerSession(authOptions);
-  if (!session?.user) {
+
+  // Handle case when session is null or doesn't have user
+  if (!session || !session.user) {
     throw new Error('Unauthorized');
   }
 
