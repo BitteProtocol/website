@@ -82,6 +82,37 @@ export async function GET() {
   }
 }
 
+// Connect a new social account
+export async function POST(request: NextRequest) {
+  try {
+    const user = await getUserFromSession();
+    const { provider, accountDetails } = await request.json();
+
+    if (!provider || !accountDetails) {
+      return NextResponse.json(
+        { error: 'Provider and account details are required' },
+        { status: 400 }
+      );
+    }
+
+    const result = await saveUserSocialAccount(
+      user.id,
+      provider,
+      accountDetails
+    );
+
+    return NextResponse.json(
+      { message: `${provider} account connected successfully`, data: result },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: 'Failed to connect social account' },
+      { status: error.message === 'Unauthorized' ? 401 : 500 }
+    );
+  }
+}
+
 // Delete social connection
 export async function DELETE(request: NextRequest) {
   try {

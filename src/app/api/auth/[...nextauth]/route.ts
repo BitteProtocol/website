@@ -5,8 +5,8 @@ import TwitterProvider from 'next-auth/providers/twitter';
 export const authOptions = {
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
       profile(profile) {
         return {
           id: profile.id.toString(),
