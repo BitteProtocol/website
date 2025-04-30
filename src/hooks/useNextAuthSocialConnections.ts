@@ -7,6 +7,16 @@ export interface SocialAccount {
   profileUrl?: string;
 }
 
+// Extended session user type with our custom properties
+interface ExtendedUser {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  id?: string;
+  username?: string;
+  provider?: string;
+}
+
 // LOCAL STORAGE APPROACH WITH CONSISTENT USER ID
 // We use a combination of available identifiers to create a consistent ID across providers
 const STORAGE_KEY = 'bitte_social_connections';
@@ -21,23 +31,26 @@ export function useNextAuthSocialConnections() {
   const [error, setError] = useState<string | null>(null);
   const [masterUserId, setMasterUserId] = useState<string>('');
 
+  // Get the user with extended properties
+  const user = session?.user as ExtendedUser | undefined;
+
   // Determine a consistent user identifier across providers
   useEffect(() => {
-    if (status === 'authenticated' && session?.user) {
+    if (status === 'authenticated' && user) {
       // Create a master ID from available information
       let userId = '';
 
       // Try to use email as the most reliable identifier
-      if (session.user.email) {
-        userId = `email:${session.user.email}`;
+      if (user.email) {
+        userId = `email:${user.email}`;
       }
       // Fall back to name if available
-      else if (session.user.name) {
-        userId = `name:${session.user.name}`;
+      else if (user.name) {
+        userId = `name:${user.name}`;
       }
-      // Last resort: use the current session ID (less stable)
-      else {
-        userId = `session:${session.user.id}`;
+      // Last resort: use the current session ID
+      else if (user.id) {
+        userId = `session:${user.id}`;
       }
 
       // Store it for this session
@@ -56,7 +69,7 @@ export function useNextAuthSocialConnections() {
         setMasterUserId('');
       }
     }
-  }, [status, session]);
+  }, [status, user]);
 
   // Load connections from localStorage with the master user ID
   const loadConnections = useCallback(() => {
@@ -97,9 +110,10 @@ export function useNextAuthSocialConnections() {
 
   // Check if we should add the current provider
   useEffect(() => {
-    if (status === 'authenticated' && session?.user && masterUserId) {
-      const currentProvider = session.user.provider as string;
-      const currentUsername = session.user.username as string;
+    if (status === 'authenticated' && user && masterUserId) {
+      // Access custom properties added by our NextAuth callbacks
+      const currentProvider = user.provider;
+      const currentUsername = user.username;
 
       if (currentProvider && currentUsername) {
         const connections = loadConnections();
@@ -131,7 +145,7 @@ export function useNextAuthSocialConnections() {
         setIsConnecting(false);
       }
     }
-  }, [status, session, masterUserId, loadConnections, saveConnections]);
+  }, [status, user, masterUserId, loadConnections, saveConnections]);
 
   // Load initial connections when master user ID is ready
   useEffect(() => {
