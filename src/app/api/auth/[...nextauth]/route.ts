@@ -70,7 +70,7 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user, account, profile, isNewUser }) {
+    async jwt({ token, user, account }) {
       // Pass provider-specific data to the token
       if (user) {
         token.provider = account?.provider || '';

@@ -1,5 +1,5 @@
 import { useNextAuthSocialConnections } from '@/hooks/useNextAuthSocialConnections';
-import { Github, Loader2, Twitter, X } from 'lucide-react';
+import { Github, Loader2, X } from 'lucide-react';
 
 const SocialSection = () => {
   const {
@@ -10,8 +10,6 @@ const SocialSection = () => {
     disconnectSocialAccount,
     isConnected,
     getAccount,
-    session,
-    status,
   } = useNextAuthSocialConnections();
 
   const handleConnect = (provider: string) => {

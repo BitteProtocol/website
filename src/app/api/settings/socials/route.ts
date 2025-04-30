@@ -89,10 +89,13 @@ export async function GET() {
       { accounts: existingConnections },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error in image generation:', errorMessage);
     return NextResponse.json(
       { error: 'Failed to get social connections' },
-      { status: error.message === 'Unauthorized' ? 401 : 500 }
+      { status: errorMessage === 'Unauthorized' ? 401 : 500 }
     );
   }
 }
@@ -144,10 +147,13 @@ export async function POST(request: NextRequest) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error in image generation:', errorMessage);
     return NextResponse.json(
       { error: 'Failed to connect social account' },
-      { status: error.message === 'Unauthorized' ? 401 : 500 }
+      { status: errorMessage === 'Unauthorized' ? 401 : 500 }
     );
   }
 }
@@ -182,10 +188,13 @@ export async function DELETE(request: NextRequest) {
       { message: `${provider} account disconnected successfully` },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error in image generation:', errorMessage);
     return NextResponse.json(
       { error: 'Failed to disconnect social account' },
-      { status: error.message === 'Unauthorized' ? 401 : 500 }
+      { status: errorMessage === 'Unauthorized' ? 401 : 500 }
     );
   }
 }
