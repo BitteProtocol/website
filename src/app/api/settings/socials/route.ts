@@ -1,6 +1,71 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { cookies } from 'next/headers';
+
+// Interface for social account connections
+export interface SocialConnection {
+  provider: string;
+  username: string;
+  profileUrl?: string;
+  userId: string;
+}
+
+// Helper to get/set social connections from cookies
+const COOKIE_NAME = 'user_social_connections';
+
+const getUserSocialConnections = (userId: string): SocialConnection[] => {
+  const cookieStore = cookies();
+  const connectionsCookie = cookieStore.get(COOKIE_NAME);
+
+  if (!connectionsCookie?.value) {
+    return [];
+  }
+
+  try {
+    const allConnections = JSON.parse(
+      connectionsCookie.value
+    ) as SocialConnection[];
+    return allConnections.filter((conn) => conn.userId === userId);
+  } catch (error) {
+    console.error('Failed to parse social connections:', error);
+    return [];
+  }
+};
+
+const saveSocialConnections = (connections: SocialConnection[]): void => {
+  const cookieStore = cookies();
+
+  // Get existing connections for other users
+  const existingCookie = cookieStore.get(COOKIE_NAME);
+  let allConnections: SocialConnection[] = [];
+
+  if (existingCookie?.value) {
+    try {
+      allConnections = JSON.parse(existingCookie.value) as SocialConnection[];
+      // Remove connections for the current user
+      if (connections.length > 0) {
+        const userId = connections[0].userId;
+        allConnections = allConnections.filter(
+          (conn) => conn.userId !== userId
+        );
+      }
+    } catch (error) {
+      console.error('Failed to parse existing connections:', error);
+    }
+  }
+
+  // Add the new/updated connections
+  allConnections = [...allConnections, ...connections];
+
+  // Save back to cookie
+  cookieStore.set(COOKIE_NAME, JSON.stringify(allConnections), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+    path: '/',
+  });
+};
 
 // Get user from session
 const getUserFromSession = async () => {
@@ -11,69 +76,19 @@ const getUserFromSession = async () => {
   return session.user;
 };
 
-// Save connection to database (this would connect to your DB)
-const saveUserSocialAccount = async (
-  userId: string,
-  provider: string,
-  accountDetails: any
-) => {
-  // Here you'd store in your database, example with Prisma:
-  // return prisma.socialConnection.upsert({
-  //   where: {
-  //     userId_provider: { userId, provider }
-  //   },
-  //   update: {
-  //     username: accountDetails.username,
-  //     profileUrl: accountDetails.profileUrl
-  //   },
-  //   create: {
-  //     userId,
-  //     provider,
-  //     username: accountDetails.username,
-  //     profileUrl: accountDetails.profileUrl
-  //   }
-  // });
-
-  // For now, just simulate success
-  console.log(
-    `Saving ${provider} connection for user ${userId}:`,
-    accountDetails
-  );
-  return { success: true };
-};
-
 // Get user's connected accounts
 export async function GET() {
   try {
     const user = await getUserFromSession();
 
-    // Here you'd fetch from your database, example with Prisma:
-    // const connections = await prisma.socialConnection.findMany({
-    //   where: { userId: user.id }
-    // });
+    // Get existing social connections from storage
+    const existingConnections = getUserSocialConnections(user.id);
 
-    // For now, return mock data based on session
-    const connections = [];
-
-    // If the user is authenticated via GitHub, add GitHub connection
-    if (user.provider === 'github') {
-      connections.push({
-        provider: 'github',
-        username: user.username || '@github-user',
-        profileUrl: `https://github.com/${user.username}`,
-      });
-    }
-
-    // If the user is authenticated via Twitter, add Twitter connection
-    if (user.provider === 'twitter') {
-      connections.push({
-        provider: 'twitter',
-        username: user.username || '@twitter-user',
-        profileUrl: `https://twitter.com/${user.username}`,
-      });
-    }
-
-    return NextResponse.json({ accounts: connections }, { status: 200 });
+    // Simply return the existing connections without automatically adding current provider
+    return NextResponse.json(
+      { accounts: existingConnections },
+      { status: 200 }
+    );
   } catch (error: any) {
     return NextResponse.json(
       { error: 'Failed to get social connections' },
@@ -95,14 +110,38 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await saveUserSocialAccount(
-      user.id,
-      provider,
-      accountDetails
+    // Get existing connections
+    const existingConnections = getUserSocialConnections(user.id);
+
+    // Check if this provider is already connected
+    const existingIndex = existingConnections.findIndex(
+      (conn) => conn.provider === provider
     );
 
+    if (existingIndex >= 0) {
+      // Update existing connection
+      existingConnections[existingIndex] = {
+        ...existingConnections[existingIndex],
+        ...accountDetails,
+      };
+    } else {
+      // Add new connection
+      existingConnections.push({
+        provider,
+        username: accountDetails.username,
+        profileUrl: accountDetails.profileUrl,
+        userId: user.id,
+      });
+    }
+
+    // Save connections
+    saveSocialConnections(existingConnections);
+
     return NextResponse.json(
-      { message: `${provider} account connected successfully`, data: result },
+      {
+        message: `${provider} account connected successfully`,
+        data: { success: true },
+      },
       { status: 200 }
     );
   } catch (error: any) {
@@ -128,15 +167,16 @@ export async function DELETE(request: NextRequest) {
 
     const user = await getUserFromSession();
 
-    // Here you'd delete from your database, example with Prisma:
-    // await prisma.socialConnection.delete({
-    //   where: {
-    //     userId_provider: { userId: user.id, provider }
-    //   }
-    // });
+    // Get existing connections
+    const existingConnections = getUserSocialConnections(user.id);
 
-    // Just log for now
-    console.log(`Deleting ${provider} connection for user ${user.id}`);
+    // Remove the specified provider
+    const updatedConnections = existingConnections.filter(
+      (conn) => conn.provider !== provider
+    );
+
+    // Save updated connections
+    saveSocialConnections(updatedConnections);
 
     return NextResponse.json(
       { message: `${provider} account disconnected successfully` },
