@@ -58,7 +58,6 @@ const AiChat = ({
     fetchWallet();
   }, [selector, isConnected, isWalletSelectorSetup]);
 
-
   const chatProps = getChatProps({
     selectedAgent,
     wallet,
@@ -79,7 +78,6 @@ const AiChat = ({
   });
 
   return isClient && <BitteAiChat {...chatProps} />;
-
 };
 
 export default AiChat;
