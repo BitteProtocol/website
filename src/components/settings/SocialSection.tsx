@@ -13,7 +13,6 @@ const SocialSection = () => {
     isConnected,
     getAccount,
     loading,
-    status,
   } = useNextAuthSocialConnections();
 
   const handleConnect = (provider: string) => {
