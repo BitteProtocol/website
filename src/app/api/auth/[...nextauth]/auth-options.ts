@@ -66,20 +66,58 @@ export const authOptions = {
     async session({ session, token }) {
       if (session?.user) {
         // Add provider-specific data to session
-        session.user.id = token.sub;
-        session.user.provider = token.provider;
-        session.user.username = token.username;
+        session.user.id = token.sub || '';
+        session.user.provider = token.provider || '';
+        session.user.username = token.username || '';
       }
       return session;
     },
     // @ts-ignore - NextAuth types are difficult to get right
-    async jwt({ token, user, account }) {
-      // Pass provider-specific data to the token
-      if (user) {
-        token.provider = account?.provider || '';
-        token.username = user.username || '';
+    async jwt({ token, user, account, trigger, session }) {
+      // On sign in or when user data changes
+      if (trigger === 'signIn' || trigger === 'update' || user) {
+        if (user) {
+          // Keep the original user ID provided by the provider
+          token.sub = user.id;
+
+          // Add provider-specific information
+          token.provider = account?.provider || '';
+          token.username = user.username || '';
+
+          console.log('JWT callback:', {
+            trigger,
+            user: { id: user.id, email: user.email },
+            provider: account?.provider,
+            token: { sub: token.sub },
+          });
+        }
       }
+
       return token;
+    },
+    // Handle sign in callback for more flexibility
+    async signIn({
+      user,
+      account,
+      profile,
+    }: {
+      user: any;
+      account: any;
+      profile: any;
+    }) {
+      // Validate essential data
+      if (!user || !user.id) {
+        console.error('Sign in failed - missing user data:', { user });
+        return false;
+      }
+
+      console.log('Sign in callback:', {
+        provider: account?.provider,
+        userId: user.id,
+        email: user.email,
+      });
+
+      return true;
     },
   },
   pages: {

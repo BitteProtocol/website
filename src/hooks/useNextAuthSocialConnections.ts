@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 
 export interface SocialAccount {
@@ -12,172 +12,109 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
-  id?: string;
+  id: string; // Required
   username?: string;
   provider?: string;
 }
 
-// LOCAL STORAGE APPROACH WITH CONSISTENT USER ID
-// We use a combination of available identifiers to create a consistent ID across providers
-const STORAGE_KEY = 'bitte_social_connections';
+/**
+ * Hook to get and manage social connections across auth providers
+ */
+export const useNextAuthSocialConnections = () => {
+  const { data: sessionData, status } = useSession();
+  const session = sessionData as unknown as { user: ExtendedUser } | null;
 
-export function useNextAuthSocialConnections() {
-  const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(true);
   const [connectedAccounts, setConnectedAccounts] = useState<SocialAccount[]>(
     []
   );
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
   const [isDisconnecting, setIsDisconnecting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [masterUserId, setMasterUserId] = useState<string>('');
 
-  // Get the user with extended properties
-  const user = session?.user as ExtendedUser | undefined;
+  // Keep track of the last connection request
+  const connectingProviderRef = useRef<string | null>(null);
 
-  // Determine a consistent user identifier across providers
-  useEffect(() => {
-    if (status === 'authenticated' && user) {
-      // Create a master ID from available information
-      let userId = '';
-
-      // Try to use email as the most reliable identifier
-      if (user.email) {
-        userId = `email:${user.email}`;
-      }
-      // Fall back to name if available
-      else if (user.name) {
-        userId = `name:${user.name}`;
-      }
-      // Last resort: use the current session ID
-      else if (user.id) {
-        userId = `session:${user.id}`;
-      }
-
-      // Store it for this session
-      if (userId) {
-        setMasterUserId(userId);
-
-        // Also store it in localStorage for persistence
-        localStorage.setItem('bitte_master_user_id', userId);
-      }
-    } else if (status === 'unauthenticated') {
-      // Try to recover from localStorage if available
-      const savedId = localStorage.getItem('bitte_master_user_id');
-      if (savedId) {
-        setMasterUserId(savedId);
-      } else {
-        setMasterUserId('');
-      }
+  // Load connections from the server API
+  const loadConnections = useCallback(async () => {
+    if (status !== 'authenticated' || !session?.user) {
+      setConnectedAccounts([]);
+      setLoading(false);
+      return;
     }
-  }, [status, user]);
-
-  // Load connections from localStorage with the master user ID
-  const loadConnections = useCallback(() => {
-    if (!masterUserId || typeof window === 'undefined') return [];
 
     try {
-      const savedData = localStorage.getItem(STORAGE_KEY);
-      if (!savedData) return [];
+      setLoading(true);
+      console.log('Loading social connections...');
+      const response = await fetch('/api/settings/socials');
 
-      const allConnections = JSON.parse(savedData);
-      return allConnections[masterUserId] || [];
-    } catch (error) {
-      console.error('Failed to load connections from localStorage:', error);
-      return [];
-    }
-  }, [masterUserId]);
-
-  // Save connections to localStorage with the master user ID
-  const saveConnections = useCallback(
-    (connections: SocialAccount[]) => {
-      if (!masterUserId || typeof window === 'undefined') return;
-
-      try {
-        const savedData = localStorage.getItem(STORAGE_KEY);
-        const allConnections = savedData ? JSON.parse(savedData) : {};
-
-        // Update connections for this master user ID
-        allConnections[masterUserId] = connections;
-
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(allConnections));
-        setConnectedAccounts(connections);
-      } catch (error) {
-        console.error('Failed to save connections to localStorage:', error);
-      }
-    },
-    [masterUserId]
-  );
-
-  // Check if we should add the current provider
-  useEffect(() => {
-    if (status === 'authenticated' && user && masterUserId) {
-      // Access custom properties added by our NextAuth callbacks
-      const currentProvider = user.provider;
-      const currentUsername = user.username;
-
-      if (currentProvider && currentUsername) {
-        const connections = loadConnections();
-        const isAlreadyConnected = connections.some(
-          (conn: SocialAccount) => conn.provider === currentProvider
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Social connections loaded:', data.accounts);
+        setConnectedAccounts(data.accounts || []);
+      } else {
+        console.error(
+          'Failed to fetch social connections:',
+          response.statusText
         );
-
-        if (!isAlreadyConnected) {
-          // Create new connection
-          const profileUrl =
-            currentProvider === 'github'
-              ? `https://github.com/${currentUsername}`
-              : currentProvider === 'twitter'
-                ? `https://twitter.com/${currentUsername}`
-                : undefined;
-
-          const newConnection: SocialAccount = {
-            provider: currentProvider,
-            username: currentUsername,
-            profileUrl,
-          };
-
-          // Add to existing connections
-          const updatedConnections = [...connections, newConnection];
-          saveConnections(updatedConnections);
-        }
-
-        // Always reset connecting state
-        setIsConnecting(false);
+        setConnectedAccounts([]);
       }
-    }
-  }, [status, user, masterUserId, loadConnections, saveConnections]);
-
-  // Load initial connections when master user ID is ready
-  useEffect(() => {
-    if (masterUserId) {
-      const connections = loadConnections();
-      setConnectedAccounts(connections);
-    } else {
+    } catch (error) {
+      console.error('Error fetching social connections:', error);
       setConnectedAccounts([]);
+    } finally {
+      setLoading(false);
+      connectingProviderRef.current = null; // Reset the connecting provider
     }
-  }, [masterUserId, loadConnections]);
+  }, [status, session]);
 
-  // Show developer debug output
+  // Initial load of connections when session becomes authenticated
   useEffect(() => {
-    console.debug('Master User ID:', masterUserId);
+    if (status === 'authenticated') {
+      loadConnections();
+    } else if (status === 'unauthenticated') {
+      setConnectedAccounts([]);
+      setLoading(false);
+    }
+  }, [status, loadConnections]);
+
+  // Reload connections when we connect to a new provider
+  useEffect(() => {
+    // If we have a provider that we're connecting to and our session includes that provider
+    if (
+      connectingProviderRef.current &&
+      status === 'authenticated' &&
+      session?.user?.provider === connectingProviderRef.current
+    ) {
+      loadConnections();
+    }
+  }, [status, session, loadConnections]);
+
+  // Debug logging
+  useEffect(() => {
+    console.debug('Session status:', status);
     console.debug('Connected Accounts:', connectedAccounts);
-    console.debug('Session:', session);
-  }, [masterUserId, connectedAccounts, session]);
+    console.debug('Current provider:', session?.user?.provider);
+  }, [connectedAccounts, session, status]);
 
   const connectSocialAccount = async (provider: string) => {
     setIsConnecting(true);
     setError(null);
+    connectingProviderRef.current = provider; // Remember which provider we're connecting
 
     try {
+      console.log(`Initiating sign in with ${provider}...`);
       await signIn(provider, {
         callbackUrl: '/settings',
         redirect: true,
       });
+      // The page will redirect, no need to handle response here
     } catch (err) {
       setError(
         err instanceof Error ? err.message : `Failed to connect ${provider}`
       );
       setIsConnecting(false);
+      connectingProviderRef.current = null;
     }
   };
 
@@ -186,17 +123,26 @@ export function useNextAuthSocialConnections() {
     setError(null);
 
     try {
-      const connections = loadConnections();
-      const updatedConnections = connections.filter(
-        (account: SocialAccount) => account.provider !== provider
+      console.log(`Disconnecting ${provider}...`);
+      const response = await fetch(
+        `/api/settings/socials?provider=${provider}`,
+        {
+          method: 'DELETE',
+        }
       );
 
-      saveConnections(updatedConnections);
-      setIsDisconnecting(false);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Failed to disconnect ${provider}`);
+      }
+
+      // Refresh connections after disconnect
+      await loadConnections();
     } catch (err) {
       setError(
         err instanceof Error ? err.message : `Failed to disconnect ${provider}`
       );
+    } finally {
       setIsDisconnecting(false);
     }
   };
@@ -220,5 +166,6 @@ export function useNextAuthSocialConnections() {
     getAccount,
     session,
     status,
+    loading,
   };
-}
+};
