@@ -13,7 +13,6 @@ export const SUI_WALLETS: WalletInfo[] = [
   {
     name: 'Slush — A Sui wallet',
     icon: '/slush-wallet.png',
-    downloadUrl:
-      'https://chromewebstore.google.com/detail/slush-%E2%80%94-a-sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil',
+    downloadUrl: 'https://slush.app',
   },
 ];
