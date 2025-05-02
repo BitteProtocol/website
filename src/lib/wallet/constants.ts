@@ -11,9 +11,9 @@ export const SUI_WALLETS: WalletInfo[] = [
     downloadUrl: 'https://phantom.app/',
   },
   {
-    name: 'Sui Wallet',
-    icon: '/sui-logo.png',
+    name: 'Slush — A Sui wallet',
+    icon: '/slush-wallet.png',
     downloadUrl:
-      'https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil',
+      'https://chromewebstore.google.com/detail/slush-%E2%80%94-a-sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil',
   },
 ];
