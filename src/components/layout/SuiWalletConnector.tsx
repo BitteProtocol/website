@@ -26,7 +26,6 @@ export const SuiWalletConnector: React.FC<WalletConnectorProps> = ({
   const isWalletInstalled = (walletName: string) => {
     if (!allAvailableWallets) return false;
 
-
     return allAvailableWallets.some(
       (availableWallet) =>
         availableWallet.name.toLowerCase() === walletName.toLowerCase()
