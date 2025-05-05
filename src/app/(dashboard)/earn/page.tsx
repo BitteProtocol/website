@@ -7,7 +7,7 @@ import { useEarnChallenges, useLeaderboard } from '@/hooks/useEarnChallenges';
 import { Loader } from '@/components/ui/loader';
 
 // Types
-interface Challenge {
+/* interface Challenge {
   id: string;
   title: string;
   reward: number;
@@ -15,7 +15,7 @@ interface Challenge {
   completed: boolean;
   ctaText: string;
   ctaLink: string;
-}
+} */
 
 type ActiveTab = 'earn' | 'leaderboard';
 
