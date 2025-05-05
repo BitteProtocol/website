@@ -57,8 +57,8 @@ export default function EarnPage() {
   } = useEarnChallenges();
 
   return (
-    <div className='min-h-screen bg-black text-white p-6'>
-      <div className='max-w-6xl mx-auto'>
+    <div className='min-h-screen text-white p-6'>
+      <div className='mx-auto'>
         {/* Top section with payout info and tabs */}
         <div className='flex flex-col md:flex-row justify-between mb-8 space-y-4 md:space-y-0'>
           <div className='flex space-x-4'>
@@ -172,7 +172,7 @@ export default function EarnPage() {
                 <Loader size='lg' />
               </div>
             ) : (
-              <div className='grid md:grid-cols-1 lg:grid-cols-1 gap-4'>
+              <div className='grid md:grid-cols-1 lg:grid-cols-1 gap-4 max-w-xl mx-auto'>
                 {challenges.map((challenge) => (
                   <div
                     key={challenge.id}
