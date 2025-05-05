@@ -18,7 +18,7 @@
     "pre-commit": "pnpm run ts && pnpx lint-staged && git add -A ."
   },
   "dependencies": {
-    "@bitte-ai/chat": "0.4.0",
+    "@bitte-ai/chat": "0.4.3",
     "@bitte-ai/data": "0.1.0-add-primitives-array-7076953",
     "@bitte-ai/react": "0.8.2",
     "@google-cloud/firestore": "^7.11.0",
