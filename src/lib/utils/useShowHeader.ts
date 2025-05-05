@@ -6,6 +6,7 @@ export function shouldShowHeader(pathname: string): boolean {
     '/build-agents',
     '/my-agents',
     '/settings',
+    '/earn',
   ];
   return !noHeaderRoutes.some((route) => pathname.startsWith(route));
 }
@@ -17,6 +18,7 @@ export function shouldShowFooter(pathname: string): boolean {
     '/build-agents',
     '/my-agents',
     '/settings',
+    '/earn',
   ];
   return !noFooterRoutes.some((route) => pathname.startsWith(route));
 }

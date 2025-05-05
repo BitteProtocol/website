@@ -5,6 +5,7 @@ import {
   Hammer,
   TerminalSquare,
   Settings,
+  DollarSign,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -66,6 +67,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: '/agents',
         icon: Bot,
         isActive: pathname.startsWith('/agents'),
+      },
+      {
+        title: 'Earn',
+        url: '/earn',
+        icon: DollarSign,
+        isActive: pathname.startsWith('/earn'),
       },
       {
         title: 'Build Agents',
