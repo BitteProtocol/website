@@ -37,12 +37,12 @@ export interface UserDelegation {
   initialAmount: string;
 }
 
-export function useUserStakedAgents(address?: `0x${string}`) {
-  const [stakes, setStakes] = useState<UserDelegation[]>([]);
+export function useUserDelegatedTokens(address?: `0x${string}`) {
+  const [delegatedTokens, setDelegatedTokens] = useState<UserDelegation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [totalStaked, setTotalStaked] = useState(0);
-  const [formattedTotal, setFormattedTotal] = useState('0');
+  const [totalDelegated, setTotalDelegated] = useState(0);
+  const [formattedTotalDelegated, setFormattedTotalDelegated] = useState('0');
 
   const fetchUserDelegations = async () => {
     if (!address) {
@@ -94,9 +94,9 @@ export function useUserStakedAgents(address?: `0x${string}`) {
       userDelegations.sort((a, b) => b.numericAmount - a.numericAmount);
 
       // Update state with processed data
-      setStakes(userDelegations);
-      setTotalStaked(total);
-      setFormattedTotal(
+      setDelegatedTokens(userDelegations);
+      setTotalDelegated(total);
+      setFormattedTotalDelegated(
         total.toLocaleString(undefined, { maximumFractionDigits: 2 })
       );
     } catch (err) {
@@ -115,9 +115,9 @@ export function useUserStakedAgents(address?: `0x${string}`) {
   }, [address]);
 
   return {
-    stakes,
-    totalStaked,
-    formattedTotal,
+    delegatedTokens,
+    totalDelegated,
+    formattedTotalDelegated,
     isLoading,
     error,
     refetch: fetchUserDelegations,

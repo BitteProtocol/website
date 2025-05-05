@@ -1,15 +1,9 @@
 'use client';
 
 import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
-import { useUserStakedAgents } from '@/hooks/useUserStakedAgents';
+import { useUserDelegatedTokens } from '@/hooks/useUserDelegatedTokens';
 import { Users } from 'lucide-react';
 import { Chain } from 'viem/chains';
 import { Skeleton } from '../ui/skeleton';
@@ -27,12 +21,14 @@ const UserBalance = ({
   );
 
   const {
-    stakes,
-    formattedTotal,
-    isLoading: stakesLoading,
-    error: stakesError,
-    refetch: refetchStakes,
-  } = useUserStakedAgents(address);
+    delegatedTokens,
+    formattedTotalDelegated,
+    isLoading: delegatedTokensLoading,
+    error: delegatedTokensError,
+    refetch: refetchDelegatedTokens,
+  } = useUserDelegatedTokens(address);
+
+  console.log({ balances });
 
   // Handle balance error
   if (error) {
@@ -71,47 +67,49 @@ const UserBalance = ({
       {/* Staked Tokens Card */}
       <Card className='col-span-2'>
         <CardHeader className='pb-3'>
-          <CardTitle className='text-xl'>Your Staked Tokens</CardTitle>
-          <CardDescription>
-            Tokens you&apos;ve delegated to agents
-          </CardDescription>
+          <CardTitle className='text-xl'>Your Delegated Tokens</CardTitle>
         </CardHeader>
         <CardContent>
-          {stakesLoading ? (
+          {delegatedTokensLoading ? (
             <div className='space-y-2'>
               <Skeleton className='h-12 w-full' />
               <Skeleton className='h-12 w-full' />
               <Skeleton className='h-12 w-full' />
             </div>
-          ) : stakesError ? (
+          ) : delegatedTokensError ? (
             <div className='p-4 bg-red-50 text-red-800 rounded-md'>
-              Error loading stakes: {stakesError.message}
+              Error loading delegated tokens: {delegatedTokensError.message}
               <button
-                onClick={refetchStakes}
+                onClick={refetchDelegatedTokens}
                 className='ml-2 text-red-600 underline'
               >
                 Retry
               </button>
             </div>
-          ) : stakes.length === 0 ? (
+          ) : delegatedTokens.length === 0 ? (
             <div className='text-center py-6 text-muted-foreground'>
               <Users className='h-12 w-12 mx-auto mb-2 opacity-50' />
-              <p>You haven&apos;t staked with any agents yet</p>
+              <p>You haven&apos;t delegated with any agents yet</p>
             </div>
           ) : (
             <div className='space-y-3'>
-              {stakes.map((stake) => (
-                <div key={stake.delegationId} className='flex items-center'>
+              {delegatedTokens.map((delegation) => (
+                <div
+                  key={delegation.delegationId}
+                  className='flex items-center'
+                >
                   {/* Agent Details */}
                   <div className='flex-1 min-w-0'>
-                    <p className='font-medium truncate'>{stake.agentId}</p>
+                    <p className='font-medium truncate'>{delegation.agentId}</p>
                   </div>
 
                   {/* Delegation Amount */}
                   <div className='flex items-center'>
                     <div className='text-right'>
-                      <p className='font-medium'>{stake.formattedAmount}</p>
-                      <p className='text-xs text-muted-foreground'>sBITTE</p>
+                      <p className='font-medium'>
+                        {delegation.formattedAmount}
+                      </p>
+                      <p className='text-xs text-muted-foreground'>dBITTE</p>
                     </div>
                   </div>
                 </div>
@@ -119,9 +117,9 @@ const UserBalance = ({
 
               {/* Total Staked */}
               <div className='flex justify-between items-center pt-2 border-t'>
-                <span className='font-medium'>Total Staked:</span>
+                <span className='font-medium'>Total</span>
                 <Badge variant='secondary' className='text-sm'>
-                  {formattedTotal} sBITTE
+                  {formattedTotalDelegated} dBITTE
                 </Badge>
               </div>
             </div>

@@ -284,11 +284,9 @@ const AgentsList = ({
               </p>
             </TableCell>
             <TableCell>
-              {formatTokenBalance(BigInt(agent.totalDelegated), 18, 'dBITTE')}
-            </TableCell>
-            <TableCell>
+              {' '}
               <div className='flex items-center gap-2'>
-                {formatTokenBalance(BigInt(agent.totalStaked), 18, 'sBITTE')}
+                {formatTokenBalance(BigInt(agent.totalDelegated), 18, 'dBITTE')}
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -325,6 +323,9 @@ const AgentsList = ({
                   </Tooltip>
                 </TooltipProvider>
               </div>
+            </TableCell>
+            <TableCell>
+              {formatTokenBalance(BigInt(agent.totalStaked), 18, 'sBITTE')}
             </TableCell>
             <TableCell className='text-right'>
               <Dialog
