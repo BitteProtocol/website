@@ -2,6 +2,7 @@
 
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
 import { DelegatedAgent, useDelegatedAgents } from '@/hooks/useDelegatedAgents';
+import { useStakingAPY } from '@/hooks/useStakingAPY';
 import { BITTE_TOKEN_ADDRESS } from '@/lib/balances/bitteTokens';
 import { formatTokenBalance } from '@/lib/utils/delegatedagents';
 import { ArrowRight, InfoIcon } from 'lucide-react';
@@ -37,7 +38,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../ui/tooltip';
-
 // Define the contract address
 const STAKING_CONTRACT_ADDRESS = '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
 
@@ -59,6 +59,10 @@ const AgentsList = ({
 }) => {
   const { balances } = useBitteTokenBalances(chain, address);
   const { agents, loading, error } = useDelegatedAgents();
+
+  const { apy, loading: apyLoading, error: apyError } = useStakingAPY();
+
+  console.log({ apy, apyLoading, apyError });
 
   // Component state
   const [selectedAgent, setSelectedAgent] = useState<DelegatedAgent | null>(
