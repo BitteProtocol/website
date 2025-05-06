@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CheckCircle, ChevronRight, RefreshCw } from 'lucide-react';
+import { CheckCircle, ChevronRight, RefreshCw, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useEarnChallenges, useLeaderboard } from '@/hooks/useEarnChallenges';
 import { Loader } from '@/components/ui/loader';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 // Types
 /* interface Challenge {
@@ -16,8 +17,6 @@ import { Loader } from '@/components/ui/loader';
   ctaText: string;
   ctaLink: string;
 } */
-
-type ActiveTab = 'earn' | 'leaderboard';
 
 // Simple error display component
 function ErrorDisplay({
@@ -47,7 +46,7 @@ function ErrorDisplay({
 }
 
 export default function EarnPage() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('earn');
+  const [activeTab, setActiveTab] = useState<string>('earn');
   const {
     challenges,
     stats,
@@ -57,96 +56,61 @@ export default function EarnPage() {
   } = useEarnChallenges();
 
   return (
-    <div className='min-h-screen text-white p-6'>
+    <div className='min-h-screen text-white px-6 py-4'>
       <div className='mx-auto'>
         {/* Top section with payout info and tabs */}
-        <div className='flex flex-col md:flex-row justify-between mb-8 space-y-4 md:space-y-0'>
+        <div className='flex flex-col md:flex-row justify-between mb-8 space-y-4 md:space-y-0 items-center'>
           <div className='flex space-x-4'>
             {/* Next payout box */}
-            <div className='bg-zinc-900 rounded-md p-4 min-w-[200px]'>
-              <div className='text-zinc-500 text-xs mb-2 flex items-center'>
+            <div className='bg-zinc-900 rounded-md p-4 min-w-[215px]'>
+              <div className='text-zinc-500 text-xs mb-4 flex items-center justify-between uppercase font-medium'>
                 NEXT PAYOUT
-                <span className='ml-1 cursor-pointer'>
-                  <svg
-                    width='16'
-                    height='16'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <circle
-                      cx='12'
-                      cy='12'
-                      r='10'
-                      stroke='currentColor'
-                      strokeWidth='1.5'
-                    />
-                    <path
-                      d='M12 8V12M12 16V16'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </span>
+                <HelpCircle className='w-4 h-4 cursor-pointer' />
               </div>
-              <div className='font-medium'>{stats.nextPayoutDate}</div>
+              <div className='text-sm'>{stats.nextPayoutDate}</div>
             </div>
 
             {/* Amount box */}
-            <div className='bg-zinc-900 rounded-md p-4 min-w-[150px]'>
-              <div className='text-zinc-500 text-xs mb-2 flex items-center'>
+            <div className='bg-zinc-900 rounded-md p-4 min-w-[215px]'>
+              <div className='text-zinc-500 text-xs mb-4 flex items-center justify-between uppercase font-medium'>
                 AMOUNT
-                <span className='ml-1 cursor-pointer'>
-                  <svg
-                    width='16'
-                    height='16'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <circle
-                      cx='12'
-                      cy='12'
-                      r='10'
-                      stroke='currentColor'
-                      strokeWidth='1.5'
-                    />
-                    <path
-                      d='M12 8V12M12 16V16'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </span>
+                <HelpCircle className='w-4 h-4 cursor-pointer' />
               </div>
-              <div className='font-medium flex items-center'>
+              <div className='text-sm flex items-center'>
                 <div className='w-4 h-4 bg-white rounded-full mr-2 flex items-center justify-center'>
-                  <span className='text-black text-xs'>$</span>
+                  <img
+                    src='/bitte-symbol-black.svg'
+                    alt='BITTE'
+                    className='w-2.5 h-2.5'
+                  />
                 </div>
-                {stats.totalReward} $BITTE
+                {stats.totalReward}
+                <span className='text-sm text-zinc-500 ml-1'>$BITTE</span>
               </div>
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className='flex bg-zinc-900 rounded-md overflow-hidden'>
-            <button
-              className={`px-4 py-2 ${activeTab === 'earn' ? 'bg-zinc-800' : ''}`}
-              onClick={() => setActiveTab('earn')}
-            >
-              Earn
-            </button>
-            <button
-              className={`px-4 py-2 ${activeTab === 'leaderboard' ? 'bg-zinc-800' : ''}`}
-              onClick={() => setActiveTab('leaderboard')}
-            >
-              Leaderboard
-            </button>
-          </div>
+          {/* Tabs using shadcn Tabs component */}
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className='w-[250px]'
+          >
+            <TabsList className='h-[42px] w-full bg-zinc-900 p-1'>
+              <TabsTrigger
+                value='earn'
+                className='flex-1 h-full text-white data-[state=active]:bg-zinc-800 data-[state=active]:shadow-none'
+              >
+                Earn
+              </TabsTrigger>
+              <TabsTrigger
+                value='leaderboard'
+                className='flex-1 h-full text-white data-[state=active]:bg-zinc-800 data-[state=active]:shadow-none'
+              >
+                Leaderboard
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
         </div>
 
         {/* Main content area */}
