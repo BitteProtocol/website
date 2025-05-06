@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
-import { Button } from '../button';
 
 export interface Challenge {
   id: string;
