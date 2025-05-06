@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
+import { Button } from '../button';
 
 export interface Challenge {
   id: string;
@@ -19,9 +20,9 @@ interface ChallengeCardProps {
 export function ChallengeCard({ challenge }: ChallengeCardProps) {
   return (
     <div
-      className={`bg-zinc-900 rounded-md overflow-hidden w-full ${
+      className={`bg-[#242427] rounded-md overflow-hidden w-full min-w-0 ${
         challenge.completed ? 'h-[175px]' : 'h-[215px]'
-      } transition-opacity ${challenge.completed ? 'opacity-70' : ''}`}
+      } transition-opacity ${challenge.completed ? 'opacity-80' : ''}`}
     >
       <div className='p-6 flex flex-col h-full'>
         {/* Title and checkbox row */}

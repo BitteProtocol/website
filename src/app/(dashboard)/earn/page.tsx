@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RefreshCw, HelpCircle, ChevronRight } from 'lucide-react';
 import { useEarnChallenges, useLeaderboard } from '@/hooks/useEarnChallenges';
 import { Loader } from '@/components/ui/loader';
@@ -44,12 +44,33 @@ export default function EarnPage() {
     error: challengesError,
     refreshChallenges,
   } = useEarnChallenges();
+  
+  // State to track if we should show two columns layout
+  const [showTwoColumns, setShowTwoColumns] = useState(false);
+
+  // Check window width on client side to determine layout
+  useEffect(() => {
+    const handleResize = () => {
+      setShowTwoColumns(window.innerWidth >= 2000);
+    };
+    
+    // Initial check
+    handleResize();
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className='min-h-screen text-white px-6 py-4'>
       <div className='mx-auto'>
         {/* Top section with payout info and tabs */}
-        <div className='flex flex-col md:flex-row justify-between mb-8 space-y-4 md:space-y-0 items-center'>
+        <div className='flex flex-col md:flex-row justify-between mb-5 space-y-4 md:space-y-0 items-center'>
           <div className='flex space-x-4'>
             {/* Next payout box */}
             <div className='bg-zinc-900 rounded-md p-4 min-w-[215px]'>
@@ -105,55 +126,54 @@ export default function EarnPage() {
 
         {/* Main content area */}
         {activeTab === 'earn' ? (
-          <div>
-            <h1 className='text-2xl font-bold mb-2'>Earn</h1>
-            <p className='text-zinc-400 mb-6'>
-              Qualify for earnings by performing actions listed here. Payouts
-              are executed in $BITTE token every Tuesday.
-            </p>
+          <div className='bg-zinc-900 border-t border-l border-r border-[#313E52] rounded-md overflow-hidden'>
+            <div className='flex flex-col lg:flex-row'>
+              {/* Left side - Text content */}
+              <div className='p-6 lg:w-72'>
+                <h1 className='text-xl font-semibold mb-2'>Earn</h1>
+                <p className='text-zinc-500 text-sm'>
+                  Qualify for earnings by performing actions listed here.
+                  Payouts are executed in $BITTE token every Tuesday.
+                </p>
 
-            {/* Error handling */}
-            {challengesError && (
-              <ErrorDisplay
-                message={challengesError}
-                onRetry={refreshChallenges}
-              />
-            )}
-
-            {/* Challenge cards - responsive layout */}
-            <div className="w-full mx-auto">
-              <div className="grid grid-cols-1 3xl:grid-cols-2 gap-6 w-full mx-auto">
-                {/* First column - always visible */}
-                <div className="w-full flex justify-center 3xl:justify-start">
-                  <div className="w-full md:w-[415px] lg:min-w-[415px] lg:max-w-[550px] space-y-5">
-                    {challengesLoading
-                      ? // Skeleton loading state for first column
-                        Array.from({ length: 3 }).map((_, index) => (
-                          <ChallengeCardSkeleton key={`skeleton-1-${index}`} />
-                        ))
-                      : // First half of challenges on large screens, or all on small screens
-                        challenges.map((challenge, index) => (
-                          <div key={challenge.id} className={index >= Math.ceil(challenges.length / 2) ? 'block 3xl:hidden' : ''}>
-                            <ChallengeCard challenge={challenge} />
-                          </div>
-                        ))}
+                {/* Error handling */}
+                {challengesError && (
+                  <div className='mt-4'>
+                    <ErrorDisplay
+                      message={challengesError}
+                      onRetry={refreshChallenges}
+                    />
                   </div>
-                </div>
+                )}
+              </div>
 
-                {/* Second column - only visible on 3xl screens (2000px+) */}
-                <div className="hidden 3xl:flex 3xl:justify-start w-full">
-                  <div className="w-full md:w-[415px] lg:min-w-[415px] lg:max-w-[550px] space-y-5">
-                    {challengesLoading
-                      ? // Skeleton loading state for second column
-                        Array.from({ length: 2 }).map((_, index) => (
-                          <ChallengeCardSkeleton key={`skeleton-2-${index}`} />
-                        ))
-                      : // Second half of challenges (only visible on large screens)
-                        challenges.map((challenge, index) => (
-                          index >= Math.ceil(challenges.length / 2) ? (
-                            <ChallengeCard key={challenge.id} challenge={challenge} />
-                          ) : null
-                        ))}
+              {/* Right side - Challenge cards */}
+              <div className='flex-1 p-6 overflow-auto'>
+                <div className='flex justify-center w-full'>
+                  {/* Card container with dynamic layout based on screen size */}
+                  <div className={`
+                    flex flex-col
+                    space-y-5
+                    transition-all duration-300
+                    w-[415px]
+                    2xl:min-w-[415px]
+                    ${showTwoColumns ? 'grid grid-cols-2 gap-6 w-full max-w-[1120px] space-y-0' : '2xl:w-[clamp(415px,30vw,550px)]'}
+                  `}>
+                    {challengesLoading ? (
+                      // Skeleton loading state
+                      Array.from({ length: showTwoColumns ? 6 : 3 }).map((_, index) => (
+                        <div key={`skeleton-${index}`} className="w-full">
+                          <ChallengeCardSkeleton />
+                        </div>
+                      ))
+                    ) : (
+                      // Actual challenge cards
+                      challenges.map((challenge) => (
+                        <div key={challenge.id} className="w-full">
+                          <ChallengeCard challenge={challenge} />
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
@@ -172,7 +192,7 @@ function LeaderboardContent() {
   const { leaderboard, loading, error, refreshLeaderboard } = useLeaderboard();
 
   return (
-    <div>
+    <div className='bg-zinc-950 border-t border-l border-zinc-800 rounded-tl-lg overflow-hidden p-6'>
       <h1 className='text-2xl font-bold mb-6'>Leaderboard</h1>
 
       {/* Error handling */}
