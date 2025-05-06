@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 // Types
 export interface Challenge {
@@ -152,29 +152,20 @@ export function useEarnChallenges() {
     [challenges, fetchChallenges]
   );
 
-  // For demo purposes, simulate completing challenges
-  useEffect(() => {
-    if (!loading && challenges.length > 0) {
-      // Only complete the first challenge if it's not already completed
-      const firstChallenge = challenges.find((c) => c.id === '1');
-      if (firstChallenge && !firstChallenge.completed) {
-        const timer = setTimeout(() => {
-          completeChallenge('1');
-        }, 2000);
+  // Memoize the return values to prevent unnecessary re-renders
+  const memoizedValues = useMemo(
+    () => ({
+      challenges,
+      stats,
+      loading,
+      error,
+      completeChallenge,
+      refreshChallenges: fetchChallenges,
+    }),
+    [challenges, stats, loading, error, completeChallenge, fetchChallenges]
+  );
 
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [loading, challenges, completeChallenge]);
-
-  return {
-    challenges,
-    stats,
-    loading,
-    error,
-    completeChallenge,
-    refreshChallenges: fetchChallenges,
-  };
+  return memoizedValues;
 }
 
 // Leaderboard data and hook

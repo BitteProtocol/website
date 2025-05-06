@@ -1,22 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CheckCircle, ChevronRight, RefreshCw, HelpCircle } from 'lucide-react';
-import Link from 'next/link';
+import { RefreshCw, HelpCircle, ChevronRight } from 'lucide-react';
 import { useEarnChallenges, useLeaderboard } from '@/hooks/useEarnChallenges';
 import { Loader } from '@/components/ui/loader';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-// Types
-/* interface Challenge {
-  id: string;
-  title: string;
-  reward: number;
-  frequency: 'ONE TIME' | 'DAILY' | 'WEEKLY';
-  completed: boolean;
-  ctaText: string;
-  ctaLink: string;
-} */
+import { ChallengeCard } from '@/components/ui/earn/ChallengeCard';
+import { ChallengeCardSkeleton } from '@/components/ui/earn/ChallengeCardSkeleton';
 
 // Simple error display component
 function ErrorDisplay({
@@ -130,78 +120,44 @@ export default function EarnPage() {
               />
             )}
 
-            {/* Challenge cards */}
-            {challengesLoading ? (
-              <div className='flex justify-center items-center py-16'>
-                <Loader size='lg' />
-              </div>
-            ) : (
-              <div className='grid md:grid-cols-1 lg:grid-cols-1 gap-4 max-w-xl mx-auto'>
-                {challenges.map((challenge) => (
-                  <div
-                    key={challenge.id}
-                    className='bg-zinc-900 rounded-md overflow-hidden'
-                  >
-                    <div className='p-6'>
-                      <div className='flex items-start gap-4'>
-                        {/* Checkbox/status indicator */}
-                        <div className='mt-1'>
-                          {challenge.completed ? (
-                            <CheckCircle className='text-green-500 w-5 h-5' />
-                          ) : (
-                            <div className='w-5 h-5 border border-zinc-600 rounded-full'></div>
-                          )}
-                        </div>
-
-                        {/* Challenge content */}
-                        <div className='flex-1'>
-                          <h3 className='font-medium text-lg mb-4'>
-                            {challenge.title}
-                          </h3>
-
-                          <div className='grid grid-cols-2 gap-4'>
-                            <div>
-                              <p className='text-zinc-500 text-xs mb-1'>
-                                Reward
-                              </p>
-                              <div className='flex items-center'>
-                                <div className='w-4 h-4 bg-white rounded-full mr-2 flex items-center justify-center'>
-                                  <span className='text-black text-xs'>$</span>
-                                </div>
-                                <span className='font-medium'>
-                                  {challenge.reward} $BITTE
-                                </span>
-                              </div>
-                            </div>
-
-                            <div>
-                              <p className='text-zinc-500 text-xs mb-1'>
-                                Frequency
-                              </p>
-                              <p
-                                className={`${challenge.frequency === 'DAILY' ? 'text-green-500' : 'text-amber-500'}`}
-                              >
-                                {challenge.frequency}
-                              </p>
-                            </div>
+            {/* Challenge cards - responsive layout */}
+            <div className="w-full mx-auto">
+              <div className="grid grid-cols-1 3xl:grid-cols-2 gap-6 w-full mx-auto">
+                {/* First column - always visible */}
+                <div className="w-full flex justify-center 3xl:justify-start">
+                  <div className="w-full md:w-[415px] lg:min-w-[415px] lg:max-w-[550px] space-y-5">
+                    {challengesLoading
+                      ? // Skeleton loading state for first column
+                        Array.from({ length: 3 }).map((_, index) => (
+                          <ChallengeCardSkeleton key={`skeleton-1-${index}`} />
+                        ))
+                      : // First half of challenges on large screens, or all on small screens
+                        challenges.map((challenge, index) => (
+                          <div key={challenge.id} className={index >= Math.ceil(challenges.length / 2) ? 'block 3xl:hidden' : ''}>
+                            <ChallengeCard challenge={challenge} />
                           </div>
-                        </div>
-
-                        {/* CTA button */}
-                        <div>
-                          <Link
-                            href={challenge.ctaLink}
-                            className='inline-block bg-zinc-800 hover:bg-zinc-700 rounded-md px-4 py-2'
-                          >
-                            {challenge.ctaText}
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
+                        ))}
                   </div>
-                ))}
+                </div>
+
+                {/* Second column - only visible on 3xl screens (2000px+) */}
+                <div className="hidden 3xl:flex 3xl:justify-start w-full">
+                  <div className="w-full md:w-[415px] lg:min-w-[415px] lg:max-w-[550px] space-y-5">
+                    {challengesLoading
+                      ? // Skeleton loading state for second column
+                        Array.from({ length: 2 }).map((_, index) => (
+                          <ChallengeCardSkeleton key={`skeleton-2-${index}`} />
+                        ))
+                      : // Second half of challenges (only visible on large screens)
+                        challenges.map((challenge, index) => (
+                          index >= Math.ceil(challenges.length / 2) ? (
+                            <ChallengeCard key={challenge.id} challenge={challenge} />
+                          ) : null
+                        ))}
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         ) : (
           <LeaderboardContent />
