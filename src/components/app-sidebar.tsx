@@ -203,15 +203,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className='mb-2'>
           <Link href='/settings' className='block'>
             <Button
-              className={`w-full flex items-center gap-2 justify-start ${
+              className={`flex items-center ${
+                open
+                  ? 'w-full justify-start gap-2'
+                  : 'w-[32px] h-[32px] p-0 justify-center m-auto'
+              } ${
                 pathname.startsWith('/settings')
                   ? 'bg-[#2A2A2A] hover:bg-[#2A2A2A]/90'
                   : 'bg-transparent hover:bg-zinc-900'
               } border-0`}
               variant='ghost'
+              title={!open ? 'Settings' : undefined}
             >
               <Settings
-                className={`w-5 h-5 ${pathname.startsWith('/settings') ? 'text-mb-white-100' : 'text-mb-gray-150'}`}
+                className={`${pathname.startsWith('/settings') ? 'text-mb-white-100' : 'text-mb-gray-150'}`}
+                size={20}
               />
               {open && (
                 <span

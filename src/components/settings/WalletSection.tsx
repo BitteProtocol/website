@@ -165,7 +165,7 @@ const WalletSection = () => {
             isNearConnected={isNearConnected}
             isSuiConnected={isSuiConnected}
             handleSignIn={handleSignIn}
-            isSidebar
+            isSettings
           />
         )}
 

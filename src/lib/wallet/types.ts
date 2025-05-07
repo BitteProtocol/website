@@ -11,6 +11,7 @@ export interface ManageAccountsDialogProps {
   setConnectModalOpen: Dispatch<SetStateAction<boolean>>;
   sidebarOpen?: boolean;
   isSidebar?: boolean;
+  isSettings?: boolean;
 }
 
 export interface WalletSelectModalProps {
