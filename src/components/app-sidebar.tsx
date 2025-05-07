@@ -5,7 +5,7 @@ import {
   Hammer,
   TerminalSquare,
   Settings,
-  DollarSign,
+  Gift,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -71,7 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: 'Earn',
         url: '/earn',
-        icon: DollarSign,
+        icon: Gift,
         isActive: pathname.startsWith('/earn'),
       },
       {
