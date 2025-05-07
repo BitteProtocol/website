@@ -2,11 +2,16 @@
 
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
 import { DelegatedAgent, useDelegatedAgents } from '@/hooks/useDelegatedAgents';
-import { BITTE_TOKEN_ADDRESS } from '@/lib/balances/bitteTokens';
+import { useStakingAPY } from '@/hooks/useStakingAPY';
+import {
+  BITTE_TOKEN_ADDRESS,
+  stakingAbi,
+  tokenAbi,
+} from '@/lib/balances/bitteTokens';
 import { formatTokenBalance } from '@/lib/utils/delegatedagents';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Chain, parseAbi, parseUnits } from 'viem';
+import { Chain, parseUnits } from 'viem';
 import {
   useReadContract,
   useWaitForTransactionReceipt,
@@ -37,18 +42,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../ui/tooltip';
-
 // Define the contract address
 const STAKING_CONTRACT_ADDRESS = '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
-
-const tokenAbi = parseAbi([
-  'function approve(address spender, uint256 amount) returns (bool)',
-]);
-
-// Define the ABI for just the stake function
-const stakingAbi = parseAbi([
-  'function stake(address agent, uint256 amount) external returns (uint256)',
-]);
 
 const AgentsList = ({
   chain,
@@ -59,6 +54,8 @@ const AgentsList = ({
 }) => {
   const { balances } = useBitteTokenBalances(chain, address);
   const { agents, loading, error } = useDelegatedAgents();
+
+  const { apy } = useStakingAPY();
 
   // Component state
   const [selectedAgent, setSelectedAgent] = useState<DelegatedAgent | null>(
@@ -263,158 +260,165 @@ const AgentsList = ({
   };
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Agent</TableHead>
-          <TableHead>
-            <div className='flex items-center'>Total Delegated</div>
-          </TableHead>
-          <TableHead>Total Staked</TableHead>
-          <TableHead></TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {agents?.map((agent) => (
-          <TableRow key={agent.id}>
-            <TableCell>
-              {agent.id}{' '}
-              <p className='text-sm text-muted-foreground'>
-                Active: {agent.isActive ? 'Yes' : 'No'}
-              </p>
-            </TableCell>
-            <TableCell>
-              {' '}
-              <div className='flex items-center gap-2'>
-                {formatTokenBalance(BigInt(agent.totalDelegated), 18, 'dBITTE')}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <InfoIcon className='h-3.5 w-3.5 text-muted-foreground cursor-help' />
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side='top'
-                      align='start'
-                      className='max-w-xs'
-                    >
-                      <div className='space-y-2'>
-                        <h4 className='font-medium'>Staked Accounts</h4>
-                        <div className='max-h-[200px] overflow-y-auto'>
-                          {agent.delegates.map((delegate, index) => (
-                            <div
-                              key={index}
-                              className='flex justify-between text-xs py-1 border-b border-border last:border-0'
-                            >
-                              <span className='text-muted-foreground mr-4 w-[100px] truncate'>
-                                {delegate.staker.id}
-                              </span>
-                              <span className='font-medium'>
-                                {formatTokenBalance(
-                                  BigInt(delegate.amount),
-                                  18,
-                                  'sBITTE'
-                                )}
-                              </span>
-                            </div>
-                          ))}
+    <>
+      <p className='text-sm text-white font-bold'>Staking APY: {apy}%</p>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Agent</TableHead>
+            <TableHead>
+              <div className='flex items-center'>Total Delegated</div>
+            </TableHead>
+            <TableHead>Total Staked</TableHead>
+            <TableHead></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {agents?.map((agent) => (
+            <TableRow key={agent.id}>
+              <TableCell>
+                {agent.id}{' '}
+                <p className='text-sm text-muted-foreground'>
+                  Active: {agent.isActive ? 'Yes' : 'No'}
+                </p>
+              </TableCell>
+              <TableCell>
+                {' '}
+                <div className='flex items-center gap-2'>
+                  {formatTokenBalance(
+                    BigInt(agent.totalDelegated),
+                    18,
+                    'dBITTE'
+                  )}
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <InfoIcon className='h-3.5 w-3.5 text-muted-foreground cursor-help' />
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side='top'
+                        align='start'
+                        className='max-w-xs'
+                      >
+                        <div className='space-y-2'>
+                          <h4 className='font-medium'>Staked Accounts</h4>
+                          <div className='max-h-[200px] overflow-y-auto'>
+                            {agent.delegates.map((delegate, index) => (
+                              <div
+                                key={index}
+                                className='flex justify-between text-xs py-1 border-b border-border last:border-0'
+                              >
+                                <span className='text-muted-foreground mr-4 w-[100px] truncate'>
+                                  {delegate.staker.id}
+                                </span>
+                                <span className='font-medium'>
+                                  {formatTokenBalance(
+                                    BigInt(delegate.amount),
+                                    18,
+                                    'sBITTE'
+                                  )}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </TableCell>
-            <TableCell>
-              {formatTokenBalance(BigInt(agent.totalStaked), 18, 'sBITTE')}
-            </TableCell>
-            <TableCell className='text-right'>
-              <Dialog
-                open={open && selectedAgent?.id === agent.id}
-                onOpenChange={(newOpen) => {
-                  setOpen(newOpen);
-                  if (!newOpen) setSelectedAgent(null);
-                }}
-              >
-                <DialogTrigger asChild>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    onClick={() => setSelectedAgent(agent)}
-                  >
-                    Stake
-                    <ArrowRight className='ml-2 h-4 w-4' />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Stake in {agent.id}</DialogTitle>
-                    <DialogDescription>
-                      Enter the amount of $BITTE tokens you want to stake.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className='grid gap-4 py-4'>
-                    <div className='grid gap-2'>
-                      <Label htmlFor='amount'>Amount</Label>
-                      <Input
-                        id='amount'
-                        type='number'
-                        placeholder='Enter amount'
-                        value={stakeAmount}
-                        onChange={(e) => setStakeAmount(e.target.value)}
-                      />
-                      <p className='text-xs text-muted-foreground'>
-                        Available: {balances?.bitte.balance}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Status message */}
-                  {txStatus !== 'idle' && (
-                    <div
-                      className={`p-3 rounded-md ${
-                        txStatus === 'success'
-                          ? 'bg-green-50 text-green-700'
-                          : txStatus === 'error'
-                            ? 'bg-red-50 text-red-700'
-                            : 'bg-blue-50 text-blue-700'
-                      }`}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </TableCell>
+              <TableCell>
+                {formatTokenBalance(BigInt(agent.totalStaked), 18, 'sBITTE')}
+              </TableCell>
+              <TableCell className='text-right'>
+                <Dialog
+                  open={open && selectedAgent?.id === agent.id}
+                  onOpenChange={(newOpen) => {
+                    setOpen(newOpen);
+                    if (!newOpen) setSelectedAgent(null);
+                  }}
+                >
+                  <DialogTrigger asChild>
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      onClick={() => setSelectedAgent(agent)}
                     >
-                      <p>{statusMessage}</p>
-                      {approvalTxHash &&
-                        txStatus !== 'success' &&
-                        txStatus !== 'error' && (
+                      Stake
+                      <ArrowRight className='ml-2 h-4 w-4' />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Stake in {agent.id}</DialogTitle>
+                      <DialogDescription>
+                        Enter the amount of $BITTE tokens you want to stake.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className='grid gap-4 py-4'>
+                      <div className='grid gap-2'>
+                        <Label htmlFor='amount'>Amount</Label>
+                        <Input
+                          id='amount'
+                          type='number'
+                          placeholder='Enter amount'
+                          value={stakeAmount}
+                          onChange={(e) => setStakeAmount(e.target.value)}
+                        />
+                        <p className='text-xs text-muted-foreground'>
+                          Available: {balances?.bitte.balance}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Status message */}
+                    {txStatus !== 'idle' && (
+                      <div
+                        className={`p-3 rounded-md ${
+                          txStatus === 'success'
+                            ? 'bg-green-50 text-green-700'
+                            : txStatus === 'error'
+                              ? 'bg-red-50 text-red-700'
+                              : 'bg-blue-50 text-blue-700'
+                        }`}
+                      >
+                        <p>{statusMessage}</p>
+                        {approvalTxHash &&
+                          txStatus !== 'success' &&
+                          txStatus !== 'error' && (
+                            <a
+                              href={`https://sepolia.etherscan.io/tx/${approvalTxHash}`}
+                              target='_blank'
+                              rel='noopener noreferrer'
+                              className='text-sm underline'
+                            >
+                              View approval transaction
+                            </a>
+                          )}
+                        {writeData && txStatus === 'staking' && (
                           <a
-                            href={`https://sepolia.etherscan.io/tx/${approvalTxHash}`}
+                            href={`https://sepolia.etherscan.io/tx/${writeData}`}
                             target='_blank'
                             rel='noopener noreferrer'
                             className='text-sm underline'
                           >
-                            View approval transaction
+                            View staking transaction
                           </a>
                         )}
-                      {writeData && txStatus === 'staking' && (
-                        <a
-                          href={`https://sepolia.etherscan.io/tx/${writeData}`}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          className='text-sm underline'
-                        >
-                          View staking transaction
-                        </a>
-                      )}
+                      </div>
+                    )}
+                    {/* Dialog actions */}
+                    <div className='flex justify-end gap-4 mt-4'>
+                      {renderDialogActions()}
                     </div>
-                  )}
-                  {/* Dialog actions */}
-                  <div className='flex justify-end gap-4 mt-4'>
-                    {renderDialogActions()}
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+                  </DialogContent>
+                </Dialog>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   );
 };
 

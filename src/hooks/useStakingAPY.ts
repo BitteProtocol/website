@@ -1,0 +1,108 @@
+import { useEffect, useState } from 'react';
+import {
+  Address,
+  createPublicClient,
+  decodeFunctionResult,
+  encodeFunctionData,
+  Hex,
+  http,
+} from 'viem';
+import { sepolia } from 'viem/chains';
+
+import {
+  BITTE_TOKEN_ADDRESS,
+  DBITTE_TOKEN_ADDRESS,
+  MULTICALL_ADDRESS,
+  multicallAbi,
+  REWARD_CONTRACT_ADDRESS,
+  rewardContractAbi,
+  SBITTE_TOKEN_ADDRESS,
+  stakingContractAbi,
+} from '@/lib/balances/bitteTokens';
+
+export function useStakingAPY() {
+  const [apy, setApy] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const calculateAPY = async () => {
+      try {
+        setLoading(true);
+
+        const client = createPublicClient({
+          chain: sepolia,
+          transport: http(),
+        });
+
+        const rewardContractAddress = REWARD_CONTRACT_ADDRESS;
+        const delegateStakingContract = DBITTE_TOKEN_ADDRESS;
+        const stakingContractAddress = SBITTE_TOKEN_ADDRESS;
+        const bitteTokenAddress = BITTE_TOKEN_ADDRESS;
+
+        const calls = [
+          {
+            target: rewardContractAddress as Address,
+            callData: encodeFunctionData({
+              abi: rewardContractAbi,
+              functionName: 'rewardConfigurations',
+              args: [delegateStakingContract],
+            }),
+          },
+          {
+            target: stakingContractAddress as Address,
+            callData: encodeFunctionData({
+              abi: stakingContractAbi,
+              functionName: 'balanceOf',
+              args: [bitteTokenAddress],
+            }),
+          },
+        ];
+
+        // Execute multicall
+        const [, returnData] = await client.readContract({
+          address: MULTICALL_ADDRESS,
+          abi: multicallAbi,
+          functionName: 'aggregate',
+          args: [calls],
+        });
+
+        // Decode results using decodeFunctionResult
+        const perSecondEmissionRate = decodeFunctionResult({
+          abi: rewardContractAbi,
+          functionName: 'rewardConfigurations',
+          data: returnData[0] as Hex,
+        }) as bigint;
+
+        const totalStaked = decodeFunctionResult({
+          abi: stakingContractAbi,
+          functionName: 'balanceOf',
+          data: returnData[1] as Hex,
+        }) as bigint;
+
+        // Calculate APY based on the formula
+        // totalAPY = [totalStaked + (perSecondEmissionRate * 365 * 24 * 60 * 60)] / totalStaked
+        const secondsInYear = 365 * 24 * 60 * 60;
+
+        if (totalStaked === 0n) {
+          setApy(0);
+        } else {
+          const annualEmission = perSecondEmissionRate * BigInt(secondsInYear);
+          const totalAPY =
+            Number(((totalStaked + annualEmission) * 10000n) / totalStaked) /
+            10000;
+          setApy(totalAPY);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error(String(err)));
+        console.error('Error calculating APY:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    calculateAPY();
+  }, []);
+
+  return { apy, loading, error };
+}
