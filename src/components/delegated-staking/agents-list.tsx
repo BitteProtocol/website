@@ -3,11 +3,15 @@
 import { useBitteTokenBalances } from '@/hooks/useBitteTokenBalances';
 import { DelegatedAgent, useDelegatedAgents } from '@/hooks/useDelegatedAgents';
 import { useStakingAPY } from '@/hooks/useStakingAPY';
-import { BITTE_TOKEN_ADDRESS } from '@/lib/balances/bitteTokens';
+import {
+  BITTE_TOKEN_ADDRESS,
+  stakingAbi,
+  tokenAbi,
+} from '@/lib/balances/bitteTokens';
 import { formatTokenBalance } from '@/lib/utils/delegatedagents';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Chain, parseAbi, parseUnits } from 'viem';
+import { Chain, parseUnits } from 'viem';
 import {
   useReadContract,
   useWaitForTransactionReceipt,
@@ -40,15 +44,6 @@ import {
 } from '../ui/tooltip';
 // Define the contract address
 const STAKING_CONTRACT_ADDRESS = '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
-
-const tokenAbi = parseAbi([
-  'function approve(address spender, uint256 amount) returns (bool)',
-]);
-
-// Define the ABI for just the stake function
-const stakingAbi = parseAbi([
-  'function stake(address agent, uint256 amount) external returns (uint256)',
-]);
 
 const AgentsList = ({
   chain,

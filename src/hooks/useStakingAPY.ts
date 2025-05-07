@@ -1,10 +1,13 @@
 import {
   BITTE_TOKEN_ADDRESS,
   DBITTE_TOKEN_ADDRESS,
+  rewardContractAbi,
   SBITTE_TOKEN_ADDRESS,
+  stakingContractAbi,
 } from '@/lib/balances/bitteTokens';
+
 import { useEffect, useState } from 'react';
-import { createPublicClient, http, parseAbi } from 'viem';
+import { createPublicClient, http } from 'viem';
 import { sepolia } from 'viem/chains';
 
 export function useStakingAPY() {
@@ -22,21 +25,11 @@ export function useStakingAPY() {
           transport: http(),
         });
 
-        // Contract addresses - replace with your actual addresses
         const rewardContractAddress =
           '0xbCcC734ed1E98c5D47CeF13C64aC3cD7D8FCa15D';
-        const delegateStakingContract = DBITTE_TOKEN_ADDRESS; // Replace with actual address
-        const stakingContractAddress = SBITTE_TOKEN_ADDRESS; // Replace with actual address
-        const bitteTokenAddress = BITTE_TOKEN_ADDRESS; // Replace with actual address
-
-        // ABIs for the contract functions we need
-        const rewardContractAbi = parseAbi([
-          'function rewardConfigurations(address) view returns (uint256 perSecondEmissionRate)',
-        ]);
-
-        const stakingContractAbi = parseAbi([
-          'function balanceOf(address) view returns (uint256)',
-        ]);
+        const delegateStakingContract = DBITTE_TOKEN_ADDRESS;
+        const stakingContractAddress = SBITTE_TOKEN_ADDRESS;
+        const bitteTokenAddress = BITTE_TOKEN_ADDRESS;
 
         // Get perSecondEmissionRate
         const perSecondEmissionRate = await client.readContract({

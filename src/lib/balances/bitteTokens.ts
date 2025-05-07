@@ -1,4 +1,4 @@
-import { Address, Chain } from 'viem';
+import { Address, Chain, parseAbi } from 'viem';
 import { getBalances } from './generic';
 
 // Token addresses (Sepolia)
@@ -7,6 +7,22 @@ export const DBITTE_TOKEN_ADDRESS =
   '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
 export const SBITTE_TOKEN_ADDRESS =
   '0x5C4b5813Be000770C589E5Cc5A2e278af3bC294e';
+
+export const tokenAbi = parseAbi([
+  'function approve(address spender, uint256 amount) returns (bool)',
+]);
+
+export const stakingAbi = parseAbi([
+  'function stake(address agent, uint256 amount) external returns (uint256)',
+]);
+
+export const rewardContractAbi = parseAbi([
+  'function rewardConfigurations(address) view returns (uint256 perSecondEmissionRate)',
+]);
+
+export const stakingContractAbi = parseAbi([
+  'function balanceOf(address) view returns (uint256)',
+]);
 
 export interface TokenBalance {
   address: Address;
