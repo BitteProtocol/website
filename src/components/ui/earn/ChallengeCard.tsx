@@ -1,16 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
-
-export interface Challenge {
-  id: string;
-  title: string;
-  reward: number;
-  frequency: 'ONE TIME' | 'DAILY' | 'WEEKLY';
-  completed: boolean;
-  ctaText?: string;
-  ctaLink?: string;
-}
+import { Challenge } from '@/hooks/useEarnChallenges';
 
 interface ChallengeCardProps {
   challenge: Challenge;

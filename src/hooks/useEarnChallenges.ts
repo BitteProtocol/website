@@ -7,13 +7,23 @@ export interface Challenge {
   reward: number;
   frequency: 'ONE TIME' | 'DAILY' | 'WEEKLY';
   completed: boolean;
-  ctaText: string;
-  ctaLink: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 export interface EarnStats {
   nextPayoutDate: string;
   totalReward: number;
+}
+
+export interface LeaderboardUser {
+  id: number;
+  username: string;
+  hasGithub: boolean;
+  hasTwitter: boolean;
+  payout: number;
+  agent: string;
+  pings: number;
 }
 
 // Mock data for challenges (fallback in case API fails)
@@ -169,16 +179,6 @@ export function useEarnChallenges() {
 }
 
 // Leaderboard data and hook
-export interface LeaderboardUser {
-  id: number;
-  username: string;
-  payout: number;
-  agent: string;
-  pings: number;
-  hasGithub: boolean;
-  hasTwitter: boolean;
-}
-
 // Mock leaderboard (fallback in case API fails)
 const MOCK_LEADERBOARD: LeaderboardUser[] = [
   {
