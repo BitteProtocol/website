@@ -35,6 +35,7 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
   setConnectModalOpen,
   sidebarOpen,
   isSidebar,
+  isSettings,
 }) => {
   const { width } = useWindowSize();
   const isMobile = !!width && width < 1024;
@@ -159,6 +160,8 @@ const ManageAccountsDialog: React.FC<ManageAccountsDialogProps> = ({
           >
             <User size={16} color='#60A5FA' /> Connected
           </Button>
+        ) : isSettings ? (
+          <Button variant='secondary'>Manage Connections</Button>
         ) : (
           <Button
             variant='outline'
