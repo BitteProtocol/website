@@ -37,6 +37,7 @@ import EvmNetworkSelector from './layout/EvmNetworkSelector';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
 import WalletAddress from './ui/wallet/WalletAddress';
 import WalletBadge from './ui/wallet/WalletBadge';
+import { Button } from '@/components/ui/button';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -90,12 +91,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
           ]
         : []),
-      {
-        title: 'Settings',
-        url: '/settings',
-        icon: Settings,
-        isActive: pathname.startsWith('/settings'),
-      },
     ],
     links: [
       {
@@ -204,6 +199,31 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             ) : null}
           </div>
         ) : null}
+
+        <div className='mb-2'>
+          <Link href='/settings' className='block'>
+            <Button
+              className={`w-full flex items-center gap-2 justify-start ${
+                pathname.startsWith('/settings')
+                  ? 'bg-[#2A2A2A] hover:bg-[#2A2A2A]/90'
+                  : 'bg-transparent hover:bg-zinc-900'
+              } border-0`}
+              variant='ghost'
+            >
+              <Settings
+                className={`w-5 h-5 ${pathname.startsWith('/settings') ? 'text-mb-white-100' : 'text-mb-gray-150'}`}
+              />
+              {open && (
+                <span
+                  className={`uppercase font-semibold text-xs ${pathname.startsWith('/settings') ? 'text-mb-white-100' : 'text-mb-gray-150'}`}
+                >
+                  Settings
+                </span>
+              )}
+            </Button>
+          </Link>
+        </div>
+
         {!isConnected && !isNearConnected && !isSuiConnected && (
           <ConnectDialog
             isOpen={isConnectModalOpen}
