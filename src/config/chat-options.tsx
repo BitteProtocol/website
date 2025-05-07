@@ -159,6 +159,6 @@ export const getChatProps = ({
     },
     agentId: selectedAgent?.id || 'bitte-assistant',
     apiUrl: '/api/chat',
-    historyApiUrl: 'api/history',
+    historyApiUrl: '/api/history',
   };
 };
