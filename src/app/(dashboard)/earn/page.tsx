@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { HelpCircle } from 'lucide-react';
 import { useEarnChallenges, useLeaderboard } from '@/hooks/useEarnChallenges';
-import { Loader } from '@/components/ui/loader';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChallengeCard } from '@/components/ui/earn/ChallengeCard';
 import { ChallengeCardSkeleton } from '@/components/ui/earn/ChallengeCardSkeleton';
@@ -19,7 +18,7 @@ export default function EarnPage() {
     error: challengesError,
     refreshChallenges,
   } = useEarnChallenges();
-  
+
   // State to track if we should show two columns layout
   const [showTwoColumns, setShowTwoColumns] = useState(false);
 
@@ -28,13 +27,13 @@ export default function EarnPage() {
     const handleResize = () => {
       setShowTwoColumns(window.innerWidth >= 2000);
     };
-    
+
     // Initial check
     handleResize();
-    
+
     // Add event listener
     window.addEventListener('resize', handleResize);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -169,7 +168,7 @@ function LeaderboardContent() {
   const { leaderboard, loading, error, refreshLeaderboard } = useLeaderboard();
 
   return (
-    <LeaderboardTable 
+    <LeaderboardTable
       leaderboard={leaderboard}
       loading={loading}
       error={error}
