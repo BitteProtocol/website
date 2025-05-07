@@ -84,13 +84,13 @@ export default function EarnPage() {
             <TabsList className='h-[42px] w-full bg-zinc-900 p-1'>
               <TabsTrigger
                 value='earn'
-                className='flex-1 h-full text-white data-[state=active]:bg-zinc-800 data-[state=active]:shadow-none'
+                className='flex-1 h-full text-[#848485] data-[state=active]:text-white data-[state=active]:bg-[#09090B] data-[state=active]:shadow-none'
               >
                 Earn
               </TabsTrigger>
               <TabsTrigger
                 value='leaderboard'
-                className='flex-1 h-full text-white data-[state=active]:bg-zinc-800 data-[state=active]:shadow-none'
+                className='flex-1 h-full text-[#848485] data-[state=active]:text-white data-[state=active]:bg-[#09090B] data-[state=active]:shadow-none'
               >
                 Leaderboard
               </TabsTrigger>
