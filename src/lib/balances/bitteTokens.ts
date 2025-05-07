@@ -1,12 +1,21 @@
 import { Address, Chain, parseAbi } from 'viem';
 import { getBalances } from './generic';
 
+export const MULTICALL_ADDRESS = '0xcA11bde05977b3631167028862bE2a173976CA11'; // Mainnet Multicall v3
+
 // Token addresses (Sepolia)
 export const BITTE_TOKEN_ADDRESS = '0x7D505943c86246B7d5459AA23Fd6c174E3088412';
 export const DBITTE_TOKEN_ADDRESS =
   '0xc5020CC858dB41a77887dE1004E6A2C166c09175';
 export const SBITTE_TOKEN_ADDRESS =
   '0x5C4b5813Be000770C589E5Cc5A2e278af3bC294e';
+
+export const REWARD_CONTRACT_ADDRESS =
+  '0xbCcC734ed1E98c5D47CeF13C64aC3cD7D8FCa15D';
+
+export const multicallAbi = parseAbi([
+  'function aggregate((address target, bytes callData)[]) view returns (uint256 blockNumber, bytes[] returnData)',
+]);
 
 export const tokenAbi = parseAbi([
   'function approve(address spender, uint256 amount) returns (bool)',

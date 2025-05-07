@@ -1,14 +1,24 @@
+import { useEffect, useState } from 'react';
+import {
+  Address,
+  createPublicClient,
+  decodeFunctionResult,
+  encodeFunctionData,
+  Hex,
+  http,
+} from 'viem';
+import { sepolia } from 'viem/chains';
+
 import {
   BITTE_TOKEN_ADDRESS,
   DBITTE_TOKEN_ADDRESS,
+  MULTICALL_ADDRESS,
+  multicallAbi,
+  REWARD_CONTRACT_ADDRESS,
   rewardContractAbi,
   SBITTE_TOKEN_ADDRESS,
   stakingContractAbi,
 } from '@/lib/balances/bitteTokens';
-
-import { useEffect, useState } from 'react';
-import { createPublicClient, http } from 'viem';
-import { sepolia } from 'viem/chains';
 
 export function useStakingAPY() {
   const [apy, setApy] = useState<number | null>(null);
@@ -25,35 +35,55 @@ export function useStakingAPY() {
           transport: http(),
         });
 
-        const rewardContractAddress =
-          '0xbCcC734ed1E98c5D47CeF13C64aC3cD7D8FCa15D';
+        const rewardContractAddress = REWARD_CONTRACT_ADDRESS;
         const delegateStakingContract = DBITTE_TOKEN_ADDRESS;
         const stakingContractAddress = SBITTE_TOKEN_ADDRESS;
         const bitteTokenAddress = BITTE_TOKEN_ADDRESS;
 
-        // Get perSecondEmissionRate
-        const perSecondEmissionRate = await client.readContract({
-          address: rewardContractAddress,
+        const calls = [
+          {
+            target: rewardContractAddress as Address,
+            callData: encodeFunctionData({
+              abi: rewardContractAbi,
+              functionName: 'rewardConfigurations',
+              args: [delegateStakingContract],
+            }),
+          },
+          {
+            target: stakingContractAddress as Address,
+            callData: encodeFunctionData({
+              abi: stakingContractAbi,
+              functionName: 'balanceOf',
+              args: [bitteTokenAddress],
+            }),
+          },
+        ];
+
+        // Execute multicall
+        const [, returnData] = await client.readContract({
+          address: MULTICALL_ADDRESS,
+          abi: multicallAbi,
+          functionName: 'aggregate',
+          args: [calls],
+        });
+
+        // Decode results using decodeFunctionResult
+        const perSecondEmissionRate = decodeFunctionResult({
           abi: rewardContractAbi,
           functionName: 'rewardConfigurations',
-          args: [delegateStakingContract],
-        });
+          data: returnData[0] as Hex,
+        }) as bigint;
 
-        // Get totalStaked
-        const totalStaked = await client.readContract({
-          address: stakingContractAddress,
+        const totalStaked = decodeFunctionResult({
           abi: stakingContractAbi,
           functionName: 'balanceOf',
-          args: [bitteTokenAddress],
-        });
-
-        console.log({ totalStaked, perSecondEmissionRate });
+          data: returnData[1] as Hex,
+        }) as bigint;
 
         // Calculate APY based on the formula
         // totalAPY = [totalStaked + (perSecondEmissionRate * 365 * 24 * 60 * 60)] / totalStaked
         const secondsInYear = 365 * 24 * 60 * 60;
 
-        // Handle division by zero
         if (totalStaked === 0n) {
           setApy(0);
         } else {
