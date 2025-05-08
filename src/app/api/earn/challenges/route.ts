@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
+/* import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'; */
 
 interface Challenge {
   id: string;
@@ -52,9 +52,9 @@ const MOCK_CHALLENGES: Challenge[] = [
   },
 ];
 
-// GET /api/earn/challenges - Get all challenges
+// GET /api/earn/challenges - Get all challenges (public endpoint)
 export async function GET() {
-  try {
+  /*   try {
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
@@ -81,18 +81,29 @@ export async function GET() {
       { error: 'Failed to fetch challenges' },
       { status: 500 }
     );
-  }
+  } */
+  // No authentication required - this is a public endpoint
+  return NextResponse.json(
+    {
+      challenges: MOCK_CHALLENGES,
+      stats: {
+        nextPayoutDate: 'Tuesday, April 22nd',
+        totalReward: 480,
+      },
+    },
+    { status: 200 }
+  );
 }
 
 // POST /api/earn/challenges - Mark a challenge as complete (placeholder for future implementation)
 export async function POST(request: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    /*     const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-
+ */
     const data = await request.json();
     const { challengeId } = data;
 

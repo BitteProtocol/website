@@ -73,7 +73,7 @@ const MOCK_STATS: EarnStats = {
 };
 
 export function useEarnChallenges() {
-  const [challenges, setChallenges] = useState<Challenge[]>([]);
+  const [challenges, setChallenges] = useState<Challenge[]>(MOCK_CHALLENGES);
   const [stats, setStats] = useState<EarnStats>(MOCK_STATS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -84,32 +84,74 @@ export function useEarnChallenges() {
       setLoading(true);
       setError(null);
 
-      // Try to fetch from API
+      // Simple fetch without timeout
       const response = await fetch('/api/earn/challenges');
 
       if (response.ok) {
         const data = await response.json();
-        setChallenges(data.challenges || []);
-        setStats(data.stats || MOCK_STATS);
+        if (data.challenges && data.challenges.length > 0) {
+          setChallenges(data.challenges);
+        }
+
+        if (data.stats) {
+          setStats(data.stats);
+        }
       } else {
-        // Handle API errors
+        console.error(
+          `Failed to fetch challenges: ${response.status} ${response.statusText}`
+        );
+        setError('Could not load challenges');
+      }
+
+      /* 
+      // The following code is commented out for future reference when implementing authentication
+      // and more complex error handling with the real API
+      
+      // Create a timeout promise
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Request timed out')), 5000);
+      });
+      
+      // Race between fetch and timeout
+      const response = await Promise.race([fetchPromise, timeoutPromise]) as Response;
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.challenges && data.challenges.length > 0) {
+          setChallenges(data.challenges);
+        } else {
+          // Fallback to mock if API returns empty data
+          setChallenges(MOCK_CHALLENGES);
+        }
+        
+        if (data.stats) {
+          setStats(data.stats);
+        } else {
+          setStats(MOCK_STATS);
+        }
+      } else {
+        // Handle API errors with specific messages
         if (response.status === 401) {
           setError('Please log in to view challenges');
         } else {
-          console.error('Failed to fetch challenges:', response.statusText);
+          console.error(`Failed to fetch challenges: ${response.status} ${response.statusText}`);
           setError('Could not load challenges');
         }
-
-        // Fallback to mock data
+        
+        // Always ensure we have data to display
         setChallenges(MOCK_CHALLENGES);
         setStats(MOCK_STATS);
       }
+      */
     } catch (err) {
-      // If API call fails, use mock data
       console.error('Error fetching challenges:', err);
+      setError('Could not load challenges');
+
+      /* 
+      // Additional fallback code for future implementation
       setChallenges(MOCK_CHALLENGES);
       setStats(MOCK_STATS);
-      setError('Failed to load challenges');
+      */
     } finally {
       setLoading(false);
     }
@@ -256,7 +298,8 @@ const MOCK_LEADERBOARD: LeaderboardUser[] = [
 ];
 
 export function useLeaderboard() {
-  const [leaderboard, setLeaderboard] = useState<LeaderboardUser[]>([]);
+  const [leaderboard, setLeaderboard] =
+    useState<LeaderboardUser[]>(MOCK_LEADERBOARD);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -265,29 +308,62 @@ export function useLeaderboard() {
       setLoading(true);
       setError(null);
 
-      // Try to fetch from API
+      // Simple fetch without timeout
       const response = await fetch('/api/earn/leaderboard');
 
       if (response.ok) {
         const data = await response.json();
-        setLeaderboard(data.users || []);
+        if (data.users && data.users.length > 0) {
+          setLeaderboard(data.users);
+        }
       } else {
-        // Handle API errors
+        console.error(
+          `Failed to fetch leaderboard: ${response.status} ${response.statusText}`
+        );
+        setError('Could not load leaderboard');
+      }
+
+      /* 
+      // The following code is commented out for future reference when implementing authentication
+      // and more complex error handling with the real API
+      
+      // Create a timeout promise
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Request timed out')), 5000);
+      });
+      
+      // Race between fetch and timeout
+      const response = await Promise.race([fetchPromise, timeoutPromise]) as Response;
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.users && data.users.length > 0) {
+          setLeaderboard(data.users);
+        } else {
+          // Fallback to mock if API returns empty data
+          setLeaderboard(MOCK_LEADERBOARD);
+        }
+      } else {
+        // Handle API errors with specific messages
         if (response.status === 401) {
           setError('Please log in to view the leaderboard');
         } else {
-          console.error('Failed to fetch leaderboard:', response.statusText);
+          console.error(`Failed to fetch leaderboard: ${response.status} ${response.statusText}`);
           setError('Could not load leaderboard');
         }
-
-        // Fallback to mock data
+        
+        // Always ensure we have data to display
         setLeaderboard(MOCK_LEADERBOARD);
       }
+      */
     } catch (err) {
-      // If API call fails, use mock data
       console.error('Error fetching leaderboard:', err);
+      setError('Could not load leaderboard');
+
+      /* 
+      // Additional fallback code for future implementation
       setLeaderboard(MOCK_LEADERBOARD);
-      setError('Failed to load leaderboard');
+      */
     } finally {
       setLoading(false);
     }

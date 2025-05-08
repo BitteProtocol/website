@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
+/* import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'; */
 
 interface LeaderboardUser {
   id: number;
@@ -124,9 +124,9 @@ const MOCK_LEADERBOARD: LeaderboardUser[] = [
   },
 ];
 
-// GET /api/earn/leaderboard - Get leaderboard data
+// GET /api/earn/leaderboard - Get leaderboard data (public endpoint)
 export async function GET() {
-  try {
+  /*   try {
     const session = await getServerSession(authOptions);
 
     // We could make this public, but for now let's require authentication
@@ -148,5 +148,12 @@ export async function GET() {
       { error: 'Failed to fetch leaderboard' },
       { status: 500 }
     );
-  }
+  } */
+  // No authentication required - this is a public endpoint
+  return NextResponse.json(
+    {
+      users: MOCK_LEADERBOARD,
+    },
+    { status: 200 }
+  );
 }
