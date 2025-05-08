@@ -65,7 +65,7 @@ export const AgentSelector = ({
           />
         </div>
       </div>
-      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 px-4 h-[360px] lg:h-auto'>
+      <div className='flex lg:flex-1 flex-col gap-2 overflow-y-auto py-4 px-4 h-[360px] lg:h-auto bitte-custom-scrollbar'>
         {filteredAgents?.map((agent) => {
           const isSelected = selectedAgentId === agent.id;
 
@@ -83,7 +83,7 @@ export const AgentSelector = ({
                 sessionStorage.setItem('selectedAgent', JSON.stringify(agent)); // Save to sessionStorage when an agent is selected
               }}
               className={cn(
-                'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent',
+                'group w-full min-w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-md p-4 border border-transparent ',
                 isSelected
                   ? 'bg-mb-purple-20 border-mb-purple'
                   : 'bg-mb-black-50 hover:border-mb-purple'
