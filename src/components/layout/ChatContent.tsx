@@ -3,13 +3,13 @@
 import { useAllAssistants } from '@/hooks/useAssistants';
 import { RegistryData } from '@/lib/types/agent.types';
 import { AssistantsMode } from '@bitte-ai/chat';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AgentsDrawer } from '../ui/agents/AgentsDrawer';
-import { Button } from '../ui/button';
-import PageLoaderSkeleton from './PageLoaderSkeleton';
-import AiChat from './AiChat';
 import AgentSelector from '../ui/agents/AgentSelector';
+import { Button } from '../ui/button';
+import AiChat from './AiChat';
+import PageLoaderSkeleton from './PageLoaderSkeleton';
 
 const ChatContent = ({
   chatId,
@@ -22,7 +22,9 @@ const ChatContent = ({
 
   const [selectedAgent, setSelectedAgent] = useState<RegistryData | null>(null);
   const [isAgentsDrawerOpen, setIsAgentsDrawerOpen] = useState(false);
+  const [savedPrompt, setSavedPrompt] = useState<string | undefined>();
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const modeParam = searchParams.get('mode');
   const agentIdParam = searchParams.get('agentid');
@@ -113,6 +115,21 @@ const ChatContent = ({
     }
   }, [selectedAgent]);
 
+  useEffect(() => {
+    if (promptParam || prompt) {
+      setSavedPrompt((prompt ?? promptParam) || undefined);
+
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      newSearchParams.delete('prompt');
+
+      const newUrl =
+        window.location.pathname +
+        (newSearchParams.toString() ? `?${newSearchParams.toString()}` : '');
+
+      router.replace(newUrl);
+    }
+  }, [promptParam, prompt, router, searchParams]);
+
   const agentContentComponent = agentsList ? (
     <AgentSelector
       agentData={agentsList}
@@ -148,7 +165,7 @@ const ChatContent = ({
           <AiChat
             selectedAgent={selectedAgent}
             chatId={chatId}
-            prompt={(prompt ?? promptParam) || undefined}
+            prompt={savedPrompt}
             agentsButton={
               <Button
                 className='w-full bg-mb-gray-600 hover:bg-mb-gray-600 hover:bg-opacity-60 text-white'
