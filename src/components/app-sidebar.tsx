@@ -86,6 +86,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     links: [
       {
         name: 'Documentation',
+        url: MB_URL.INTRO_DOCS,
+
+        icon: ArrowUpRight,
+      },
+      {
+        name: 'Build Agent from Scratch',
         url: MB_URL.DEV_DOCS,
         icon: ArrowUpRight,
       },

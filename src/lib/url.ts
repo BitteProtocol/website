@@ -23,6 +23,7 @@ export const MB_URL = {
   MINTBASE_LINKEDIN: 'https://www.linkedin.com/company/bitteprotocol',
   MINTBASE_GITHUB: 'https://github.com/BitteProtocol',
   DEV_DOCS: 'https://docs.bitte.ai/agents/quick-start',
+  INTRO_DOCS: 'https://docs.bitte.ai/agents/introduction',
   AI_DOCS: 'https://docs.bitte.ai',
   BOUNTY: 'https://templates.mintbase.xyz/bounty',
   INDEXER_DOCS: 'https://docs.mintbase.xyz/dev/mintbase-graph',
