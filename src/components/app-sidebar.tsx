@@ -4,6 +4,7 @@ import {
   FlaskConical,
   Hammer,
   TerminalSquare,
+  Settings,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -35,6 +36,7 @@ import EvmNetworkSelector from './layout/EvmNetworkSelector';
 import ManageAccountsDialog from './layout/ManageAccountsDialog';
 import WalletAddress from './ui/wallet/WalletAddress';
 import WalletBadge from './ui/wallet/WalletBadge';
+import { Button } from '@/components/ui/button';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isConnectModalOpen, setConnectModalOpen] = useState<boolean>(false);
@@ -196,6 +198,37 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             ) : null}
           </div>
         ) : null}
+
+        <div className='mb-2'>
+          <Link href='/settings' className='block'>
+            <Button
+              className={`flex items-center ${
+                open
+                  ? 'w-full justify-start gap-2'
+                  : 'w-[32px] h-[32px] p-0 justify-center m-auto'
+              } ${
+                pathname.startsWith('/settings')
+                  ? 'bg-[#2A2A2A] hover:bg-[#2A2A2A]/90'
+                  : 'bg-transparent hover:bg-zinc-900'
+              } border-0`}
+              variant='ghost'
+              title={!open ? 'Settings' : undefined}
+            >
+              <Settings
+                className={`${pathname.startsWith('/settings') ? 'text-mb-white-100' : 'text-mb-gray-150'}`}
+                size={20}
+              />
+              {open && (
+                <span
+                  className={`uppercase font-semibold text-xs ${pathname.startsWith('/settings') ? 'text-mb-white-100' : 'text-mb-gray-150'}`}
+                >
+                  Settings
+                </span>
+              )}
+            </Button>
+          </Link>
+        </div>
+
         {!isConnected && !isNearConnected && !isSuiConnected && (
           <ConnectDialog
             isOpen={isConnectModalOpen}

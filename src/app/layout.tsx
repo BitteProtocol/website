@@ -14,6 +14,7 @@ import Header from '@/components/layout/Header';
 import Providers from '@/lib/providers/Providers';
 import { MB_URL } from '@/lib/url';
 import { Toaster } from '@/components/ui/toaster';
+import { NextAuthProvider } from '@/providers/NextAuthProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -61,15 +62,17 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} dark bg-black`}>
-        <Providers cookies={cookies}>
-          <Header />
-          {children}
-          <Footer />
-          <Analytics />
-          <NextTopLoader color='#334155' showSpinner={false} height={4} />
-          <SpeedInsights />
-          <Toaster />
-        </Providers>
+        <NextAuthProvider>
+          <Providers cookies={cookies}>
+            <Header />
+            {children}
+            <Footer />
+            <Analytics />
+            <NextTopLoader color='#334155' showSpinner={false} height={4} />
+            <SpeedInsights />
+            <Toaster />
+          </Providers>
+        </NextAuthProvider>
       </body>
     </html>
   );
